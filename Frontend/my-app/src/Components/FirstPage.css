@@ -1,0 +1,73 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+  
+.container {
+    display: flex;
+    height: 100%;
+}
+  
+.left {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    justify-content: center;
+}
+
+.right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2ccabd;
+}
+
+.content {
+    text-align: center;
+    padding: 20px;
+  }
+
+.logo img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+  
+.icon-button {
+    margin: 12px;
+    padding: 30px;
+    width: 350px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: large;
+    background-color: #2ccabd;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.icon-button i:first-child {
+    margin-right: auto;
+}
+  
+.icon-button i:last-child {
+    margin-left: auto;
+}
+  
+p{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+}
+
+#WelcomeImage{
+    height: 480px;
+}
+  
