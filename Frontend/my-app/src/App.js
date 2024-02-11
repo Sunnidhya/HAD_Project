@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import RadioLogin from './Components/Radiologist/Login/RadioLogin';
+import imgside from './Resources/AppLogo.png';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div class="Radio-Login-hor">
+        <div>
+          <img src={imgside} id="radseideimg" />
+        </div>
+        <div className='divisions1'>
+          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+        </div>
     </div>
+    <RadioLogin/>
+    </>
   );
 }
 
