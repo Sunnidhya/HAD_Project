@@ -1,12 +1,12 @@
-import imgmain from '../../../Resources/Radiologist.jpeg';
+import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import './Login.css'
-const RadioLogin = () => {
+import './Doctor.css'
+const DoctorLogin = () => {
   return (
-    <div class="Radio-login-container">
-      <div class="Radio-Login-hor">
+    <div class="Doctor-login-container">
+      <div class="Doctor-Login-hor">
         <div>
           <img src={imgside} id="radseideimg" />
         </div>
@@ -14,11 +14,11 @@ const RadioLogin = () => {
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
-      <div class="Radio-Login-Ver">
-        <div class="Radio-Login-Ver-Left">
+      <div class="Doctor-Login-Ver">
+        <div class="Doctor-Login-Ver-Left">
           <img src={imgmain} id="radiomainimg" />
         </div>
-        <div class="Radio-Login-Ver-Right">
+        <div class="Doctor-Login-Ver-Right">
           <div className="login-container">
             <h3>Welcome Back</h3>
             <form class="login-form">
@@ -32,9 +32,9 @@ const RadioLogin = () => {
                 <img src={passwordIcon} alt="Password" className="input-icon" />
               </div>
             </form>
-            <div className='ForgotPassword'><b>Forgot Password?</b></div>
+            <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>
 
-            <button type="submit" id="login">
+            <button type="submit" id="login_doc">
               Login
             </button>
           </div>
@@ -44,4 +44,4 @@ const RadioLogin = () => {
   );
 };
 
-export default RadioLogin;
+export default DoctorLogin;
