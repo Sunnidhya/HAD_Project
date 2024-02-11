@@ -1,101 +1,58 @@
-
-
-
-.Radio-Login-hor{
-  height: 100px;
-  background-color: white;
-  justify-content: right;
-}
-.Radio-Login-Ver{
-  display: flex;
-  background-color: yellow;
-  height: 580px;
-}
-
-.Radio-Login-Ver-Left{
-  width: 60%;
-  background-color: white;
-}
-.Radio-Login-Ver-Right{
-  width: 40%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  padding-top: 12%;
-}
-.form{
-  
-  display: flex;
-  justify-content: center;
-}
-
-.login-container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  justify-content: center;
-  align-self: center;
+.App {
   text-align: center;
-  margin-bottom: 20%;
-  
 }
 
-.login-container h2 {
-  text-align: center;
-  color: #333333;
-  padding-bottom: 30%;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-.login-form {
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 30%;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  font-size: 14px;
-  color: black;
-  margin-bottom: 5px;
+  align-items: center;
   justify-content: center;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  margin: 30%;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
+.App-link {
+  color: #61dafb;
 }
 
-#login {
-  color:white;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Radio-Login-hor{
+  display: flex;
   background-color: rgb(14, 14, 98);
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
 }
 
-#login:hover {
-  background-color: #0056b3;
-}
+
 #radseideimg{
-  padding-left: 94%;
-  height: 100px;
-  width: 150px;
+  padding-top: 1%;
+  padding-left: 10%;
+  height: 120px;
+  width: 120px;
 }
-#radiomainimg{
-  
-  padding-left: 2%;
-  height: 550px;
+
+
+.pageTitle {
+  color: white;
+  margin-left: 255px;
+  margin-top: 35px;
 }
