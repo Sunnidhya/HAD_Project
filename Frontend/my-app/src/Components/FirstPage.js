@@ -6,7 +6,7 @@ import imgside from '../Resources/AppLogo.png';
 function FirstPage() {
   return (
     <>
-    <RadioLogin/>
+    <DoctorLogin/>
     </>
   );
 }
