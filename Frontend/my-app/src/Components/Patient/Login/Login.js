@@ -2,8 +2,8 @@ import imgmain from '../../../Resources/patient4.png';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import './Lab.css'
-const LabLogin = () => {
+import './Patient.css'
+const PatientLogin = () => {
   return (
     <div class="Patient-login-container">
       <div class="Patient-Login-hor">
@@ -44,4 +44,4 @@ const LabLogin = () => {
   );
 };
 
-export default LabLogin;
+export default PatientLogin;
