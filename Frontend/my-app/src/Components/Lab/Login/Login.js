@@ -1,4 +1,4 @@
-import imgmain from '../../../Resources/patient4.png';
+import imgmain from '../../../Resources/Lab2.jpg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
