@@ -1,0 +1,164 @@
+/* To be included before every new file */
+.Patient-Login-hor{
+    display: flex;
+    background-color: rgb(21, 136, 194);
+}
+  
+  
+#radseideimg{
+    padding-top: 1%;
+    padding-left: 10%;
+    height: 120px;
+    width: 120px;
+}
+  
+  
+.pageTitle {
+    color: rgb(252, 252, 252);
+    margin-left: 200px;
+    margin-top: 35px;
+}
+
+/* ------------------------------------------------------ */
+
+
+
+.Patient-Login-Ver{
+    display: flex;
+    background-color: #ffff00;
+    height: 580px;
+}
+  
+.Patient-Login-Ver-Left{
+    width: 60%;
+    background-color: white;
+    padding-top: 2%;
+}
+.Patient-Login-Ver-Right{
+    width: 40%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    padding-top: 12%;
+}
+.form{    
+    display: flex;
+    justify-content: center;
+}
+  
+.login-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    margin-bottom: 20%;
+    
+}
+  
+.login-container h2 {
+    text-align: center;
+    color: #333333;
+    padding-bottom: 30%;
+}
+  
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0%;
+}
+  
+.form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+  
+.form-group label {
+    font-size: 14px;
+    color: black;
+    margin-bottom: 5px;
+    justify-content: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin: 30%;
+}
+  
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+
+  
+#login_patient {
+    color:white;
+    background-color: rgb(16, 151, 230);
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#login_patient:hover{
+    background-color: rgb(37, 65, 149);
+}
+  
+
+#radiomainimg{
+    padding-left: 10%;
+    height: 550px;
+    width:100%
+}
+
+.input-icon {
+    position: absolute;
+    transform: translateX(-40%);
+    transform: translateY(30%);
+    left: 10px; /* Adjust this value as needed */
+    width: 20px; /* Adjust this value as needed */
+    height:20px;
+}
+#coneye{
+    position: absolute;
+    transform: translateX(-50%);
+    transform: translateY(30%);
+    right: 10px; 
+    width: 20px; 
+    height:30px;
+}
+#username{
+    padding-left: 35px;
+}
+#fullname{
+    padding-left: 35px;
+}
+#Address{
+    padding-left: 35px;
+}
+#Email{
+    padding-left: 35px;
+}
+#Contact{
+    padding-left: 35px;
+}
+#password{
+    padding-left: 35px;
+}
+#Confirmpassword{
+    padding-left: 35px;
+}
+.ForgotPasswordDoc{
+    float: right;
+    font-size: 12px;
+    color: rgb(16, 151, 230);
+    cursor: pointer;
+}
