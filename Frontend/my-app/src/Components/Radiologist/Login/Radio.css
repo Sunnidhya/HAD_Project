@@ -1,7 +1,7 @@
 /* To be included before every new file */
-.Patient-Login-hor{
+.Radio-Login-hor{
     display: flex;
-    background-color: rgb(21, 136, 194);
+    background-color: rgb(14, 14, 98);
 }
   
   
@@ -14,27 +14,25 @@
   
   
 .pageTitle {
-    color: rgb(252, 252, 252);
-    margin-left: 200px;
+    color: white;
+    margin-left: 255px;
     margin-top: 35px;
 }
 
 /* ------------------------------------------------------ */
 
-
-
-.Patient-Login-Ver{
+.Radio-Login-Ver{
     display: flex;
     background-color: #ffff00;
     height: 580px;
 }
   
-.Patient-Login-Ver-Left{
+.Radio-Login-Ver-Left{
     width: 60%;
     background-color: white;
     padding-top: 2%;
 }
-.Patient-Login-Ver-Right{
+.Radio-Login-Ver-Right{
     width: 40%;
     background-color: white;
     display: flex;
@@ -93,9 +91,9 @@
     border-radius: 4px;
 }
   
-#login_patient {
+#login_radio {
     color:white;
-    background-color: rgb(16, 151, 230);
+    background-color: rgb(14, 14, 98);
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -103,28 +101,26 @@
     font-size: 16px;
     width: 100%;
     margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-#login_patient:hover{
-    background-color: rgb(37, 65, 149);
 }
   
-
+#login_radio:hover {
+    background-color:rgb(88, 175, 197);
+}
 #radiomainimg{
     padding-left: 10%;
-    height: 550px;
-    width:100%
+    height: 150px;
+    width:40%;
 }
 
 .input-icon {
     position: absolute;
     transform: translateX(-40%);
     transform: translateY(30%);
-    left: 10px; /* Adjust this value as needed */
-    width: 20px; /* Adjust this value as needed */
+    left: 10px; 
+    width: 20px; 
     height:20px;
 }
+
 #faeye{
     position: absolute;
     transform: translateX(-50%);
@@ -141,9 +137,9 @@
     padding-left: 35px;
 }
 
-.ForgotPasswordDoc{
+.ForgotPassword{
     float: right;
     font-size: 12px;
-    color: rgb(16, 151, 230);
+    color: #0f4d8f;
     cursor: pointer;
 }

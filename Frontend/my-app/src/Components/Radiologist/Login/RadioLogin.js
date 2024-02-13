@@ -2,8 +2,13 @@ import imgmain from '../../../Resources/Radiologist.jpeg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import './Login.css'
+import './Radio.css'
 const RadioLogin = () => {
+  const handleToggle = () => {
+    const passwordInput = document.getElementById('password');
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+  };
+  
   return (
     <div class="Radio-login-container">
       <div class="Radio-Login-hor">
@@ -20,7 +25,7 @@ const RadioLogin = () => {
         </div>
         <div class="Radio-Login-Ver-Right">
           <div className="login-container">
-            <h3>Welcome Back</h3>
+            <h3>Welcome Radiologist</h3>
             <form class="login-form">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder='Type your Username' required />
@@ -30,11 +35,12 @@ const RadioLogin = () => {
               <div class="form-group">
                 <input type="password" id="password" name="password" placeholder='Type your Password' required />
                 <img src={passwordIcon} alt="Password" className="input-icon" />
+                <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>
             </form>
             <div className='ForgotPassword'><b>Forgot Password?</b></div>
 
-            <button type="submit" id="login">
+            <button type="submit" id="login_radio">
               Login
             </button>
           </div>

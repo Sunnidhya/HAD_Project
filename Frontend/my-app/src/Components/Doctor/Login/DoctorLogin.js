@@ -4,6 +4,10 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import './Doctor.css'
 const DoctorLogin = () => {
+  const handleToggle = () => {
+    const passwordInput = document.getElementById('password');
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+  };
   return (
     <div class="Doctor-login-container">
       <div class="Doctor-Login-hor">
@@ -16,11 +20,11 @@ const DoctorLogin = () => {
     </div>
       <div class="Doctor-Login-Ver">
         <div class="Doctor-Login-Ver-Left">
-          <img src={imgmain} id="radiomainimg" />
+          <img src={imgmain} id="doctormainimg" />
         </div>
         <div class="Doctor-Login-Ver-Right">
           <div className="login-container">
-            <h3>Welcome Back</h3>
+            <h3>Welcome Doctor</h3>
             <form class="login-form">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder='Type your Username' required />
@@ -30,6 +34,7 @@ const DoctorLogin = () => {
               <div class="form-group">
                 <input type="password" id="password" name="password" placeholder='Type your Password' required />
                 <img src={passwordIcon} alt="Password" className="input-icon" />
+                <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>
             </form>
             <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>

@@ -1,7 +1,7 @@
 /* To be included before every new file */
-.Radio-Login-hor{
+.Patient-Login-hor{
     display: flex;
-    background-color: rgb(14, 14, 98);
+    background-color: rgb(21, 136, 194);
 }
   
   
@@ -14,25 +14,27 @@
   
   
 .pageTitle {
-    color: white;
-    margin-left: 255px;
+    color: rgb(252, 252, 252);
+    margin-left: 200px;
     margin-top: 35px;
 }
 
 /* ------------------------------------------------------ */
 
-.Radio-Login-Ver{
+
+
+.Patient-Login-Ver{
     display: flex;
     background-color: #ffff00;
     height: 580px;
 }
   
-.Radio-Login-Ver-Left{
+.Patient-Login-Ver-Left{
     width: 60%;
     background-color: white;
     padding-top: 2%;
 }
-.Radio-Login-Ver-Right{
+.Patient-Login-Ver-Right{
     width: 40%;
     background-color: white;
     display: flex;
@@ -90,10 +92,12 @@
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
+
+
   
-#login {
+#login_patient {
     color:white;
-    background-color: rgb(14, 14, 98);
+    background-color: rgb(16, 151, 230);
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -101,14 +105,18 @@
     font-size: 16px;
     width: 100%;
     margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#login_patient:hover{
+    background-color: rgb(37, 65, 149);
 }
   
-#login:hover {
-    background-color: #0056b3;
-}
+
 #radiomainimg{
     padding-left: 10%;
     height: 550px;
+    width:100%
 }
 
 .input-icon {
@@ -119,18 +127,38 @@
     width: 20px; /* Adjust this value as needed */
     height:20px;
 }
-
+#coneye{
+    position: absolute;
+    transform: translateX(-50%);
+    transform: translateY(30%);
+    right: 10px; 
+    width: 20px; 
+    height:30px;
+}
 #username{
     padding-left: 35px;
 }
-
+#fullname{
+    padding-left: 35px;
+}
+#Address{
+    padding-left: 35px;
+}
+#Email{
+    padding-left: 35px;
+}
+#Contact{
+    padding-left: 35px;
+}
 #password{
     padding-left: 35px;
 }
-
-.ForgotPassword{
+#Confirmpassword{
+    padding-left: 35px;
+}
+.ForgotPasswordDoc{
     float: right;
     font-size: 12px;
-    color: #0f4d8f;
+    color: rgb(16, 151, 230);
     cursor: pointer;
 }
