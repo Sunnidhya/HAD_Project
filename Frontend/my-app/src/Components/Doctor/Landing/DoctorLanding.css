@@ -1,0 +1,45 @@
+
+/* To be included before every new file */
+.Doctor-Login-hor{
+    display: flex;
+    background-color: rgb(7, 110, 101);
+}
+
+.divisions1
+{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-left: 10%;
+}
+  
+#radseideimg{
+    padding-top: 1%;
+    padding-left: 10%;
+    height: 120px;
+    width: 120px;
+}
+  
+  
+.pageTitle {
+    color: rgb(252, 252, 252);
+    margin-left: 255px;
+    margin-top: 35px;
+}
+
+/* ------------------------------------------------------ */
+
+
+
+.DoctorSearch
+{
+    position: absolute;
+    /* transform: translateX(-100%); */
+    transform: translateY(30%);
+    left: 500px;
+    right: 500px;
+    height: 30px;
+    border-radius:50px;
+    border-width: 3px;
+    border-color: rgb(7, 110, 101);
+}

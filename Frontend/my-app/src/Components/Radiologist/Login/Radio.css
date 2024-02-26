@@ -3,7 +3,13 @@
     display: flex;
     background-color: rgb(14, 14, 98);
 }
-  
+.divisions1
+{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-left: 10%;
+}  
   
 #radseideimg{
     padding-top: 1%;

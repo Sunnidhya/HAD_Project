@@ -37,7 +37,7 @@ const DoctorLogin = () => {
                 <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>
             </form>
-            <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>
+            <div className='DocForgotPasswordDoc'><b>Forgot Password?</b></div>
 
             <button type="submit" id="login_doc">
               Login
