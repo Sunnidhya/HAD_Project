@@ -4,7 +4,14 @@
     display: flex;
     background-color: rgb(7, 110, 101);
 }
-  
+
+.divisions1
+{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-left: 10%;
+}
   
 #radseideimg{
     padding-top: 1%;
@@ -139,7 +146,7 @@
     padding-left: 35px;
 }
 
-.ForgotPasswordDoc{
+.DocForgotPasswordDoc{
     float: right;
     font-size: 12px;
     color: rgb(7, 110, 101);
