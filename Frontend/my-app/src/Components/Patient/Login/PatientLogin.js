@@ -1,16 +1,16 @@
-import imgmain from '../../../Resources/login-hero.svg';
+import imgmain from '../../../Resources/patient6.avif';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import './Doctor.css'
-const DoctorLogin = () => {
+import './Patient.css'
+const PatientLogin = () => {
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
   return (
-    <div class="Doctor-login-container">
-      <div class="Doctor-Login-hor">
+    <div class="Patient-login-container">
+      <div class="Patient-Login-hor">
         <div>
           <img src={imgside} id="radseideimg" />
         </div>
@@ -18,13 +18,13 @@ const DoctorLogin = () => {
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
-      <div class="Doctor-Login-Ver">
-        <div class="Doctor-Login-Ver-Left">
-          <img src={imgmain} id="doctormainimg" />
+      <div class="Patient-Login-Ver">
+        <div class="Patient-Login-Ver-Left">
+          <img src={imgmain} id="radiomainimg" />
         </div>
-        <div class="Doctor-Login-Ver-Right">
+        <div class="Patient-Login-Ver-Right">
           <div className="login-container">
-            <h3>Welcome Doctor</h3>
+            <h3>Welcome Patient</h3>
             <form class="login-form">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder='Type your Username' required />
@@ -37,9 +37,9 @@ const DoctorLogin = () => {
                 <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>
             </form>
-            <div className='DocForgotPasswordDoc'><b>Forgot Password?</b></div>
+            <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>
 
-            <button type="submit" id="login_doc">
+            <button type="submit"  id="login_patient">
               Login
             </button>
           </div>
@@ -49,4 +49,4 @@ const DoctorLogin = () => {
   );
 };
 
-export default DoctorLogin;
+export default PatientLogin;
