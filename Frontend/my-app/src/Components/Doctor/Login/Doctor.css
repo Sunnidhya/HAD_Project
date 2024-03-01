@@ -1,9 +1,17 @@
+
 /* To be included before every new file */
 .Doctor-Login-hor{
     display: flex;
     background-color: rgb(7, 110, 101);
 }
-  
+
+.divisions1
+{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-left: 10%;
+}
   
 #radseideimg{
     padding-top: 1%;
@@ -105,12 +113,13 @@
     margin-top: 10px;
 }
   
-#login:hover {
-    background-color: rgb(7, 110, 101);
+#login_doc:hover {
+    background-color: rgb(93, 209, 199);
 }
-#radiomainimg{
+#doctormainimg{
     padding-left: 10%;
     height: 550px;
+    width:100%;
 }
 
 .input-icon {
@@ -121,7 +130,14 @@
     width: 20px; /* Adjust this value as needed */
     height:20px;
 }
-
+#faeye{
+    position: absolute;
+    transform: translateX(-50%);
+    transform: translateY(30%);
+    right: 10px; 
+    width: 20px; 
+    height:30px;
+}
 #username{
     padding-left: 35px;
 }
@@ -130,7 +146,7 @@
     padding-left: 35px;
 }
 
-.ForgotPasswordDoc{
+.DocForgotPasswordDoc{
     float: right;
     font-size: 12px;
     color: rgb(7, 110, 101);

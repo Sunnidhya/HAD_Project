@@ -9,7 +9,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     padding-left: 10%;
-} 
+}  
   
 #radseideimg{
     padding-top: 1%;
@@ -98,6 +98,8 @@
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
+
+
   
 #login_patient {
     color:white;
@@ -131,7 +133,7 @@
     width: 20px; /* Adjust this value as needed */
     height:20px;
 }
-#faeye{
+#coneye{
     position: absolute;
     transform: translateX(-50%);
     transform: translateY(30%);
@@ -142,11 +144,24 @@
 #username{
     padding-left: 35px;
 }
-
+#fullname{
+    padding-left: 35px;
+}
+#Address{
+    padding-left: 35px;
+}
+#Email{
+    padding-left: 35px;
+}
+#Contact{
+    padding-left: 35px;
+}
 #password{
     padding-left: 35px;
 }
-
+#Confirmpassword{
+    padding-left: 35px;
+}
 .ForgotPasswordDoc{
     float: right;
     font-size: 12px;

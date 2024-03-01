@@ -1,10 +1,16 @@
-.Patient-Login-hor{
+.Lab-Login-hor{
     display: flex;
-    background-color: rgb(241, 73, 151);
+    background-color: rgb(244, 165, 46);
 }
+.divisions1
+{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-left: 10%;
+}  
   
-  
-#radseideimg{
+#labseideimg{
     padding-top: 1%;
     padding-left: 10%;
     height: 120px;
@@ -22,18 +28,18 @@
 
 
 
-.Doctor-Login-Ver{
+.Lab-Login-Ver{
     display: flex;
     background-color: #ffff00;
     height: 580px;
 }
   
-.Doctor-Login-Ver-Left{
+.Lab-Login-Ver-Left{
     width: 60%;
     background-color: white;
     padding-top: 2%;
 }
-.Doctor-Login-Ver-Right{
+.Lab-Login-Ver-Right{
     width: 40%;
     background-color: white;
     display: flex;
@@ -92,9 +98,9 @@
     border-radius: 4px;
 }
   
-.login_doc {
+#login_lab {
     color:white;
-    background-color: rgb(241, 73, 151);
+    background-color: rgb(244, 165, 46);
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -105,16 +111,15 @@
     transition: background-color 0.3s ease;
 }
 
-#login_patient:hover{
-    background-color: rgb(248, 48, 91);
+#login_lab:hover{
+    background-color: rgb(134, 71, 13);
 }
-  
-#login:hover {
-    background-color: rgb(7, 110, 101);
-}
-#radiomainimg{
+
+#labmainimg{
     padding-left: 10%;
+    
     height: 550px;
+    width:100%;
 }
 
 .input-icon {
@@ -125,7 +130,14 @@
     width: 20px; /* Adjust this value as needed */
     height:20px;
 }
-
+#faeye{
+    position: absolute;
+    transform: translateX(-50%);
+    transform: translateY(30%);
+    right: 10px; 
+    width: 20px; 
+    height:30px;
+}
 #username{
     padding-left: 35px;
 }
@@ -134,9 +146,9 @@
     padding-left: 35px;
 }
 
-.ForgotPasswordDoc{
+.ForgotPasswordLab{
     float: right;
     font-size: 12px;
-    color: rgb(7, 110, 101);
+    color: rgb(225, 184, 122);
     cursor: pointer;
 }

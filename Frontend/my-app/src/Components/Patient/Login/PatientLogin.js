@@ -1,9 +1,13 @@
-import imgmain from '../../../Resources/Lab2.jpg';
+import imgmain from '../../../Resources/patient6.avif';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import './Lab.css'
-const LabLogin = () => {
+import './Patient.css'
+const PatientLogin = () => {
+  const handleToggle = () => {
+    const passwordInput = document.getElementById('password');
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+  };
   return (
     <div class="Patient-login-container">
       <div class="Patient-Login-hor">
@@ -14,13 +18,13 @@ const LabLogin = () => {
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
-      <div class="Doctor-Login-Ver">
-        <div class="Doctor-Login-Ver-Left">
+      <div class="Patient-Login-Ver">
+        <div class="Patient-Login-Ver-Left">
           <img src={imgmain} id="radiomainimg" />
         </div>
-        <div class="Doctor-Login-Ver-Right">
+        <div class="Patient-Login-Ver-Right">
           <div className="login-container">
-            <h3>Welcome Back</h3>
+            <h3>Welcome Patient</h3>
             <form class="login-form">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder='Type your Username' required />
@@ -30,11 +34,12 @@ const LabLogin = () => {
               <div class="form-group">
                 <input type="password" id="password" name="password" placeholder='Type your Password' required />
                 <img src={passwordIcon} alt="Password" className="input-icon" />
+                <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>
             </form>
             <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>
 
-            <button type="submit" class="login_doc" id="login_patient">
+            <button type="submit"  id="login_patient">
               Login
             </button>
           </div>
@@ -44,4 +49,4 @@ const LabLogin = () => {
   );
 };
 
-export default LabLogin;
+export default PatientLogin;
