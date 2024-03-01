@@ -1,0 +1,137 @@
+/*
+
+.Radio-Login-hor{
+    display: flex;
+    background-color: rgb(14, 14, 98);
+}
+  
+  
+#radseideimg{
+    padding-top: 1%;
+    padding-left: 10%;
+    height: 120px;
+    width: 120px;
+}
+  
+  
+.pageTitle {
+    color: white;
+    margin-left: 255px;
+    margin-top: 35px;
+}
+
+*/
+
+
+body {
+  overflow-x: hidden;
+}
+
+
+
+.Profile-Login-hor{
+   display: flex;
+    background-color: rgb(20, 129, 197);
+}
+  
+  
+#radseideimg{
+    padding-top: 1px;
+    padding-left: 10px;
+
+    height: 90px;
+    width: 90px;
+}
+
+.pageTitle {
+  color: white;
+  margin-left: 255px;
+  margin-top: 35px;
+}
+
+.image-container {
+    position: absolute;
+    top: calc(50% + 50px);
+    right: 130px;
+    transform: translate(80px,-280px);
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .profile-image {
+    width: 700px; 
+    height: 400px; 
+    display: block; 
+    margin: 20px; 
+    transform: translateX(50px);
+  }
+
+  .profile-details {
+    position: absolute;
+    top: 70%;
+    right: 40%;
+    transform: translate(130px, -90%);
+    text-align: center;
+    margin: 20px;
+  }
+  
+.profile-details input[type="text"],
+.profile-details input[type="email"],
+.profile-details input[type="password"] {
+  width: 250px; /* Adjust width as needed */
+  padding: 10px;
+  border: 2px solid rgb(20, 129, 197); /* Blue color */
+  border-radius: 10px; /* Rounded edges */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.profile-details input[type="text"]::placeholder,
+.profile-details input[type="email"]::placeholder,
+.profile-details input[type="password"]::placeholder {
+  color: rgba(3, 43, 69, 0.811); /* Blue color */
+}
+
+.left-sidebar {
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.user-icon {
+  width: 150px;
+  height: 150px;
+  transform: translateX(180px);
+}
+
+.btn{
+  background-color: rgb(66, 173, 239);
+  color: #ffffff; 
+  border: none;
+  border-radius: 20px; 
+  padding: 10px 20px; 
+  cursor: pointer;
+  width: 200px;
+  transform: translateX(155px);
+}
+
+.star-icon {
+  width: 30px; 
+  height: auto; 
+  margin-right: 5px; 
+}
+
+.rating-container {
+  margin-top: -95px; 
+  transform: translate(168px,275%);
+}
+
+.footer1 {
+  background-color: rgb(20, 129, 197);
+  color: #ffffff;
+  padding: 20px;
+  height:100%;
+  text-align: center;
+  transform: translateY(285%);
+}
+
+  
+
+   
