@@ -2,12 +2,36 @@ import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
+import React,{useState, useEffect} from "react";
 import './Doctor.css'
+
+import { request, setAuthToken } from '../../../axiosHelper';
+
 const DoctorLogin = () => {
+
+  const [data, setData] = useState([])
+
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
+
+  useEffect(() => {
+    request("POST", "/patient/login", 
+    {
+      userName:"Sunny",
+      password:"abc"
+    }
+    ).then((response) => {
+        setAuthToken(response.data.token)
+        console.warn("Data",response.data)
+      })
+      .catch((error) => {
+        console.warn("Error", error)
+      });
+  }, []);
+
+
   return (
     <div class="Doctor-login-container">
       <div class="Doctor-Login-hor">

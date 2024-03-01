@@ -12,7 +12,7 @@ import RadioLogin from './Components/Radiologist/Login/RadioLogin';
 function App() {
   return (
     <>
-      <DoctorLanding/>
+      <DoctorLogin/>
     </>
   );
 }
