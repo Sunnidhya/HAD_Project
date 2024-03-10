@@ -7,45 +7,77 @@ body, html {
 .container {
     display: flex;
     height: 100%;
+    
 }
-  
+
 .left {
     flex: 1;
-    background-color: #ffffff;
+    background-color:#023166 ;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
     padding: 20px;
+    margin-right: 5px;
     justify-content: center;
+    min-height: 100vh;
+    width: 350px;
 }
+
 
 .right {
-    flex: 2;
+    flex: 3;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2ccabd;
+   flex-direction: column;
 }
 
-.content {
+/* .content {
     text-align: center;
     padding: 20px;
-  }
+    color: white;
+  } */
+.top{
+    background-color: #83C3E0;
+    max-height: 120px;
+    text-align: center;
+    padding: 10px;
+    min-width: 155vh;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    font-size: 20px;
+    color: #023166;
+    position: sticky;
+    z-index: 999;
+    top: -10px;
+    box-shadow: 0 -6px 10px 10px rgba(1, 5, 43, 0.5);
+}
 
+.top header h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.blue{
+    color: white;
+}
+.bottom{
+   
+    background-color: white;
+}
 .logo img {
     max-width: 150px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    
 }
-  
+.logo{
+    transform: translateY(-10%);
+}  
 .icon-button {
     margin: 12px;
     padding: 30px;
-    width: 350px;
+    width: 250px;
+    height:10px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: white;
+    color: #023166;
     font-size: large;
-    background-color: #2ccabd;
+    background-color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -61,13 +93,25 @@ body, html {
     margin-left: auto;
 }
   
-p{
-    text-align: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 16px;
-}
 
-#WelcomeImage{
-    height: 480px;
+.imageleft
+{
+    width: 50%; 
+    float:left;
+} 
+#WelcomeImage
+{
+    transform: translateY(20%);
+    max-width: 100%;
+    height: 400px; 
 }
-  
+.imageright
+{
+    width: 50%; 
+    float:right;
+}
+#Image
+{
+   transform: translateY(10%);
+   float:right;
+} 

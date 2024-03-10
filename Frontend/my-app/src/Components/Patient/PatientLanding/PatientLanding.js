@@ -4,8 +4,8 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import React, { useState } from 'react';
 import logout from '../../../Resources/log-out.png';
-import './DoctorLanding.css'
-const DoctorLanding = () => {
+import './PatientLanding.css'
+const PatientLanding = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (event) => {
@@ -36,4 +36,4 @@ const DoctorLanding = () => {
   );
 };
 
-export default DoctorLanding;
+export default PatientLanding;
