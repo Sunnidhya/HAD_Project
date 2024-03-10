@@ -21,7 +21,7 @@ const DoctorLanding = () => {
     alert('Logout successful!');
     nav("/doctor")
   };
-  
+
   return (
     <div class="Had-login-container">
       <div class="Doctor-Login-hor">

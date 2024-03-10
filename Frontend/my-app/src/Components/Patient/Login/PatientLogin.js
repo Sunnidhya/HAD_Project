@@ -7,7 +7,12 @@ import { patientLoginAPI } from '../../../Network/APIendpoints';
 import { useNavigate } from 'react-router-dom';
 import './Patient.css'
 const PatientLogin = () => {
+
   let nav = useNavigate()
+
+  const goToHomePage = () => {
+    nav("/")
+  }
 
   const loginP = async (e,usernameP,passwordP) => {
     e.preventDefault();
@@ -38,7 +43,7 @@ const PatientLogin = () => {
     <div class="Patient-login-container">
       <div class="Patient-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" />
+          <img src={imgside} id="radseideimg" onClick={goToHomePage}/>
         </div>
         <div className='divisions1'>
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>

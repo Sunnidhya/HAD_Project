@@ -18,6 +18,10 @@ const DoctorLogin = () => {
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
 
+  const goToHomePage = () => {
+    nav("/")
+  }
+
   const loginD = async (e,usernameD,passwordD) => {
     e.preventDefault();
     localStorage.clear()
@@ -43,7 +47,7 @@ const DoctorLogin = () => {
     <div class="Doctor-login-container">
       <div class="Doctor-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" />
+          <img src={imgside} id="radseideimg" class="clickable" onClick={goToHomePage}/>
         </div>
         <div className='divisions1'>
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
