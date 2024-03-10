@@ -7,12 +7,13 @@ import LabLogin from './Components/Lab/Login/LabLogin';
 import PatientLogin from './Components/Patient/Login/PatientLogin';
 import RegPatient from './Components/Patient/Registration/RegPatient';
 import RadioLogin from './Components/Radiologist/Login/RadioLogin';
+import Profile from './Components/Radiologist/Profile/Profile';
 
 
 function App() {
   return (
     <>
-      <DoctorLanding/>
+      <Profile/>
     </>
   );
 }
