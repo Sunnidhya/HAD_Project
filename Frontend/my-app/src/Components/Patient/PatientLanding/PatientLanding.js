@@ -16,19 +16,19 @@ const PatientLanding = () => {
   };
   return (
     <div class="Had-login-container">
-      <div class="Doctor-Login-hor">
+      <div class="Patient-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" />
+          <img src={imgside} id="patientsideimg" />
         </div>
         <div class="Search">  
-           <input className="DoctorSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
+           <input className="PatientSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
-        <div class="Logout" onClick={handleLogout}>  
+        <div class="PatientLogout" onClick={handleLogout}>  
         <img src={logout} alt="Logout" className="input-icon1" />
         </div>
     </div>
     <div></div>
-      <div class="footer">
+      <div class="Patientfooter">
         <h2>About Us</h2>
       </div>
     </div>
