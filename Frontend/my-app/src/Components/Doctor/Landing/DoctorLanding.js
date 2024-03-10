@@ -18,17 +18,17 @@ const DoctorLanding = () => {
     <div class="Had-login-container">
       <div class="Doctor-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" />
+          <img src={imgside} id="docsideimg" />
         </div>
         <div class="Search">  
            <input className="DoctorSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
-        <div class="Logout" onClick={handleLogout}>  
+        <div class="DocLogout" onClick={handleLogout}>  
         <img src={logout} alt="Logout" className="input-icon1" />
         </div>
     </div>
     <div></div>
-      <div class="footer">
+      <div class="Docfooter">
         <h2>About Us</h2>
       </div>
     </div>
