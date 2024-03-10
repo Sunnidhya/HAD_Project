@@ -1,6 +1,6 @@
 
 /* To be included before every new file */
-.Doctor-Login-hor{
+.Patient-Login-hor{
     display: flex;
     min-width: 1200px;
     background-color: #1588C1;
@@ -8,7 +8,7 @@
 
 
   
-#radseideimg{
+#patientsideimg{
     padding-top: 1%;
     padding-left: 10%;
     height: 120px;
@@ -28,7 +28,7 @@
     
 }
 
-.DoctorSearch
+.PatientSearch
 {
     height: 30px;
     width: 100vh;
@@ -39,7 +39,7 @@
     margin-top: 20px;
 
 }
-.Logout{
+.PatientLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -52,7 +52,7 @@
 }
 
 
- .footer {
+ .Patientfooter {
     position: fixed;
     left: 0;
     bottom: 0;

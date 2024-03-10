@@ -8,7 +8,7 @@
 
 
   
-#radseideimg{
+#docsideimg{
     padding-top: 1%;
     padding-left: 10%;
     height: 120px;
@@ -39,7 +39,7 @@
     margin-top: 20px;
 
 }
-.Logout{
+.DocLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -52,7 +52,7 @@
 }
 
 
- .footer {
+ .Docfooter {
     position: fixed;
     left: 0;
     bottom: 0;
