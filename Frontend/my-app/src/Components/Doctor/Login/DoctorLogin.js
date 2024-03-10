@@ -4,11 +4,14 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import React,{useState, useEffect} from "react";
 import { doctorLoginAPI } from '../../../Network/APIendpoints';
+import { useNavigate } from 'react-router-dom';
 import './Doctor.css'
 
 import { request, setAuthToken } from '../../../Network/axiosHelper';
 
 const DoctorLogin = () => {
+
+  let nav = useNavigate()
 
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
@@ -29,6 +32,7 @@ const DoctorLogin = () => {
         setAuthToken(response.data.token)
         console.warn("Data",response.data)
         alert("Login Successful");
+        nav('/doctor/landing')
       })
       .catch((error) => {
         console.warn("Error", error)

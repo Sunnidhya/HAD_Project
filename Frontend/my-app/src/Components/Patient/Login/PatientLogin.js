@@ -4,8 +4,10 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import { request, setAuthToken } from '../../../Network/axiosHelper';
 import { patientLoginAPI } from '../../../Network/APIendpoints';
+import { useNavigate } from 'react-router-dom';
 import './Patient.css'
 const PatientLogin = () => {
+  let nav = useNavigate()
 
   const loginP = async (e,usernameP,passwordP) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const PatientLogin = () => {
         setAuthToken(response.data.token)
         console.warn("Data",response.data)
         alert("Login Successful");
+        nav("/patient/landing")
       })
       .catch((error) => {
         console.warn("Error", error)
