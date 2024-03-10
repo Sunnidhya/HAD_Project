@@ -51,7 +51,7 @@ body {
 }
 
 .image-container {
-    position: absolute;
+    position: fixed;
     top: calc(50% + 50px);
     right: 130px;
     transform: translate(80px,-280px);
