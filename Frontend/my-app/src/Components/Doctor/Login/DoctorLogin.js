@@ -3,34 +3,37 @@ import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import React,{useState, useEffect} from "react";
+import { doctorLoginAPI } from '../../../Network/APIendpoints';
 import './Doctor.css'
 
-import { request, setAuthToken } from '../../../axiosHelper';
+import { request, setAuthToken } from '../../../Network/axiosHelper';
 
 const DoctorLogin = () => {
-
-  const [data, setData] = useState([])
 
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
 
-  useEffect(() => {
-    request("POST", "/patient/login", 
-    {
-      userName:"Sunny",
-      password:"abc"
-    }
+  const loginD = async (e,usernameD,passwordD) => {
+    e.preventDefault();
+    localStorage.clear()
+    const data = {
+        userName: usernameD,
+        password: passwordD
+    };
+    request("POST",
+    doctorLoginAPI, 
+    data
     ).then((response) => {
         setAuthToken(response.data.token)
         console.warn("Data",response.data)
+        alert("Login Successful");
       })
       .catch((error) => {
         console.warn("Error", error)
       });
-  }, []);
-
+  };
 
   return (
     <div class="Doctor-login-container">
@@ -63,7 +66,15 @@ const DoctorLogin = () => {
             </form>
             <div className='DocForgotPasswordDoc'><b>Forgot Password?</b></div>
 
-            <button type="submit" id="login_doc">
+            <button type="submit" id="login_doc"
+            onClick={(e) =>
+              loginD(
+                e,
+                document.getElementById("username").value,
+                document.getElementById("password").value
+              )
+            }
+            >
               Login
             </button>
           </div>

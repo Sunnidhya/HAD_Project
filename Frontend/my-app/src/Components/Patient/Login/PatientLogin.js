@@ -2,8 +2,31 @@ import imgmain from '../../../Resources/patient6.avif';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
+import { request, setAuthToken } from '../../../Network/axiosHelper';
+import { patientLoginAPI } from '../../../Network/APIendpoints';
 import './Patient.css'
 const PatientLogin = () => {
+
+  const loginP = async (e,usernameP,passwordP) => {
+    e.preventDefault();
+    localStorage.clear()
+    const data = {
+        userName: usernameP,
+        password: passwordP
+    };
+    request("POST",
+    patientLoginAPI, 
+    data
+    ).then((response) => {
+        setAuthToken(response.data.token)
+        console.warn("Data",response.data)
+        alert("Login Successful");
+      })
+      .catch((error) => {
+        console.warn("Error", error)
+      });
+  };
+
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -39,7 +62,15 @@ const PatientLogin = () => {
             </form>
             <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>
 
-            <button type="submit"  id="login_patient">
+            <button type="submit"  id="login_patient"
+            onClick={(e) =>
+              loginP(
+                e,
+                document.getElementById("username").value,
+                document.getElementById("password").value
+              )
+            }
+            >
               Login
             </button>
           </div>
