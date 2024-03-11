@@ -5,15 +5,23 @@ import imgside from '../../../Resources/AppLogo.png';
 import React, { useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import './DoctorLanding.css'
+import { useNavigate } from 'react-router-dom';
 const DoctorLanding = () => {
+
+  let nav = useNavigate()
+
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+
   const handleLogout = () => {
+    localStorage.clear()
     alert('Logout successful!');
+    nav("/doctor")
   };
+
   return (
     <div class="Had-login-container">
       <div class="Doctor-Login-hor">
