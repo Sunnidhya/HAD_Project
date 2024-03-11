@@ -10,34 +10,34 @@ function FirstPage() {
     // <DoctorLogin/>
     // </>
     <div class="container">
-    <div class="left">
+    <div class="leftsidebar">
       <div class="logo">
         <img src={imgside} alt="Logo"/>
       </div>
       <div class="icon-button">
         <i class="fas fa-user"></i>
         Admin
-        <i class="fas fa-chevron-right"></i>
+        {/* <i class="fas fa-chevron-right"></i> */}
       </div>
       <div class="icon-button">
         <i class="fas fa-user"></i>
         Doctor
-        <i class="fas fa-chevron-right"></i>
+        {/* <i class="fas fa-chevron-right"></i> */}
       </div>
       <div class="icon-button">
         <i class="fas fa-user"></i>
         Radiologist
-        <i class="fas fa-chevron-right"></i>
+        {/* <i class="fas fa-chevron-right"></i> */}
       </div>
       <div class="icon-button">
         <i class="fas fa-user"></i>
         Lab
-        <i class="fas fa-chevron-right"></i>
+        {/* <i class="fas fa-chevron-right"></i> */}
       </div>
       <div class="icon-button">
         <i class="fas fa-user"></i>
         Patient
-        <i class="fas fa-chevron-right"></i>
+        {/* <i class="fas fa-chevron-right"></i> */}
       </div>
     </div>
     
