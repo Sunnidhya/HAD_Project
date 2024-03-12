@@ -4,9 +4,10 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import React, { useState } from 'react';
 import logout from '../../../Resources/log-out.png';
-import './DoctorLanding.css'
+import './PatientLanding.css'
 import { useNavigate } from 'react-router-dom';
-const DoctorLanding = () => {
+
+const PatientLanding = () => {
 
   let nav = useNavigate()
 
@@ -19,24 +20,24 @@ const DoctorLanding = () => {
   const handleLogout = () => {
     localStorage.clear()
     alert('Logout successful!');
-    nav("/doctor")
+    nav("/patient")
   };
-
+  
   return (
     <div class="Had-login-container">
-      <div class="Doctor-Login-hor">
+      <div class="Patient-Login-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="patientsideimg" />
         </div>
         <div class="Search">  
-           <input className="DoctorSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
+           <input className="PatientSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
-        <div class="DocLogout" onClick={handleLogout}>  
+        <div class="PatientLogout" onClick={handleLogout}>  
         <img src={logout} alt="Logout" className="input-icon1" />
         </div>
     </div>
     <div></div>
-      <div class="Docfooter">
+      <div class="Patientfooter">
         <h2>About Us</h2>
       </div>
     </div>
@@ -44,4 +45,4 @@ const DoctorLanding = () => {
   );
 };
 
-export default DoctorLanding;
+export default PatientLanding;

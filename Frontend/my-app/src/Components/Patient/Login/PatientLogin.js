@@ -2,8 +2,39 @@ import imgmain from '../../../Resources/patient6.avif';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
+import { request, setAuthToken } from '../../../Network/axiosHelper';
+import { patientLoginAPI } from '../../../Network/APIendpoints';
+import { useNavigate } from 'react-router-dom';
 import './Patient.css'
 const PatientLogin = () => {
+
+  let nav = useNavigate()
+
+  const goToHomePage = () => {
+    nav("/")
+  }
+
+  const loginP = async (e,usernameP,passwordP) => {
+    e.preventDefault();
+    localStorage.clear()
+    const data = {
+        userName: usernameP,
+        password: passwordP
+    };
+    request("POST",
+    patientLoginAPI, 
+    data
+    ).then((response) => {
+        setAuthToken(response.data.token)
+        console.warn("Data",response.data)
+        alert("Login Successful");
+        nav("/patient/landing")
+      })
+      .catch((error) => {
+        console.warn("Error", error)
+      });
+  };
+
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -12,7 +43,7 @@ const PatientLogin = () => {
     <div class="Patient-login-container">
       <div class="Patient-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" />
+          <img src={imgside} id="radseideimg" onClick={goToHomePage}/>
         </div>
         <div className='divisions1'>
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
@@ -39,7 +70,15 @@ const PatientLogin = () => {
             </form>
             <div className='ForgotPasswordDoc'><b>Forgot Password?</b></div>
 
-            <button type="submit"  id="login_patient">
+            <button type="submit"  id="login_patient"
+            onClick={(e) =>
+              loginP(
+                e,
+                document.getElementById("username").value,
+                document.getElementById("password").value
+              )
+            }
+            >
               Login
             </button>
           </div>

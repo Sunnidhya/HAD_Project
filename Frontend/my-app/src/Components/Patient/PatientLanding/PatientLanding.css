@@ -1,14 +1,14 @@
 
 /* To be included before every new file */
-.Doctor-Login-hor{
+.Patient-Login-hor{
     display: flex;
     min-width: 1200px;
-    background-color: rgb(7, 110, 101);
+    background-color: #1588C1;
 }
 
 
   
-#docsideimg{
+#patientsideimg{
     padding-top: 1%;
     padding-left: 10%;
     height: 120px;
@@ -28,18 +28,18 @@
     
 }
 
-.DoctorSearch
+.PatientSearch
 {
     height: 30px;
     width: 100vh;
     border-radius:50px;
     border-width: 3px;
-    border-color: rgb(7, 110, 101);
+    border-color: #1588C1;
     margin-left: 150px;
     margin-top: 20px;
 
 }
-.DocLogout{
+.PatientLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -52,12 +52,12 @@
 }
 
 
- .Docfooter {
+ .Patientfooter {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgb(7, 110, 101);
+    background-color: #1588C1;
     padding: 10px;
     text-align: center;
     color: white;
