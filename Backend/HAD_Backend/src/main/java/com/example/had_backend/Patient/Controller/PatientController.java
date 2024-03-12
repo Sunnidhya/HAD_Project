@@ -1,5 +1,7 @@
 package com.example.had_backend.Patient.Controller;
 
+import com.example.had_backend.Patient.Entity.PatientRegister;
+import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Model.LoginDTO;
@@ -8,10 +10,7 @@ import com.example.had_backend.Patient.Service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PatientController {
@@ -38,10 +37,43 @@ public class PatientController {
 
     @CrossOrigin
     @PostMapping("/patient/register")
-    public ResponseEntity<LoginMessage> register(@RequestBody @Validated LoginDTO login) {
-//        LoginMessage message = patientService.authenticate(login);
+    public ResponseEntity<LoginMessage> register(@RequestBody @Validated RegisterDTO register) {
+        patientService.registerPatient(register);
         LoginMessage message = new LoginMessage();
-        message.setMessage("Register Successful");
+        message.setMessage("Registration was Successful");
         return ResponseEntity.ok(message);
+//        if (patientRegister) {
+//            LoginMessage message = new LoginMessage();
+//            message.setMessage("Registration was Successful");
+//            return ResponseEntity.ok(message);
+//        }
+//        else{
+//            LoginMessage message = new LoginMessage();
+//            message.setMessage("Registration was not Successful");
+//            return ResponseEntity.ok(message);
+//        }
     }
+
+//    @CrossOrigin
+//    @GetMapping ("/patient/getListOfCases")
+//
+//
+//    @CrossOrigin
+//    @PostMapping("/patient/getSearchResult")
+//
+//    @CrossOrigin
+//    @PostMapping("/patientReports/AssignNewDoctor")
+//
+//    @CrossOrigin
+//    @PostMapping("/patientReports/AssignNewLab")
+//
+//    @CrossOrigin
+//    @GetMapping("/patient/getProfileDetails")
+//
+//    @CrossOrigin
+//    @PostMapping("/patientLogout")
+//
+//    @CrossOrigin
+//    @PostMapping("/patient/getSearchResult")
+
 }
