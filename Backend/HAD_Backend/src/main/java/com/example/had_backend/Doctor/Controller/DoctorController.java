@@ -1,5 +1,6 @@
 package com.example.had_backend.Doctor.Controller;
 
+import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Service.DoctorService;
@@ -51,4 +52,13 @@ public class DoctorController {
         }
         return ResponseEntity.ok(loginMessage);
     }
+
+    @CrossOrigin
+    @PostMapping("/doctor/getProfileDetails")
+    public ResponseEntity<Doctor> getProfileDetails(@RequestBody @Validated Doctor doctor3) {
+        Doctor doctor4 = doctorService.profile(doctor3);
+        return ResponseEntity.ok(doctor4);
+    }
+
+
 }

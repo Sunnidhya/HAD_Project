@@ -50,18 +50,21 @@ public class DoctorService {
         doctor.setEmail(doctorRegistrationDTO.getEmail());
         doctor.setUserName(doctorRegistrationDTO.getUserName());
         doctor.setDepartment(doctorRegistrationDTO.getDept());
-
-        doctorL.setDoctorId(doctor.getDoctorId());
-        doctorL.setUserName(doctorRegistrationDTO.getUserName());
-        doctorL.setPassword(doctorRegistrationDTO.getPassword());
-
         iDoctorRegistrationRepository.save(doctor);
+
         Doctor doctor1=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName());
         doctorL.setDoctorId(doctor1.getDoctorId());
+        doctorL.setUserName(doctorRegistrationDTO.getUserName());
+        doctorL.setPassword(doctorRegistrationDTO.getPassword());
         iDoctorLoginRepository.save(doctorL);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
         return loginMessage;
+    }
+
+    public Doctor profile(Doctor doctor3) {
+        return iDoctorRegistrationRepository.getDoctor(doctor3.getUserName());
+
     }
 }
