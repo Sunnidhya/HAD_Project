@@ -63,7 +63,6 @@ public class DoctorController {
 
     @CrossOrigin
     @PostMapping("/doctor/changePassword")
-
     public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated DoctorChangePasswordDTO doctorChangePasswordDTO ) {
         LoginMessage loginMessage1 = doctorService.changePassword(doctorChangePasswordDTO);
         return ResponseEntity.ok(loginMessage1);
