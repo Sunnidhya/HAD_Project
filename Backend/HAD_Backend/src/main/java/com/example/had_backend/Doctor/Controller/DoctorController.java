@@ -1,6 +1,8 @@
 package com.example.had_backend.Doctor.Controller;
 
+import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
+import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Service.DoctorService;
 import com.example.had_backend.Email.EmailService;
@@ -51,4 +53,20 @@ public class DoctorController {
         }
         return ResponseEntity.ok(loginMessage);
     }
+
+    @CrossOrigin
+    @PostMapping("/doctor/getProfileDetails")
+    public ResponseEntity<Doctor> getProfileDetails(@RequestBody @Validated Doctor doctor3) {
+        Doctor doctor4 = doctorService.profile(doctor3);
+        return ResponseEntity.ok(doctor4);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/changePassword")
+    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated DoctorChangePasswordDTO doctorChangePasswordDTO ) {
+        LoginMessage loginMessage1 = doctorService.changePassword(doctorChangePasswordDTO);
+        return ResponseEntity.ok(loginMessage1);
+
+    }
+
 }
