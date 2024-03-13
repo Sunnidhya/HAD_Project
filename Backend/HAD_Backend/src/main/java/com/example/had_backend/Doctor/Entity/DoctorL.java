@@ -22,7 +22,7 @@ public class DoctorL {
 
     private String password;
 
-    private boolean loggedIn;
+
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "id", referencedColumnName = "doctorId")

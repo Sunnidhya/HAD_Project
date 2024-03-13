@@ -10,7 +10,7 @@
     flex: 0.4;
     width: 80px;
     min-height: 100%;
-    background:#023166 ;
+    background:#0B5C83 ;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -81,7 +81,7 @@ blockquote p::after {
     font-size: 40px;
     padding: 20px;
     color: #889c0b;
-    margin-left: 210px;
+    align-items: end;
 } 
 .logo img {
     max-width: 100px;
@@ -128,6 +128,5 @@ blockquote p::after {
     font-size: small;
     bottom: 4px;
     color: white;
-    /* width:100px;
-    word-wrap: break-word; */
+   
 }
