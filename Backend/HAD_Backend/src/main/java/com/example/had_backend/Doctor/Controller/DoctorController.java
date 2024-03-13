@@ -65,6 +65,13 @@ public class DoctorController {
     @PostMapping("/doctor/changePassword")
     public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated DoctorChangePasswordDTO doctorChangePasswordDTO ) {
         LoginMessage loginMessage1 = doctorService.changePassword(doctorChangePasswordDTO);
+        if(loginMessage1.getMessage().equals("Password updated successfully")){
+            //will get change after applying join between tables as email has been hardcoded
+            emailService.sendSimpleMessage(
+                    "roy.sunnidhya96@gmail.com",
+                    "Password has been changed successfully",
+                    "Username: "+doctorChangePasswordDTO.getUserName()+ "\n"+"Password: "+doctorChangePasswordDTO.getNewPassword());
+        }
         return ResponseEntity.ok(loginMessage1);
 
     }
