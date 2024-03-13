@@ -2,6 +2,7 @@ package com.example.had_backend.Doctor.Service;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
+import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
@@ -67,4 +68,30 @@ public class DoctorService {
         return iDoctorRegistrationRepository.getDoctor(doctor3.getUserName());
 
     }
+
+    public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {
+
+
+        DoctorL doctorL1=iDoctorLoginRepository.findByEmailAndPassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getCurrentPassword());
+        if (doctorL1 == null) {
+            LoginMessage loginMsg = new LoginMessage();
+            loginMsg.setMessage("Current Password or User Name entered wrongly ");
+            return loginMsg;
+        }
+
+        else if (doctorChangePasswordDTO.getCurrentPassword().equals(doctorChangePasswordDTO.getNewPassword())) {
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.setMessage("Same Password entered");
+            return loginMessage;
+        }
+
+
+        iDoctorLoginRepository.changePassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getNewPassword());
+        LoginMessage loginMsg = new LoginMessage();
+        loginMsg.setMessage("Password updated successfully");
+        return loginMsg;
+
+    }
+
+
 }
