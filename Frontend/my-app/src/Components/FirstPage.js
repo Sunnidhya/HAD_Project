@@ -3,7 +3,6 @@ import DoctorLogin from './Doctor/Login/DoctorLogin';
 import RadioLogin from './Radiologist/Login/RadioLogin';
 import imgside from '../Resources/AppLogo.png';
 import { useNavigate } from 'react-router-dom';
-
 import firstImage from '../Resources/first_page.png';
 import secondImage from '../Resources/first_text_part.png';
 function FirstPage() {
