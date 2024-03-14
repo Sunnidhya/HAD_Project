@@ -97,14 +97,17 @@ blockquote p::after {
 .icon-button {
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: small;
+    
     padding: 10px;
-    height:20px;
+    margin: 5px;
+    /* height:20px; */
     border-bottom: 2px solid rgba(0,0,0,0.05);
     border-top: 2px solid rgba(225,225,225,0.05);
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     cursor: pointer;
+    
    
 }
 .icon-button:hover{
