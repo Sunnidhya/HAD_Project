@@ -14,15 +14,15 @@ public class DoctorL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private Integer doctorId;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String userName;
 
     private String password;
 
-    private boolean loggedIn;
+
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "id", referencedColumnName = "doctorId")
