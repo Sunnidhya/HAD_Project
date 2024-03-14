@@ -1,6 +1,5 @@
 package com.example.had_backend.Patient.Controller;
 
-import com.example.had_backend.Patient.Entity.PatientRegister;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import com.example.had_backend.Patient.Entity.PatientL;

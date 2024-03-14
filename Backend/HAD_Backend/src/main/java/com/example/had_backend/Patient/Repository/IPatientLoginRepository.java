@@ -1,8 +1,6 @@
 package com.example.had_backend.Patient.Repository;
 
 import com.example.had_backend.Patient.Entity.PatientL;
-import com.example.had_backend.Patient.Entity.PatientRegister;
-import com.example.had_backend.Patient.Model.RegisterDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

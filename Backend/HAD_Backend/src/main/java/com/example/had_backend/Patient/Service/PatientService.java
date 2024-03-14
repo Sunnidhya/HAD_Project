@@ -3,17 +3,19 @@ package com.example.had_backend.Patient.Service;
 
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Patient.Entity.PatientL;
-import com.example.had_backend.Patient.Entity.PatientRegister;
+import com.example.had_backend.Patient.Entity.Patient;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Repository.IPatientLoginRepository;
+import com.example.had_backend.Patient.Repository.IPatientRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PatientService {
     @Autowired
     private IPatientLoginRepository iPatientLoginRepository;
+    @Autowired
+    private IPatientRegistrationRepository iPatientRegistrationRepository;
 
 
     public PatientL authenticate(LoginDTO loginDTO) {
@@ -27,7 +29,7 @@ public class PatientService {
         return patientL;
     }
 
-    public PatientRegister registerPatient(RegisterDTO register) {
+    public Patient registerPatient(RegisterDTO register) {
 //        iPatientLoginRepository.registerPatient(register.getAddress(),register.getContactNo(), register.getFullName(), register.getEmail(), register.getPassword(), register.getUserName());
         var add = register.getAddress();
         var contact = register.getContactNo();
@@ -35,15 +37,16 @@ public class PatientService {
         var email = register.getEmail();
         var password = register.getPassword();
         var username = register.getUserName();
-        PatientRegister patientRegister = new PatientRegister();
-        patientRegister.setAddress(add);
-        patientRegister.setContactNo(contact);
-        patientRegister.setEmail(email);
-        patientRegister.setFullName(fullname);
-        patientRegister.setPassword(password);
-        patientRegister.setUserName(username);
-        //iPatLoginRepository.saveAndFlush(patientRegister)
-        return patientRegister;
+        Patient patient = new Patient();
+        patient.setAddress(add);
+        patient.setContactNo(contact);
+        patient.setEmail(email);
+        patient.setFullName(fullname);
+        patient.setPassword(password);
+        patient.setUserName(username);
+        return iPatientRegistrationRepository.save(patient);
+
 
     }
+
 }
