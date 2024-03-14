@@ -9,8 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.io.Serializable;
 
 public interface IPatientRegistrationRepository extends JpaRepository<Patient, Serializable> {
-    @Query("SELECT r FROM Doctor r where r.userName = :username")
-    Patient getPatient(@Param("username") String userName);
 
     @Query("SELECT r FROM Patient r where r.userName = :username OR r.email=:email")
     Patient getPatientProfile(@Param("username") String userName,@Param("email")String email);

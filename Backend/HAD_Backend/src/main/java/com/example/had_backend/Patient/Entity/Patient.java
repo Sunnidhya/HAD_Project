@@ -16,10 +16,10 @@ public class Patient {
     @Column(nullable = false)
     private String fullName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -28,8 +28,7 @@ public class Patient {
     @Column(nullable = false)
     private String contactNo;
 
-    @Column(nullable = false)
-    private String password;
+
 
 
 }

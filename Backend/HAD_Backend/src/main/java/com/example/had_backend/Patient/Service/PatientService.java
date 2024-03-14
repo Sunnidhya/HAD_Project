@@ -41,19 +41,12 @@ public class PatientService {
             loginMsg.setMessage("User is already registered");
             return loginMsg;
         }
-        var add = register.getAddress();
-        var contact = register.getContactNo();
-        var fullname = register.getFullName();
-        var email = register.getEmail();
-        var password = register.getPassword();
-        var username = register.getUserName();
 
-        patient.setAddress(add);
-        patient.setContactNo(contact);
-        patient.setEmail(email);
-        patient.setFullName(fullname);
-        patient.setPassword(password);
-        patient.setUserName(username);
+        patient.setAddress(register.getAddress());
+        patient.setContactNo(register.getContactNo());
+        patient.setEmail(register.getEmail());
+        patient.setFullName(register.getFullName());
+        patient.setUserName(register.getUserName());
         iPatientRegistrationRepository.save(patient);
 
         Patient patient2=iPatientRegistrationRepository.getPatientProfile(register.getUserName(), register.getEmail());
@@ -62,13 +55,9 @@ public class PatientService {
         patientL.setPassword(register.getPassword());
         iPatientLoginRepository.save(patientL);
 
-        LoginMessage message = new LoginMessage();
-
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
         return loginMessage;
-
-
     }
 
 }
