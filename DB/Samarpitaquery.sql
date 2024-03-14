@@ -5,3 +5,5 @@ INSERT INTO `kavachdb`.`doctorl` (`id`, `doctor_id`, `logged_in`, `password`, `u
 
 select * from patientl;
 INSERT INTO `kavachdb`.`patientl` (`id`, `logged_in`, `password`, `patient_id`, `user_name`) VALUES ('1', 0, '1234', '1001', 'pt_mo_l');
+
+select * from doctor;
