@@ -62,9 +62,7 @@ public class RadiologistService {
     }
 
     public Radiologist profile(Radiologist radiologist) {
-
         return iRadiologistRegistrationRepository.getProfile(radiologist.getUserName());
-
     }
 
     public LoginMessage changePassword(RadiologistChangePasswordDTO radiologistChangePasswordDTO) {
