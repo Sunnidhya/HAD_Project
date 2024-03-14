@@ -54,7 +54,6 @@ public class LabController {
                     "Username: " + register.getUserName() + "\n" + "Password: " + register.getPassword());
         }
         return ResponseEntity.ok(loginMessage);
-
     }
 
     @CrossOrigin

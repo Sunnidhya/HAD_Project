@@ -25,5 +25,4 @@ public class Lab {
 
     @Column(nullable = false)
     private String contactNo;
-
 }
