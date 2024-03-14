@@ -56,14 +56,12 @@ public class PatientController {
 
     }
 
-
     @CrossOrigin
     @PostMapping("/patient/getProfileDetails")
     public ResponseEntity<Patient> getProfileDetails(@RequestBody @Validated Patient patient3) {
         Patient patient4 = patientService.getProfile(patient3);
         return ResponseEntity.ok(patient4);
     }
-
 
     @CrossOrigin
     @PostMapping("/patient/changePassword")
@@ -77,7 +75,6 @@ public class PatientController {
                     "Username: "+doctorChangePasswordDTO.getUserName()+ "\n"+"Password: "+doctorChangePasswordDTO.getNewPassword());
         }
         return ResponseEntity.ok(loginMessage1);
-
     }
 
 //    @CrossOrigin
