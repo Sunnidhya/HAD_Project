@@ -80,7 +80,6 @@ public class PatientController {
 //    @CrossOrigin
 //    @GetMapping ("/patient/getListOfCases")
 //
-//
 //    @CrossOrigin
 //    @PostMapping("/patient/getSearchResult")
 //
@@ -89,14 +88,7 @@ public class PatientController {
 //
 //    @CrossOrigin
 //    @PostMapping("/patientReports/AssignNewLab")
-//
-//    @CrossOrigin
-//    @GetMapping("/patient/getProfileDetails")
-//
-//    @CrossOrigin
-//    @PostMapping("/patientLogout")
-//
-//    @CrossOrigin
-//    @PostMapping("/patient/getSearchResult")
+
+
 
 }
