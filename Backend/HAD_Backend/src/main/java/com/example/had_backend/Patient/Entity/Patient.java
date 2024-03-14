@@ -7,23 +7,28 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "Patient")
+@Table(name = "PatientRegister")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patientId;
 
     @Column(nullable = false)
-    private String name;
+    private String fullName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String address;
 
-    private String contactNumber;
+    @Column(nullable = false)
+    private String contactNo;
+
+
+
+
 }
