@@ -1,5 +1,6 @@
 package com.example.had_backend.Patient.Controller;
 
+import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import com.example.had_backend.Patient.Entity.PatientL;
@@ -20,6 +21,9 @@ public class PatientController {
     @Autowired
     private UserAuthProvider userAuthProvider;
 
+    @Autowired
+    private EmailService emailService;
+
     @CrossOrigin
     @PostMapping("/patient/login")
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
@@ -37,20 +41,15 @@ public class PatientController {
     @CrossOrigin
     @PostMapping("/patient/register")
     public ResponseEntity<LoginMessage> register(@RequestBody @Validated RegisterDTO register) {
-        patientService.registerPatient(register);
-        LoginMessage message = new LoginMessage();
-        message.setMessage("Registration was Successful");
-        return ResponseEntity.ok(message);
-//        if (patientRegister) {
-//            LoginMessage message = new LoginMessage();
-//            message.setMessage("Registration was Successful");
-//            return ResponseEntity.ok(message);
-//        }
-//        else{
-//            LoginMessage message = new LoginMessage();
-//            message.setMessage("Registration was not Successful");
-//            return ResponseEntity.ok(message);
-//        }
+        LoginMessage loginMessage = patientService.registerPatient(register);
+        if(!loginMessage.getMessage().equals("User is already registered")){
+            emailService.sendSimpleMessage(
+                    register.getEmail(),
+                    "Registration in Kavach portal was successful",
+                    "Username: "+register.getUserName()+ "\n"+"Password: "+register.getPassword());
+        }
+        return ResponseEntity.ok(loginMessage);
+
     }
 
 //    @CrossOrigin
