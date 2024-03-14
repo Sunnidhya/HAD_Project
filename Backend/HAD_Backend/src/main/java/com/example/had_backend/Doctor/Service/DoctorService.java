@@ -6,14 +6,10 @@ import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
-import com.example.had_backend.Patient.Repository.IPatientLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.print.Doc;
 
 @Service
 public class DoctorService {
@@ -65,6 +61,7 @@ public class DoctorService {
     }
 
     public Doctor profile(Doctor doctor3) {
+
         return iDoctorRegistrationRepository.getProfile(doctor3.getUserName());
     }
 
