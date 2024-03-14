@@ -38,7 +38,7 @@ public class DoctorService {
         Doctor doctor = new Doctor();
         DoctorL doctorL = new DoctorL();
 
-        Doctor doctor2=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName());
+        Doctor doctor2=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName(),doctorRegistrationDTO.getEmail());
         if (doctor2 != null) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("User is already registered");
@@ -53,7 +53,7 @@ public class DoctorService {
         doctor.setDepartment(doctorRegistrationDTO.getDept());
         iDoctorRegistrationRepository.save(doctor);
 
-        Doctor doctor1=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName());
+        Doctor doctor1=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName(),doctorRegistrationDTO.getEmail());
         doctorL.setDoctorId(doctor1.getDoctorId());
         doctorL.setUserName(doctorRegistrationDTO.getUserName());
         doctorL.setPassword(doctorRegistrationDTO.getPassword());
@@ -65,7 +65,7 @@ public class DoctorService {
     }
 
     public Doctor profile(Doctor doctor3) {
-        return iDoctorRegistrationRepository.getDoctor(doctor3.getUserName());
+        return iDoctorRegistrationRepository.getProfile(doctor3.getUserName());
     }
 
     public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {

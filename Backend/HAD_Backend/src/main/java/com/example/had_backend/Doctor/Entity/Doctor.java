@@ -1,8 +1,11 @@
 package com.example.had_backend.Doctor.Entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
+
 
 @Entity
 @Getter
@@ -23,10 +26,10 @@ public class Doctor {
     @Column(nullable = false)
     private String specialization;
 
-    @Column(nullable = false)
+    @Column(unique = true,nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(unique = true,nullable = false)
     private String userName;
 
     @Column(nullable = false)
