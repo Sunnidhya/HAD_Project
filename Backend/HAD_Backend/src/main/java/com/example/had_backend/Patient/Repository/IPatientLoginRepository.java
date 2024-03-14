@@ -12,4 +12,9 @@ import java.io.Serializable;
 public interface IPatientLoginRepository extends JpaRepository<PatientL, Serializable> {
     @Query("SELECT e FROM PatientL e where e.userName = :username AND e.password = :password")
     PatientL findByEmailAndPassword(@Param("username") String userName, @Param("password") String password);
+
+    @Transactional
+    @Modifying
+    @Query("update PatientL p set p.password = :password where p.userName = :username")
+    void changePassword(@Param("username") String userName, @Param("password") String password);
 }

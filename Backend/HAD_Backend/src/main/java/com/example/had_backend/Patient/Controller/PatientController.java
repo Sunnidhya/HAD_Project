@@ -1,6 +1,10 @@
 package com.example.had_backend.Patient.Controller;
 
+import com.example.had_backend.Doctor.Entity.Doctor;
+import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Email.EmailService;
+import com.example.had_backend.Patient.Entity.Patient;
+import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import com.example.had_backend.Patient.Entity.PatientL;
@@ -50,6 +54,27 @@ public class PatientController {
         }
         return ResponseEntity.ok(loginMessage);
 
+    }
+
+    @CrossOrigin
+    @PostMapping("/patient/getProfileDetails")
+    public ResponseEntity<Patient> getProfileDetails(@RequestBody @Validated Patient patient3) {
+        Patient patient4 = patientService.getProfile(patient3);
+        return ResponseEntity.ok(patient4);
+    }
+
+    @CrossOrigin
+    @PostMapping("/patient/changePassword")
+    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated PatientChangePasswordDTO doctorChangePasswordDTO ) {
+        LoginMessage loginMessage1 = patientService.changePassword(doctorChangePasswordDTO);
+        if(loginMessage1.getMessage().equals("Password updated successfully")){
+            //will get change after applying join between tables as email has been hardcoded
+            emailService.sendSimpleMessage(
+                    "roy.sunnidhya96@gmail.com",
+                    "Password has been changed successfully",
+                    "Username: "+doctorChangePasswordDTO.getUserName()+ "\n"+"Password: "+doctorChangePasswordDTO.getNewPassword());
+        }
+        return ResponseEntity.ok(loginMessage1);
     }
 
 //    @CrossOrigin

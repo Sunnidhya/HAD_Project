@@ -13,4 +13,7 @@ public interface IPatientRegistrationRepository extends JpaRepository<Patient, S
     @Query("SELECT r FROM Patient r where r.userName = :username OR r.email=:email")
     Patient getPatientProfile(@Param("username") String userName,@Param("email")String email);
 
+    @Query("SELECT r FROM Patient r where r.userName = :username")
+    Patient getPatientProfileDetails(@Param("username") String userName);
+
 }
