@@ -7,4 +7,5 @@ public class RadiologistChangePasswordDTO {
     String userName;
     String currentPassword;
     String newPassword;
+    String email;
 }

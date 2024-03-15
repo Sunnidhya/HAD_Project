@@ -1,18 +1,15 @@
 package com.example.had_backend.Patient.Service;
 
 
-import com.example.had_backend.Doctor.Entity.Doctor;
-import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Patient.Entity.Patient;
+import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Repository.IPatientLoginRepository;
 import com.example.had_backend.Patient.Repository.IPatientRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -68,7 +65,7 @@ public class PatientService {
 
     public LoginMessage changePassword(PatientChangePasswordDTO patientChangePasswordDTO) {
         PatientL patientL1=iPatientLoginRepository.findByEmailAndPassword(patientChangePasswordDTO.getUserName(),patientChangePasswordDTO.getCurrentPassword());
-
+        Patient patient=iPatientRegistrationRepository.getPatientProfileDetails(patientChangePasswordDTO.getUserName());
         if (patientL1 == null) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("Current Password or User Name entered wrongly ");
@@ -80,6 +77,7 @@ public class PatientService {
         }
 
         iPatientLoginRepository.changePassword(patientChangePasswordDTO.getUserName(),patientChangePasswordDTO.getNewPassword());
+        patientChangePasswordDTO.setEmail(patient.getEmail());
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;

@@ -7,6 +7,7 @@ public class LabChangePasswordDTO {
     String userName;
     String currentPassword;
     String newPassword;
+    String email;
 }
 
 
