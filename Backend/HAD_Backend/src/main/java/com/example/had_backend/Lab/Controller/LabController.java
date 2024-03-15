@@ -68,7 +68,6 @@ public class LabController {
     public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated LabChangePasswordDTO labChangePasswordDTO) {
         LoginMessage loginMessage1 = labService.changePassword(labChangePasswordDTO);
         if (loginMessage1.getMessage().equals("Password updated successfully")) {
-            //will get change after applying join between tables as email has been hardcoded
             emailService.sendSimpleMessage(
                     labChangePasswordDTO.getEmail(),
                     "Password has been changed successfully",

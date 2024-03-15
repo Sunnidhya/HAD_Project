@@ -69,7 +69,6 @@ public class PatientController {
     public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated PatientChangePasswordDTO patientChangePasswordDTO ) {
         LoginMessage loginMessage1 = patientService.changePassword(patientChangePasswordDTO);
         if(loginMessage1.getMessage().equals("Password updated successfully")){
-            //will get change after applying join between tables as email has been hardcoded
             emailService.sendSimpleMessage(
                     patientChangePasswordDTO.getEmail(),
                     "Password has been changed successfully",
