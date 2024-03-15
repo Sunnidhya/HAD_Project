@@ -68,7 +68,7 @@ public class DoctorService {
     public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {
 
         DoctorL doctorL1=iDoctorLoginRepository.findByEmailAndPassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getCurrentPassword());
-
+        Doctor doctor=iDoctorRegistrationRepository.getProfile(doctorChangePasswordDTO.getUserName());
         if (doctorL1 == null) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("Current Password or User Name entered wrongly ");
@@ -80,6 +80,7 @@ public class DoctorService {
         }
 
         iDoctorLoginRepository.changePassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getNewPassword());
+        doctorChangePasswordDTO.setEmail(doctor.getEmail());
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;

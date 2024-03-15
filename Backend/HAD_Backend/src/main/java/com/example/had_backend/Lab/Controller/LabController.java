@@ -70,7 +70,7 @@ public class LabController {
         if (loginMessage1.getMessage().equals("Password updated successfully")) {
             //will get change after applying join between tables as email has been hardcoded
             emailService.sendSimpleMessage(
-                    "roy.sunnidhya96@gmail.com",
+                    labChangePasswordDTO.getEmail(),
                     "Password has been changed successfully",
                     "Username: " + labChangePasswordDTO.getUserName() + "\n" + "Password: " + labChangePasswordDTO.getNewPassword());
         }

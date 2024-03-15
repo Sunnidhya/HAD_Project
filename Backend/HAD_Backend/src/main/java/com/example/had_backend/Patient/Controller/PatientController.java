@@ -1,20 +1,21 @@
 package com.example.had_backend.Patient.Controller;
 
-import com.example.had_backend.Doctor.Entity.Doctor;
-import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Email.EmailService;
-import com.example.had_backend.Patient.Entity.Patient;
-import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
-import com.example.had_backend.Patient.Model.RegisterDTO;
-import com.example.had_backend.WebSecConfig.UserAuthProvider;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Patient.Entity.Patient;
+import com.example.had_backend.Patient.Entity.PatientL;
+import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
+import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Service.PatientService;
+import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PatientController {
@@ -65,14 +66,14 @@ public class PatientController {
 
     @CrossOrigin
     @PostMapping("/patient/changePassword")
-    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated PatientChangePasswordDTO doctorChangePasswordDTO ) {
-        LoginMessage loginMessage1 = patientService.changePassword(doctorChangePasswordDTO);
+    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated PatientChangePasswordDTO patientChangePasswordDTO ) {
+        LoginMessage loginMessage1 = patientService.changePassword(patientChangePasswordDTO);
         if(loginMessage1.getMessage().equals("Password updated successfully")){
             //will get change after applying join between tables as email has been hardcoded
             emailService.sendSimpleMessage(
-                    "roy.sunnidhya96@gmail.com",
+                    patientChangePasswordDTO.getEmail(),
                     "Password has been changed successfully",
-                    "Username: "+doctorChangePasswordDTO.getUserName()+ "\n"+"Password: "+doctorChangePasswordDTO.getNewPassword());
+                    "Username: "+patientChangePasswordDTO.getUserName()+ "\n"+"Password: "+patientChangePasswordDTO.getNewPassword());
         }
         return ResponseEntity.ok(loginMessage1);
     }

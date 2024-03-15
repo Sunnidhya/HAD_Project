@@ -67,6 +67,7 @@ public class RadiologistService {
 
     public LoginMessage changePassword(RadiologistChangePasswordDTO radiologistChangePasswordDTO) {
         RadiologistL radiologistL=iRadiologistLoginRepository.findByEmailAndPassword(radiologistChangePasswordDTO.getUserName(),radiologistChangePasswordDTO.getCurrentPassword());
+        Radiologist radiologist=iRadiologistRegistrationRepository.getProfile(radiologistChangePasswordDTO.getUserName());
 
         if (radiologistL == null) {
             LoginMessage loginMsg = new LoginMessage();
@@ -79,6 +80,7 @@ public class RadiologistService {
         }
 
         iRadiologistLoginRepository.changePassword(radiologistChangePasswordDTO.getUserName(),radiologistChangePasswordDTO.getNewPassword());
+        radiologistChangePasswordDTO.setEmail(radiologist.getEmail());
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;

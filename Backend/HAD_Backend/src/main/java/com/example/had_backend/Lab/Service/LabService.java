@@ -66,7 +66,8 @@ public class LabService {
     }
 
     public LoginMessage changePassword(LabChangePasswordDTO labChangePasswordDTO) {
-        Labl labl1=iLabLoginRepository.findByEmailAndPassword(labChangePasswordDTO.getUserName(),labChangePasswordDTO.getCurrentPassword());
+        Labl labl1 = iLabLoginRepository.findByEmailAndPassword(labChangePasswordDTO.getUserName(),labChangePasswordDTO.getCurrentPassword());
+        Lab lab = iLabRegistrationRepository.getProfile(labChangePasswordDTO.getUserName());
 
         if (labl1 == null) {
             LoginMessage loginMsg = new LoginMessage();
@@ -79,6 +80,7 @@ public class LabService {
         }
 
         iLabLoginRepository.changePassword(labChangePasswordDTO.getUserName(),labChangePasswordDTO.getNewPassword());
+        labChangePasswordDTO.setEmail(lab.getEmail());
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
