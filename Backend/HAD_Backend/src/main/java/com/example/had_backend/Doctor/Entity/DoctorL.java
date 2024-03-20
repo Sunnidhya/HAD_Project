@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "DoctorL")
+@Table(name = "doctorL")
 public class DoctorL {
 
     @Id
@@ -20,11 +20,10 @@ public class DoctorL {
     @Column(nullable = false,unique = true)
     private String userName;
 
+    @Column(nullable = false)
     private String password;
 
-
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id", referencedColumnName = "doctorId")
-//    private DoctorL doctorL;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "refDocId", referencedColumnName = "doctorId",nullable = false,unique = true)
+    private Doctor doctor;
 }
