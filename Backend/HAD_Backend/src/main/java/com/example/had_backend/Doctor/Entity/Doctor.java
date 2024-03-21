@@ -18,7 +18,7 @@ import java.util.List;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="doctorId")
+    @Column(name = "id")
     private Integer doctorId;
 
     @Column(nullable = false)
@@ -40,6 +40,7 @@ public class Doctor {
     private String department;
 
     @OneToOne(mappedBy = "doctor")
+    @JsonIgnore
     private DoctorL doctorL;
 
     @OneToMany(mappedBy = "doctor")

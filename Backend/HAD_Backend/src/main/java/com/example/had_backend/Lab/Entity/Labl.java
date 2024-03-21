@@ -1,6 +1,5 @@
 package com.example.had_backend.Lab.Entity;
 
-import com.example.had_backend.Radiologist.Entity.Radiologist;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

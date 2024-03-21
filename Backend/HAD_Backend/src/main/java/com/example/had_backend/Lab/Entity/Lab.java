@@ -1,6 +1,5 @@
 package com.example.had_backend.Lab.Entity;
 
-import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.GlobalEntity.Cases;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

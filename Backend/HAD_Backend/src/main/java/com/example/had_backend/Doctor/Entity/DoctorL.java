@@ -1,5 +1,6 @@
 package com.example.had_backend.Doctor.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class DoctorL {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "refDocId", referencedColumnName = "doctorId",nullable = false,unique = true)
+    @JsonIgnore
+    @JoinColumn(name = "refDocId", referencedColumnName = "id",nullable = false,unique = true)
     private Doctor doctor;
 }

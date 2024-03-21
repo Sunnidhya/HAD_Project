@@ -27,7 +27,7 @@ public class Cases {
 
     //doctorId of doctor table
     @ManyToOne
-    @JoinColumn(name = "doctorId", nullable = false, foreignKey = @ForeignKey(name="id"))
+    @JoinColumn(name = "id", nullable = false, foreignKey = @ForeignKey(name="doctorId1"))
     @JsonIgnore
     private Doctor doctor;
 
