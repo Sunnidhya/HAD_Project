@@ -1,20 +1,24 @@
 package com.example.had_backend.Doctor.Entity;
 
+import com.example.had_backend.GlobalEntity.Cases;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Entity
 @Getter
 @Setter
-@Table(name = "Doctor")
+@Table(name = "doctor")
 public class Doctor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer doctorId;
 
     @Column(nullable = false)
@@ -35,6 +39,11 @@ public class Doctor {
     @Column(nullable = false)
     private String department;
 
-//    @OneToOne(mappedBy = "DoctorL")
-//    private Doctor doctor;
+    @OneToOne(mappedBy = "doctor")
+    @JsonIgnore
+    private DoctorL doctorL;
+
+    @OneToMany(mappedBy = "doctor")
+    @JsonIgnore
+    private List<Cases> cases;
 }

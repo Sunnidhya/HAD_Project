@@ -1,16 +1,21 @@
 package com.example.had_backend.Patient.Entity;
 
+import com.example.had_backend.GlobalEntity.Cases;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
-@Table(name = "PatientRegister")
+@Table(name = "patient")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "patientId")
     private Integer patientId;
 
     @Column(nullable = false)
@@ -28,7 +33,11 @@ public class Patient {
     @Column(nullable = false)
     private String contactNo;
 
+    @OneToOne(mappedBy = "patient")
+    private PatientL patientL;
 
-
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnore
+    private List<Cases> cases;
 
 }

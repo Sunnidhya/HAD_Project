@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "Labl")
+@Table(name = "labl")
 public class Labl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +20,10 @@ public class Labl {
     @Column(nullable = false, unique = true)
     private String userName;
 
+    @Column(nullable = false)
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "refLabId", referencedColumnName = "labId",nullable = false,unique = true)
+    private Lab lab;
 }
