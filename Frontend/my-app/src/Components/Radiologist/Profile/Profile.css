@@ -99,8 +99,9 @@ body {
 .user-icon {
   width: 150px;
   height: 150px;
-  transform: translateX(180px);
+  transform: translate(95%, -30%);
 }
+
 
 .btn{
   background-color: rgb(66, 173, 239);
@@ -110,7 +111,7 @@ body {
   padding: 10px 20px; 
   cursor: pointer;
   width: 200px;
-  transform: translateX(155px);
+  transform: translate(calc(50% + 50px), calc(-50% - 30px));
 }
 
 .star-icon {
@@ -121,7 +122,7 @@ body {
 
 .rating-container {
   margin-top: -95px; 
-  transform: translate(168px,275%);
+  transform: translate(168px,165%);
 }
 
 .footer1 {
@@ -134,6 +135,7 @@ body {
   left: 0;
   width: 100%;
 }
+
 
   
 
