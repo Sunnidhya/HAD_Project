@@ -34,6 +34,7 @@ public class Patient {
     private String contactNo;
 
     @OneToOne(mappedBy = "patient")
+    @JsonIgnore
     private PatientL patientL;
 
     @OneToMany(mappedBy = "patient")

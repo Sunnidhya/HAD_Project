@@ -31,7 +31,8 @@ public class DoctorController {
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         DoctorL doctorL = doctorService.authenticate(login);
         LoginMessage message = new LoginMessage();
-        if(doctorL.getDoctorId() != null){
+        //change
+        if(doctorL.getDoctor().getDoctorId() != null){
             message.setMessage("Login Successful");
             message.setToken(userAuthProvider.createToken(doctorL.getUserName()));
         }else{

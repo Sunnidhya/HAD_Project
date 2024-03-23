@@ -46,13 +46,15 @@ public class PatientService {
         patient.setEmail(register.getEmail());
         patient.setFullName(register.getFullName());
         patient.setUserName(register.getUserName());
-        iPatientRegistrationRepository.save(patient);
 
-        Patient patient2=iPatientRegistrationRepository.getPatientProfile(register.getUserName(), register.getEmail());
-        patientL.setPatientId(patient2.getPatientId());
         patientL.setUserName(register.getUserName());
         patientL.setPassword(register.getPassword());
+        patientL.setPatient(patient);
+
         iPatientLoginRepository.save(patientL);
+
+        patient.setPatientL(patientL);
+        iPatientRegistrationRepository.save(patient);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
