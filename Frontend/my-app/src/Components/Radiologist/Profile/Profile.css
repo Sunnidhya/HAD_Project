@@ -45,12 +45,13 @@ body {
 
 .pageTitle {
   color: white;
-  margin-left: 255px;
+  margin-left: 200px;
   margin-top: 35px;
+  transform: translateX(-100px);
 }
 
 .image-container {
-    position: absolute;
+    position: fixed;
     top: calc(50% + 50px);
     right: 130px;
     transform: translate(80px,-280px);
@@ -78,28 +79,29 @@ body {
 .profile-details input[type="text"],
 .profile-details input[type="email"],
 .profile-details input[type="password"] {
-  width: 250px; /* Adjust width as needed */
+  width: 250px; 
   padding: 10px;
-  border: 2px solid rgb(20, 129, 197); /* Blue color */
-  border-radius: 10px; /* Rounded edges */
-  box-sizing: border-box; /* Include padding in width */
+  border: 2px solid rgb(20, 129, 197); 
+  border-radius: 10px; 
+  box-sizing: border-box; 
 }
 
 .profile-details input[type="text"]::placeholder,
 .profile-details input[type="email"]::placeholder,
 .profile-details input[type="password"]::placeholder {
-  color: rgba(3, 43, 69, 0.811); /* Blue color */
+  color: rgba(3, 43, 69, 0.811); 
 }
 
 .left-sidebar {
-  margin-top: 20px; /* Adjust margin as needed */
+  margin-top: 20px; 
 }
 
 .user-icon {
   width: 150px;
   height: 150px;
-  transform: translateX(180px);
+  transform: translate(95%, -30%);
 }
+
 
 .btn{
   background-color: rgb(66, 173, 239);
@@ -109,7 +111,7 @@ body {
   padding: 10px 20px; 
   cursor: pointer;
   width: 200px;
-  transform: translateX(155px);
+  transform: translate(calc(50% + 50px), calc(-50% - 30px));
 }
 
 .star-icon {
@@ -120,17 +122,20 @@ body {
 
 .rating-container {
   margin-top: -95px; 
-  transform: translate(168px,275%);
+  transform: translate(168px,165%);
 }
 
 .footer1 {
   background-color: rgb(20, 129, 197);
   color: #ffffff;
   padding: 20px;
-  height:100%;
   text-align: center;
-  transform: translateY(285%);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
+
 
   
 

@@ -2,17 +2,14 @@ package com.example.had_backend.Doctor.Service;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
+import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
-import com.example.had_backend.Patient.Repository.IPatientLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.print.Doc;
 
 @Service
 public class DoctorService {
@@ -37,7 +34,7 @@ public class DoctorService {
         Doctor doctor = new Doctor();
         DoctorL doctorL = new DoctorL();
 
-        Doctor doctor2=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName());
+        Doctor doctor2=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName(),doctorRegistrationDTO.getEmail());
         if (doctor2 != null) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("User is already registered");
@@ -51,17 +48,43 @@ public class DoctorService {
         doctor.setUserName(doctorRegistrationDTO.getUserName());
         doctor.setDepartment(doctorRegistrationDTO.getDept());
 
-        doctorL.setDoctorId(doctor.getDoctorId());
         doctorL.setUserName(doctorRegistrationDTO.getUserName());
         doctorL.setPassword(doctorRegistrationDTO.getPassword());
+        doctorL.setDoctor(doctor);
 
-        iDoctorRegistrationRepository.save(doctor);
-        Doctor doctor1=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName());
-        doctorL.setDoctorId(doctor1.getDoctorId());
         iDoctorLoginRepository.save(doctorL);
+
+        doctor.setDoctorL(doctorL);
+        iDoctorRegistrationRepository.save(doctor);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
         return loginMessage;
+    }
+
+    public Doctor profile(Doctor doctor3) {
+
+        return iDoctorRegistrationRepository.getProfile(doctor3.getUserName());
+    }
+
+    public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {
+
+        DoctorL doctorL1=iDoctorLoginRepository.findByEmailAndPassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getCurrentPassword());
+        Doctor doctor=iDoctorRegistrationRepository.getProfile(doctorChangePasswordDTO.getUserName());
+        if (doctorL1 == null) {
+            LoginMessage loginMsg = new LoginMessage();
+            loginMsg.setMessage("Current Password or User Name entered wrongly ");
+            return loginMsg;
+        } else if (doctorChangePasswordDTO.getCurrentPassword().equals(doctorChangePasswordDTO.getNewPassword())) {
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.setMessage("Same Password entered");
+            return loginMessage;
+        }
+
+        iDoctorLoginRepository.changePassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getNewPassword());
+        doctorChangePasswordDTO.setEmail(doctor.getEmail());
+        LoginMessage loginMsg = new LoginMessage();
+        loginMsg.setMessage("Password updated successfully");
+        return loginMsg;
     }
 }

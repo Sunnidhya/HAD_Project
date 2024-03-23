@@ -1,21 +1,21 @@
-package com.example.had_backend.Doctor.Entity;
+package com.example.had_backend.Lab.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
 @Getter
 @Setter
-@Table(name = "doctorL")
-public class DoctorL {
-
+@Table(name = "labl")
+public class Labl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String userName;
 
     @Column(nullable = false)
@@ -23,8 +23,6 @@ public class DoctorL {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "refDocId", referencedColumnName = "id")
-    private Doctor doctor;
-
-
+    @JoinColumn(name = "refLabId", referencedColumnName = "labId")
+    private Lab lab;
 }

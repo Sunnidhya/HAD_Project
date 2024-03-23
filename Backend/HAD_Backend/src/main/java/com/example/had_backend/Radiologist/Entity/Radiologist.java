@@ -1,5 +1,6 @@
-package com.example.had_backend.Doctor.Entity;
+package com.example.had_backend.Radiologist.Entity;
 
+import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.GlobalEntity.Cases;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -8,16 +9,15 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
-@Table(name = "doctor")
-public class Doctor {
+@Table(name = "radiologist")
+public class Radiologist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer doctorId;
+    @Column(name = "radiologistId")
+    private Integer radiologistId;
 
     @Column(nullable = false)
     private String name;
@@ -37,13 +37,12 @@ public class Doctor {
     @Column(nullable = false)
     private String department;
 
-    @OneToOne(mappedBy = "doctor")
+    @OneToOne(mappedBy = "radiologist")
     @JsonIgnore
-    private DoctorL doctorL;
+    private RadiologistL radiologistL;
 
-    
-
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "radiologist")
     @JsonIgnore
     private List<Cases> cases;
+
 }

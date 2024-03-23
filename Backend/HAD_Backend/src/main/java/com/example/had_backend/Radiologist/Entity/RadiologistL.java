@@ -1,5 +1,6 @@
-package com.example.had_backend.Doctor.Entity;
+package com.example.had_backend.Radiologist.Entity;
 
+import com.example.had_backend.Patient.Entity.Patient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,9 +9,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "doctorL")
-public class DoctorL {
-
+@Table(name = "radiologistL")
+public class RadiologistL {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,8 +23,6 @@ public class DoctorL {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "refDocId", referencedColumnName = "id")
-    private Doctor doctor;
-
-
+    @JoinColumn(name = "refRadId", referencedColumnName = "radiologistId",nullable = false,unique = true)
+    private Radiologist radiologist;
 }
