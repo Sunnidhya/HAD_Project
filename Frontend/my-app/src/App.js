@@ -11,12 +11,13 @@ import RadioLogin from './Components/Radiologist/Login/RadioLogin';
 import AdminHomePage from './Components/Admin/landing/AdminHomePage';
 import Profile from './Components/Radiologist/Profile/Profile';
 import { Routes, Route } from 'react-router-dom';
+import LabLanding from './Components/Lab/Landing/LabLanding';
 
 
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<AdminHomePage/>}/>
+    <Route path="/" element={<FirstPage/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>
@@ -24,6 +25,8 @@ function App() {
     <Route path="/patient" element={<PatientLogin/>}/>
     <Route path="/patient/landing" element={<PatientLanding/>}/>
     <Route path="/doctor/landing" element={<DoctorLanding/>}/>
+    <Route path="/lab/landing" element={<LabLanding/>}/>
+    <Route path="/admin/landing" element={<AdminHomePage/>}/>
   </Routes>
 
 
