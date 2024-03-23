@@ -1,4 +1,4 @@
-package com.example.had_backend.GlobalEntity;
+package com.example.had_backend.Global.Entity;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Lab.Entity.Lab;
@@ -7,8 +7,6 @@ import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 
 @Entity

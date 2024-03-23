@@ -1,6 +1,8 @@
 package com.example.had_backend.Patient.Service;
 
 
+import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Patient.Entity.Patient;
@@ -18,6 +20,8 @@ public class PatientService {
     private IPatientLoginRepository iPatientLoginRepository;
     @Autowired
     private IPatientRegistrationRepository iPatientRegistrationRepository;
+    @Autowired
+    private IUserNameRepository iUserNameRepository;
 
 
     public PatientL authenticate(LoginDTO loginDTO) {
@@ -34,6 +38,14 @@ public class PatientService {
     public LoginMessage registerPatient(RegisterDTO register) {
         Patient patient = new Patient();
         PatientL patientL = new PatientL();
+        UserName userName = new UserName();
+
+        UserName userName1 = iUserNameRepository.getProfile(register.getUserName());
+        if (userName1!=null){
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.setMessage("UserName already exists");
+            return loginMessage;
+        }
         Patient patient1=iPatientRegistrationRepository.getPatientProfile(register.getUserName(),register.getEmail());
         if (patient1 != null) {
             LoginMessage loginMsg = new LoginMessage();
@@ -51,10 +63,15 @@ public class PatientService {
         patientL.setPassword(register.getPassword());
         patientL.setPatient(patient);
 
+
+
         iPatientLoginRepository.save(patientL);
 
         patient.setPatientL(patientL);
         iPatientRegistrationRepository.save(patient);
+
+        userName.setUserName(register.getUserName());
+        iUserNameRepository.save(userName);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
