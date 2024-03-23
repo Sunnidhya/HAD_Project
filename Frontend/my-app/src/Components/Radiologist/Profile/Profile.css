@@ -22,12 +22,9 @@
 
 */
 
-
 body {
   overflow-x: hidden;
 }
-
-
 
 .Profile-Login-hor{
    display: flex;
@@ -38,7 +35,6 @@ body {
 #radseideimg{
     padding-top: 1px;
     padding-left: 10px;
-
     height: 90px;
     width: 90px;
 }
@@ -57,51 +53,41 @@ body {
     transform: translate(80px,-280px);
     text-align: center;
     margin: 20px;
-  }
-  
-  .profile-image {
-    width: 950px; 
-    height: 400px; 
-    display: block; 
-    margin: 20px; 
-    transform: translateX(50px);
-  }
+}
 
-  .profile-details {
-    position: absolute;
-    top: 70%;
-    right: 40%;
-    transform: translate(130px, -90%);
-    text-align: center;
-    margin: 20px;
-  }
-  
+.profile-image { 
+  width: 950px; 
+  height: 400px; 
+  display: block; 
+  margin: 20px; 
+  transform: translateX(50px);
+}
+.profile-details {
+  position: absolute;
+  top: 70%;
+  right: 40%;
+  transform: translate(130px, -90%);
+  text-align: center;
+  margin: 20px;
+}
+
 .profile-details input[type="text"],
 .profile-details input[type="email"],
 .profile-details input[type="password"] {
-  width: 350px; 
-  padding: 10px;
-  border: 2px solid rgb(20, 129, 197); 
-  border-radius: 10px; 
-  box-sizing: border-box; 
-}
-
-.profile-details input[type="text"]::placeholder,
-.profile-details input[type="email"]::placeholder,
-.profile-details input[type="password"]::placeholder {
-  color: rgba(3, 43, 69, 0.811); 
-}
-
-.left-sidebar {
-  margin-top: 20px; 
+width: 350px; 
+padding: 10px;
+border: 2px solid rgb(20, 129, 197); 
+border-radius: 10px;
+box-sizing: border-box; 
 }
 
 .user-icon {
   width: 150px;
   height: 150px;
-  transform: translate(25%, -30%);
+  position: absolute;
+  top:-80%;
+  left:0;
 }
-
 
 .btn{
   background-color: rgb(66, 173, 239);
@@ -111,7 +97,9 @@ body {
   padding: 10px 20px; 
   cursor: pointer;
   width: 200px;
-  transform: translate(calc(50% - 50px), calc(-50% - 30px));
+  position:absolute;
+  margin-top: 13%;
+  margin-left: 2.5%;
 }
 
 .star-icon {
@@ -121,8 +109,8 @@ body {
 }
 
 .rating-container {
-  margin-top: -95px; 
-  transform: translate(5%,165%);
+  margin-top:14% ;
+  margin-left: 3.5%; 
 }
 
 .footer1 {
