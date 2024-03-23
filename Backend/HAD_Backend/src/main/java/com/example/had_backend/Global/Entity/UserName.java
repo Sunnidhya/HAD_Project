@@ -1,4 +1,4 @@
-package com.example.had_backend.GlobalEntity;
+package com.example.had_backend.Global.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "Doctor")
+@Table(name = "UserName")
 public class UserName {
 
     @Id
@@ -18,7 +18,5 @@ public class UserName {
     @Column(unique = true,nullable = false)
     private String userName;
 
-
-//    @OneToOne(mappedBy = "DoctorL")
-//    private Doctor doctor;
 }
+
