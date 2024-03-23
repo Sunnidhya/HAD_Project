@@ -6,13 +6,25 @@ import profile from '../../../Resources/Profile.png';
 import user from '../../../Resources/IconProfile.png';
 import star1 from '../../../Resources/star.jpg';
 import admin from '../../../Resources/Picture1.png';
+import logout from '../../../Resources/log-out.png';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './AdminHomePage.css'
 const Profile = () => {
   const [patientValue, setPatientValue] = useState(12);
   const [radiologistValue, setRadiologistValue] = useState(22);
   const [doctorValue, setDoctorValue] = useState(22);
   const [labValue, setLabValue] = useState(12);
+
+  let nav = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.clear()
+    alert('Logout successful!');
+    nav("/admin")
+  };
+
     return (
       <div class="Admin-Login-container">
         <div class="Admin-Login-hor">
@@ -22,6 +34,9 @@ const Profile = () => {
           <div className='divisions1'>
              <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
           </div>
+          <div class="AdminLogout" onClick={handleLogout}>  
+        <img src={logout} alt="Logout" className="input-icon1" />
+        </div>
         </div>
 
         <div className="vertical-box">

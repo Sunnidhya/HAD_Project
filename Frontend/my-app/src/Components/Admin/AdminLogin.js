@@ -2,11 +2,25 @@ import imgmain from '../../Resources/adminImage1.png';
 import userIcon from '../../Resources/UserIcon.png';
 import passwordIcon from '../../Resources/PasswordIcon.png';
 import imgside from '../../Resources/AppLogo.png';
+import { useNavigate } from 'react-router-dom';
 import './Admin.css'
 const AdminLogin = () => {
+
+  let nav = useNavigate()
+
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+  };
+
+  const loginA = async (e,usernameD,passwordD) => {
+    e.preventDefault();
+    localStorage.clear()
+    if(usernameD=='admin' && passwordD=='admin'){
+      nav('/admin/landing')
+    }else{
+      alert('Wrong Username or Password')
+    }
   };
   
   return (
@@ -40,7 +54,15 @@ const AdminLogin = () => {
             </form>
             <div className='AdminForgotPassword'><b>Forgot Password?</b></div>
 
-            <button type="submit" id="login_admin">
+            <button type="submit" id="login_admin"
+            onClick={(e) =>
+              loginA(
+                e,
+                document.getElementById("username").value,
+                document.getElementById("password").value
+              )
+            }
+            >
               Login
             </button>
           </div>
