@@ -1,12 +1,15 @@
-package com.example.had_backend.Patient.Model;
-
+package com.example.had_backend.Lab.Model;
 
 import lombok.Data;
 
 @Data
-public class PatientChangePasswordDTO {
+public class LabChangePasswordDTO {
     String userName;
     String currentPassword;
     String newPassword;
     String email;
 }
+
+
+
+

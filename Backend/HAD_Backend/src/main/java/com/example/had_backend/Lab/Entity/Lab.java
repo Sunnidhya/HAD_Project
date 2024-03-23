@@ -1,4 +1,4 @@
-package com.example.had_backend.Patient.Entity;
+package com.example.had_backend.Lab.Entity;
 
 import com.example.had_backend.GlobalEntity.Cases;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,18 +8,19 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Entity
 @Getter
 @Setter
-@Table(name = "patient")
-public class Patient {
+@Table(name = "lab")
+public class Lab {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "patientId")
-    private Integer patientId;
+    @Column(name = "labId")
+    private Integer labId;
 
     @Column(nullable = false)
-    private String fullName;
+    private String labName;
 
     @Column(nullable = false, unique = true)
     private String userName;
@@ -28,17 +29,13 @@ public class Patient {
     private String email;
 
     @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
     private String contactNo;
 
-    @OneToOne(mappedBy = "patient")
+    @OneToOne(mappedBy = "lab")
     @JsonIgnore
-    private PatientL patientL;
+    private Labl labl;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "lab")
     @JsonIgnore
     private List<Cases> cases;
-
 }

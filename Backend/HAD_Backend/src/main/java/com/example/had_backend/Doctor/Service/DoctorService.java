@@ -6,14 +6,10 @@ import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
-import com.example.had_backend.Patient.Repository.IPatientLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.print.Doc;
 
 @Service
 public class DoctorService {
@@ -51,13 +47,15 @@ public class DoctorService {
         doctor.setEmail(doctorRegistrationDTO.getEmail());
         doctor.setUserName(doctorRegistrationDTO.getUserName());
         doctor.setDepartment(doctorRegistrationDTO.getDept());
-        iDoctorRegistrationRepository.save(doctor);
 
-        Doctor doctor1=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName(),doctorRegistrationDTO.getEmail());
-        doctorL.setDoctorId(doctor1.getDoctorId());
         doctorL.setUserName(doctorRegistrationDTO.getUserName());
         doctorL.setPassword(doctorRegistrationDTO.getPassword());
+        doctorL.setDoctor(doctor);
+
         iDoctorLoginRepository.save(doctorL);
+
+        doctor.setDoctorL(doctorL);
+        iDoctorRegistrationRepository.save(doctor);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
@@ -65,13 +63,14 @@ public class DoctorService {
     }
 
     public Doctor profile(Doctor doctor3) {
+
         return iDoctorRegistrationRepository.getProfile(doctor3.getUserName());
     }
 
     public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {
 
         DoctorL doctorL1=iDoctorLoginRepository.findByEmailAndPassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getCurrentPassword());
-
+        Doctor doctor=iDoctorRegistrationRepository.getProfile(doctorChangePasswordDTO.getUserName());
         if (doctorL1 == null) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("Current Password or User Name entered wrongly ");
@@ -83,6 +82,7 @@ public class DoctorService {
         }
 
         iDoctorLoginRepository.changePassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getNewPassword());
+        doctorChangePasswordDTO.setEmail(doctor.getEmail());
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;

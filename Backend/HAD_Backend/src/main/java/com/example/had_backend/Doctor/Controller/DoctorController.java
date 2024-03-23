@@ -8,8 +8,6 @@ import com.example.had_backend.Doctor.Service.DoctorService;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
-import com.example.had_backend.Patient.Entity.Patient;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,8 @@ public class DoctorController {
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         DoctorL doctorL = doctorService.authenticate(login);
         LoginMessage message = new LoginMessage();
-        if(doctorL.getDoctorId() != null){
+        //change
+        if(doctorL.getDoctor().getDoctorId() != null){
             message.setMessage("Login Successful");
             message.setToken(userAuthProvider.createToken(doctorL.getUserName()));
         }else{
@@ -66,9 +65,8 @@ public class DoctorController {
     public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated DoctorChangePasswordDTO doctorChangePasswordDTO ) {
         LoginMessage loginMessage1 = doctorService.changePassword(doctorChangePasswordDTO);
         if(loginMessage1.getMessage().equals("Password updated successfully")){
-            //will get change after applying join between tables as email has been hardcoded
             emailService.sendSimpleMessage(
-                    "roy.sunnidhya96@gmail.com",
+                    doctorChangePasswordDTO.getEmail(),
                     "Password has been changed successfully",
                     "Username: "+doctorChangePasswordDTO.getUserName()+ "\n"+"Password: "+doctorChangePasswordDTO.getNewPassword());
         }

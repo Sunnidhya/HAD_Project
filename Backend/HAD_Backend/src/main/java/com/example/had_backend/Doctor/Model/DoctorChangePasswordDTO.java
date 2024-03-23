@@ -8,4 +8,5 @@ public class DoctorChangePasswordDTO {
     String userName;
     String currentPassword;
     String newPassword;
+    String email;
 }
