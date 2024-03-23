@@ -18,7 +18,7 @@
     margin-top: 35px;
 }
 
-.footer1 {
+.footer2 {
     background-color: rgb(34, 206, 209);
     color: #ffffff;
     padding: 20px;
@@ -44,8 +44,8 @@
 .user-icon {
     max-width: 70%; 
     max-height: 70%;
-    margin-left: 35px; 
-    margin-top: 75px;
+    margin-left: 5%; 
+    margin-top: 50%;
     width: auto; 
     height: auto; 
 }
@@ -83,13 +83,19 @@
     transform: translate(30px,20px);
     height: 180px;
     width: 400px;
+    border-radius: 20px;
     color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: blue;
+    transition: transform 0.3s ease;
 }
+
+.box1:hover {
+    transform: translate(30px, 20px) scale(1.1);
+  }
 
 .box2 {
     transform: translate(30px,39px);
@@ -97,17 +103,24 @@
     width: 400px;
     color: #ffffff;
     display: flex;
+    border-radius: 20px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: blueviolet;
+    transition: transform 0.3s ease;
 }
+
+.box2:hover {
+    transform: translate(30px, 39px) scale(1.1);
+  }
 
 .box3,
 .box4 {
     height: 180px;
     width: 400px;
     display: flex;
+    border-radius: 20px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -115,8 +128,16 @@
     transform: translate(120px, 20px); 
     background-color: rgb(231, 168, 9);
     color:#ffffff;
+    transition: transform 0.3s ease;
 }
 
+.box3:hover{
+    transform:translate(120px,20px) scale(1.1);
+}
+
+.box4:hover{
+    transform: translate(120px,20px) scale(1.0);
+}
 .box3 h2,
 .box3 p,
 .box4 h2,

@@ -16,7 +16,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<Profile/>}/>
+    <Route path="/" element={<AdminHomePage/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>

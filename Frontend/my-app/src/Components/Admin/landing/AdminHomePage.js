@@ -52,7 +52,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="footer1">
+        <div className="footer2">
           <footer>About Us</footer>
         </div>
     </div>
