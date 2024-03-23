@@ -38,6 +38,7 @@ public class Radiologist {
     private String department;
 
     @OneToOne(mappedBy = "radiologist")
+    @JsonIgnore
     private RadiologistL radiologistL;
 
     @OneToMany(mappedBy = "radiologist")

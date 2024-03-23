@@ -48,13 +48,15 @@ public class RadiologistService {
         radiologist.setEmail(radiologistRegistrationDTO.getEmail());
         radiologist.setUserName(radiologistRegistrationDTO.getUserName());
         radiologist.setDepartment(radiologistRegistrationDTO.getDept());
-        iRadiologistRegistrationRepository.save(radiologist);
 
-        Radiologist radiologist1=iRadiologistRegistrationRepository.getRadiologist(radiologistRegistrationDTO.getUserName(),radiologistRegistrationDTO.getEmail());
-        radiologistL.setRadiologistId(radiologist1.getRadiologistId());
         radiologistL.setUserName(radiologistRegistrationDTO.getUserName());
         radiologistL.setPassword(radiologistRegistrationDTO.getPassword());
+        radiologistL.setRadiologist(radiologist);
+
         iRadiologistLoginRepository.save(radiologistL);
+
+        radiologist.setRadiologistL(radiologistL);
+        iRadiologistRegistrationRepository.save(radiologist);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");

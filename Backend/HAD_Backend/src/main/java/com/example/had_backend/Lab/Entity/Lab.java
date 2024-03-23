@@ -32,6 +32,7 @@ public class Lab {
     private String contactNo;
 
     @OneToOne(mappedBy = "lab")
+    @JsonIgnore
     private Labl labl;
 
     @OneToMany(mappedBy = "lab")

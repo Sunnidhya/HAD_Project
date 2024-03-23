@@ -34,7 +34,7 @@ public class RadiologistController {
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         RadiologistL radiologistL = radiologistService.authenticate(login);
         LoginMessage message = new LoginMessage();
-        if(radiologistL.getRadiologistId() != null){
+        if(radiologistL.getRadiologist().getRadiologistId() != null){
             message.setMessage("Login Successful");
             message.setToken(userAuthProvider.createToken(radiologistL.getUserName()));
         }else{

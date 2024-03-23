@@ -1,5 +1,6 @@
 package com.example.had_backend.Lab.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,15 +16,13 @@ public class Labl {
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    private Integer labId;
-
-    @Column(nullable = false, unique = true)
     private String userName;
 
     @Column(nullable = false)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "refLabId", referencedColumnName = "labId",nullable = false,unique = true)
+    @JsonIgnore
+    @JoinColumn(name = "refLabId", referencedColumnName = "labId")
     private Lab lab;
 }

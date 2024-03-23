@@ -47,14 +47,15 @@ public class LabService {
         lab.setContactNo(labRegistrationDTO.getContactNo());
         lab.setEmail(labRegistrationDTO.getEmail());
         lab.setUserName(labRegistrationDTO.getUserName());
-        iLabRegistrationRepository.save(lab);
 
-
-        Lab lab1=iLabRegistrationRepository.getLab(labRegistrationDTO.getUserName(),labRegistrationDTO.getEmail());
-        labl.setLabId(lab1.getLabId());
         labl.setUserName(labRegistrationDTO.getUserName());
         labl.setPassword(labRegistrationDTO.getPassword());
+        labl.setLab(lab);
+
         iLabLoginRepository.save(labl);
+
+        lab.setLabl(labl);
+        iLabRegistrationRepository.save(lab);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");

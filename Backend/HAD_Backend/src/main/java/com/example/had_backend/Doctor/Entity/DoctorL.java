@@ -16,9 +16,6 @@ public class DoctorL {
     private Integer id;
 
     @Column(nullable = false,unique = true)
-    private Integer doctorId;
-
-    @Column(nullable = false,unique = true)
     private String userName;
 
     @Column(nullable = false)
@@ -26,6 +23,8 @@ public class DoctorL {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "refDocId", referencedColumnName = "id",nullable = false,unique = true)
+    @JoinColumn(name = "refDocId", referencedColumnName = "id")
     private Doctor doctor;
+
+
 }

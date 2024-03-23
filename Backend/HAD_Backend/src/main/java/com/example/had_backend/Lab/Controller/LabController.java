@@ -34,7 +34,7 @@ public class LabController {
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         Labl labl = labService.authenticate(login);
         LoginMessage message = new LoginMessage();
-        if (labl.getLabId() != null) {
+        if (labl.getLab().getLabId() != null) {
             message.setMessage("Login Successful");
             message.setToken(userAuthProvider.createToken(labl.getUserName()));
         } else {

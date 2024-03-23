@@ -47,13 +47,15 @@ public class DoctorService {
         doctor.setEmail(doctorRegistrationDTO.getEmail());
         doctor.setUserName(doctorRegistrationDTO.getUserName());
         doctor.setDepartment(doctorRegistrationDTO.getDept());
-        iDoctorRegistrationRepository.save(doctor);
 
-        Doctor doctor1=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName(),doctorRegistrationDTO.getEmail());
-        doctorL.setDoctorId(doctor1.getDoctorId());
         doctorL.setUserName(doctorRegistrationDTO.getUserName());
         doctorL.setPassword(doctorRegistrationDTO.getPassword());
+        doctorL.setDoctor(doctor);
+
         iDoctorLoginRepository.save(doctorL);
+
+        doctor.setDoctorL(doctorL);
+        iDoctorRegistrationRepository.save(doctor);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
