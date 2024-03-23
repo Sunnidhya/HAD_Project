@@ -1,7 +1,6 @@
 package com.example.had_backend.Radiologist.Entity;
 
-import com.example.had_backend.Doctor.Entity.DoctorL;
-import com.example.had_backend.GlobalEntity.Cases;
+import com.example.had_backend.Global.Entity.Cases;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;

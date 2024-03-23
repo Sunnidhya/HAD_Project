@@ -1,5 +1,7 @@
 package com.example.had_backend.Radiologist.Service;
 
+import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
@@ -18,6 +20,8 @@ public class RadiologistService {
     private IRadiologistLoginRepository iRadiologistLoginRepository;
     @Autowired
     private IRadiologistRegistrationRepository iRadiologistRegistrationRepository;
+    @Autowired
+    private IUserNameRepository iUserNameRepository;
 
     public RadiologistL authenticate(LoginDTO loginDTO) {
         RadiologistL radiologistL = new RadiologistL();
@@ -34,6 +38,14 @@ public class RadiologistService {
 
         Radiologist radiologist = new Radiologist();
         RadiologistL radiologistL = new RadiologistL();
+        UserName userName = new UserName();
+
+        UserName userName1 = iUserNameRepository.getProfile(radiologistRegistrationDTO.getUserName());
+        if (userName1!=null){
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.setMessage("UserName already exists");
+            return loginMessage;
+        }
 
         Radiologist radiologist2=iRadiologistRegistrationRepository.getRadiologist(radiologistRegistrationDTO.getUserName(),radiologistRegistrationDTO.getEmail());
         if (radiologist2 != null) {
@@ -57,6 +69,9 @@ public class RadiologistService {
 
         radiologist.setRadiologistL(radiologistL);
         iRadiologistRegistrationRepository.save(radiologist);
+
+        userName.setUserName(radiologistRegistrationDTO.getUserName());
+        iUserNameRepository.save(userName);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");

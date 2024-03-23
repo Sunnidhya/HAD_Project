@@ -1,6 +1,6 @@
 package com.example.had_backend.Doctor.Entity;
 
-import com.example.had_backend.GlobalEntity.Cases;
+import com.example.had_backend.Global.Entity.Cases;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -40,8 +40,6 @@ public class Doctor {
     @OneToOne(mappedBy = "doctor")
     @JsonIgnore
     private DoctorL doctorL;
-
-    
 
     @OneToMany(mappedBy = "doctor")
     @JsonIgnore
