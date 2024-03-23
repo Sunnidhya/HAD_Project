@@ -1,0 +1,148 @@
+.Admin-Login-hor{
+    display: flex;
+    background-color: rgb(34, 206, 209);
+}
+  
+  
+#radseideimg{
+    padding-top: 1%;
+    padding-left: 10%;
+    height: 120px;
+    width: 120px;
+}
+  
+  
+.pageTitle {
+    color: white;
+    margin-left: 90px;
+    margin-top: 35px;
+}
+
+.footer1 {
+    background-color: rgb(34, 206, 209);
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .vertical-box {
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    width: 250px;
+    height: 365px; 
+    background-color: rgb(34, 206, 209);
+    padding: 20px; 
+    float: left; /* Float the first container to the left */
+    margin-right: 20px;
+}
+
+.user-icon {
+    max-width: 70%; 
+    max-height: 70%;
+    margin-left: 35px; 
+    margin-top: 75px;
+    width: auto; 
+    height: auto; 
+}
+
+.vertical-box1 {
+    float: left; /* Float the second container to the left */
+}
+
+.box-container {
+    width: 50%; /* Adjust the width as needed */
+}
+
+.box-container1 {
+    width: 50%;
+}
+
+.box-container2 {
+    width: 50%; 
+}
+
+.box-container::after,
+.box-container1::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.box-container1::after,
+.box-container2::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.box1 {
+    transform: translate(30px,20px);
+    height: 180px;
+    width: 400px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: blue;
+}
+
+.box2 {
+    transform: translate(30px,39px);
+    height: 180px;
+    width: 400px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: blueviolet;
+}
+
+.box3,
+.box4 {
+    height: 180px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+    transform: translate(120px, 20px); 
+    background-color: rgb(231, 168, 9);
+    color:#ffffff;
+}
+
+.box3 h2,
+.box3 p,
+.box4 h2,
+.box4 p {
+    position: absolute; 
+    transform: translate(-10px,20px); 
+}
+
+.box3 h2
+{
+    top:5%;
+}
+
+.box3 p
+{
+    top:40%;
+}
+
+.box4 h2
+{
+    top: 5%; 
+}
+.box4 p{
+    top:40%;
+}
+.box4 {
+    transform: translate(120px, 40px); 
+    background-color: green; 
+}
