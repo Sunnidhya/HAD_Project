@@ -6,6 +6,8 @@ import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
+import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class DoctorService {
 
     @Autowired
     private IDoctorRegistrationRepository iDoctorRegistrationRepository;
+
+    @Autowired
+    private IUserNameRepository iUserNameRepository;
 
     public DoctorL authenticate(LoginDTO loginDTO) {
         DoctorL doctorL = new DoctorL();
@@ -33,6 +38,14 @@ public class DoctorService {
     public LoginMessage register(DoctorRegistrationDTO doctorRegistrationDTO) {
         Doctor doctor = new Doctor();
         DoctorL doctorL = new DoctorL();
+        UserName userName = new UserName();
+
+        UserName userName1 = iUserNameRepository.getProfile(doctorRegistrationDTO.getUserName());
+        if (userName1!=null){
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.setMessage("UserName already exists");
+            return loginMessage;
+        }
 
         Doctor doctor2=iDoctorRegistrationRepository.getDoctor(doctorRegistrationDTO.getUserName(),doctorRegistrationDTO.getEmail());
         if (doctor2 != null) {
@@ -52,10 +65,14 @@ public class DoctorService {
         doctorL.setPassword(doctorRegistrationDTO.getPassword());
         doctorL.setDoctor(doctor);
 
+
         iDoctorLoginRepository.save(doctorL);
 
         doctor.setDoctorL(doctorL);
         iDoctorRegistrationRepository.save(doctor);
+
+        userName.setUserName(doctorRegistrationDTO.getUserName());
+        iUserNameRepository.save(userName);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");

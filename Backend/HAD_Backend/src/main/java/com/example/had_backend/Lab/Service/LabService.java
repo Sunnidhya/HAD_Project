@@ -2,6 +2,8 @@ package com.example.had_backend.Lab.Service;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
+import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
 import com.example.had_backend.Lab.Model.LabChangePasswordDTO;
@@ -21,6 +23,9 @@ public class LabService {
 
     @Autowired
     private ILabRegistrationRepository iLabRegistrationRepository;
+
+    @Autowired
+    private IUserNameRepository iUserNameRepository;
     public Labl authenticate(LoginDTO loginDTO) {
         Labl labl = new Labl();
         try {
@@ -35,6 +40,14 @@ public class LabService {
     public LoginMessage registerLab(LabRegistrationDTO labRegistrationDTO) {
         Lab lab = new Lab();
         Labl labl = new Labl();
+        UserName userName = new UserName();
+
+        UserName userName1 = iUserNameRepository.getProfile(labRegistrationDTO.getUserName());
+        if (userName1!=null){
+            LoginMessage loginMessage = new LoginMessage();
+            loginMessage.setMessage("UserName already exists");
+            return loginMessage;
+        }
 
         Lab lab2=iLabRegistrationRepository.getLab(labRegistrationDTO.getUserName(),labRegistrationDTO.getEmail());
         if (lab2 != null) {
@@ -56,6 +69,9 @@ public class LabService {
 
         lab.setLabl(labl);
         iLabRegistrationRepository.save(lab);
+
+        userName.setUserName(labRegistrationDTO.getUserName());
+        iUserNameRepository.save(userName);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
