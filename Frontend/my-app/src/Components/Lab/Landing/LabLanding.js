@@ -36,7 +36,7 @@ const LabLanding = () => {
         </div>
     </div>
     <div></div>
-      <div class="Docfooter">
+      <div class="Labfooter">
         <h2>About Us</h2>
       </div>
     </div>
