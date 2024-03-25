@@ -1,9 +1,13 @@
 package com.example.had_backend.Radiologist.Service;
 
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Patient.Entity.Patient;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.Radiologist.Entity.RadiologistL;
 import com.example.had_backend.Radiologist.Model.RadiologistChangePasswordDTO;
@@ -12,6 +16,8 @@ import com.example.had_backend.Radiologist.Repository.IRadiologistLoginRepositor
 import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RadiologistService {
@@ -22,6 +28,8 @@ public class RadiologistService {
     private IRadiologistRegistrationRepository iRadiologistRegistrationRepository;
     @Autowired
     private IUserNameRepository iUserNameRepository;
+    @Autowired
+    private ICasesRepository iCasesRepository;
 
     public RadiologistL authenticate(LoginDTO loginDTO) {
         RadiologistL radiologistL = new RadiologistL();
@@ -101,5 +109,25 @@ public class RadiologistService {
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
+    }
+
+    public LoginMessage removePatient(RadiologistRegistrationDTO radiologistRegistrationDTO) {
+        Radiologist radiologist = iRadiologistRegistrationRepository
+                .getRadiologist(radiologistRegistrationDTO.getUserName(), radiologistRegistrationDTO.getEmail());
+
+
+        iRadiologistLoginRepository.updateAndSetRadiologistIdNull(radiologist.getRadiologistId());
+        iRadiologistRegistrationRepository.removeEntry(radiologist.getRadiologistId());
+        LoginMessage removeDoc = new LoginMessage();
+        removeDoc.setMessage("Patient Profile Deleted Successfully");
+        return removeDoc;
+    }
+
+    public List<Cases> getCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getCases(searchResultDTO.getSearchResult());
+    }
+
+    public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getAllCasesRadiologist(searchResultDTO.getUserName());
     }
 }

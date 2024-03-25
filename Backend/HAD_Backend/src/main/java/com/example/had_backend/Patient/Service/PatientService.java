@@ -1,7 +1,11 @@
 package com.example.had_backend.Patient.Service;
 
 
+import com.example.had_backend.Doctor.Entity.Doctor;
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
@@ -14,6 +18,8 @@ import com.example.had_backend.Patient.Repository.IPatientRegistrationRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PatientService {
     @Autowired
@@ -22,6 +28,8 @@ public class PatientService {
     private IPatientRegistrationRepository iPatientRegistrationRepository;
     @Autowired
     private IUserNameRepository iUserNameRepository;
+    @Autowired
+    private ICasesRepository iCasesRepository;
 
 
     public PatientL authenticate(LoginDTO loginDTO) {
@@ -100,5 +108,25 @@ public class PatientService {
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
+    }
+
+    public LoginMessage removePatient(RegisterDTO registerDTO) {
+        Patient patient = iPatientRegistrationRepository
+                .getPatientProfile(registerDTO.getUserName(), registerDTO.getEmail());
+
+
+        iPatientLoginRepository.updateAndSetPatientIdNull(patient.getPatientId());
+        iPatientRegistrationRepository.removeEntry(patient.getPatientId());
+        LoginMessage removeDoc = new LoginMessage();
+        removeDoc.setMessage("Patient Profile Deleted Successfully");
+        return removeDoc;
+    }
+
+    public List<Cases> getCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getCases(searchResultDTO.getSearchResult());
+    }
+
+    public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getAllCasesPatient(searchResultDTO.getUserName());
     }
 }
