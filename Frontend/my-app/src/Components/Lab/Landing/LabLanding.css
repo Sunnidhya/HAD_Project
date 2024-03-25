@@ -1,0 +1,65 @@
+
+/* To be included before every new file */
+.Doctor-Login-hor{
+    display: flex;
+    min-width: 1200px;
+    background-color: rgb(230, 157, 31);
+}
+
+
+  
+#docsideimg{
+    padding-top: 1%;
+    padding-left: 10%;
+    height: 120px;
+    width: 120px;
+}
+  
+  
+
+
+/* ------------------------------------------------------ */
+
+.Search{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-left: 10%;
+    
+}
+
+.LabSearch
+{
+    height: 30px;
+    width: 100vh;
+    border-radius:50px;
+    border-width: 3px;
+    border-color: rgb(230, 157, 31);
+    margin-left: 150px;
+    margin-top: 20px;
+
+}
+.LabLogout{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    
+}
+.input-icon1
+{
+   margin-left: 250px;
+   margin-top: 20px;
+}
+
+
+ .Docfooter {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(230, 157, 31);
+    padding: 10px;
+    text-align: center;
+    color: white;
+  }
+  

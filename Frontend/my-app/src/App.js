@@ -11,6 +11,7 @@ import RadioLogin from './Components/Radiologist/Login/RadioLogin';
 import AdminHomePage from './Components/Admin/landing/AdminHomePage';
 import Profile from './Components/Radiologist/Profile/Profile';
 import { Routes, Route } from 'react-router-dom';
+import LabLanding from './Components/Lab/Landing/LabLanding';
 import RadioLanding from './Components/Radiologist/Landing/RadiologistLanding';
 
 
@@ -25,6 +26,7 @@ function App() {
     <Route path="/patient" element={<PatientLogin/>}/>
     <Route path="/patient/landing" element={<PatientLanding/>}/>
     <Route path="/doctor/landing" element={<DoctorLanding/>}/>
+    <Route path="/lab/landing" element={<LabLanding/>}/>
     <Route path="/radiologist/landing" element={<RadioLanding/>}/>
     <Route path="/admin/landing" element={<AdminHomePage/>}/>
   </Routes>
