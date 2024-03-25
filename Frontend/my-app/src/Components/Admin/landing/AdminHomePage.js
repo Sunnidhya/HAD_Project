@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './AdminHomePage.css'
-const Profile = () => {
+const AdminLanding = () => {
   const [patientValue, setPatientValue] = useState(12);
   const [radiologistValue, setRadiologistValue] = useState(22);
   const [doctorValue, setDoctorValue] = useState(22);
@@ -73,4 +73,4 @@ const Profile = () => {
     </div>
     );
 }
-export default Profile;
+export default AdminLanding;
