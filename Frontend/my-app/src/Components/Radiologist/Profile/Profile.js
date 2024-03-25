@@ -5,7 +5,7 @@ import imgside from '../../../Resources/AppLogo.png';
 import profile from '../../../Resources/Profile.png';
 import user from '../../../Resources/IconProfile.png';
 import star1 from '../../../Resources/star.jpg';
-import { FaStar } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import React, { useState } from 'react';
 
 import './Profile.css'
@@ -60,7 +60,7 @@ const Profile = () => {
         </div>
         <div className="rating-container">
         {[...Array(5)].map((_, index) => (
-            <FaStar
+            <FaUser
               key={index}
               className="star-icon"
               onClick={() => handleStarClick(index + 1)}

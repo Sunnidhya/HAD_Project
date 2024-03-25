@@ -7,10 +7,14 @@ import fullName from '../../../Resources/fullname3.png';
 import address from '../../../Resources/address.png';
 import Email from '../../../Resources/email.png';
 import contact from '../../../Resources/Contact.png';
+import { patientRegisterAPI } from '../../../Network/APIendpoints';
 import './RegPatient.css';
+import { useNavigate } from 'react-router-dom';
+import { request } from '../../../Network/axiosHelper';
 
 const RegPatient = () => {
 //   here password1 is variable and set password is function
+  let nav = useNavigate()
   const [password1, setPassword] = useState(''); 
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true); 
@@ -31,6 +35,34 @@ const RegPatient = () => {
       setPasswordMatch(false);
     } else {
       setPasswordMatch(true);
+    }
+  };
+
+  const regP = async (e,usernameP,fullnameP,addressP,emailP,contactP,passwordP,confirmPasswordP) => {
+    if(passwordP === confirmPasswordP){
+      e.preventDefault();
+      localStorage.clear()
+      const data = {
+        userName: usernameP,
+        password: passwordP,
+        fullName: fullnameP,
+        address: addressP,
+        email: emailP,
+        contactNo: contactP
+      };
+      request("POST",
+      patientRegisterAPI, 
+      data
+      ).then((response) => {
+        console.warn("Data",response.data)
+        alert(response.data.message);
+        nav('/patient/login')
+      })
+      .catch((error) => {
+        console.warn("Error", error)
+      });
+    }else{
+      alert("Password Mismatch")
     }
   };
 
@@ -84,7 +116,20 @@ const RegPatient = () => {
               </div>
               
             </form>
-            <button type="submit" id="login_patient">
+            <button type="submit" id="login_patient"
+            onClick={(e) =>
+              regP(
+                e,
+                document.getElementById("username").value,
+                document.getElementById("fullname").value,
+                document.getElementById("Address").value,
+                document.getElementById("Email").value,
+                document.getElementById("Contact").value,
+                document.getElementById("password").value,
+                document.getElementById("Confirmpassword").value
+              )
+            }
+            >
               Sign Up
             </button>
           </div>
