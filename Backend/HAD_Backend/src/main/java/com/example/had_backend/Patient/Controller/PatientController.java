@@ -4,6 +4,7 @@ import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Patient.Entity.Patient;
@@ -15,10 +16,7 @@ import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -100,6 +98,13 @@ public class PatientController {
     @PostMapping("/patient/getListOfCases")
     public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = patientService.getAllCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @GetMapping("/patient/getListOfPatients")
+    public ResponseEntity<List<Patient>> getListOfPatients() {
+        List<Patient> list = patientService.getAllPatients();
         return ResponseEntity.ok(list);
     }
 

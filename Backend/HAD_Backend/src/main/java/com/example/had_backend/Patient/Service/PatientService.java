@@ -129,4 +129,8 @@ public class PatientService {
     public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
         return iCasesRepository.getAllCasesPatient(searchResultDTO.getUserName());
     }
+
+    public List<Patient> getAllPatients() {
+        return iPatientRegistrationRepository.findAll();
+    }
 }

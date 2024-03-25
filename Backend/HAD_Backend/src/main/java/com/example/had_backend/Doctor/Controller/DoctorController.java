@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.List;
 
 @RestController
@@ -95,6 +96,13 @@ public class DoctorController {
     @PostMapping("/doctor/getListOfCases")
     public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = doctorService.getAllCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @GetMapping("/doctor/getListOfDoctors")
+    public ResponseEntity<List<Doctor>> getListOfDoctors() {
+        List<Doctor> list = doctorService.getAllDoctors();
         return ResponseEntity.ok(list);
     }
 }

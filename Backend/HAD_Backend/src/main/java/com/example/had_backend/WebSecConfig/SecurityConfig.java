@@ -39,7 +39,8 @@ public class SecurityConfig {
                         "/lab/login",
                         "/doctor/remove",
                         "/doctor/getListOfCases").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/count").permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/count").permitAll()
                 .anyRequest().authenticated());
 
         return http.build();
