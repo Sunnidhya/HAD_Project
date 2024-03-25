@@ -18,6 +18,7 @@ import RadioLanding from './Components/Radiologist/Landing/RadiologistLanding';
 function App() {
   return (
     <Routes>
+    <Route path="/" element={<RegPatient/>}/>
     <Route path="/" element={<FirstPage/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
