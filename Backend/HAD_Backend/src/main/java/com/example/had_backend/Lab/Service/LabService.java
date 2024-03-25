@@ -2,7 +2,10 @@ package com.example.had_backend.Lab.Service;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
@@ -15,6 +18,8 @@ import com.example.had_backend.Model.LoginMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LabService {
 
@@ -26,6 +31,10 @@ public class LabService {
 
     @Autowired
     private IUserNameRepository iUserNameRepository;
+
+    @Autowired
+    private ICasesRepository iCasesRepository;
+
     public Labl authenticate(LoginDTO loginDTO) {
         Labl labl = new Labl();
         try {
@@ -101,5 +110,25 @@ public class LabService {
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
+    }
+
+    public LoginMessage removeLab(LabRegistrationDTO labRegistrationDTO) {
+        Lab lab = iLabRegistrationRepository
+                .getLab(labRegistrationDTO.getUserName(), labRegistrationDTO.getEmail());
+
+
+        iLabLoginRepository.updateAndSetDocIdNull(lab.getLabId());
+        iLabRegistrationRepository.removeEntry(lab.getLabId());
+        LoginMessage removeDoc = new LoginMessage();
+        removeDoc.setMessage("Lab Profile Deleted Successfully");
+        return removeDoc;
+    }
+
+    public List<Cases> getCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getCases(searchResultDTO.getSearchResult());
+    }
+
+    public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getAllCasesLab(searchResultDTO.getUserName());
     }
 }

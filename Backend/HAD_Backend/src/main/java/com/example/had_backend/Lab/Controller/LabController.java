@@ -1,6 +1,9 @@
 package com.example.had_backend.Lab.Controller;
 
+import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
 import com.example.had_backend.Lab.Model.LabChangePasswordDTO;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class LabController {
@@ -74,6 +79,27 @@ public class LabController {
                     "Username: " + labChangePasswordDTO.getUserName() + "\n" + "Password: " + labChangePasswordDTO.getNewPassword());
         }
         return ResponseEntity.ok(loginMessage1);
+    }
+
+    @CrossOrigin
+    @PostMapping("/lab/remove")
+    public ResponseEntity<LoginMessage> removeLab(@RequestBody @Validated LabRegistrationDTO labRegistrationDTO ) {
+        LoginMessage loginMessage1 = labService.removeLab(labRegistrationDTO);
+        return ResponseEntity.ok(loginMessage1);
+    }
+
+    @CrossOrigin
+    @PostMapping("/lab/getSearchResult")
+    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO ) {
+        List<Cases> list = labService.getCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @PostMapping("/lab/getListOfCases")
+    public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
+        List<Cases> list = labService.getAllCases(searchResultDTO);
+        return ResponseEntity.ok(list);
     }
 }
 

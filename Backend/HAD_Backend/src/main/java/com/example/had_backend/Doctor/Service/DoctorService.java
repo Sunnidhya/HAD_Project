@@ -4,14 +4,19 @@ import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DoctorService {
@@ -23,6 +28,9 @@ public class DoctorService {
 
     @Autowired
     private IUserNameRepository iUserNameRepository;
+
+    @Autowired
+    private ICasesRepository iCasesRepository;
 
     public DoctorL authenticate(LoginDTO loginDTO) {
         DoctorL doctorL = new DoctorL();
@@ -103,5 +111,25 @@ public class DoctorService {
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
+    }
+
+    public LoginMessage removeDoctor(DoctorRegistrationDTO doctorRegistrationDTO) {
+        Doctor doctor = iDoctorRegistrationRepository
+                .getDoctor(doctorRegistrationDTO.getUserName(), doctorRegistrationDTO.getEmail());
+
+
+        iDoctorLoginRepository.updateAndSetDocIdNull(doctor.getDoctorId());
+        iDoctorRegistrationRepository.removeEntry(doctor.getDoctorId());
+        LoginMessage removeDoc = new LoginMessage();
+        removeDoc.setMessage("Doctor Profile Deleted Successfully");
+        return removeDoc;
+    }
+
+    public List<Cases> getCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getCases(searchResultDTO.getSearchResult());
+    }
+
+    public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
+        return iCasesRepository.getAllCasesDoctor(searchResultDTO.getUserName());
     }
 }

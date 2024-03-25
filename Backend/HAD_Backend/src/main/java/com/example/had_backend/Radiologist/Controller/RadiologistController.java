@@ -1,8 +1,11 @@
 package com.example.had_backend.Radiologist.Controller;
 
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.Radiologist.Entity.RadiologistL;
 import com.example.had_backend.Radiologist.Model.RadiologistChangePasswordDTO;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class RadiologistController {
@@ -74,5 +79,26 @@ public class RadiologistController {
                     "Username: "+radiologistChangePasswordDTO.getUserName()+ "\n"+"Password: "+radiologistChangePasswordDTO.getNewPassword());
         }
         return ResponseEntity.ok(loginMessage1);
+    }
+
+    @CrossOrigin
+    @PostMapping("/radiologist/remove")
+    public ResponseEntity<LoginMessage> removeRadiologist(@RequestBody @Validated RadiologistRegistrationDTO radiologistRegistrationDTO ) {
+        LoginMessage loginMessage1 = radiologistService.removePatient(radiologistRegistrationDTO);
+        return ResponseEntity.ok(loginMessage1);
+    }
+
+    @CrossOrigin
+    @PostMapping("/radiologist/getSearchResult")
+    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO ) {
+        List<Cases> list = radiologistService.getCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @PostMapping("/radiologist/getListOfCases")
+    public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
+        List<Cases> list = radiologistService.getAllCases(searchResultDTO);
+        return ResponseEntity.ok(list);
     }
 }

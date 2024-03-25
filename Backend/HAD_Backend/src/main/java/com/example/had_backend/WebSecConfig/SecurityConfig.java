@@ -28,7 +28,17 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
-                .requestMatchers(HttpMethod.POST, "/doctor/login", "/patient/login", "/doctor/register", "/radiologist/login", "/radiologist/register", "/patient/register", "/lab/register", "/lab/login").permitAll()
+                .requestMatchers(HttpMethod.POST,
+                        "/doctor/login",
+                        "/patient/login",
+                        "/doctor/register",
+                        "/radiologist/login",
+                        "/radiologist/register",
+                        "/patient/register",
+                        "/lab/register",
+                        "/lab/login",
+                        "/doctor/remove",
+                        "/doctor/getListOfCases").permitAll()
                         .requestMatchers(HttpMethod.GET,"/count").permitAll()
                 .anyRequest().authenticated());
 

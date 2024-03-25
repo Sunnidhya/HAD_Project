@@ -17,4 +17,9 @@ public interface IRadiologistLoginRepository extends JpaRepository<RadiologistL,
     @Modifying
     @Query("update RadiologistL u set u.password = :password where u.userName = :username")
     void changePassword(@Param("username") String username, @Param("password") String newPassword);
+
+    @Transactional
+    @Modifying
+    @Query("update RadiologistL u set u.radiologist = null where u.radiologist.radiologistId = :id")
+    void updateAndSetRadiologistIdNull(@Param("id") Integer radiologistId);
 }
