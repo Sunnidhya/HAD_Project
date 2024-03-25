@@ -12,14 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 public class GlobalController {
 
-        private final GlobalService globalService;
-
         @Autowired
-        public GlobalController(GlobalService globalService) {
-                this.globalService = globalService;
-        }
+        private GlobalService globalService;
+
         @CrossOrigin
-        @GetMapping ("/admin/count")
+        @GetMapping ("/count")
         public ResponseEntity<CountDTO> getCount() {
                 CountDTO countDTO = new CountDTO();
 
