@@ -4,8 +4,10 @@ import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
+import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Doctor.Service.DoctorService;
 import com.example.had_backend.Email.EmailService;
+import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class DoctorController {
@@ -71,7 +75,26 @@ public class DoctorController {
                     "Username: "+doctorChangePasswordDTO.getUserName()+ "\n"+"Password: "+doctorChangePasswordDTO.getNewPassword());
         }
         return ResponseEntity.ok(loginMessage1);
-
     }
 
+    @CrossOrigin
+    @PostMapping("/doctor/remove")
+    public ResponseEntity<LoginMessage> removeDoctor(@RequestBody @Validated DoctorRegistrationDTO doctorRegistrationDTO ) {
+        LoginMessage loginMessage1 = doctorService.removeDoctor(doctorRegistrationDTO);
+        return ResponseEntity.ok(loginMessage1);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/getSearchResult")
+    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO ) {
+        List<Cases> list = doctorService.getCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/getListOfCases")
+    public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
+        List<Cases> list = doctorService.getAllCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
 }
