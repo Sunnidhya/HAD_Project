@@ -1,6 +1,24 @@
-.Admin-Login-hor{
+.Had-land-container{
+    display: flex;
+    min-width: 12000px;
+    /* background-color: rgb(230, 157, 31); */
+    min-height: 600px;
+    flex-direction: column
+}
+
+
+
+
+.Admin-Home-hor{
     display: flex;
     background-color: rgb(34, 206, 209);
+    min-width: 12000px;
+    height: 130px;
+}
+
+.admin-land-icon{
+    padding-top: 35% ;
+    padding-left: 15%;
 }
   
   
@@ -18,165 +36,168 @@
     margin-top: 35px;
 }
 
-.footer2 {
-    background-color: rgb(34, 206, 209);
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
+.Adminfooter{
     position: fixed;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
-  }
-
-  .vertical-box {
-    margin-top: 20px;
-    margin-left: 15px;
-    margin-bottom: 15px;
-    width: 250px;
-    height: 365px; 
     background-color: rgb(34, 206, 209);
-    padding: 20px; 
-    float: left; /* Float the first container to the left */
-    margin-right: 20px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
 }
 
-.user-icon {
-    max-width: 70%; 
-    max-height: 70%;
-    margin-left: 5%; 
-    margin-top: 50%;
-    width: auto; 
-    height: auto; 
-}
 
-.vertical-box1 {
-    float: left; /* Float the second container to the left */
-}
-
-.box-container {
-    width: 50%; /* Adjust the width as needed */
-}
-
-.box-container1 {
-    width: 50%;
-}
-
-.box-container2 {
-    width: 50%; 
-}
-
-.box-container::after,
-.box-container1::after{
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.box-container1::after,
-.box-container2::after{
-    content: "";
-    display: table;
-    clear: both;
-}
-.box1 {
-    transform: translate(30px,20px);
-    height: 180px;
-    width: 400px;
-    border-radius: 20px;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: blue;
-    transition: transform 0.3s ease;
-}
-
-.box1:hover {
-    transform: translate(30px, 20px) scale(1.1);
-  }
-
-.box2 {
-    transform: translate(30px,39px);
-    height: 180px;
-    width: 400px;
-    color: #ffffff;
-    display: flex;
-    border-radius: 20px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: blueviolet;
-    transition: transform 0.3s ease;
-}
-
-.box2:hover {
-    transform: translate(30px, 39px) scale(1.1);
-  }
-
-.box3,
-.box4 {
-    height: 180px;
-    width: 400px;
-    display: flex;
-    border-radius: 20px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative; 
-    transform: translate(120px, 20px); 
-    background-color: rgb(231, 168, 9);
-    color:#ffffff;
-    transition: transform 0.3s ease;
-}
-
-.box3:hover{
-    transform:translate(120px,20px) scale(1.1);
-}
-
-.box4:hover{
-    transform: translate(120px,20px) scale(1.0);
-}
-.box3 h2,
-.box3 p,
-.box4 h2,
-.box4 p {
-    position: absolute; 
-    transform: translate(-10px,20px); 
-}
-
-.box3 h2
-{
-    top:5%;
-}
-
-.box3 p
-{
-    top:40%;
-}
-
-.box4 h2
-{
-    top: 5%; 
-}
-.box4 p{
-    top:40%;
-}
-.box4 {
-    transform: translate(120px, 40px); 
-    background-color: green; 
-}
 
 .AdminLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    align-items: center;
+    margin-left: 1102px;  /* Center vertically */
     
 }
+
+.Admin-Home-ver {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    height: 585px;
+    margin-bottom: 50px;
+}
+
+/* .Admin-Home-ver1, .Admin-Home-ver2 {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;     
+    height: 100%;
+    width: 6px;            
+} */
+.Admin-Home-ver1 {
+    
+   
+    width: 400px;
+    height: 85%;
+    background:#0B5C83 ;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    
+   
+   
+}
+
+.Admin-Home-ver2 {
+    background-color: white;
+    width: 1500px;
+    height: 85%;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+
 
 .input-icon1
 {
    margin-left: 250px;
    margin-top: 20px;
+}
+
+.Admin-Home-ver2-1{
+   
+    width:500px;
+    height: 225px;
+    margin-left: 50px;
+    margin-right: 10px;
+    top:0;
+    background-color: #0B5C83;
+}
+.Admin-Home-ver2-2{
+    
+    width:500px;
+    height: 225px;
+    margin-left: 50px;
+    margin-top: 50px;
+    background-color: yellow;
+}
+.Admin-Home-ver2-3{
+    
+    width:500px;
+    height: 225px;
+    margin-left: 50px;
+    margin-right: 10px;
+    top:0;
+    background-color: brown;
+}
+.Admin-Home-ver2-4{
+    
+    width:500px;
+    height: 225px;
+    margin-left: 50px;
+    margin-top: 50px;
+    background-color: aqua;
+}
+
+
+.Admin-Home-ver2-1 :hover,.Admin-Home-ver2-2 :hover,.Admin-Home-ver2-3 :hover,.Admin-Home-ver2-4 :hover{
+    transform: scale(1.05); /* Zoom effect on hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+    
+}
+
+.VerUp,.VerDown{
+    display: flex;
+    flex-direction: row; 
+    height: 450px;
+    margin-left: 50px;
+    flex-direction: column;
+    width: 500px;
+
+}
+.VerDown{
+    background-color: white;
+}
+.VerUp{
+    background-color: white;
+}
+
+.admindoc,.adminrad,.adminpat,.adminlab{
+    width:500px;
+    height: 190px; 
+    
+}
+
+.AdLab{
+    background-color: #F4A52E;
+    color: aliceblue;
+    text-align: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.AdPat{
+    background-color: #1588C2;
+    color: aliceblue;
+    text-align: center;
+    margin-top: 90px;
+}
+
+.AdDoc{
+    background-color: #076E65;
+    color: aliceblue;
+    text-align: center;
+}
+
+.AdRad{
+    background-color: #0E0E62;
+    color: aliceblue;
+    text-align: center;
+    margin-top: 90px;
 }
