@@ -3,8 +3,10 @@ package com.example.had_backend.Doctor.Repository;
 import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Entity.DoctorL;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
@@ -16,4 +18,8 @@ public interface IDoctorRegistrationRepository extends JpaRepository<Doctor, Ser
     @Query("SELECT r FROM Doctor r where r.userName = :username OR r.email=:email")
     Doctor getDoctor(@Param("username") String userName, @Param("email") String email);
 
+    @Query("delete from Doctor d where d.doctorId = :id")
+    @Transactional
+    @Modifying
+    void removeEntry(@Param("id") Integer doctorId);
 }

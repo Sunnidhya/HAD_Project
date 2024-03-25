@@ -19,4 +19,9 @@ public interface ILabLoginRepository extends JpaRepository<Labl, Serializable> {
     @Modifying
     @Query("update Labl u set u.password = :password where u.userName = :username")
     void changePassword(@Param("username") String userName, @Param("password") String password);
+
+    @Transactional
+    @Modifying
+    @Query("update Labl l set l.lab = null where l.lab.labId = :id")
+    void updateAndSetDocIdNull(@Param("id") Integer labId);
 }

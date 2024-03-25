@@ -17,4 +17,9 @@ public interface IPatientLoginRepository extends JpaRepository<PatientL, Seriali
     @Modifying
     @Query("update PatientL p set p.password = :password where p.userName = :username")
     void changePassword(@Param("username") String userName, @Param("password") String password);
+
+    @Transactional
+    @Modifying
+    @Query("update PatientL u set u.patient = null where u.patient.patientId = :id")
+    void updateAndSetPatientIdNull(@Param("id") Integer patientId);
 }
