@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface IDoctorRegistrationRepository extends JpaRepository<Doctor, Serializable> {
 
@@ -18,8 +19,12 @@ public interface IDoctorRegistrationRepository extends JpaRepository<Doctor, Ser
     @Query("SELECT r FROM Doctor r where r.userName = :username OR r.email=:email")
     Doctor getDoctor(@Param("username") String userName, @Param("email") String email);
 
+
     @Query("delete from Doctor d where d.doctorId = :id")
     @Transactional
     @Modifying
     void removeEntry(@Param("id") Integer doctorId);
+
+    @Query("SELECT d from Doctor d")
+    List<Doctor> getCountDoctors();
 }
