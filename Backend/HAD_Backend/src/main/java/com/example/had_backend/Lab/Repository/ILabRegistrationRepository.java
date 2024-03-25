@@ -2,11 +2,13 @@ package com.example.had_backend.Lab.Repository;
 
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
+import com.example.had_backend.Radiologist.Entity.Radiologist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface ILabRegistrationRepository  extends JpaRepository<Lab, Serializable> {
 
@@ -15,5 +17,8 @@ public interface ILabRegistrationRepository  extends JpaRepository<Lab, Serializ
 
     @Query("SELECT r FROM Lab r where r.userName = :username")
     Lab getProfile(@Param("username") String userName);
+
+    @Query("SELECT l from Lab l")
+    List<Lab> getCountLab();
 
 }

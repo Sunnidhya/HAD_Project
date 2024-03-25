@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface IDoctorRegistrationRepository extends JpaRepository<Doctor, Serializable> {
 
@@ -16,4 +17,6 @@ public interface IDoctorRegistrationRepository extends JpaRepository<Doctor, Ser
     @Query("SELECT r FROM Doctor r where r.userName = :username OR r.email=:email")
     Doctor getDoctor(@Param("username") String userName, @Param("email") String email);
 
+    @Query("SELECT d from Doctor d")
+    List<Doctor> getCountDoctors();
 }
