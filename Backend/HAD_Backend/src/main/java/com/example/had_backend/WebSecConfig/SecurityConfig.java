@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
                 .requestMatchers(HttpMethod.POST, "/doctor/login", "/patient/login", "/doctor/register", "/radiologist/login", "/radiologist/register", "/patient/register", "/lab/register", "/lab/login").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/count").permitAll()
+                .requestMatchers(HttpMethod.GET,"/count","/api/v1/otp/create").permitAll()
                 .anyRequest().authenticated());
 
         return http.build();
