@@ -9,6 +9,7 @@ import admin from '../../../Resources/Picture1.png';
 import logout from '../../../Resources/log-out.png';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import first from '../../../Resources/firstpage.jpg';
 
 
 import './RadiologistDetails.css'
@@ -39,33 +40,29 @@ const RadiologistDetails = () => {
       </div>
       <div className='Admin-Home-ver'>
         <div className='Admin-Home-ver1'>
-            <img src={admin} alt="Admin Icon" className="admin-land-icon" />
+           <div className='Favourite'>Favourite</div>
         </div>
         <div className='Admin-Home-ver2'>
             <div className='VerUp'>
                 <div className='Admin-Home-ver2-1'>
-                    {/* <img src={adminDoc} alt="adminDoc" className='admindoc'/> */}
+                    <img src={first} alt="adminDoc" className='admindoc'/>
                     <p className='AdPat'>Doctor</p>
                 </div>
                 <div className='Admin-Home-ver2-2'>
-                    {/* <img src={adminRad} alt="adminRad" className='adminrad'/> */}
+                    <img src={first} alt="adminRad" className='adminrad'/>
                     <p className='AdPat'>Radiologist</p>
                 </div>
             </div>
 
             <div className='VerDown'>
-                <div className='Admin-Home-ver3'>
-                <div className='Admin-Home-ver2-3'>
-                    {/* <img src={adminLab} alt="adminLab" className='adminlab'/> */}
+               <div className='Admin-Home-ver2-3'>
+                    <img src={first} alt="adminLab" className='adminlab'/>
                     <p className='AdPat'>Laboratory</p>
                 </div>
                 <div className='Admin-Home-ver2-4'>
-                    {/* <img src={adminPat} alt="adminPat" className='adminpat'/> */}
+                    <img src={first} alt="adminPat" className='adminpat'/>
                     <p className='AdPat'>Patient</p>
                 </div>
-
-                </div>
-
             </div>
             
         </div>

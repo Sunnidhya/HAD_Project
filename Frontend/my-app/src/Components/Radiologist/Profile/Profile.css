@@ -1,6 +1,4 @@
-
-/* To be included before every new file */
-.Profile-Login-hor{
+.profile-hor{
   display: flex;
   background-color: #0E0F62;
   overflow: hidden;
@@ -13,7 +11,7 @@
   padding-left: 10%;
 }  
 
-#profilesideimg{
+#profileimg{
   padding-top: 1%;
   padding-left: 10%;
   height: 120px;
@@ -30,13 +28,13 @@
 
 
 /* ------------------------------------------------------ */
-.Profile-Login-hor1{
+.profile-hor1{
   display: flex;
   position: relative;
   min-height: 100vh;
   flex-direction: row;
   }
-.left
+.profileleft
 {
   flex: 0.5;
   display:flex;
@@ -54,29 +52,29 @@
   font-size: small;
 }
 
-.right
+.profileright
 {
   flex: 1.5;
   display: flex;
 }
-.front
+.profilefront
 {
   display: flex;
   flex-direction: column;
 }
-.back
+.profilebg
 {
   display:flex;
   flex-direction: column;
   margin: 20px;
-  background-image: url("../../../Resources/Profile.png");
+  background-image: url("../../../Resources/AppLogo.png");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   /* filter: blur(5px);  */
 }
-.bg
+.profilewidth
 {
   position:absolute;
   

@@ -14,6 +14,7 @@ import LabLanding from './Components/Lab/Landing/LabLanding';
 import RadioLanding from './Components/Radiologist/Landing/RadiologistLanding';
 import AdminLanding from './Components/Admin/landing/AdminHomePage';
 import RadiologistDetails from './Components/Radiologist/Details/RadiologistDetails';
+import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     <Route path="/admin/landing" element={<AdminLanding/>}/>
     <Route path="/radiologist/profile" element={<Profile/>}/>
     <Route path="/radiologist/details" element={<RadiologistDetails/>}/>
-
+    <Route path="/doctor/chat" element={<DoctorChat/>}/>
   </Routes>
 
 

@@ -29,8 +29,8 @@ function FirstPage() {
   }
 
   return (
-    <div class="container">
-    <div class="leftsidebar">
+    <div class="firstcontainer">
+    <div class="firstleftsidebar">
       <div class="logo">
         <img src={imgside} alt="Logo"/>
       </div>
@@ -59,20 +59,18 @@ function FirstPage() {
         Patient
         <i class="fas fa-chevron-right"></i>
       </div>
-      <div class="left-bottom">
+      <div class="firstleft-bottom">
       © 2024, Kavach Inc.
       </div>
     </div>
     
-    <div class="right">
-      <div class="bottom"></div>
-      <div class="bg-text">
+    <div class="firstright">
+      <div class="firstbottom"></div>
+      <div class="firstbg-text">
       <h1> Welcome to Kavach</h1>
       <blockquote>
-       <p>Kavach stands as a pioneering force in the realm of teleradiology, providing a leading-edge platform for medical imaging interpretation and analysis.<br/>With its advanced technology and expert radiologists,Kavach ensures rapid and accurate diagnosis, enabling healthcare providers to deliver timely and precise patient care.<br/>Its seamless integration with healthcare systems allows for effortless transmission and interpretation of medical images, empowering healthcare professionals with actionable insights from anywhere in the world.<br/>Kavach's commitment to excellence and innovation makes it a trusted partner in the journey towards improved healthcare outcomes,setting a benchmark in the field of telemedicine and radiology services.<br/></p>
+       <p>Kavach stands as a pioneering force in the realm of teleradiology, providing a leading-edge platform for medical imaging interpretation and analysis.<br/>With its advanced technology and expert radiologists,Kavach ensures rapid and accurate diagnosis, enabling healthcare providers to deliver timely and precise patient care.<br/>Its seamless integration with healthcare systems allows for effortless transmission and interpretation of medical images, empowering healthcare professionals with actionable insights from anywhere in the world.<br/>Kavach's commitment to excellence and innovation makes it a trusted partner in the journey towards improved healthcare outcomes,setting a benchmark in the field of telemedicine and radiology services.<br/></p>
        </blockquote>
-      
-
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-.container {
+.firstcontainer {
     display: flex;
     position:relative;
     overflow-x: hidden;
@@ -6,7 +6,7 @@
    min-height: 100vh;
 }
 
-.leftsidebar {
+.firstleftsidebar {
     flex: 0.4;
     width: 80px;
     min-height: 100%;
@@ -18,12 +18,12 @@
    
     
 }
-.right {
+.firstright{
     flex: 2;
     display: flex;
     flex-direction: column;
 }
-.bottom{
+.firstbottom{
     display: flex;
     flex-direction: row;
     background-image: url("../Resources/firstpage3.jpeg");
@@ -36,8 +36,7 @@
     
    
 }
-.bg-text {
-    
+.firstbg-text {
     background-color: rgb(0,0,0); /* Fallback color*/
     background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
     color: white;
@@ -55,12 +54,11 @@
     padding: 20px;
     text-align: center;
 } 
-.bg-text h1{
+.firstbg-text h1{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
     font-weight: 300px;
 }
-.bg-text p{
+.firstbg-text p{
     font-weight: 50px;
 }
 blockquote {
@@ -95,41 +93,37 @@ blockquote p::after {
     margin-bottom: 20px;
 }  
 .icon-button {
-   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: small;
-    
     padding: 10px;
     margin: 5px;
+    margin-bottom: 4px;
     /* height:20px; */
     border-bottom: 2px solid rgba(0,0,0,0.05);
     border-top: 2px solid rgba(225,225,225,0.05);
     color: white;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
     cursor: pointer;
-    
-   
 }
 .icon-button:hover{
     background: #a1b6d4;
-    
 }
 .icon-button .fas{
-  width: 25px;
+  width: 20px;
+  margin-bottom: 4px;
+  margin-right: 2px;
 }
-
 .icon-button i:last-child {
-    margin-left: auto;
+    margin-left:auto;
 }
   
-.left-bottom
+.firstleft-bottom
 {
-    
-    display:flex;
     position:absolute;
-    
     font-size: small;
     bottom: 4px;
     color: white;
-   
 }
