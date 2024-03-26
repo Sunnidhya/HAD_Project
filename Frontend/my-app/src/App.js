@@ -19,7 +19,7 @@ import RadiologistDetails from './Components/Radiologist/Details/RadiologistDeta
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<FirstPage/>}/>
+    <Route path="/" element={<Profile/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>

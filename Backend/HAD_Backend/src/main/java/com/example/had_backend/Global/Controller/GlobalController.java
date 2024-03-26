@@ -1,6 +1,8 @@
 package com.example.had_backend.Global.Controller;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
+import com.example.had_backend.Email.EmailService;
+import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Service.GlobalService;
 import com.example.had_backend.Model.CountDTO;
 import com.example.had_backend.Model.LoginMessage;
@@ -14,6 +16,9 @@ public class GlobalController {
 
         @Autowired
         private GlobalService globalService;
+
+        @Autowired
+        private EmailService emailService;
 
         @CrossOrigin
         @GetMapping ("/count")

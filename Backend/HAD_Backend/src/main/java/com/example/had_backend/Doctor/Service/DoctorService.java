@@ -8,14 +8,19 @@ import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
+import com.example.had_backend.Global.Repository.IOTPRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
+import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +36,12 @@ public class DoctorService {
 
     @Autowired
     private ICasesRepository iCasesRepository;
+
+    @Autowired
+    private OTPHelperService otpHelperService;
+
+    @Autowired
+    private IOTPRepository iotpRepository;
 
     public DoctorL authenticate(LoginDTO loginDTO) {
         DoctorL doctorL = new DoctorL();
@@ -87,9 +98,8 @@ public class DoctorService {
         return loginMessage;
     }
 
-    public Doctor profile(Doctor doctor3) {
-
-        return iDoctorRegistrationRepository.getProfile(doctor3.getUserName());
+    public Doctor profile(LoginDTO loginDTO) {
+        return iDoctorRegistrationRepository.getProfile(loginDTO.getUserName());
     }
 
     public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {
@@ -135,5 +145,44 @@ public class DoctorService {
 
     public List<Doctor> getAllDoctors() {
         return iDoctorRegistrationRepository.findAll();
+    }
+
+    public LoginMessage createCase(Cases cases) {
+        iCasesRepository.save(cases);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Case is created successfully");
+        return loginMessage;
+    }
+
+    public OtpDTO getOtp() {
+        OtpDTO otpDTO = new OtpDTO();
+        OTP otp = new OTP();
+        Date date = new Date();
+
+        Integer otpV = otpHelperService.createRandomOneTimePassword();
+        otp.setOneTimePasswordCode(otpV);
+        otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
+        iotpRepository.save(otp);
+
+        otpDTO.setOtp(otpV);
+        return otpDTO;
+    }
+
+    public LoginMessage validateOTP(OtpDTO otpDTO) {
+        Date date = new Date();
+        LoginMessage loginMessage = new LoginMessage();
+        OTP otp = iotpRepository.getOTPValue(otpDTO.getOtp());
+        if(otp != null && date.getTime() <= otp.getExpires()){
+            loginMessage.setMessage("OTP Validated successfully");
+            iotpRepository.removeEntry(otpDTO.getOtp());
+        }else{
+            if(otp != null && date.getTime() > otp.getExpires()){
+                iotpRepository.removeEntry(otpDTO.getOtp());
+                loginMessage.setMessage("OTP expired!! Please retry");
+            }else{
+                loginMessage.setMessage("OTP entered is wrong!! Please renter");
+            }
+        }
+        return loginMessage;
     }
 }
