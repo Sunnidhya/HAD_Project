@@ -130,4 +130,8 @@ public class RadiologistService {
     public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
         return iCasesRepository.getAllCasesRadiologist(searchResultDTO.getUserName());
     }
+
+    public List<Radiologist> getAllRadiologists() {
+        return iRadiologistRegistrationRepository.findAll();
+    }
 }
