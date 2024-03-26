@@ -40,13 +40,13 @@ public class DoctorController {
         Doctor doctor = doctorService.profile(login);
         OtpDTO otpDTO = doctorService.getOtp();
         if(doctorL.getDoctor().getDoctorId() != null){
-            if(otpDTO.getOtp() != null){
+            if(otpDTO.getOtp() != null) {
                 emailService.sendSimpleMessage(
                         doctor.getEmail(),
                         "Please use the following OTP to Authenticate Login",
-                        "OTP: "+otpDTO.getOtp());
+                        "OTP: " + otpDTO.getOtp());
+                message.setMessage("OTP sent to registered email address");
             }
-            message.setMessage("OTP sent to registered email address");
         }else {
             message.setMessage("Login failed, Check username/password");
         }

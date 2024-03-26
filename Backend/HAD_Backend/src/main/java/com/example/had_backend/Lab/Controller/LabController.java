@@ -1,10 +1,12 @@
 package com.example.had_backend.Lab.Controller;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
+import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
 import com.example.had_backend.Lab.Model.LabChangePasswordDTO;
@@ -35,15 +37,35 @@ public class LabController {
     @CrossOrigin
     @PostMapping("/lab/login")
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
-        Labl labl = labService.authenticate(login);
         LoginMessage message = new LoginMessage();
-        if (labl.getLab().getLabId() != null) {
-            message.setMessage("Login Successful");
-            message.setToken(userAuthProvider.createToken(labl.getUserName()));
-        } else {
+        Labl labl = labService.authenticate(login);
+        Lab lab = labService.getProfile(login);
+        OtpDTO otpDTO = labService.getOtp();
+        if(labl.getLab().getLabId() != null){
+            if(otpDTO.getOtp() != null) {
+                emailService.sendSimpleMessage(
+                        lab.getEmail(),
+                        "Please use the following OTP to Authenticate Login",
+                        "OTP: " + otpDTO.getOtp());
+                message.setMessage("OTP sent to registered email address");
+            }
+        }else {
             message.setMessage("Login failed, Check username/password");
         }
         return ResponseEntity.ok(message);
+    }
+
+    @CrossOrigin
+    @PostMapping("/lab/login/validateOTP")
+    public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
+        LoginMessage loginMessage = labService.validateOTP(otpDTO);
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUserName(otpDTO.getUserName());
+        Lab lab = labService.getProfile(loginDTO);
+        if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
+            loginMessage.setToken(userAuthProvider.createToken(lab.getUserName()));
+        }
+        return ResponseEntity.ok(loginMessage);
     }
 
     @CrossOrigin
@@ -61,8 +83,8 @@ public class LabController {
 
     @CrossOrigin
     @PostMapping("/lab/getProfileDetails")
-    public ResponseEntity<Lab> getProfileDetails(@RequestBody @Validated Lab lab2) {
-        Lab lab = labService.getProfile(lab2);
+    public ResponseEntity<Lab> getProfileDetails(@RequestBody @Validated LoginDTO loginDTO) {
+        Lab lab = labService.getProfile(loginDTO);
         return ResponseEntity.ok(lab);
     }
 

@@ -3,9 +3,12 @@ package com.example.had_backend.Radiologist.Controller;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Patient.Entity.Patient;
+import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.Radiologist.Entity.RadiologistL;
@@ -35,15 +38,35 @@ public class RadiologistController {
     @CrossOrigin
     @PostMapping("/radiologist/login")
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
-        RadiologistL radiologistL = radiologistService.authenticate(login);
         LoginMessage message = new LoginMessage();
+        RadiologistL radiologistL = radiologistService.authenticate(login);
+        Radiologist radiologist = radiologistService.profile(login);
+        OtpDTO otpDTO = radiologistService.getOtp();
         if(radiologistL.getRadiologist().getRadiologistId() != null){
-            message.setMessage("Login Successful");
-            message.setToken(userAuthProvider.createToken(radiologistL.getUserName()));
-        }else{
+            if(otpDTO.getOtp() != null) {
+                emailService.sendSimpleMessage(
+                        radiologist.getEmail(),
+                        "Please use the following OTP to Authenticate Login",
+                        "OTP: " + otpDTO.getOtp());
+                message.setMessage("OTP sent to registered email address");
+            }
+        }else {
             message.setMessage("Login failed, Check username/password");
         }
         return ResponseEntity.ok(message);
+    }
+
+    @CrossOrigin
+    @PostMapping("/radiologist/login/validateOTP")
+    public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
+        LoginMessage loginMessage = radiologistService.validateOTP(otpDTO);
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUserName(otpDTO.getUserName());
+        Radiologist radiologist = radiologistService.profile(loginDTO);
+        if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
+            loginMessage.setToken(userAuthProvider.createToken(radiologist.getUserName()));
+        }
+        return ResponseEntity.ok(loginMessage);
     }
 
     @CrossOrigin
@@ -61,8 +84,8 @@ public class RadiologistController {
 
     @CrossOrigin
     @PostMapping("/radiologist/getProfileDetails")
-    public ResponseEntity<Radiologist> getProfileDetails(@RequestBody @Validated Radiologist radiologist) {
-        Radiologist radiologist1 = radiologistService.profile(radiologist);
+    public ResponseEntity<Radiologist> getProfileDetails(@RequestBody @Validated LoginDTO loginDTO) {
+        Radiologist radiologist1 = radiologistService.profile(loginDTO);
         return ResponseEntity.ok(radiologist1);
     }
 

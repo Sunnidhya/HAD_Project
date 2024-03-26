@@ -38,7 +38,8 @@ public class SecurityConfig {
                         "/lab/register",
                         "/lab/login",
                         "/doctor/remove",
-                        "/doctor/login/validateOTP").permitAll()
+                        "/doctor/login/validateOTP",
+                        "/lab/login/validateOTP").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/count").permitAll()
                 .anyRequest().authenticated());
