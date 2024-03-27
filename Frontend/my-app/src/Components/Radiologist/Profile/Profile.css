@@ -1,5 +1,12 @@
-
-/* To be included before every new file */
+body {
+  margin: 0; 
+  padding: 0; 
+  background-image: url("../../../Resources/EmptyState.PNG"); 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* height: 100vh;  */
+}
 .Profile-Login-hor{
   display: flex;
   background-color: #0E0F62;
@@ -8,8 +15,8 @@
 .divisions1
 {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center; 
+  align-items: center; 
   padding-left: 10%;
 }  
 
@@ -30,95 +37,50 @@
 
 
 /* ------------------------------------------------------ */
-.Profile-Login-hor1{
-  display: flex;
-  position: relative;
-  min-height: 100vh;
-  flex-direction: row;
-  }
-.left
-{
-  flex: 0.5;
-  display:flex;
- 
-}
-.profile{
-  margin: 60px 60px 0px 60px;
-}
-.item{
-  background-color:#0E0F62 ;
-  color: white;
-  margin: 20px 20px 20px 20px;
-  padding: 5px;
-  border-radius: 10px;
-  font-size: small;
-}
 
-.right
-{
-  flex: 1.5;
-  display: flex;
-}
-.front
-{
-  display: flex;
-  flex-direction: column;
-}
-.back
-{
-  display:flex;
-  flex-direction: column;
-  margin: 20px;
-  background-image: url("../../../Resources/Profile.png");
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  /* filter: blur(5px);  */
-}
-.bg
-{
-  position:absolute;
-  
-  width: 60%;
-}
 
-.item1{
+
+.profile-container {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   background-color: white;
-  padding: 5px;
-  margin: 70px 200px 0px 200px;
-  border-radius: 10px;
-  color: #0E0F62;
-  font-weight: bold;
-  font-size: small;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
   
 }
 
-.item2{
-  background-color: white;
-  padding: 5px;
-  margin: 30px 200px 0px 200px;
-  border-radius: 10px;
-  border-color: hsl(239, 75%, 22%);
-  border-width: 5px;
-  color: #0E0F62;
-  font-weight: bold;
-  font-size: small;
+.profile-picture {
+  text-align: center;
+  margin-right: 200px;
 }
 
-.item3{
-  background-color: white;
-  padding: 5px;
-  margin: 30px 200px 50px 200px;
-  border-radius: 10px;
-  color: #0E0F62;
-  font-weight: bold;
-  font-size: small;
+.profile-picture img {
+  width: 300px;
+  height: 300px;
+  border-radius: 80px;
+  object-fit: cover;
+  border: 3px solid #333;
+  margin: 80px 0px 20px 80px;
 }
 
-/* .profile
-{
+.user-info {
+  margin: 80px 0px 20px 80px;
+}
 
-} */
+.user-info h2 {
+  color: #333;
+}
+.edit-button {
+  margin-top: 10px; 
+  margin-left: 80px;
+}
 
-
+.change-button {
+  margin-top: 10px; 
+  margin-left: 80px;
+}
