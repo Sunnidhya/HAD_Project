@@ -6,7 +6,11 @@ import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
+import com.example.had_backend.Email.EmailService;
+import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Repository.IOTPRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Repository.ILabRegistrationRepository;
@@ -19,14 +23,23 @@ import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class GlobalService {
-    private final IDoctorRegistrationRepository doctorRepository;
-    private final IRadiologistRegistrationRepository radiologistRepository;
-    private final ILabRegistrationRepository labRepository;
-    private final IPatientRegistrationRepository patientRepository;
+    @Autowired
+    private IDoctorRegistrationRepository doctorRepository;
+    @Autowired
+    private IRadiologistRegistrationRepository radiologistRepository;
+    @Autowired
+    private ILabRegistrationRepository labRepository;
+    @Autowired
+    private IPatientRegistrationRepository patientRepository;
+    @Autowired
+    private IOTPRepository iotpRepository;
+    @Autowired
+    private OTPHelperService otpHelperService;
 
     @Autowired
     public GlobalService(IDoctorRegistrationRepository doctorRepository, IRadiologistRegistrationRepository radiologistRepository,

@@ -1,5 +1,6 @@
 package com.example.had_backend.Lab.Controller;
 
+import com.example.had_backend.Doctor.Entity.Doctor;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
@@ -15,10 +16,7 @@ import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -99,6 +97,13 @@ public class LabController {
     @PostMapping("/lab/getListOfCases")
     public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = labService.getAllCases(searchResultDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @GetMapping("/lab/getListOfLabs")
+    public ResponseEntity<List<Lab>> getListOfLabs() {
+        List<Lab> list = labService.getAllLabs();
         return ResponseEntity.ok(list);
     }
 }

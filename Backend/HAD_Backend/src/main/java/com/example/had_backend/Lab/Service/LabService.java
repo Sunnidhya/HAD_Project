@@ -131,4 +131,8 @@ public class LabService {
     public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
         return iCasesRepository.getAllCasesLab(searchResultDTO.getUserName());
     }
+
+    public List<Lab> getAllLabs() {
+        return iLabRegistrationRepository.findAll();
+    }
 }

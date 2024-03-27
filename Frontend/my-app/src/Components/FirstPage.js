@@ -29,7 +29,7 @@ function FirstPage() {
   }
 
   return (
-    <div class="firstcontainer">
+    <div class="first-container">
     <div class="leftsidebar">
       <div class="logo">
         <img src={imgside} alt="Logo"/>
