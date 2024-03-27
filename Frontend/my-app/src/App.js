@@ -18,7 +18,8 @@ import AdminLanding from './Components/Admin/landing/AdminLanding';
 
 
 import RadiologistDetails from './Components/Radiologist/Details/RadiologistDetails';
-
+import DoctorDetails from './Components/Doctor/Details/DoctorDetails';
+import PatientDetails from './Components/Patient/Details/PatientDetails';
 
 
 function App() {
@@ -35,9 +36,12 @@ function App() {
     <Route path="/lab/landing" element={<LabLanding/>}/>
     <Route path="/radiologist/landing" element={<RadioLanding/>}/>
     <Route path="/admin/landing" element={<AdminLanding/>}/>
-
     <Route path="/radiologist/profile" element={<Profile/>}/>
+
+    <Route path="/doctor/details" element={<DoctorDetails/>}/>
     <Route path="/radiologist/details" element={<RadiologistDetails/>}/>
+    <Route path="/patient/details" element={<PatientDetails/>}/>
+
 
 
   </Routes>

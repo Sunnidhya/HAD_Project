@@ -20,26 +20,27 @@
 }
 
 .admin-land-icon{
-    padding-top: 35% ;
+    padding-top: 5% ;
     padding-left: 15%;
-    height: 250px;
-    width: 180px;
+    height: 50%;
+    width: 70%;
     margin-left: 15%;
     margin-top: 5%;
-    padding-left: 15%;
-    margin-bottom: 25%;
+    padding-left: 12%;
+    margin-bottom: 15%;
 }
   
   
 .Rad-Det-ver1 p{
     
     font-size: larger;
-    background-color: antiquewhite;
+    background-color: #0E0E62;
     justify-self: center;
     margin: 5%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     text-align: center;
+    color: white;
 
 
 }
@@ -71,7 +72,9 @@
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center;
-    margin-left:75%;    
+    margin-left:70%; 
+    margin-bottom: 2%;    
+   
 }
 
 .Rad-Det-ver {
@@ -95,12 +98,12 @@
    
     width: 400px;
     height: 85%;
-    background: #0E0E62 ;
+    background: white ;
     margin-top: 30px;
     margin-left: 30px;
-    margin-right: 30px;
+    margin-right: 3px;
     margin-bottom: 30px;
-    
+    height: 80%;
    
    
 }
@@ -110,7 +113,7 @@
     width: 1500px;
     height: 85%;
     margin-top: 30px;
-    margin-left: 8%;
+    margin-left: 5%;
     margin-right: 10px;
     margin-bottom: 30px;
     margin-right: 30px;
@@ -199,7 +202,8 @@
     justify-content: center;
     margin: 5%;
     /* margin-top: 2%; */
-    border: 3px solid black;
+    border-color: #fcf6f6;
+
     
 }
 
