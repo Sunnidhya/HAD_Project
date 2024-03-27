@@ -74,7 +74,8 @@
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center;
-    margin-left:75%;    
+    margin-left:70%; 
+    margin-bottom: 2%;   
 }
 
 .Admin-Det-ver {
