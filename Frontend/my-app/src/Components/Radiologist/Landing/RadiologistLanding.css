@@ -1,9 +1,9 @@
 
 /* To be included before every new file */
-.Radio-Login-hor{
+.Radio-landing-hor{
     display: flex;
-    min-width: 1200px;
     background-color: rgb(14, 14, 98);
+    
 }
 
 
@@ -20,8 +20,6 @@
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    padding-left: 10%;
-    
 }
 
 .RadioSearch
@@ -30,57 +28,62 @@
     width: 100vh;
     border-radius:50px;
     border-width: 3px;
-    border-color: rgb(7, 110, 101);
+    border-color: rgb(242, 247, 246);
     margin-left: 150px;
     margin-top: 20px;
-
+    padding: 12px;
 }
 .RadioLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    
+    right: 0;
 }
 .input-icon1
 {
    margin-left: 250px;
    margin-top: 20px;
 }
-.Admin-Home-ver {
+.Radio-Land-ver {
     display: flex;
     flex-direction: row;
     background-color: white;
-    height: 100%;
-    margin-bottom:50px;
+    margin-bottom:20px;
 }
-.Admin-Home-ver1 {
-    width: 400px;
-    flex:1;
-    height: 85%;
-    background:#0B5C83 ;
+.Radio-Land-ver1 {
+    width: 100px;
+    flex:0.4;
+    height: 100vh;
+    background:#0E0F62 ;
     margin-top: 30px;
     margin-left: 30px;
     margin-right: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
 }
 
-.Admin-Home-ver2 {
+.Radio-Land-ver2 {
+   margin-top: 30px;
    flex:2;
- 
+   height: 100vh;
+   overflow-y: scroll;
+   
 }
- .Radiofooter {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(14, 14, 98);
-    padding: 10px;
+ .card{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: inset 0 0 0 2px #0E0F62;
+  }
+ 
+  .radio-landing-about-us-section { 
+    padding: 20px;
+    background-color: #0E0F62;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: white;
+    font-weight: bold;
   }
 
-  .card{
-    margin-bottom: 40px;
-    margin-top: 10px;
-  }
-  
+ 
