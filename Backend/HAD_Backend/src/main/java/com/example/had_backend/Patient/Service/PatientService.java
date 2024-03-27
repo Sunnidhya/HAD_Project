@@ -6,11 +6,14 @@ import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Model.CasesDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IOTPRepository;
 import com.example.had_backend.Global.Repository.IUserNameRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
+import com.example.had_backend.Lab.Entity.Lab;
+import com.example.had_backend.Lab.Repository.ILabRegistrationRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Patient.Entity.Patient;
@@ -19,6 +22,8 @@ import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Repository.IPatientLoginRepository;
 import com.example.had_backend.Patient.Repository.IPatientRegistrationRepository;
+import com.example.had_backend.Radiologist.Entity.Radiologist;
+import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +49,12 @@ public class PatientService {
 
     @Autowired
     private IOTPRepository iotpRepository;
+
+    @Autowired
+    private IRadiologistRegistrationRepository iRadiologistRegistrationRepository;
+
+    @Autowired
+    private ILabRegistrationRepository iLabRegistrationRepository;
 
 
     public PatientL authenticate(LoginDTO loginDTO) {
@@ -148,18 +159,15 @@ public class PatientService {
         return iPatientRegistrationRepository.findAll();
     }
 
-    public OtpDTO getOtp() {
-        OtpDTO otpDTO = new OtpDTO();
+    public OTP getOtp() {
         OTP otp = new OTP();
         Date date = new Date();
 
-        Integer otpV = otpHelperService.createRandomOneTimePassword();
+        String otpV = otpHelperService.createRandomOneTimePassword();
         otp.setOneTimePasswordCode(otpV);
         otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
         iotpRepository.save(otp);
-
-        otpDTO.setOtp(otpV);
-        return otpDTO;
+        return otp;
     }
 
     public LoginMessage validateOTP(OtpDTO otpDTO) {
@@ -177,6 +185,30 @@ public class PatientService {
                 loginMessage.setMessage("OTP entered is wrong!! Please renter");
             }
         }
+        return loginMessage;
+    }
+
+    public Patient getPatientById(Integer patientId) {
+        return iPatientRegistrationRepository.findByPatientId(patientId);
+    }
+
+    public LoginMessage updateCaseR(CasesDTO casesDTO) {
+        Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
+        Radiologist radiologist = iRadiologistRegistrationRepository.getByRadiologistId(casesDTO.getRadiologistId());
+        cases.setRadiologist(radiologist);
+        iCasesRepository.save(cases);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Radiologist Assigned Successfully");
+        return loginMessage;
+    }
+
+    public LoginMessage updateCaseL(CasesDTO casesDTO) {
+        Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
+        Lab lab = iLabRegistrationRepository.getByLabId(casesDTO.getLabId());
+        cases.setLab(lab);
+        iCasesRepository.save(cases);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Lab Assigned Successfully");
         return loginMessage;
     }
 }

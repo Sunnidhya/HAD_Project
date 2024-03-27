@@ -4,6 +4,8 @@ import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Global.Entity.OTP;
+import com.example.had_backend.Global.Model.CasesDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
@@ -40,15 +42,13 @@ public class PatientController {
         LoginMessage message = new LoginMessage();
         PatientL patientL = patientService.authenticate(login);
         Patient patient = patientService.getProfile(login);
-        OtpDTO otpDTO = patientService.getOtp();
+        OTP otp = patientService.getOtp();
         if(patientL.getPatient().getPatientId() != null){
-            if(otpDTO.getOtp() != null) {
-                emailService.sendSimpleMessage(
-                        patient.getEmail(),
-                        "Please use the following OTP to Authenticate Login",
-                        "OTP: " + otpDTO.getOtp());
-                message.setMessage("OTP sent to registered email address");
-            }
+            emailService.sendSimpleMessage(
+                    patient.getEmail(),
+                    "Please use the following OTP to Authenticate Login",
+                    "OTP: " + otp.getOneTimePasswordCode());
+            message.setMessage("OTP sent to registered email address");
         }else {
             message.setMessage("Login failed, Check username/password");
         }
@@ -59,11 +59,8 @@ public class PatientController {
     @PostMapping("/patient/login/validateOTP")
     public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
         LoginMessage loginMessage = patientService.validateOTP(otpDTO);
-        LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setUserName(otpDTO.getUserName());
-        Patient patient = patientService.getProfile(loginDTO);
         if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
-            loginMessage.setToken(userAuthProvider.createToken(patient.getUserName()));
+            loginMessage.setToken(userAuthProvider.createToken(otpDTO.getUserName()));
         }
         return ResponseEntity.ok(loginMessage);
     }
@@ -130,18 +127,17 @@ public class PatientController {
         return ResponseEntity.ok(list);
     }
 
-//    @CrossOrigin
-//    @GetMapping ("/patient/getListOfCases")
-//
-//    @CrossOrigin
-//    @PostMapping("/patient/getSearchResult")
-//
-//    @CrossOrigin
-//    @PostMapping("/patientReports/AssignNewDoctor")
-//
-//    @CrossOrigin
-//    @PostMapping("/patientReports/AssignNewLab")
+    @CrossOrigin
+    @PostMapping("/patient/assignRadiologist")
+    public ResponseEntity<LoginMessage> assignRadiologist(@RequestBody @Validated CasesDTO casesDTO){
+        LoginMessage loginMessage = patientService.updateCaseR(casesDTO);
+        return ResponseEntity.ok(loginMessage);
+    }
 
-
-
+    @CrossOrigin
+    @PostMapping("/patient/assignLab")
+    public ResponseEntity<LoginMessage> assignLab(@RequestBody @Validated CasesDTO casesDTO){
+        LoginMessage loginMessage = patientService.updateCaseL(casesDTO);
+        return ResponseEntity.ok(loginMessage);
+    }
 }

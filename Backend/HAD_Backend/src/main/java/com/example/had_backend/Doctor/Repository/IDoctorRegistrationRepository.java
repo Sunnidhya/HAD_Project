@@ -27,4 +27,7 @@ public interface IDoctorRegistrationRepository extends JpaRepository<Doctor, Ser
 
     @Query("SELECT d from Doctor d")
     List<Doctor> getCountDoctors();
+
+    @Query("SELECT d from Doctor d where d.doctorId =:doctorIdVal")
+    Doctor findByDoctorId(@Param("doctorIdVal") Integer doctorId);
 }

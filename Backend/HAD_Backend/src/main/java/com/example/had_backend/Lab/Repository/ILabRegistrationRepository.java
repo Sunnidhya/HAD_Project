@@ -28,4 +28,7 @@ public interface ILabRegistrationRepository  extends JpaRepository<Lab, Serializ
 
     @Query("SELECT l from Lab l")
     List<Lab> getCountLab();
+
+    @Query("SELECT l from Lab l where l.labId =:labIdVal")
+    Lab getByLabId(@Param("labIdVal") Integer labId);
 }

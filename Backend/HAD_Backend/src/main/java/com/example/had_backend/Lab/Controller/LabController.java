@@ -6,6 +6,7 @@ import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Entity.Labl;
@@ -40,15 +41,13 @@ public class LabController {
         LoginMessage message = new LoginMessage();
         Labl labl = labService.authenticate(login);
         Lab lab = labService.getProfile(login);
-        OtpDTO otpDTO = labService.getOtp();
+        OTP otp = labService.getOtp();
         if(labl.getLab().getLabId() != null){
-            if(otpDTO.getOtp() != null) {
-                emailService.sendSimpleMessage(
-                        lab.getEmail(),
-                        "Please use the following OTP to Authenticate Login",
-                        "OTP: " + otpDTO.getOtp());
-                message.setMessage("OTP sent to registered email address");
-            }
+            emailService.sendSimpleMessage(
+                    lab.getEmail(),
+                    "Please use the following OTP to Authenticate Login",
+                    "OTP: " + otp.getOneTimePasswordCode());
+            message.setMessage("OTP sent to registered email address");
         }else {
             message.setMessage("Login failed, Check username/password");
         }
@@ -59,11 +58,8 @@ public class LabController {
     @PostMapping("/lab/login/validateOTP")
     public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
         LoginMessage loginMessage = labService.validateOTP(otpDTO);
-        LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setUserName(otpDTO.getUserName());
-        Lab lab = labService.getProfile(loginDTO);
         if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
-            loginMessage.setToken(userAuthProvider.createToken(lab.getUserName()));
+            loginMessage.setToken(userAuthProvider.createToken(otpDTO.getUserName()));
         }
         return ResponseEntity.ok(loginMessage);
     }

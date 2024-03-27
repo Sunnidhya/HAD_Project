@@ -147,18 +147,15 @@ public class LabService {
         return iLabRegistrationRepository.findAll();
     }
 
-    public OtpDTO getOtp() {
-        OtpDTO otpDTO = new OtpDTO();
+    public OTP getOtp() {
         OTP otp = new OTP();
         Date date = new Date();
 
-        Integer otpV = otpHelperService.createRandomOneTimePassword();
+        String otpV = otpHelperService.createRandomOneTimePassword();
         otp.setOneTimePasswordCode(otpV);
         otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
         iotpRepository.save(otp);
-
-        otpDTO.setOtp(otpV);
-        return otpDTO;
+        return otp;
     }
 
     public LoginMessage validateOTP(OtpDTO otpDTO) {

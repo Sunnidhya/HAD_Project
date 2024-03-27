@@ -25,4 +25,7 @@ public interface IRadiologistRegistrationRepository extends JpaRepository<Radiol
 
     @Query("SELECT r from Radiologist r")
     List<Radiologist> getCountRadiologist();
+
+    @Query("SELECT r from Radiologist r where r.radiologistId =:radioIdVal")
+    Radiologist getByRadiologistId(@Param("radioIdVal") Integer radiologistId);
 }
