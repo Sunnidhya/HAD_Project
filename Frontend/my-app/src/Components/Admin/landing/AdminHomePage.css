@@ -180,10 +180,10 @@
 
 
 
-.scan:hover, 
-.pres:hover, 
-.radioReport:hover, 
-.finalDiag:hover {
+.Admin-Det-ver2-1:hover, 
+.Admin-Det-ver2-2:hover, 
+.Admin-Det-ver2-3:hover, 
+.Admin-Det-ver2-4:hover {
     transform: scale(1.05); /* Zoom effect on hover */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
 }
