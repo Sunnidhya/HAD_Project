@@ -41,7 +41,7 @@ const RadioLanding = () => {
            <input className="RadioSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
         <div class="RadioLogout" onClick={handleLogout}>  
-        <img src={logout} alt="Logout" className="input-icon1" />
+           <img src={logout} alt="Logout" className="input-icon1" />
         </div>
     </div>
 
