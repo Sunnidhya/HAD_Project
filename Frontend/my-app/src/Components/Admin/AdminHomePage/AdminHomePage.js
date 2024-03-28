@@ -15,7 +15,7 @@ import adminLab from '../../../Resources/admin-lab.jpg';
 import adminPat from '../../../Resources/admin-pat.jpg';
 
 import './AdminHomePage.css'
-const AdminLanding = () => {
+const AdminHomePage = () => {
   const [patientValue, setPatientValue] = useState(12);
   const [radiologistValue, setRadiologistValue] = useState(22);
   const [doctorValue, setDoctorValue] = useState(22);
@@ -90,4 +90,4 @@ const AdminLanding = () => {
     </div>
     );
 }
-export default AdminLanding;
+export default AdminHomePage;

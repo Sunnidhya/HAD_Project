@@ -61,7 +61,7 @@ const RadioLanding = () => {
                 return (
                   <Col>
                       <Link to={`/card/${i+1}`}className="LinkStyle">
-                        <Card className='card'style={{ backgroundColor:isDone ? 'lightgreen' : 'red'}}>
+                        <Card className='RadioLandingcard'style={{ backgroundColor:isDone ? 'lightgreen' : 'red'}}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {i+1}</CardTitle>
                               <CardSubtitle tag="h6" className="mb-2 text-muted">Case Name</CardSubtitle>

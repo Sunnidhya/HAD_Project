@@ -4,19 +4,16 @@
     /* background-color: rgb(230, 157, 31); */
     height: 100vh;
     flex-direction: column;
-    width: 100%;
-    overflow: hidden;
+    width: auto;
+    overflow-x: hidden;
 }
-
-
-
-
 .Doc-Home-hor{
+    
     display: flex;
     background-color: #076E65;
-    /* width: 100%; */
-    height: 18%;
-    width: 100%;
+    flex-direction: row;
+    height: auto;
+    width: auto;
 }
 
 .admin-land-icon{
@@ -53,21 +50,6 @@
     margin-left: 90px;
     margin-top: 35px;
 }
-
-.Docfooter{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-     width: 100vw;
-    background-color: #076E65;
-    padding: 10px;
-    text-align: center;
-    
-    margin-top: 20px;
-}
-
-
-
 .DocLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -94,8 +76,7 @@
 } */
 .Doc-Det-ver1 {
     font-size: large;
-   
-    width: 400px;
+    width: auto;
     height: 85%;
     background: white ;
     margin-top: 30px;
@@ -110,13 +91,15 @@
 
 .Doc-Det-ver2 {
     background-color: white;
-    width: 1500px;
+    width: auto;
     height: 90%;
     margin-top: 30px;
-    margin-left: 5%;
+    margin-left: 5px;
     margin-right: 10px;
     margin-bottom: 30px;
-    margin-right: 30px;
+    margin-right: 1%;
+    padding-left: 200px;
+    padding-right: auto;
     
 }
 
@@ -126,10 +109,10 @@
     flex-direction: column;
     height: 100%;
     background-color: #fcf6f6;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1;
-  transform: translateY(-50px);
-  border-radius: 25px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(-50px);
+    border-radius: 25px;
 
 }
 
@@ -137,7 +120,7 @@
     display: flex;
     flex-direction: row;
     height: 90%;
-    width: 100%;
+    width: auto;
 }
 
 .Doc-Det-ver2-inner-lower{
@@ -203,7 +186,7 @@
     display: flex;
     flex-direction: column; 
     height: 100%;
-    width: 500px;
+    width: auto;
     
 
 }
@@ -217,8 +200,8 @@
     flex: 1;
 }
 
-.scanned,.pres, .radioReport, .finalDiag{
-    width:85%;
+.docscanned, .docpres, .docradioReport, .docfinalDiag{
+    width:75%;
     height: 85%;
     justify-content: center;
     margin: 5%;
@@ -232,10 +215,10 @@
 
 
 .generate-button{
-    width: 30%;
+    width: auto;
     align-items: centre;
-    margin-left: 35%;
-    transform: translateY(35px);
+    margin-left: 20%;
+    margin-top: 3%;
     border-radius: 25px;
     background-color: #076E65;
     color: white;
@@ -255,3 +238,13 @@
     text-align: center;
     transform: translateY(-20px);
 }
+
+.doctor-details-about-us-section { 
+    padding: 20px;
+    background-color: #076E65;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    
+  }

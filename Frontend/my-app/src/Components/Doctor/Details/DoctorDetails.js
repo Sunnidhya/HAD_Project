@@ -53,22 +53,22 @@ const DoctorDetails = () => {
             <div className='Doc-Det-ver2-inner-upper'>
             <div className='DocVerUp'>
                 <div className='Doc-Det-ver2-1'>
-                    <img src={scan} alt="scan" className='scanned'/>
+                    <img src={scan} alt="scan" className='docscanned'/>
                     <p className='scantext'>Scanned Images</p>
                 </div>
                 <div className='Doc-Det-ver2-2'>
-                    <img src={prescription} alt="pres" className='pres'/>
+                    <img src={prescription} alt="pres" className='docpres'/>
                     <p className='prestext'>Prescription</p>
                 </div>
             </div>
 
             <div className='DocVerDown'>
                 <div className='Doc-Det-ver2-3'>
-                    <img src={radiologistreport} alt="radioReport" className='radioReport'/>
+                    <img src={radiologistreport} alt="radioReport" className='docradioReport'/>
                     <p className='rep'>Radiologist's Report</p>
                 </div>
                 <div className='Doc-Det-ver2-4'>
-                    <img src={finaldiagnosis} alt="finalDiag" className='finalDiag'/>
+                    <img src={finaldiagnosis} alt="finalDiag" className='docfinalDiag'/>
                     <p className='diagtext'>Final Diagnosis</p>
                 </div>
 
@@ -88,10 +88,10 @@ const DoctorDetails = () => {
         </div>
         
       </div>
-      <div></div>
-        <div class="Docfooter">
-          <h2>About Us</h2>
-        </div>
+      
+      <div className="doctor-details-about-us-section">
+        <p>About Us</p>
+      </div>
       </div>
     
   );
