@@ -1,33 +1,51 @@
-.Had-land-container{
+.Rad-land-container{
     display: flex;
-    min-width: 12000px;
+    /* width: 100%; */
     /* background-color: rgb(230, 157, 31); */
-    min-height: 600px;
-    flex-direction: column
+    height: 100vh;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
 }
 
 
 
 
-.Admin-Home-hor{
+.Rad-Home-hor{
     display: flex;
-    background-color: rgb(34, 206, 209);
-    min-width: 12000px;
-    height: 130px;
+    background-color: #0E0E62;
+    /* width: 100%; */
+    height: 18%;
+    width: 100%;
 }
 
 .admin-land-icon{
-    padding-top: 35% ;
+    padding-top: 5% ;
     padding-left: 15%;
+    height: 50%;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 5%;
+    padding-left: 12%;
+    margin-bottom: 15%;
 }
   
   
-#radseideimg{
-    padding-top: 1%;
-    padding-left: 10%;
-    height: 120px;
-    width: 120px;
+.Rad-Det-ver1 p{
+    
+    font-size: larger;
+    background-color: #0E0E62;
+    justify-self: center;
+    margin: 5%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+
+
 }
+
+
   
   
 .pageTitle {
@@ -36,12 +54,12 @@
     margin-top: 35px;
 }
 
-.Adminfooter{
+.Radfooter{
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
-    background-color: rgb(34, 206, 209);
+   width: 100vw;
+    background-color: #0E0E62;
     padding: 10px;
     text-align: center;
     color: white;
@@ -50,20 +68,21 @@
 
 
 
-.AdminLogout{
+.RadLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center;
-    margin-left: 1102px;  /* Center vertically */
-    
+    margin-left:70%; 
+    margin-bottom: 2%;    
+   
 }
 
-.Admin-Home-ver {
+.Rad-Det-ver {
     display: flex;
     flex-direction: row;
     background-color: white;
-    height: 585px;
-    margin-bottom: 50px;
+    height: 80%;
+    margin-bottom: 40px;
 }
 
 /* .Admin-Home-ver1, .Admin-Home-ver2 {
@@ -74,32 +93,42 @@
     height: 100%;
     width: 6px;            
 } */
-.Admin-Home-ver1 {
-    
+.Rad-Det-ver1 {
+    font-size: large;
    
     width: 400px;
     height: 85%;
-    background:#0B5C83 ;
+    background: white ;
     margin-top: 30px;
     margin-left: 30px;
-    margin-right: 30px;
+    margin-right: 3px;
     margin-bottom: 30px;
-    
+    height: 80%;
    
    
 }
 
-.Admin-Home-ver2 {
+.Rad-Det-ver2 {
     background-color: white;
     width: 1500px;
     height: 85%;
     margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 30px;
+    margin-left: 5%;
+    margin-right: 10px;
     margin-bottom: 30px;
     margin-right: 30px;
+    
+}
+
+.Rad-Det-ver2-inner{
+    padding: 30px;
     display: flex;
     flex-direction: row;
+    height: 100%;
+    background-color: #fcf6f6;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  transform: translateY(-50px);
 }
 
 
@@ -110,94 +139,82 @@
    margin-top: 20px;
 }
 
-.Admin-Home-ver2-1{
+.Rad-Det-ver2-1{
    
-    width:500px;
-    height: 225px;
-    margin-left: 50px;
-    margin-right: 10px;
+    width:100%;
+    height: 50%;
+    
+}
+.Rad-Det-ver2-2{
+    
+    width:100%;
+    height: 50%;
+   
+}
+.Rad-Det-ver2-3{
+    
+    width:100%;
+    height: 50%;
+    
     top:0;
-    background-color: #0B5C83;
-}
-.Admin-Home-ver2-2{
     
-    width:500px;
-    height: 225px;
-    margin-left: 50px;
-    margin-top: 50px;
-    background-color: yellow;
 }
-.Admin-Home-ver2-3{
+.Rad-Det-ver2-4{
     
-    width:500px;
-    height: 225px;
-    margin-left: 50px;
-    margin-right: 10px;
-    top:0;
-    background-color: brown;
-}
-.Admin-Home-ver2-4{
+    width:100%;
+    height: 50%;
     
-    width:500px;
-    height: 225px;
-    margin-left: 50px;
-    margin-top: 50px;
-    background-color: aqua;
+   
 }
 
 
-.Admin-Home-ver2-1 :hover,.Admin-Home-ver2-2 :hover,.Admin-Home-ver2-3 :hover,.Admin-Home-ver2-4 :hover{
+
+
+.scan:hover, 
+.pres:hover, 
+.radioReport:hover, 
+.finalDiag:hover {
     transform: scale(1.05); /* Zoom effect on hover */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
-    
 }
 
-.VerUp,.VerDown{
+
+.RadVerUp,.RadVerDown{
     display: flex;
-    flex-direction: row; 
-    height: 450px;
-    margin-left: 50px;
-    flex-direction: column;
+    flex-direction: column; 
+    height: 100%;
     width: 500px;
+    
 
 }
-.VerDown{
-    background-color: white;
+.RadVerDown{
+   
+    flex: 1;
 }
-.VerUp{
-    background-color: white;
+.RadVerUp{
+    
+    flex: 1;
 }
 
-.admindoc,.adminrad,.adminpat,.adminlab{
-    width:500px;
-    height: 190px; 
+.scan,.pres, .radioReport, .finalDiag{
+    width:85%;
+    height: 85%;
+    justify-content: center;
+    margin: 5%;
+    /* margin-top: 2%; */
+    border-color: #fcf6f6;
+
     
 }
 
-.AdLab{
-    background-color: #F4A52E;
-    color: aliceblue;
-    text-align: center;
-    align-items: center;
-    margin-top: 90px;
-}
 
-.AdPat{
-    background-color: #1588C2;
-    color: aliceblue;
-    text-align: center;
-    margin-top: 90px;
-}
 
-.AdDoc{
-    background-color: #076E65;
-    color: aliceblue;
-    text-align: center;
-}
 
-.AdRad{
-    background-color: #0E0E62;
-    color: aliceblue;
+.scantext, .prestext, .rep, .diagtext{
+    width: 100%;
+    color: black;
+    font-size: large;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
-    margin-top: 90px;
+    transform: translateY(-20px);
 }

@@ -1,4 +1,4 @@
-.Doc-land-container{
+.Pat-land-container{
     display: flex;
     /* width: 100%; */
     /* background-color: rgb(230, 157, 31); */
@@ -11,35 +11,36 @@
 
 
 
-.Doc-Home-hor{
+.Pat-Home-hor{
     display: flex;
-    background-color: #0E0E62;
+    background-color: #1588C2;
     /* width: 100%; */
     height: 18%;
     width: 100%;
 }
 
 .admin-land-icon{
-    padding-top: 35% ;
+    padding-top: 5% ;
     padding-left: 15%;
-    height: 150px;
-    width: 120px;
+    height: 50%;
+    width: 70%;
     margin-left: 15%;
     margin-top: 5%;
     padding-left: 12%;
-    margin-bottom: 25%;
+    margin-bottom: 15%;
 }
   
   
-.Doc-Det-ver1 p{
+.Pat-Det-ver1 p{
     
     font-size: larger;
-    background-color: antiquewhite;
+    background-color: #3B7188;
     justify-self: center;
     margin: 5%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     text-align: center;
+    color: white;
 
 
 }
@@ -53,12 +54,12 @@
     margin-top: 35px;
 }
 
-.Docfooter{
+.Patfooter{
     position: fixed;
     left: 0;
     bottom: 0;
    width: 100vw;
-    background-color: #0E0E62;
+    background-color: #1588C2;
     padding: 10px;
     text-align: center;
     color: white;
@@ -67,14 +68,16 @@
 
 
 
-.DocLogout{
+.PatLogout{
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center;
-    margin-left:75%;    
+    margin-left:70%; 
+    margin-bottom: 2%;    
+   
 }
 
-.Doc-Det-ver {
+.Pat-Det-ver {
     display: flex;
     flex-direction: row;
     background-color: white;
@@ -90,25 +93,26 @@
     height: 100%;
     width: 6px;            
 } */
-.Doc-Det-ver1 {
+.Pat-Det-ver1 {
     font-size: large;
    
     width: 400px;
     height: 85%;
-    background: #0E0E62 ;
+    background: white ;
     margin-top: 30px;
     margin-left: 30px;
     margin-right: 3px;
     margin-bottom: 30px;
-    height: 80%;
+    height: 85%;
+    border-radius: 25px;
    
    
 }
 
-.Doc-Det-ver2 {
+.Pat-Det-ver2 {
     background-color: white;
     width: 1500px;
-    height: 85%;
+    height: 90%;
     margin-top: 30px;
     margin-left: 5%;
     margin-right: 10px;
@@ -117,7 +121,7 @@
     
 }
 
-.Doc-Det-ver2-inner{
+.Pat-Det-ver2-inner{
     padding: 30px;
     display: flex;
     flex-direction: row;
@@ -126,6 +130,8 @@
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
   z-index: 1;
   transform: translateY(-50px);
+  border-radius: 25px;
+
 }
 
 
@@ -136,31 +142,36 @@
    margin-top: 20px;
 }
 
-.Doc-Det-ver2-1{
+.Pat-Det-ver2-1{
    
     width:100%;
     height: 50%;
+    border-radius: 25px;
+
     
 }
-.Doc-Det-ver2-2{
+.Pat-Det-ver2-2{
     
     width:100%;
     height: 50%;
+    border-radius: 25px;
+
    
 }
-.Doc-Det-ver2-3{
+.Pat-Det-ver2-3{
     
     width:100%;
     height: 50%;
-    
-    top:0;
+    border-radius: 25px;
+
     
 }
-.Doc-Det-ver2-4{
+.Pat-Det-ver2-4{
     
     width:100%;
     height: 50%;
-    
+    border-radius: 25px;
+
    
 }
 
@@ -176,7 +187,7 @@
 }
 
 
-.DocVerUp,.DocVerDown{
+.PatVerUp,.PatVerDown{
     display: flex;
     flex-direction: column; 
     height: 100%;
@@ -184,11 +195,11 @@
     
 
 }
-.DocVerDown{
+.PatVerDown{
    
     flex: 1;
 }
-.DocVerUp{
+.PatVerUp{
     
     flex: 1;
 }
@@ -199,7 +210,9 @@
     justify-content: center;
     margin: 5%;
     /* margin-top: 2%; */
-    border: 3px solid black;
+    border-color: #fcf6f6;
+    border-radius: 25px;
+
     
 }
 
