@@ -25,7 +25,7 @@ import PatientDetails from './Components/Patient/Details/PatientDetails';
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<AdminLanding/>}/>
+    <Route path="/" element={<FirstPage/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>

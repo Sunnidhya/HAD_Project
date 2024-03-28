@@ -59,7 +59,7 @@ const DoctorLogin = () => {
         </div>
         <div class="Doctor-Login-Ver-Right">
           <div className="login-container">
-            <h3>Welcome Doctor</h3>
+            <h4>Welcome Doctor</h4>
             <form class="login-form">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder='Type your Username' required />
