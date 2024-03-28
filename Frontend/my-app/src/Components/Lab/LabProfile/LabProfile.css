@@ -1,0 +1,123 @@
+body {
+    margin: 0; 
+    padding: 0; 
+    /* background-image: url("../../../Resources/beige\ background.avif");  */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+  .Lab-Login-hor{
+    display: flex;
+    background-color: #F4A52E;
+    overflow: hidden;
+  }
+  .divisions1
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10%;
+  }  
+  
+  #profilesideimg{
+    padding-top: 1%;
+    padding-left: 10%;
+    height: 120px;
+    width: 120px;
+  }
+  
+  
+  .pageTitle {
+    color: white;
+    text-align: start;
+    
+  }
+  
+  
+  
+  /* ------------------------------------------------------ */
+  
+  
+  
+  .Lab-container {
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #ede7cd;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .Lab-picture {
+    text-align: center;
+    margin-right: 80px;
+  }
+  
+  .Lab-picture img {
+    width: 300px;
+    height: 300px;
+    border-radius: 80px;
+    object-fit: cover;
+    border: 3px solid #333;
+    margin: 60px 0px 20px 80px;
+  }
+  
+  .Lab-user-info h2 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 300px;
+    color: #F4A52E;
+  }
+  
+  .Lab-user-info p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 500px;
+    color: #F4A52E;
+  }
+  .Lab-edit-button {
+    margin-top: 6px; 
+    margin-left: 80px;
+    color:white;
+    background-color: #F4A52E;
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 300;
+    
+  }
+  
+  .Lab-change-button {
+    margin-top: 10px; 
+    margin-left: 80px;
+    color:white;
+    background-color: #F4A52E;
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 300;
+  }
+  
+  
+  .Lab-about-us-section {
+    margin-top: 20px; 
+    padding: 20px;
+    background-color: #F4A52E;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .Lab-about-us-section p {
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
