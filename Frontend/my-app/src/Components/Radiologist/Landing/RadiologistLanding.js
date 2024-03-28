@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import './RadiologistLanding.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Link } from 'react-router-dom';
 import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Container, Row, Col
@@ -30,6 +30,7 @@ const RadioLanding = () => {
 
 
   const numberOfCards = 24;
+  const isDone=false;
   return (
     <div class="Radio-landing-container">
      <div class="Radio-landing-hor">
@@ -59,7 +60,8 @@ const RadioLanding = () => {
             {[...Array(numberOfCards)].map((e, i) => {
                 return (
                   <Col>
-                      <Card className='card'>
+                      <Link to={`/card/${i+1}`}className="LinkStyle">
+                        <Card className='card'style={{ backgroundColor:isDone ? 'lightgreen' : 'red'}}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {i+1}</CardTitle>
                               <CardSubtitle tag="h6" className="mb-2 text-muted">Case Name</CardSubtitle>
@@ -67,6 +69,8 @@ const RadioLanding = () => {
                               <CardText>Case Description</CardText>
                              </CardBody>
                       </Card>
+                      </Link>
+                      
                   </Col>
                 )
             })}
