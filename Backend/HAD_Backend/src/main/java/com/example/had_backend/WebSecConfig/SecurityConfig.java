@@ -36,13 +36,10 @@ public class SecurityConfig {
                         "/radiologist/register",
                         "/patient/register",
                         "/lab/register",
-                        "/lab/login",
-                        "/doctor/remove",
-                        "/doctor/login/validateOTP").permitAll()
+                        "/lab/login").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/count").permitAll()
                 .anyRequest().authenticated());
-
         return http.build();
     }
 }

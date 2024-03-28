@@ -17,6 +17,7 @@ import PatientProfile from './Components/Patient/PatientProfile/PatientProfile';
 import RadiologistProfile from './Components/Radiologist/Profile/RadiologistProfile';
 import LabProfile from './Components/Lab/LabProfile/LabProfile';
 import DoctorProfile from './Components/Doctor/DoctorProfile/DoctorProfile';
+import DoctorDetails from './Components/Doctor/Details/DoctorDetails';
 
 
 
@@ -30,7 +31,7 @@ function App() {
     <Route path="/lab" element={<LabLogin/>}/>
     <Route path="/patient" element={<PatientLogin/>}/>
     <Route path="/patient/landing" element={<PatientLanding/>}/>
-    <Route path="/doctor/landing" element={<DoctorLanding/>}/>
+    <Route path="/doctor/details" element={<DoctorDetails/>}/>
     <Route path="/lab/landing" element={<LabLanding/>}/>
     <Route path="/radiologist/landing" element={<RadioLanding/>}/>
     <Route path="/admin/landing" element={<AdminLanding/>}/>
