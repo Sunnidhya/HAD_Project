@@ -25,7 +25,7 @@ public class OTP {
     @NonNull
     private Long id;
     @NonNull
-    private Integer oneTimePasswordCode;
+    private String oneTimePasswordCode;
     @NonNull
     private Long expires;
 }

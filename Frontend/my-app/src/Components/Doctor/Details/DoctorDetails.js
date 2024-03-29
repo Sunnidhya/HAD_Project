@@ -88,10 +88,10 @@ const DoctorDetails = () => {
         </div>
         
       </div>
-      <div></div>
-        <div class="Docfooter">
-          <h2>About Us</h2>
-        </div>
+      
+      <div className="doctor-details-about-us-section">
+        <p>About Us</p>
+      </div>
       </div>
     
   );

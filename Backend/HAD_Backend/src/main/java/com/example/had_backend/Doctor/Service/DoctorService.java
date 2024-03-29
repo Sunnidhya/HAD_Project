@@ -10,6 +10,7 @@ import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Model.CasesDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IOTPRepository;
@@ -148,24 +149,23 @@ public class DoctorService {
     }
 
     public LoginMessage createCase(Cases cases) {
+        Date date = new Date();
+        cases.setCaseDate(date.getTime());
         iCasesRepository.save(cases);
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Case is created successfully");
         return loginMessage;
     }
 
-    public OtpDTO getOtp() {
-        OtpDTO otpDTO = new OtpDTO();
+    public OTP getOtp() {
         OTP otp = new OTP();
         Date date = new Date();
 
-        Integer otpV = otpHelperService.createRandomOneTimePassword();
+        String otpV = otpHelperService.createRandomOneTimePassword();
         otp.setOneTimePasswordCode(otpV);
         otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
         iotpRepository.save(otp);
-
-        otpDTO.setOtp(otpV);
-        return otpDTO;
+        return otp;
     }
 
     public LoginMessage validateOTP(OtpDTO otpDTO) {
@@ -183,6 +183,19 @@ public class DoctorService {
                 loginMessage.setMessage("OTP entered is wrong!! Please renter");
             }
         }
+        return loginMessage;
+    }
+
+    public Doctor getDoctorById(Integer doctorId) {
+        return iDoctorRegistrationRepository.findByDoctorId(doctorId);
+    }
+
+    public LoginMessage markAsDone(CasesDTO casesDTO) {
+        Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
+        cases.setMarkAsDone(true);
+        iCasesRepository.save(cases);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Case is Marked as done and closed");
         return loginMessage;
     }
 }

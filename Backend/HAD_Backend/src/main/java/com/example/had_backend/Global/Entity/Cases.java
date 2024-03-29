@@ -21,7 +21,7 @@ public class Cases {
     private String caseName;
 
     @Column(nullable = false)
-    private String caseDate;
+    private Long caseDate;
 
     //doctorId of doctor table
     @ManyToOne
@@ -43,4 +43,6 @@ public class Cases {
     @JoinColumn(name = "patientId", nullable = false, foreignKey = @ForeignKey(name="patientId"))
     @JsonIgnore
     private Patient patient;
+
+    private Boolean markAsDone=false;
 }

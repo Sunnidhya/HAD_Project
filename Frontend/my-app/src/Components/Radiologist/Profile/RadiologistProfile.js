@@ -1,4 +1,4 @@
-import './Profile.css'
+import './RadiologistProfile.css'
 import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
@@ -6,9 +6,9 @@ import imgside from '../../../Resources/AppLogo.png';
 import React, { useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
-import radpic from '../../../Resources/EmptyState.PNG';
+import radpic from '../../../Resources/radio1.avif';
 
-const Profile = () => {
+const RadiologistProfile = () => {
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,7 +20,7 @@ const Profile = () => {
           <img src={imgside} id="profilesideimg"/>
         </div>
         <div className='divisions1'>
-          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+          <h2 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h2>
         </div>
         </div>
 
@@ -39,10 +39,12 @@ const Profile = () => {
             <p><b>Department:</b> Radiology</p>
             <p><b>Password:</b>1234</p>
         </div>
-
-        
-    </div>
+       </div>
+        {/* About Us Section */}
+      <div className="about-us-section">
+        <p>About Us</p>
       </div>
+    </div>
     );
 }
-export default Profile;
+export default RadiologistProfile;

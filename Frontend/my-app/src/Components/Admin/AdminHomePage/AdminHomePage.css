@@ -1,0 +1,182 @@
+.Admin-Home-hor{
+
+    display: flex;
+    background-color: #52D1BC;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    overflow-x: hidden;
+    width:100%;
+   
+    
+}
+#docsideimg{
+    padding-top: 1%;
+    padding-left: 1%;
+    margin-left: 10px;
+    height: 120px;
+    width: 120px;
+}
+.input-icon2
+{
+   margin-left: 250px;
+   margin-top: 20px;
+   
+}
+.admin-land-icon-1{
+    padding-top: 35% ;
+    padding-left: 15%;
+    height: 150px;
+    width: 100px;
+  
+    align-self: center;
+    margin-bottom: 25%;
+    align-content: center;
+    margin-left: 15%;
+}
+  
+  
+.Admin-Det-ver1 p{
+    
+    font-size: larg;
+    background-color: antiquewhite;
+    justify-self: center;
+    margin: 5%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    text-align: center;
+
+
+}
+.Admin-Det-ver {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    height: 70%;
+    margin-bottom: 40px;
+}
+
+
+.Admin-Det-ver1 {
+    font-size: large;
+    width: 18%;
+    height: 88%;
+    background: #52D1BC ;
+    margin-top: 30px;
+    margin-left: 1%;
+    margin-right: 2%;
+    margin-bottom: 30px;
+}
+
+.Admin-Det-ver2 {
+    background-color: white;
+    width: auto;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+
+.Admin-Det-ver2-inner{
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    background-color: #fcf6f6;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(-50px);
+    border-radius: 5px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.Admin-Det-ver2-1{
+    width: 450px;
+    height: 200px;
+    background-color: #076E65;
+    margin: 2%;
+    border-radius: 5px;
+}
+.Admin-Det-ver2-2{
+    width: 450px;
+    height: 200px;
+    background-color: #0E0E62;
+    margin: 2%;
+    border-radius: 5px;
+}
+.Admin-Det-ver2-3{
+    width: 450px;
+    height: 200px;
+    background-color: #F4A52E;
+    margin: 2%;
+    border-radius: 5px;
+}
+.Admin-Det-ver2-4{
+    width: 450px;
+    height: 200px;
+    background-color: #17B2F5;
+    margin: 2%;
+    border-radius: 5px;
+}
+
+
+
+
+.Admin-Det-ver2-1:hover, 
+.Admin-Det-ver2-2:hover, 
+.Admin-Det-ver2-3:hover, 
+.Admin-Det-ver2-4:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+}
+
+
+.AdminVerUp,.AdminVerDown{
+    display: flex;
+    flex-direction: column; 
+    height: auto;
+    width: auto;
+    margin-right: 30px
+}
+.AdminVerDown{
+    flex: 1;
+    margin-left: 1%;
+}
+.AdminVerUp{
+    flex: 1;
+    margin-right: 1%;
+}
+
+.scan,.pres, .radioReport, .finalDiag{
+    width:85%;
+    height: 85%;
+    justify-content: center;
+    margin: 5%;
+    /* margin-top: 2%; */
+    border: 3px solid black;
+    
+}
+
+
+
+
+.admindoc, .adminlab, .adminrad, .adminpat, .counttext{
+    width: 100%;
+    color: black;
+    font-size: large;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    transform: translateY(50px);
+}
+
+
+.Admin-home-about-us-section { 
+    padding: 20px;
+    background-color: #52D1BC;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
