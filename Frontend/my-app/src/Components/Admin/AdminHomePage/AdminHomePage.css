@@ -6,7 +6,7 @@
     align-items: center;
     padding: 8px;
     overflow-x: hidden;
-    width:100%;    
+    width:100%; 
 }
 #docsideimg{
     padding-top: 1%;
@@ -14,6 +14,7 @@
     margin-left: 10px;
     height: 120px;
     width: 120px;
+    
 }
 .input-icon2
 {

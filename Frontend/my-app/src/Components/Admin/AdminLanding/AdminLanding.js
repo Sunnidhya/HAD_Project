@@ -120,7 +120,7 @@ const AdminLanding = () => {
           <button style={{ margin: "10px" }}>Profile</button>
         </div>
         <div className="Admin-Land-ver2">
-          <div className="Admin-card">
+          <div className="Admin-card" >
             <Container>
               <Row xs={3}>
                 {(receivedData === "Doctor") &&
@@ -131,14 +131,15 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(7, 110, 101)",
+                            color:'white',
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Doctor ID: {obj.doctorId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle >
                               Name: {obj.name}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle >
                               Degree: {obj.degree}
                             </CardSubtitle>
                             <CardText>UserName: {obj.userName}</CardText>
@@ -164,16 +165,14 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(21, 136, 194)",
+                            color:"white",
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Patient ID: {obj.patientId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
-                              Name: {obj.fullName}
-                            </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
-                              Contact No: {obj.contactNo}
-                            </CardSubtitle>
+                            <CardSubtitle >Name: {obj.fullName}</CardSubtitle >
+                            <CardSubtitle >Contact No: {obj.contactNo}
+                            </CardSubtitle >
                             <CardText>UserName: {obj.userName}</CardText>
                             <Button
                               style={{
@@ -197,14 +196,15 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(14, 14, 98)",
+                            color:"white",
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Radiologist ID - {obj.radiologistId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle>
                               {obj.name}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle>
                               {obj.degree}
                             </CardSubtitle>
                             <CardText>{obj.userName}</CardText>
@@ -230,14 +230,15 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(244, 165, 46)",
+                            color:"white",
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Lab ID - {obj.labId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle >
                               {obj.labName}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle>
                               {obj.contactNo}
                             </CardSubtitle>
                             <CardText>{obj.userName}</CardText>
