@@ -1,5 +1,5 @@
 import imgside from "../../../Resources/AppLogo.png";
-import admin from "../../../Resources/admin-landing-icon.webp";
+import admin from "../../../Resources/radio1.avif";
 import logout from "../../../Resources/log-out.png";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ const AdminHomePage = () => {
     <div className='Admin-Det-ver'>
       <div className='Admin-Det-ver1'>
           <img src={admin} alt="Admin Icon" className="admin-land-icon-1" />
-          <p>Admin's Name</p>
+          <p>Admin</p>
         </div>
         <div className="Admin-Det-ver2">
           <div className="Admin-Det-ver2-inner">
@@ -77,12 +77,12 @@ const AdminHomePage = () => {
               <div className="Admin-Det-ver2-1" onClick={goToDoctor}>
                 {/* <img src={empty} alt="scan" className='admindoc'/> */}
                 <p className="admindoc">Doctor</p>
-                <p className="counttext">Count:{doctorValue}</p>
+                <p className="counttext">Count: {doctorValue}</p>
               </div>
               <div className="Admin-Det-ver2-2" onClick={goToLab}>
                 {/* <img src={empty} alt="pres" className='adminrad'/> */}
                 <p className="adminrad">Laboratory</p>
-                <p className="counttext">Count{labValue}</p>
+                <p className="counttext">Count: {labValue}</p>
               </div>
             </div>
 
@@ -90,26 +90,14 @@ const AdminHomePage = () => {
               <div className="Admin-Det-ver2-3" onClick={goToRadiologist}>
                 {/* <img src={empty} alt="radioReport" className='adminlab'/> */}
                 <p className="adminlab">Radiologist</p>
-                <p className="counttext">Count:{radiologistValue}</p>
+                <p className="counttext">Count: {radiologistValue}</p>
               </div>
               <div className="Admin-Det-ver2-4" onClick={goToPatient}>
                 {/* <img src={empty} alt="finalDiag" className='adminpat'/> */}
                 <p className="adminpat">Patient</p>
-                <p className="counttext">Count:{patientValue}</p>
+                <p className="counttext">Count: {patientValue}</p>
               </div>
             </div>
-          </div>
-          <div className='AdminVerDown'>
-              <div className='Admin-Det-ver2-3'>
-                  {/* <img src={empty} alt="radioReport" className='adminlab'/> */}
-                  <p className='adminlab'>Radiologist</p>
-                  <p className='counttext'>Count:33</p>
-              </div>
-              <div className='Admin-Det-ver2-4'>
-                  {/* <img src={empty} alt="finalDiag" className='adminpat'/> */}
-                  <p className='adminpat'>Patient</p> 
-                  <p className='counttext'>Count:33</p>
-              </div>
           </div>
       </div>
       </div>
