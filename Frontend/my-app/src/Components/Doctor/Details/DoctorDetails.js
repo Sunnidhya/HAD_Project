@@ -31,19 +31,19 @@ const DoctorDetails = () => {
 
   return (
     <div className="Doc-land-container">
-        <div class="Doc-Home-hor">
-          <div>
-            <img src={imgside} id="docsideimg" />
+        <div class="Doc-Det-hor">
+          <div className='logodocdet'>
+            <img src={imgside} id="docdetsideimg" />
           </div>
          
-          <div class="DocLogout" onClick={handleLogout}>  
-          <img src={logout} alt="Logout" className="input-icon1" />
+          <div class="DocDetLogout" onClick={handleLogout}>  
+          <img src={logout} alt="Logout" className="doc-input-icon1" />
           </div>
       </div>
       <div className='Doc-Det-ver'>
         <div className='Doc-Det-ver1'>
           
-            <img src={admin} alt="Admin Icon" className="admin-land-icon" />
+            <img src={admin} alt="Admin Icon" className="doc-admin-land-icon" />
             <p>Patients Name</p>
             <p>Consulting Doctor's Name</p>
         </div>
@@ -53,22 +53,22 @@ const DoctorDetails = () => {
             <div className='Doc-Det-ver2-inner-upper'>
             <div className='DocVerUp'>
                 <div className='Doc-Det-ver2-1'>
-                    <img src={scan} alt="scan" className='scanned'/>
+                    <img src={scan} alt="scan" className='docscanned'/>
                     <p className='scantext'>Scanned Images</p>
                 </div>
                 <div className='Doc-Det-ver2-2'>
-                    <img src={prescription} alt="pres" className='pres'/>
+                    <img src={prescription} alt="pres" className='docpres'/>
                     <p className='prestext'>Prescription</p>
                 </div>
             </div>
 
             <div className='DocVerDown'>
                 <div className='Doc-Det-ver2-3'>
-                    <img src={radiologistreport} alt="radioReport" className='radioReport'/>
+                    <img src={radiologistreport} alt="radioReport" className='docradioReport'/>
                     <p className='rep'>Radiologist's Report</p>
                 </div>
                 <div className='Doc-Det-ver2-4'>
-                    <img src={finaldiagnosis} alt="finalDiag" className='finalDiag'/>
+                    <img src={finaldiagnosis} alt="finalDiag" className='docfinalDiag'/>
                     <p className='diagtext'>Final Diagnosis</p>
                 </div>
 
