@@ -17,7 +17,7 @@ const AdminLogin = () => {
     e.preventDefault();
     localStorage.clear()
     if(usernameD=='admin' && passwordD=='admin'){
-      nav('/admin/landing')
+      nav('/admin/homepage')
     }else{
       alert('Wrong Username or Password')
     }
