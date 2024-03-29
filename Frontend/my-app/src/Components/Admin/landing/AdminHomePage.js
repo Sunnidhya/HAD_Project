@@ -25,6 +25,7 @@ const Profile = () => {
     nav("/admin")
   };
 
+
     return (
       <div class="Admin-Login-container">
         <div class="Admin-Login-hor">
@@ -66,6 +67,7 @@ const Profile = () => {
           <p>{labValue}</p>
           </div>
         </div>
+
 
         <div className="footer2">
           <footer>About Us</footer>

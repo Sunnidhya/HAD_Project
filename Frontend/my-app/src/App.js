@@ -13,12 +13,19 @@ import Profile from './Components/Radiologist/Profile/Profile';
 import { Routes, Route } from 'react-router-dom';
 import LabLanding from './Components/Lab/Landing/LabLanding';
 import RadioLanding from './Components/Radiologist/Landing/RadiologistLanding';
+import DoctorForm from './Components/Form/DoctorForm';
+import LabForm from './Components/Form/LabForm';
+import RadioForm from './Components/Form/RadioForm';
+import DoctorReport from './Components/Report/DoctorReport';
+import ConsentForm from './Components/Form/ConsentForm';
+import ChangePassword from './Components/Form/ChangePassword';
+import UploadImage from './Components/Form/UploadImage';
+import Logout from './Components/Form/Logout';
 
 
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<RegPatient/>}/>
     <Route path="/" element={<FirstPage/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
