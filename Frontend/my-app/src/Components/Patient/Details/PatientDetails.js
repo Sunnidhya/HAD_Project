@@ -36,13 +36,13 @@ const PatDetails = () => {
           </div>
          
           <div class="PatLogout" onClick={handleLogout}>  
-          <img src={logout} alt="Logout" className="input-icon1" />
+          <img src={logout} alt="Logout" className="pat-input-icon1" />
           </div>
       </div>
       <div className='Pat-Det-ver'>
         <div className='Pat-Det-ver1'>
           
-            <img src={admin} alt="Admin Icon" className="admin-land-icon" />
+            <img src={admin} alt="Admin Icon" className="pat-hor-det-icon" />
             <p>Patients Name</p>
             <p>Consulting Doctor's Name</p>
         </div>
@@ -50,22 +50,22 @@ const PatDetails = () => {
         <div className='Pat-Det-ver2-inner'>
         <div className='PatVerUp'>
                 <div className='Doc-Det-ver2-1'>
-                    <img src={scan} alt="scan" className='scan'/>
+                    <img src={scan} alt="scan" className='patscan'/>
                     <p className='scantext'>Scanned Images</p>
                 </div>
                 <div className='Pat-Det-ver2-2'>
-                    <img src={prescription} alt="pres" className='pres'/>
+                    <img src={prescription} alt="pres" className='patpres'/>
                     <p className='prestext'>Prescription</p>
                 </div>
             </div>
 
             <div className='PatVerDown'>
                 <div className='Pat-Det-ver2-3'>
-                    <img src={radiologistreport} alt="radioReport" className='radioReport'/>
+                    <img src={radiologistreport} alt="radioReport" className='patradioReport'/>
                     <p className='rep'>Radiologist's Report</p>
                 </div>
                 <div className='Pat-Det-ver2-4'>
-                    <img src={finaldiagnosis} alt="finalDiag" className='finalDiag'/>
+                    <img src={finaldiagnosis} alt="finalDiag" className='patfinalDiag'/>
                     <p className='diagtext'>Final Diagnosis</p>
                 </div>
 
@@ -80,7 +80,7 @@ const PatDetails = () => {
       </div>
       <div></div>
         <div class="Patfooter">
-          <h2>About Us</h2>
+          <p>About Us</p>
         </div>
       </div>
     

@@ -23,19 +23,21 @@
 
 .doc-admin-land-icon{
     padding-top: 35% ;
-    padding-left: 15%;
-    height: auto;
-    width: auto;
-    padding-left: 5%;
+    padding-left:15%;
+    height: 35%;
+    width: 74%;
+    padding-right: 5%;
     margin-top: 5%;
     margin-bottom: 15%;
     padding-right: 5%;
+    align-self: center;
+    margin-left: 10%;
 }
   
   
 .Doc-Det-ver1 p{
     
-    font-size: larger;
+    font-size: small;
     background-color: #076E65;
     justify-self: center;
     margin: 5%;
@@ -48,16 +50,15 @@
 }
 
 
-.Docfooter{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-     width: 100vw;
-    background-color: #076E65;
-    padding: 10px;
-    text-align: center;
-    
-    margin-top: 20px;
+.doctor-details-about-us-section{
+
+        padding: 20px;
+        background-color: #076E65;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        color: white;
+        font-weight: bold;
+
 }
 
 
@@ -88,7 +89,8 @@
     flex-direction: row;
     background-color: white;
     height: auto;
-    margin-bottom: 3%;
+    margin-bottom: 0.1%;
+    max-height: 70%;
 }
 
 /* .Admin-Home-ver1, .Admin-Home-ver2 {
@@ -106,11 +108,11 @@
     height: auto;
     background: white ;
     margin-top: 3%;
-    margin-left: 8%;
-    margin-right: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-bottom: 3%;
-   
-    border-radius: 25px;
+    max-width: 20%;
+    border-radius: 5px;
    
    
 }
@@ -120,7 +122,7 @@
     width: auto;
     height: auto;
     margin-top: 5%;
-    margin-left: 15%;
+    margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 5%;
     max-width: fit-content;
@@ -128,7 +130,7 @@
 }
 
 .Doc-Det-ver2-inner{
-    padding: 1%;
+    
     display: flex;
     flex-direction: column;
     height: auto;
@@ -136,11 +138,12 @@
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
     z-index: 1;
     transform: translateY(-13%);
-    border-radius: 25px;
+    border-radius: 5px;
 
 }
 
 .Doc-Det-ver2-inner-upper{
+    padding: 1%;
     display: flex;
     flex-direction: row;
     flex:2;
@@ -167,7 +170,7 @@
    
     width:auto;
     height: 50%;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 1%;
     align-items: center;
 
@@ -176,8 +179,8 @@
 .Doc-Det-ver2-2{
     
     width:auto;
-    height:50%;
-    border-radius: 25px;
+    height: 50%;
+    border-radius: 5px;
     padding: 1%;
     align-items: center;
 
@@ -186,8 +189,8 @@
 .Doc-Det-ver2-3{
     
     width:auto;
-    height:50%;
-    border-radius: 25px;
+    height: 50%;
+    border-radius: 5px;
     padding: 1%;
     align-items: center;
 
@@ -197,7 +200,7 @@
     
     width:auto;
     height: 50%;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 1%;
     align-items: center;
     
@@ -226,27 +229,28 @@
 
 }
 .DocVerDown{
-   
-    width: 50%;
+   flex: 1;
     
 }
 .DocVerUp{
     
-    width: 50%;
+    flex: 1;
     
 }
 
 .docscanned,.docpres{
     width: 100%;         /* ensures the image doesn't exceed the container's width */
     height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 500px;
+    max-height: 300px;
+    min-width: 30%;
+    min-height: 30%;
     padding: 7%;
     /* justify-content: center; */
     /* margin: 5%; */
     /* margin-top: 2%; */
     border-color: #fcf6f6;
-    border-radius: 50px;  
+    border-radius: 5px;  
     align-content: center; 
   
 }
@@ -254,17 +258,17 @@
 .docradioReport, .docfinalDiag{
     width: 100%;         /* ensures the image doesn't exceed the container's width */
     height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 500px;
+    max-height: 300px;
+    min-width: 30%;
+    min-height: 30%;
     padding: 7%;
     /* justify-content: center; */
     /* margin: 5%; */
     /* margin-top: 2%; */
     border-color: #fcf6f6;
-    border-radius: 50px;  
+    border-radius: 5px;  
     align-content: center; 
-    /* margin-left: 10%; */
-    /* margin-top: 20%; */
 
 }
 
@@ -281,7 +285,7 @@
     color: white;
     font-weight: bold;
     box-shadow: inset;
-    
+    margin-bottom: 5%;
 }
 
 
