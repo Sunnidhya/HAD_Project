@@ -38,7 +38,11 @@ public class SecurityConfig {
                         "/lab/register",
                         "/lab/login").permitAll()
                         .requestMatchers(HttpMethod.GET,
-                                "/count").permitAll()
+                                "/count",
+                                "/radilogist/getListOfRadiologists",
+                                "/doctor/getListOfDoctors",
+                                "/lab/getListOfLabs",
+                                "/patient/getListOfPatients").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }
