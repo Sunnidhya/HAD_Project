@@ -31,19 +31,19 @@ const DoctorDetails = () => {
 
   return (
     <div className="Doc-land-container">
-        <div class="Doc-Home-hor">
-          <div>
-            <img src={imgside} id="docsideimg" />
+        <div class="Doc-Det-hor">
+          <div className='logodocdet'>
+            <img src={imgside} id="docdetsideimg" />
           </div>
          
-          <div class="DocLogout" onClick={handleLogout}>  
-          <img src={logout} alt="Logout" className="input-icon1" />
+          <div class="DocDetLogout" onClick={handleLogout}>  
+          <img src={logout} alt="Logout" className="doc-input-icon1" />
           </div>
       </div>
       <div className='Doc-Det-ver'>
         <div className='Doc-Det-ver1'>
           
-            <img src={admin} alt="Admin Icon" className="admin-land-icon" />
+            <img src={admin} alt="Admin Icon" className="doc-admin-land-icon" />
             <p>Patients Name</p>
             <p>Consulting Doctor's Name</p>
         </div>

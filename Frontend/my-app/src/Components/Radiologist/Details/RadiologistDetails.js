@@ -39,13 +39,13 @@ const RadiologistDetails = () => {
           </div>
          
           <div class="RadLogout" onClick={handleLogout}>  
-          <img src={logout} alt="Logout" className="input-icon1" />
+          <img src={logout} alt="Logout" className="rad-input-icon1" />
           </div>
       </div>
       <div className='Rad-Det-ver'>
         <div className='Rad-Det-ver1'>
           
-            <img src={admin} alt="Admin Icon" className="admin-land-icon" />
+            <img src={admin} alt="Admin Icon" className="rad-admin-land-icon" />
             <p>Patients Name</p>
             <p>Consulting Doctor's Name</p>
         </div>
@@ -53,22 +53,22 @@ const RadiologistDetails = () => {
         <div className='Rad-Det-ver2-inner'>
         <div className='RadVerUp'>
                 <div className='Rad-Det-ver2-1'>
-                    <img src={scan} alt="scan" className='scan'/>
+                    <img src={scan} alt="scan" className='radscan'/>
                     <p className='scantext'>Scanned Images</p>
                 </div>
                 <div className='Rad-Det-ver2-2'>
-                    <img src={prescription} alt="pres" className='pres'/>
+                    <img src={prescription} alt="pres" className='radpres'/>
                     <p className='prestext'>Prescription</p>
                 </div>
             </div>
 
             <div className='RadVerDown'>
                 <div className='Rad-Det-ver2-3'>
-                    <img src={radiologistreport} alt="radioReport" className='radioReport'/>
+                    <img src={radiologistreport} alt="radioReport" className='radradioReport'/>
                     <p className='rep'>Radiologist's Report</p>
                 </div>
                 <div className='Rad-Det-ver2-4'>
-                    <img src={finaldiagnosis} alt="finalDiag" className='finalDiag'/>
+                    <img src={finaldiagnosis} alt="finalDiag" className='radfinalDiag'/>
                     <p className='diagtext'>Final Diagnosis</p>
                 </div>
 
@@ -83,7 +83,7 @@ const RadiologistDetails = () => {
       </div>
       <div></div>
         <div class="Radfooter">
-          <h2>About Us</h2>
+          <p>About Us</p>
         </div>
       </div>
     );

@@ -61,7 +61,6 @@ const AdminHomePage = () => {
         <div>
           <img src={imgside} id="docsideimg" />
         </div>
-
         <div class="AdminLogout" onClick={handleLogout}>
           <img src={logout} alt="Logout" className="input-icon1" />
         </div>

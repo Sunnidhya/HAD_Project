@@ -2,9 +2,9 @@
     display: flex;
     /* width: 100%; */
     /* background-color: rgb(230, 157, 31); */
-    height: 100vh;
+    height: auto;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     overflow: hidden;
 }
 
@@ -14,26 +14,31 @@
 .Rad-Home-hor{
     display: flex;
     background-color: #0E0E62;
-    /* width: 100%; */
     height: 18%;
-    width: 100%;
+    width: auto;
+    flex-direction: row;
+    padding: 0px;
 }
 
-.admin-land-icon{
-    padding-top: 5% ;
-    padding-left: 15%;
-    height: 50%;
-    width: 70%;
-    margin-left: 15%;
+.rad-admin-land-icon{
+    padding-top: 35% ;
+    padding-left:15%;
+    height: 35%;
+    width: 74%;
+    padding-right: 5%;
     margin-top: 5%;
-    padding-left: 12%;
     margin-bottom: 15%;
+    padding-right: 5%;
+    align-self: center;
+    margin-left: 10%;
+    
+    
 }
   
   
 .Rad-Det-ver1 p{
     
-    font-size: larger;
+    font-size: small;
     background-color: #0E0E62;
     justify-self: center;
     margin: 5%;
@@ -45,44 +50,36 @@
 
 }
 
-
-  
-  
-.pageTitle {
-    color: white;
-    margin-left: 90px;
-    margin-top: 35px;
-}
-
 .Radfooter{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-   width: 100vw;
+    padding: 20px;
     background-color: #0E0E62;
-    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: white;
-    margin-top: 20px;
+    font-weight: bold;
+    font-size: small;
 }
+
 
 
 
 .RadLogout{
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;
-    margin-left:70%; 
-    margin-bottom: 2%;    
+    width: 100%;   
    
+}
+
+.rad-input-icon1{
+    margin-left: 95%;
+    margin-top: 3%;
 }
 
 .Rad-Det-ver {
     display: flex;
     flex-direction: row;
     background-color: white;
-    height: 80%;
-    margin-bottom: 40px;
+    height: auto;
+    margin-bottom: 0.1%;
+    max-height: 70%;
 }
 
 /* .Admin-Home-ver1, .Admin-Home-ver2 {
@@ -96,73 +93,79 @@
 .Rad-Det-ver1 {
     font-size: large;
    
-    width: 400px;
-    height: 85%;
+    width: auto;
+    height: auto;
     background: white ;
-    margin-top: 30px;
-    margin-left: 30px;
-    margin-right: 3px;
-    margin-bottom: 30px;
-    height: 80%;
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 3%;
+    max-width: 20%;
+    border-radius: 5px;
    
    
 }
 
 .Rad-Det-ver2 {
     background-color: white;
-    width: 1500px;
-    height: 85%;
-    margin-top: 30px;
+    width: auto;
+    height: auto;
+    margin-top: 5%;
     margin-left: 5%;
-    margin-right: 10px;
-    margin-bottom: 30px;
-    margin-right: 30px;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    max-width: fit-content;
     
 }
 
 .Rad-Det-ver2-inner{
-    padding: 30px;
+    padding: 1%;
     display: flex;
     flex-direction: row;
-    height: 100%;
+    height: auto;
     background-color: #fcf6f6;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1;
-  transform: translateY(-50px);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(-13%);
+    border-radius: 5px;
 }
 
 
-
-.input-icon1
-{
-   margin-left: 250px;
-   margin-top: 20px;
-}
 
 .Rad-Det-ver2-1{
    
-    width:100%;
+    width:auto;
     height: 50%;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
     
 }
 .Rad-Det-ver2-2{
     
-    width:100%;
+    width:auto;
     height: 50%;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
    
 }
 .Rad-Det-ver2-3{
     
-    width:100%;
+    width:auto;
     height: 50%;
-    
-    top:0;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
     
 }
 .Rad-Det-ver2-4{
     
-    width:100%;
+    width:auto;
     height: 50%;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
     
    
 }
@@ -170,10 +173,7 @@
 
 
 
-.scan:hover, 
-.pres:hover, 
-.radioReport:hover, 
-.finalDiag:hover {
+.radscan:hover,.radpres:hover, .radradioReport:hover, .radfinalDiag:hover {
     transform: scale(1.05); /* Zoom effect on hover */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
 }
@@ -182,27 +182,34 @@
 .RadVerUp,.RadVerDown{
     display: flex;
     flex-direction: column; 
-    height: 100%;
-    width: 500px;
+    height: auto;
+    width: auto;;
     
 
 }
 .RadVerDown{
    
-    flex: 1;
+    flex:1;
 }
 .RadVerUp{
     
-    flex: 1;
+    flex:1;
 }
 
-.scan,.pres, .radioReport, .finalDiag{
-    width:85%;
-    height: 85%;
-    justify-content: center;
-    margin: 5%;
+.radscan,.radpres, .radradioReport, .radfinalDiag{
+    width: 100%;         /* ensures the image doesn't exceed the container's width */
+    height: 100%;
+    max-width: 500px;
+    max-height: 300px;
+    min-width: 30%;
+    min-height: 30%;
+    padding: 7%;
+    /* justify-content: center; */
+    /* margin: 5%; */
     /* margin-top: 2%; */
     border-color: #fcf6f6;
+    border-radius: 5px;  
+    align-content: center; 
 
     
 }
@@ -211,10 +218,9 @@
 
 
 .scantext, .prestext, .rep, .diagtext{
-    width: 100%;
+    width: auto;
     color: black;
     font-size: large;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
-    transform: translateY(-20px);
 }
