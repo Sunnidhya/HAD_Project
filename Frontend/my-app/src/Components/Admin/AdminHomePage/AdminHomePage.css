@@ -1,5 +1,4 @@
 .Admin-Home-hor{
-
     display: flex;
     background-color: #52D1BC;
     flex-direction: row;
@@ -7,9 +6,7 @@
     align-items: center;
     padding: 8px;
     overflow-x: hidden;
-    width:100%;
-   
-    
+    width:100%;    
 }
 #docsideimg{
     padding-top: 1%;
@@ -27,9 +24,7 @@
 .admin-land-icon-1{
     height: auto;
     width: 200px;
-}
-  
-  
+}  
 .Admin-Det-ver1 p{
     font-size: larg;
     background-color: #52D1BC;
@@ -47,7 +42,6 @@
     height: 70%;
     margin-bottom: 40px;
 }
-
 
 .Admin-Det-ver1 {
     font-size: large;
@@ -91,7 +85,7 @@
 .Admin-Det-ver2-2{
     width: 450px;
     height: 200px;
-    background-color: #0E0E62;
+    background-color: rgb(244, 165, 46);
     margin: 2%;
     border-radius: 5px;
     cursor: pointer;
@@ -99,7 +93,7 @@
 .Admin-Det-ver2-3{
     width: 450px;
     height: 200px;
-    background-color: #F4A52E;
+    background-color: rgb(14, 14, 98);
     margin: 2%;
     border-radius: 5px;
     cursor: pointer;
@@ -146,9 +140,6 @@
     border: 3px solid black;
     
 }
-
-
-
 
 .admindoc, .adminlab, .adminrad, .adminpat, .counttext{
     width: 100%;

@@ -1,0 +1,73 @@
+.form-container {
+    padding: 0; 
+    margin: 0; 
+    background-color: transparent;
+  }
+  
+  .doctor-form {
+    background-color: transparent; 
+    border: none; 
+    border-radius: 0; 
+  }
+  
+  .doctor-form label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .doctor-form input {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .doctor-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .doctor-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .close-button-doctor {
+    position: relative;
+    top: 5px; 
+    right:-480px;
+    background-color: #b4b2b2;
+    color:black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .form-container-doctor {
+    width: 500px;
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .container-doctor{
+    width: 400px;
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 500px;
+    overflow-y: scroll;
+  }

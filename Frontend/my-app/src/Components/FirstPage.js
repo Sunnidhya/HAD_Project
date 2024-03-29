@@ -1,10 +1,7 @@
 import './FirstPage.css';
-import DoctorLogin from './Doctor/Login/DoctorLogin';
-import RadioLogin from './Radiologist/Login/RadioLogin';
 import imgside from '../Resources/AppLogo.png';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import firstImage from '../Resources/first_page.png';
-import secondImage from '../Resources/first_text_part.png';
 function FirstPage() {
   let nav = useNavigate()
 
@@ -27,6 +24,12 @@ function FirstPage() {
   const patientClick = () => {
     nav("/patient")
   }
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
 
   return (
     <div class="first-container">
@@ -75,6 +78,17 @@ function FirstPage() {
 
       </div>
     </div>
+     {/* <div>
+        <button onClick={togglePopup}>Logout</button>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <UploadImage/>
+            </div>
+          </div>
+        )}
+      </div> */}
+
   </div>
   );
 }
