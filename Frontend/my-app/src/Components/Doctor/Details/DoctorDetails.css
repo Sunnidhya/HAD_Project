@@ -2,35 +2,42 @@
     display: flex;
     /* width: 100%; */
     /* background-color: rgb(230, 157, 31); */
-    height: 100vh;
+    height: auto;
     flex-direction: column;
     width: auto;
-    overflow-x: hidden;
-}
-.Doc-Home-hor{
-    
-    display: flex;
-    background-color: #076E65;
-    flex-direction: row;
-    height: auto;
-    width: auto;
+    overflow: hidden;
 }
 
-.admin-land-icon{
+
+
+
+.Doc-Det-hor{
+    display: flex;
+    background-color: #076E65;
+    /* width: 100%; */
+    height: 18%;
+    width: auto;
+    flex-direction: row;
+    padding: 0px;
+}
+
+.doc-admin-land-icon{
     padding-top: 35% ;
-    padding-left: 15%;
-    height: 50%;
-    width: 50%;
-    margin-left: 15%;
+    padding-left:15%;
+    height: 35%;
+    width: 74%;
+    padding-right: 5%;
     margin-top: 5%;
-    padding-left: 12%;
     margin-bottom: 15%;
+    padding-right: 5%;
+    align-self: center;
+    margin-left: 10%;
 }
   
   
 .Doc-Det-ver1 p{
     
-    font-size: larger;
+    font-size: small;
     background-color: #076E65;
     justify-self: center;
     margin: 5%;
@@ -43,27 +50,47 @@
 }
 
 
-  
-  
-.pageTitle {
-    color: white;
-    margin-left: 90px;
-    margin-top: 35px;
+.doctor-details-about-us-section{
+
+        padding: 20px;
+        background-color: #076E65;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        color: white;
+        font-weight: bold;
+
 }
-.DocLogout{
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;
-    margin-left:70%;
-    margin-bottom: 2%;    
+
+
+
+.DocDetLogout{
+    width: 100%;
+}
+
+#docdetsideimg{
+    height: 120px;
+    width: 120px;
+}
+/* .logodocdet{
+    min-width: 50%;
+    max-width: 50%;
+    height: auto;
+} */
+
+
+
+.doc-input-icon1{
+    margin-left: 95%;
+    margin-top: 3%;
 }
 
 .Doc-Det-ver {
     display: flex;
     flex-direction: row;
     background-color: white;
-    height: 80%;
-    margin-bottom: 40px;
+    height: auto;
+    margin-bottom: 0.1%;
+    max-height: 70%;
 }
 
 /* .Admin-Home-ver1, .Admin-Home-ver2 {
@@ -76,15 +103,16 @@
 } */
 .Doc-Det-ver1 {
     font-size: large;
+   
     width: auto;
-    height: 85%;
+    height: auto;
     background: white ;
-    margin-top: 30px;
-    margin-left: 30px;
-    margin-right: 3px;
-    margin-bottom: 30px;
-    height: 85%;
-    border-radius: 25px;
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 3%;
+    max-width: 20%;
+    border-radius: 5px;
    
    
 }
@@ -92,80 +120,90 @@
 .Doc-Det-ver2 {
     background-color: white;
     width: auto;
-    height: 90%;
-    margin-top: 30px;
-    margin-left: 5px;
-    margin-right: 10px;
-    margin-bottom: 30px;
-    margin-right: 1%;
-    padding-left: 200px;
-    padding-right: auto;
+    height: auto;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    max-width: fit-content;
     
 }
 
 .Doc-Det-ver2-inner{
-    padding: 30px;
+    
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
     background-color: #fcf6f6;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
     z-index: 1;
-    transform: translateY(-50px);
-    border-radius: 25px;
+    transform: translateY(-13%);
+    border-radius: 5px;
 
 }
 
 .Doc-Det-ver2-inner-upper{
+    padding: 1%;
     display: flex;
     flex-direction: row;
-    height: 90%;
+    flex:2;
     width: auto;
+    padding: 0%;
+    margin: 0%;
 }
 
 .Doc-Det-ver2-inner-lower{
-    height: 10%;
     flex-direction: row;
     align-items: center;
+    flex:1;
+    margin-top: 2%;
 }
 
 
 
-.input-icon1
+/* .doc-input-icon1
 {
-   margin-left: 250px;
-   margin-top: 20px;
-}
+    flex: 2;
+} */
 
 .Doc-Det-ver2-1{
    
-    width:100%;
+    width:auto;
     height: 50%;
-    border-radius: 25px;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
 
     
 }
 .Doc-Det-ver2-2{
     
-    width:100%;
+    width:auto;
     height: 50%;
-    border-radius: 25px;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
 
    
 }
 .Doc-Det-ver2-3{
     
-    width:100%;
+    width:auto;
     height: 50%;
-    border-radius: 25px;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
 
     
 }
 .Doc-Det-ver2-4{
     
-    width:100%;
+    width:auto;
     height: 50%;
-    border-radius: 25px;
+    border-radius: 5px;
+    padding: 1%;
+    align-items: center;
+    
 
    
 }
@@ -173,10 +211,10 @@
 
 
 
-.scanned:hover, 
-.pres:hover, 
-.radioReport:hover, 
-.finalDiag:hover {
+.docscanned:hover, 
+.docpres:hover, 
+.docradioReport:hover, 
+.docfinalDiag:hover {
     transform: scale(1.05); /* Zoom effect on hover */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
 }
@@ -185,66 +223,79 @@
 .DocVerUp,.DocVerDown{
     display: flex;
     flex-direction: column; 
-    height: 100%;
+    height: auto;
     width: auto;
     
 
 }
 .DocVerDown{
-   
-    flex: 1;
+   flex: 1;
     
 }
 .DocVerUp{
     
     flex: 1;
-}
-
-.docscanned, .docpres, .docradioReport, .docfinalDiag{
-    width:75%;
-    height: 85%;
-    justify-content: center;
-    margin: 5%;
-    /* margin-top: 2%; */
-    border-color: #fcf6f6;
-    border-radius: 25px;
-
     
 }
+
+.docscanned,.docpres{
+    width: 100%;         /* ensures the image doesn't exceed the container's width */
+    height: 100%;
+    max-width: 500px;
+    max-height: 300px;
+    min-width: 30%;
+    min-height: 30%;
+    padding: 7%;
+    /* justify-content: center; */
+    /* margin: 5%; */
+    /* margin-top: 2%; */
+    border-color: #fcf6f6;
+    border-radius: 5px;  
+    align-content: center; 
+  
+}
+
+.docradioReport, .docfinalDiag{
+    width: 100%;         /* ensures the image doesn't exceed the container's width */
+    height: 100%;
+    max-width: 500px;
+    max-height: 300px;
+    min-width: 30%;
+    min-height: 30%;
+    padding: 7%;
+    /* justify-content: center; */
+    /* margin: 5%; */
+    /* margin-top: 2%; */
+    border-color: #fcf6f6;
+    border-radius: 5px;  
+    align-content: center; 
+
+}
+
 
 
 
 .generate-button{
     width: auto;
     align-items: centre;
-    margin-left: 20%;
-    margin-top: 3%;
+    margin-left: 37%;
+    /* margin-top: 10%; */
     border-radius: 25px;
     background-color: #076E65;
     color: white;
     font-weight: bold;
     box-shadow: inset;
-    
+    margin-bottom: 5%;
 }
 
 
 
 
 .scantext, .prestext, .rep, .diagtext{
-    width: 100%;
+    width: auto;
     color: black;
     font-size: large;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
-    transform: translateY(-20px);
-}
-
-.doctor-details-about-us-section { 
-    padding: 20px;
-    background-color: #076E65;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    color: white;
-    font-weight: bold;
     
-  }
+}
