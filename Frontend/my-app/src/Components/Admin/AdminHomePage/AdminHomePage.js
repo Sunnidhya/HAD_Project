@@ -65,9 +65,9 @@ const AdminHomePage = () => {
         <div class="AdminLogout" onClick={handleLogout}>
           <img src={logout} alt="Logout" className="input-icon1" />
         </div>
-      </div>
-      <div className="Admin-Det-ver">
-        <div className="Admin-Det-ver1">
+    </div>
+    <div className='Admin-Det-ver'>
+      <div className='Admin-Det-ver1'>
           <img src={admin} alt="Admin Icon" className="admin-land-icon-1" />
           <p>Admin's Name</p>
         </div>
@@ -99,12 +99,23 @@ const AdminHomePage = () => {
               </div>
             </div>
           </div>
-        </div>
+          <div className='AdminVerDown'>
+              <div className='Admin-Det-ver2-3'>
+                  {/* <img src={empty} alt="radioReport" className='adminlab'/> */}
+                  <p className='adminlab'>Radiologist</p>
+                  <p className='counttext'>Count:33</p>
+              </div>
+              <div className='Admin-Det-ver2-4'>
+                  {/* <img src={empty} alt="finalDiag" className='adminpat'/> */}
+                  <p className='adminpat'>Patient</p> 
+                  <p className='counttext'>Count:33</p>
+              </div>
+          </div>
       </div>
-      <div></div>
-      <div class="Adminfooter">
-        <h2>About Us</h2>
       </div>
+    <div className="Admin-home-about-us-section">
+        <p>About Us</p>
+    </div>
     </div>
   );
 };
