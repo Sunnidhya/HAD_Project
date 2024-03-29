@@ -42,7 +42,6 @@ const AdminHomePage = () => {
     </div>
     <div className='Admin-Det-ver'>
       <div className='Admin-Det-ver1'>
-        
           <img src={admin} alt="Admin Icon" className="admin-land-icon-1" />
           <p>Admin's Name</p>
           
@@ -61,7 +60,6 @@ const AdminHomePage = () => {
                   <p className='counttext'>Count:33</p>
               </div>
           </div>
-
           <div className='AdminVerDown'>
               <div className='Admin-Det-ver2-3'>
                   {/* <img src={empty} alt="radioReport" className='adminlab'/> */}
@@ -73,19 +71,12 @@ const AdminHomePage = () => {
                   <p className='adminpat'>Patient</p> 
                   <p className='counttext'>Count:33</p>
               </div>
-
-             
-
           </div>
       </div>
-          
-          
       </div>
-      
     </div>
-    <div></div>
-      <div class="Adminfooter">
-        <h2>About Us</h2>
+    <div className="Admin-home-about-us-section">
+        <p>About Us</p>
       </div>
     </div>
     );
