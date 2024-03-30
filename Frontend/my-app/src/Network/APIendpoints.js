@@ -8,6 +8,14 @@ const getListOfDocs = "/doctor/getListOfDoctors"
 const getListOfPatients = "/patient/getListOfPatients"
 const getListOfLabs = "/lab/getListOfLabs"
 const getListOfRadio = "/radilogist/getListOfRadiologists"
+const removeDoctor = "/doctor/remove"
+const removePatient="/patient/remove"
+const removeLab="/lab/remove"
+const removeRadiologist="/radiologist/remove"
+const otpdoctor="/doctor/login/validateOTP"
+const otplab="/lab/login/validateOTP"
+const otpPatient="/patient/login/validateOTP"
+const otpRadiologist ="/radiologist/login/validateOTP"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -18,4 +26,13 @@ export {patientLoginAPI,
     getListOfDocs,
     getListOfPatients,
     getListOfLabs,
-    getListOfRadio}
+    getListOfRadio, 
+    removeDoctor,
+    removePatient,
+    removeLab,
+    removeRadiologist,
+    otpdoctor,
+    otplab,
+    otpPatient,
+    otpRadiologist
+}

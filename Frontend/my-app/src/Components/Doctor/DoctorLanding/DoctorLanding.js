@@ -25,7 +25,7 @@ const DoctorLanding = () => {
   const handleLogout = () => {
     localStorage.clear()
     alert('Logout successful!');
-    nav("/radiologist")
+    nav("/doctor")
   };
 
 
