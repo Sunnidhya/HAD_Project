@@ -23,6 +23,6 @@ public class PatientL {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "refPatId", referencedColumnName = "patientId",nullable = false,unique = true)
+    @JoinColumn(name = "refPatId", referencedColumnName = "patientId",nullable = true,unique = true)
     private Patient patient;
 }

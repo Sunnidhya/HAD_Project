@@ -47,7 +47,7 @@ const RadioLogin = () => {
         <div>
           <img src={imgside} id="radseideimg" class="clickable" onClick={goToHomePage}/>
         </div>
-        <div className='divisions1'>
+        <div className='divisions1R'>
           <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
@@ -57,7 +57,7 @@ const RadioLogin = () => {
         </div>
         <div class="Radio-Login-Ver-Right">
           <div className="login-container">
-            <h3>Welcome Radiologist</h3>
+            <h4>Welcome Radiologist</h4>
             <form class="login-form">
               <div class="form-group">
                 <input type="text" id="username" name="username" placeholder='Type your Username' required />

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import './DoctorForm.css';
+import './RadioForm.css';
+import { registerRadio } from '../../Network/APIendpoints';
+import { request } from '../../Network/axiosHelper';
 
-function DoctorForm() {
+function RadioForm() {
   const [formData, setFormData] = useState({
     name: '',
     degree: '',
@@ -24,6 +26,16 @@ function DoctorForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    request("POST", registerRadio, formData)
+      .then((response) => {
+        console.warn("DataValue",response.data)
+        alert(response.data.message)
+        toggleVisibility()
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
   };
 
   const toggleVisibility = () => {
@@ -33,15 +45,14 @@ function DoctorForm() {
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
-
   return (
     <>
       {isVisible && (
-        <div className="form-container-doctor" onClick={stopPropagation}>
-          <button className="close-button-doctor" onClick={toggleVisibility}>X</button>
-          <div className="container-doctor">
-            <h2 className="form-header">Doctor Registration</h2>
-            <form className="doctor-form" onSubmit={handleSubmit}>
+        <div className="form-container1"onClick={stopPropagation}>
+        <button className="close-button-radio" onClick={toggleVisibility}>X</button>
+          <div className="container2">
+            <h2 className="form-header">Radio Registration</h2>
+            <form className="radio-form" onSubmit={handleSubmit}>
               <label>
                 Name:
                 <input
@@ -128,5 +139,4 @@ function DoctorForm() {
   );
 }
 
-export default DoctorForm;
-
+export default RadioForm;

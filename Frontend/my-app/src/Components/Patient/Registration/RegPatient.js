@@ -56,7 +56,7 @@ const RegPatient = () => {
       ).then((response) => {
         console.warn("Data",response.data)
         alert(response.data.message);
-        nav('/patient/login')
+        nav('/patient')
       })
       .catch((error) => {
         console.warn("Error", error)

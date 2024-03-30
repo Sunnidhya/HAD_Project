@@ -45,7 +45,7 @@ function App() {
     <Route path="/radiologist/details" element={<RadiologistDetails/>}/>
     <Route path="/doctor/details" element={<DoctorDetails/>}/>
     <Route path="/patient/details" element={<PatDetails/>}/>
-
+    <Route path="/patient/register" element={<RegPatient/>}/>
   </Routes>
 
 

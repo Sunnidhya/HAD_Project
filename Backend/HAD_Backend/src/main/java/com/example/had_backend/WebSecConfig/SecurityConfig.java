@@ -36,7 +36,15 @@ public class SecurityConfig {
                         "/radiologist/register",
                         "/patient/register",
                         "/lab/register",
-                        "/lab/login").permitAll()
+                        "/lab/login",
+                        "/doctor/remove",
+                        "/patient/remove",
+                        "/radiologist/remove",
+                        "/lab/remove",
+                        "/doctor/login/validateOTP",
+                        "/lab/login/validateOTP",
+                        "/patient/login/validateOTP",
+                        "/radiologist/login/validateOTP").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/count",
                                 "/radilogist/getListOfRadiologists",

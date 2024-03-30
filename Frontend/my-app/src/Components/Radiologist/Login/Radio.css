@@ -3,12 +3,11 @@
     display: flex;
     background-color: rgb(14, 14, 98);
 }
-.divisions1
+.divisions1R
 {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    padding-left: 10%;
 }  
   
 #radseideimg{
@@ -21,16 +20,14 @@
   
 .pageTitle {
     color: white;
-    margin-left: 255px;
-    margin-top: 35px;
+    font-size: xx-large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /* ------------------------------------------------------ */
 
 .Radio-Login-Ver{
     display: flex;
-    background-color: #ffff00;
-    height: 580px;
 }
   
 .Radio-Login-Ver-Left{
@@ -55,11 +52,10 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: auto;
     justify-content: center;
     align-self: center;
     text-align: center;
-    margin-bottom: 20%;
     
 }
   
@@ -69,10 +65,10 @@
     padding-bottom: 30%;
 }
   
-.login-form {
+.login-formR {
     display: flex;
     flex-direction: column;
-    padding-bottom: 0%;
+    padding: 10px;
 }
   
 .form-group {
@@ -114,8 +110,6 @@
 }
 #radiomainimg{
     padding-left: 10%;
-    height: 150px;
-    width:40%;
 }
 
 .input-icon {
