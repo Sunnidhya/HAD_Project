@@ -20,13 +20,15 @@ import DoctorDetails from './Components/Doctor/Details/DoctorDetails';
 import PatDetails from './Components/Patient/Details/PatientDetails';
 import AdminHomePage from './Components/Admin/AdminHomePage/AdminHomePage';
 import AdminLanding from './Components/Admin/AdminLanding/AdminLanding';
+import DoctorReport from './Components/Report/DoctorReport';
+import ChatRoom from './Components/ChatRoom/ChatRoom';
 
 
 
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<FirstPage/>}/>
+    <Route path="/" element={<ChatRoom/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>

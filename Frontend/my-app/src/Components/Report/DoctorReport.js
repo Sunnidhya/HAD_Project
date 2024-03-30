@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import generateDoctorReportPdf from './pdfUtils';
 import './DoctorReport.css';
 
 function DoctorReport() {
@@ -24,9 +25,22 @@ function DoctorReport() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      const pdfBytes = await generateDoctorReportPdf(formData);
+      const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+      const url = window.URL.createObjectURL(pdfBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'doctor_report.pdf');
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
   };
 
   const handleClose = () => {
@@ -40,7 +54,7 @@ function DoctorReport() {
           <button className="close-button-report" onClick={handleClose}>X</button>
           <div className="container-report">
             <h2 className="form-header">Doctor Report</h2>
-            <form className="radio-form" onSubmit={handleSubmit}>
+            <form className="doctor-report-form" onSubmit={handleSubmit}>
               <label>
                 Name:
                 <input
@@ -156,6 +170,7 @@ function DoctorReport() {
               </label>
               <br />
               <button type="submit">Submit</button>
+              <br />
             </form>
           </div>
         </div>
@@ -165,5 +180,4 @@ function DoctorReport() {
 }
 
 export default DoctorReport;
-
 
