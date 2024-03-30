@@ -11,6 +11,14 @@ const getListOfRadio = "/radilogist/getListOfRadiologists"
 const registerDoctor = '/doctor/register'
 const registerLab = '/lab/register'
 const registerRadio = '/radiologist/register'
+const removeDoctor = "/doctor/remove"
+const removePatient="/patient/remove"
+const removeLab="/lab/remove"
+const removeRadiologist="/radiologist/remove"
+const otpdoctor="/doctor/login/validateOTP"
+const otplab="/lab/login/validateOTP"
+const otpPatient="/patient/login/validateOTP"
+const otpRadiologist ="/radiologist/login/validateOTP"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -24,5 +32,13 @@ export {patientLoginAPI,
     getListOfRadio,
     registerDoctor,
     registerLab,
-    registerRadio
+    registerRadio,
+    removeDoctor,
+    removePatient,
+    removeLab,
+    removeRadiologist,
+    otpdoctor,
+    otplab,
+    otpPatient,
+    otpRadiologist
 }

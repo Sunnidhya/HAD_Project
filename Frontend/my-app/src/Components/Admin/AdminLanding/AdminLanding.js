@@ -25,6 +25,10 @@ import {
   getListOfLabs,
   getListOfPatients,
   getListOfRadio,
+  removeDoctor,
+  removeLab,
+  removePatient,
+  removeRadiologist,
 } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
 import DoctorForm from "../../Form/DoctorForm";
@@ -46,6 +50,62 @@ const AdminLanding = () => {
   const [isP, setP] = useState(false);
   const [isL, setL] = useState(false);
   const [isR, setR] = useState(false);
+
+  const remove = (obj) => {
+    let temp;
+    let data1 = {};
+    if (receivedData === "Patient") {
+      temp = removePatient;
+      data1 = {
+        userName: obj.userName,
+        fullName: obj.fullName,
+        address: obj.address,
+        email: obj.email,
+        contactNo:obj.contactNo
+      };
+    }
+    if (receivedData === "Lab") {
+      temp = removeLab;
+      data1 = {
+        userName: obj.userName,
+        labName: obj.labName,
+        email: obj.email,
+        contactNo:obj.contactNo
+      };
+    }
+    if (receivedData === "Radiologist") {
+      temp = removeRadiologist;
+      data1 = {
+        name: obj.name,
+        degree: obj.degree,
+        specialization: obj.specialization,
+        email: obj.email,
+        userName: obj.userName,
+        dept: obj.department
+      };
+    }
+    if (receivedData === "Doctor") {
+      temp = removeDoctor;
+      data1 = {
+        name: obj.name,
+        degree: obj.degree,
+        specialization: obj.specialization,
+        email: obj.email,
+        userName: obj.userName,
+        dept: obj.department
+      };
+    }
+
+    request("POST", temp, data1)
+      .then((response) => {
+        console.warn("DataValue", response.data)
+        alert(response.data.message);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -85,7 +145,7 @@ const AdminLanding = () => {
 
     request("GET", temp, {})
       .then((response) => {
-        console.warn("DataValue",response.data)
+        console.warn("DataValue", response.data)
         if (receivedData === "Patient") {
           setPatient(response.data);
         }
@@ -129,7 +189,7 @@ const AdminLanding = () => {
           <button style={{ margin: "10px" }}>Profile</button>
         </div>
         <div className="Admin-Land-ver2">
-          <div className="Admin-card">
+          <div className="Admin-card" >
             <Container>
               <Row xs={3}>
                 {(receivedData === "Doctor") &&
@@ -140,14 +200,15 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(7, 110, 101)",
+                            color: 'white',
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Doctor ID: {obj.doctorId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle >
                               Name: {obj.name}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle >
                               Degree: {obj.degree}
                             </CardSubtitle>
                             <CardText>UserName: {obj.userName}</CardText>
@@ -157,6 +218,7 @@ const AdminLanding = () => {
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
                               }}
+                              onClick={() => remove(obj)}
                             >
                               Remove
                             </Button>
@@ -173,16 +235,14 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(21, 136, 194)",
+                            color: "white",
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Patient ID: {obj.patientId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
-                              Name: {obj.fullName}
-                            </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
-                              Contact No: {obj.contactNo}
-                            </CardSubtitle>
+                            <CardSubtitle >Name: {obj.fullName}</CardSubtitle >
+                            <CardSubtitle >Contact No: {obj.contactNo}
+                            </CardSubtitle >
                             <CardText>UserName: {obj.userName}</CardText>
                             <Button
                               style={{
@@ -190,6 +250,7 @@ const AdminLanding = () => {
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
                               }}
+                              onClick={() => remove(obj)}
                             >
                               Remove
                             </Button>
@@ -206,14 +267,15 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(14, 14, 98)",
+                            color: "white",
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Radiologist ID - {obj.radiologistId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle>
                               {obj.name}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle>
                               {obj.degree}
                             </CardSubtitle>
                             <CardText>{obj.userName}</CardText>
@@ -223,6 +285,7 @@ const AdminLanding = () => {
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
                               }}
+                              onClick={() => remove(obj)}
                             >
                               Remove
                             </Button>
@@ -239,14 +302,15 @@ const AdminLanding = () => {
                           className="AdminLandingcard"
                           style={{
                             backgroundColor: "rgb(244, 165, 46)",
+                            color: "white",
                           }}
                         >
                           <CardBody>
                             <CardTitle tag="h5">Lab ID - {obj.labId}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle >
                               {obj.labName}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle>
                               {obj.contactNo}
                             </CardSubtitle>
                             <CardText>{obj.userName}</CardText>
@@ -256,6 +320,7 @@ const AdminLanding = () => {
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
                               }}
+                              onClick={() => remove(obj)}
                             >
                               Remove
                             </Button>

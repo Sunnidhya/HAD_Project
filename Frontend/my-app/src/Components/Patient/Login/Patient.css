@@ -3,12 +3,11 @@
     display: flex;
     background-color: rgb(21, 136, 194);
 }
-.divisions1
+.divisions1P
 {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    padding-left: 10%;
 } 
   
 #radseideimg{
@@ -22,8 +21,11 @@
   
 .pageTitle {
     color: rgb(252, 252, 252);
-    margin-left: 200px;
-    margin-top: 35px;
+    /* margin-left: 200px;
+    margin-top: 35px; */
+    font-size: xx-large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
 
 /* ------------------------------------------------------ */
@@ -32,8 +34,6 @@
 
 .Patient-Login-Ver{
     display: flex;
-    background-color: #ffff00;
-    height: 580px;
 }
   
 .Patient-Login-Ver-Left{
@@ -58,12 +58,10 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: auto;
     justify-content: center;
     align-self: center;
     text-align: center;
-    margin-bottom: 20%;
-    
 }
   
 .login-container h2 {
@@ -72,10 +70,10 @@
     padding-bottom: 30%;
 }
   
-.login-form {
+.login-formP {
     display: flex;
     flex-direction: column;
-    padding-bottom: 0%;
+    padding: 10px;
 }
   
 .form-group {
@@ -118,10 +116,9 @@
 }
   
 
-#radiomainimg{
+#patientmainimg{
     padding-left: 10%;
-    height: 550px;
-    width:100%
+   
 }
 
 .input-icon {
@@ -148,7 +145,7 @@
     padding-left: 35px;
 }
 
-.ForgotPasswordDoc{
+.ForgotPasswordPat{
     float: right;
     font-size: 12px;
     color: rgb(16, 151, 230);

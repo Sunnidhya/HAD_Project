@@ -25,7 +25,7 @@ const LabLanding = () => {
   const handleLogout = () => {
     localStorage.clear()
     alert('Logout successful!');
-    nav("/radiologist")
+    nav("/lab")
   };
 
 
