@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import './LabForm.css';
+import './DoctorForm.css';
+import { registerDoctor } from '../../Network/APIendpoints';
+import { request } from '../../Network/axiosHelper';
 
-function LabForm() {
+function DoctorForm() {
   const [formData, setFormData] = useState({
     name: '',
     degree: '',
@@ -24,6 +26,16 @@ function LabForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    request("POST", registerDoctor, formData)
+      .then((response) => {
+        console.warn("DataValue",response.data)
+        alert(response.data.message)
+        toggleVisibility()
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
   };
 
   const toggleVisibility = () => {
@@ -37,11 +49,11 @@ function LabForm() {
   return (
     <>
       {isVisible && (
-        <div className="form-container-lab" onClick={stopPropagation}>
-          <button className="close-button-lab" onClick={toggleVisibility}>X</button>
-          <div className="container-lab">
-            <h2 className="form-header">Lab Registration</h2>
-            <form className="lab-form" onSubmit={handleSubmit}>
+        <div className="form-container-doctor" onClick={stopPropagation}>
+          <button className="close-button-doctor" onClick={toggleVisibility}>X</button>
+          <div className="container-doctor">
+            <h2 className="form-header">Doctor Registration</h2>
+            <form className="doctor-form" onSubmit={handleSubmit}>
               <label>
                 Name:
                 <input
@@ -128,4 +140,5 @@ function LabForm() {
   );
 }
 
-export default LabForm;
+export default DoctorForm;
+

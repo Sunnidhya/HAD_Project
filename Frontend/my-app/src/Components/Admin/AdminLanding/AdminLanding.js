@@ -31,6 +31,9 @@ import {
   removeRadiologist,
 } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
+import DoctorForm from "../../Form/DoctorForm";
+import LabForm from "../../Form/LabForm";
+import RadioForm from "../../Form/RadioForm";
 const AdminLanding = () => {
   let nav = useNavigate();
   const location = useLocation();
@@ -115,6 +118,12 @@ const AdminLanding = () => {
   };
   const isDone = false;
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
   useEffect(() => {
     let temp;
     if (receivedData === "Patient") {
@@ -176,7 +185,7 @@ const AdminLanding = () => {
       </div>
       <div className="Admin-Land-ver">
         <div className="Admin-Land-ver1">
-          <button style={{ margin: "10px" }}>{buttonV}</button>
+          <button style={{ margin: "10px" }} onClick={togglePopup}>{buttonV}</button>
           <button style={{ margin: "10px" }}>Profile</button>
         </div>
         <div className="Admin-Land-ver2">
@@ -327,6 +336,17 @@ const AdminLanding = () => {
       </div>
       <div className="Admin-landing-about-us-section">
         <p>About Us</p>
+      </div>
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              {receivedData === "Doctor" && <DoctorForm/>}
+              {receivedData === "Lab" && <LabForm/>}
+              {receivedData === "Radiologist" && <RadioForm/>}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
