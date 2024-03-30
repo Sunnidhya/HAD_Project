@@ -32,6 +32,7 @@ function App() {
     <Route path="/radiologist" element={<RadioLogin/>}/>
     <Route path="/lab" element={<LabLogin/>}/>
     <Route path="/patient" element={<PatientLogin/>}/>
+    <Route path="/patient/register" element={<RegPatient/>}/>
     <Route path="/admin/landing" element={<AdminLanding/>}/>
     <Route path="/patient/landing" element={<PatientLanding/>}/>
     <Route path="/doctor/landing" element={<DoctorLanding/>}/>
