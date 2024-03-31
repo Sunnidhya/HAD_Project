@@ -29,8 +29,8 @@ const AdminLogin = () => {
         <div>
           <img src={imgside} id="adminseideimg" />
         </div>
-        <div className='divisions1'>
-          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+        <div className='divisions1A'>
+          <h1 className="pageTitleA">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
       <div class="Admin-Login-Ver">

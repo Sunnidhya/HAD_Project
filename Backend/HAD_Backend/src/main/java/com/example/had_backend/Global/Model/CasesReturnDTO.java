@@ -11,4 +11,5 @@ public class CasesReturnDTO {
     private String labName;
     private String radioName;
     private String patientName;
+    private Boolean markAsDone;
 }
