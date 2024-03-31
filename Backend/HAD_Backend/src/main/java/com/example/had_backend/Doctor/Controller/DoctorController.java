@@ -10,6 +10,7 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Model.CasesDTO;
+import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
@@ -22,6 +23,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -118,9 +120,22 @@ public class DoctorController {
 
     @CrossOrigin
     @PostMapping("/doctor/getListOfCases")
-    public ResponseEntity<List<Cases>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
+    public ResponseEntity<List<CasesReturnDTO>> getListOfCases(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = doctorService.getAllCases(searchResultDTO);
-        return ResponseEntity.ok(list);
+        List<CasesReturnDTO> casesReturnDTOS = new ArrayList<>();
+
+        for (Cases cases : list) {
+            CasesReturnDTO casesReturnDTO = new CasesReturnDTO();
+            casesReturnDTO.setCaseId(cases.getCaseId());
+            casesReturnDTO.setCaseName(cases.getCaseName());
+            casesReturnDTO.setCaseDate(cases.getCaseDate());
+            casesReturnDTO.setDoctorName(cases.getDoctor().getName());
+            casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+            casesReturnDTO.setLabName(cases.getLab().getLabName());
+            casesReturnDTO.setPatientName(cases.getPatient().getFullName());
+            casesReturnDTOS.add(casesReturnDTO);
+        }
+        return ResponseEntity.ok(casesReturnDTOS);
     }
 
     @CrossOrigin

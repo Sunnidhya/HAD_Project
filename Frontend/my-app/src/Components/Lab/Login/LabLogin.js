@@ -89,8 +89,8 @@ const LabLogin = () => {
         <div>
           <img src={imgside} id="labseideimg" class="clickable" onClick={goToHomePage}/>
         </div>
-        <div className='divisions1'>
-          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+        <div className='divisions1L'>
+          <h1 className="pageTitleL">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
       <div class="Lab-Login-Ver">
@@ -99,8 +99,8 @@ const LabLogin = () => {
         </div>
         <div class="Lab-Login-Ver-Right">
           <div className="login-container">
-            <h3>{title}</h3>
-            <form class="login-form">
+            <h4>{title}</h4>
+            <form class="login-formL">
               {isVisible && ( <div class="form-group">
                 <input type="text" id="username" name="username" placeholder={placeholder} value={patUserNameV} onChange={(e) => setuserNameP(e.target.value)} required />
                 <img src={userIcon} alt="Username" className="input-icon" />
