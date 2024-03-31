@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://192.168.218.134:8080/'
+axios.defaults.baseURL = 'http://localhost:8080'
 axios.defaults.headers.post["Content-type"] = 'application/json'
 
 export const getAuthToken = () => {
