@@ -91,10 +91,10 @@ const PatientLogin = () => {
     <div class="Patient-login-container">
       <div class="Patient-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" onClick={goToHomePage}/>
+          <img src={imgside} id="patientsideimg" onClick={goToHomePage}/>
         </div>
         <div className='divisions1P'>
-          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+          <h1 className="pageTitleP">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
       <div class="Patient-Login-Ver">

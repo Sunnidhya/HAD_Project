@@ -6,31 +6,24 @@
 .divisions1P
 {
     display: flex;
+    flex: 1;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
 } 
   
-#radseideimg{
-    padding-top: 1%;
-    padding-left: 10%;
+#patientsideimg{
+    padding: 10%;
     height: 120px;
     width: 120px;
     cursor: pointer;
 }
   
   
-.pageTitle {
-    color: rgb(252, 252, 252);
-    /* margin-left: 200px;
-    margin-top: 35px; */
+.pageTitleP {
+    color: white;
     font-size: xx-large;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
 }
-
-/* ------------------------------------------------------ */
-
-
 
 .Patient-Login-Ver{
     display: flex;
@@ -57,7 +50,7 @@
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
     width: auto;
     justify-content: center;
     align-self: center;
@@ -118,7 +111,6 @@
 
 #patientmainimg{
     padding-left: 10%;
-   
 }
 
 .input-icon {

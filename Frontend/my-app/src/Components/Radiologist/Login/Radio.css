@@ -12,10 +12,10 @@
 }  
   
 #radseideimg{
-    padding-top: 1%;
-    padding-left: 10%;
+    padding: 10%;
     height: 120px;
     width: 120px;
+    cursor: pointer;
 }
   
   
@@ -82,7 +82,7 @@
     color: black;
     margin-bottom: 5px;
     justify-content: center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 30%;
 }
   

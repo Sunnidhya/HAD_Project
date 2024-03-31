@@ -89,8 +89,8 @@ const DoctorLogin = () => {
         <div>
           <img src={imgside} id="radseideimg" class="clickable" onClick={goToHomePage} />
         </div>
-        <div className='divisions1'>
-          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+        <div className='divisions1D'>
+          <h1 className="pageTitleD">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
       </div>
       <div class="Doctor-Login-Ver">
@@ -100,15 +100,15 @@ const DoctorLogin = () => {
         <div class="Doctor-Login-Ver-Right">
           <div className="login-container">
             <h4>{title}</h4>
-            <form class="login-form">
+            <form class="login-formD">
             {isVisible &&(<div className="form-group">
-                <input type="text" id="username" name="username" placeholder={placeholder} value={userNameV} onChange={(e) => setuserName(e.target.value)} required />
                 <img src={userIcon} alt="Username" className="input-icon" />
+                <input type="text" id="username" name="username" placeholder={placeholder} value={userNameV} onChange={(e) => setuserName(e.target.value)} required />
               </div>)}
             {isVisible && (
                 <div class="form-group">
-                  <input type="password" id="password" name="password" placeholder='Type your Password' value={passwordV} onChange={(e) => setPassword(e.target.value)} required />
                   <img src={passwordIcon} alt="Password" className="input-icon" />
+                  <input type="password" id="password" name="password" placeholder='Type your Password' value={passwordV} onChange={(e) => setPassword(e.target.value)} required />
                   <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
                 </div>
               )}
