@@ -133,6 +133,7 @@ public class DoctorController {
             casesReturnDTO.setRadioName(cases.getRadiologist().getName());
             casesReturnDTO.setLabName(cases.getLab().getLabName());
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
+            casesReturnDTO.setMarkAsDone(cases.getMarkAsDone());
             casesReturnDTOS.add(casesReturnDTO);
         }
         return ResponseEntity.ok(casesReturnDTOS);
