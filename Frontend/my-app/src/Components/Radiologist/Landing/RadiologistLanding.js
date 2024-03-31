@@ -27,6 +27,10 @@ const RadioLanding = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
   };
 
+  const profileget = () => {
+    nav("/radiologist/profile")
+  }
+
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
@@ -61,7 +65,7 @@ const RadioLanding = () => {
 
       <div className='Radio-Land-ver'>
         <div className='Radio-Land-ver1'>
-          <button style={{ margin: '10px' }}>Profile</button>
+          <button style={{ margin: '10px' }} onClick={profileget}>Profile</button>
         </div>
         <div className='Radio-Land-ver2'>
           <div className="Radio-card">

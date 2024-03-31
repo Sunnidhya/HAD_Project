@@ -4,25 +4,25 @@
     background-color: rgb(82,209, 188);
 }
   
-.divisions1
+.divisions1A
 {
     display: flex;
+    flex: 1;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    padding-left: 10%;
 } 
 #adminseideimg{
-    padding-top: 1%;
-    padding-left: 10%;
+    padding: 10%;
     height: 120px;
     width: 120px;
+    cursor: pointer;
 }
   
   
-.pageTitle {
+.pageTitleA {
     color: white;
-    margin-left: 255px;
-    margin-top: 35px;
+    font-size: xx-large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /* ------------------------------------------------------ */
