@@ -19,6 +19,10 @@ const otpdoctor="/doctor/login/validateOTP"
 const otplab="/lab/login/validateOTP"
 const otpPatient="/patient/login/validateOTP"
 const otpRadiologist ="/radiologist/login/validateOTP"
+const getCasesOfRadiologists="/radiologist/getListOfCases"
+const getCasesOfDoctor="/doctor/getListOfCases"
+const getCasesOfLab="/lab/getListOfCases"
+const getCasesofPatient="/patient/getListOfCases"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -40,5 +44,9 @@ export {patientLoginAPI,
     otpdoctor,
     otplab,
     otpPatient,
-    otpRadiologist
+    otpRadiologist,
+    getCasesOfRadiologists,
+    getCasesOfDoctor,
+    getCasesOfLab,
+    getCasesofPatient
 }

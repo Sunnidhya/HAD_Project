@@ -5,6 +5,7 @@ import React,{useState, useEffect} from "react";
 import imgside from '../../../Resources/AppLogo.png';
 import { request, setAuthToken } from '../../../Network/axiosHelper';
 import { otpPatient, patientLoginAPI } from '../../../Network/APIendpoints';
+import { encryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { useNavigate } from 'react-router-dom';
 import './Patient.css'
 const PatientLogin = () => {
@@ -73,6 +74,8 @@ const PatientLogin = () => {
           setAuthToken(response.data.token)
           console.warn("Data", response.data)
           alert("Login Successful");
+          const dataToEncrypt = patUserNameV;
+          encryptData(dataToEncrypt);
           nav('/patient/landing')
 
         }

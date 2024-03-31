@@ -34,6 +34,7 @@ import { request } from "../../../Network/axiosHelper";
 import DoctorForm from "../../Form/DoctorForm";
 import LabForm from "../../Form/LabForm";
 import RadioForm from "../../Form/RadioForm";
+import Logout from "../../Form/Logout";
 const AdminLanding = () => {
   let nav = useNavigate();
   const location = useLocation();
@@ -119,9 +120,14 @@ const AdminLanding = () => {
   const isDone = false;
 
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupLogout, setShowPopupLogout] = useState(false);
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
+  const togglePopupLogout = () => {
+    setShowPopupLogout(prevShowPopupLogout => !prevShowPopupLogout);
   };
 
   useEffect(() => {
@@ -179,7 +185,7 @@ const AdminLanding = () => {
             onChange={handleSearch}
           />
         </div>
-        <div class="AdminLandingLogout" onClick={handleLogout}>
+        <div class="AdminLandingLogout" style={{cursor:"pointer"}}  onClick={togglePopupLogout}>
           <img src={logout} alt="Logout" className="input-icon2" />
         </div>
       </div>
@@ -338,12 +344,10 @@ const AdminLanding = () => {
         <p>About Us</p>
       </div>
       <div>
-        {showPopup && (
-          <div className="popup-overlay" onClick={togglePopup}>
+        {showPopupLogout && (
+          <div className="popup-overlay" onClick={togglePopupLogout}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-              {receivedData === "Doctor" && <DoctorForm/>}
-              {receivedData === "Lab" && <LabForm/>}
-              {receivedData === "Radiologist" && <RadioForm/>}
+              <Logout userType='admin'/>
             </div>
           </div>
         )}
