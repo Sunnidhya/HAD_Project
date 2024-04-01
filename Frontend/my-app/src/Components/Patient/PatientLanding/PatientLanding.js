@@ -2,9 +2,10 @@ import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import './PatientLanding.css';
+import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import {
@@ -12,25 +13,42 @@ import {
   CardTitle, CardSubtitle, Button, Container, Row, Col
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import Logout from '../../Form/Logout';
+import { getCasesofPatient } from '../../../Network/APIendpoints';
+import { request } from '../../../Network/axiosHelper';
 const PatientLanding = () => {
 
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [patient, setPatient] = useState([]);
+
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleLogout = () => {
-    localStorage.clear()
-    alert('Logout successful!');
-    nav("/patient")
-  };
+  useEffect(() => {
+    const decryptedData = decryptData();
+    const data = {
+      userName: decryptedData
+    };
 
+    request("POST",getCasesofPatient , data)
+      .then((response) => {
+        setPatient(response.data);
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }, []);
 
   const numberOfCards = 24;
-  const isDone=false;
+  
   return (
     <div class="Patient-landing-container">
      <div class="Patient-landing-hor">
@@ -40,7 +58,7 @@ const PatientLanding = () => {
         <div class="Search">  
            <input className="PatientSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
-        <div class="PatientLogout" onClick={handleLogout}>  
+        <div class="PatientLogout" style={{cursor:"pointer"}} onClick={togglePopup} >  
            <img src={logout} alt="Logout" className="input-icon1" />
         </div>
     </div>
@@ -48,7 +66,7 @@ const PatientLanding = () => {
     <div className='Patient-Land-ver'>
         <div className='Patient-Land-ver1'>
         
-            <button style={{ margin: '10px' }}>Add new Patient</button>
+            
             <button style={{ margin: '10px' }}>Profile</button>
             
         
@@ -57,15 +75,26 @@ const PatientLanding = () => {
         <div className="Patient-card">
          <Container>
             <Row xs={3}>
-            {[...Array(numberOfCards)].map((e, i) => {
+            {patient.map((obj, i) => {
+               const date = new Date(obj.caseDate);
+               const year = date.getFullYear();
+               const month = (date.getMonth() + 1).toString().padStart(2, '0');
+               const day = date.getDate().toString().padStart(2, '0');
+               const hours = date.getHours().toString().padStart(2, '0');
+               const minutes = date.getMinutes().toString().padStart(2, '0');
+               const seconds = date.getSeconds().toString().padStart(2, '0');
+               const formattedDateTime = `${year}-${month}-${day}`;
                 return (
                   <Col>
                       <Link to={`/card/${i+1}`}className="LinkStyle">
-                        <Card className='PatientLandingcard'style={{ backgroundColor:isDone ? 'lightgreen' : 'red'}}>
+                        <Card className='PatientLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red', color: 'white'}}>
                           <CardBody>
-                              <CardTitle tag="h5">Case ID - {i+1}</CardTitle>
-                              <CardSubtitle tag="h6" className="mb-2 text-muted">Case Name</CardSubtitle>
-                              <CardSubtitle tag="h6" className="mb-2 text-muted">Patient Name</CardSubtitle>
+                              <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
+                              <CardSubtitle tag="h6">Case Name - {obj.caseName}</CardSubtitle>
+                              <CardSubtitle tag="h6" >Lab Name - {obj.labName}</CardSubtitle>
+                              <CardSubtitle tag="h6" >Radiologist Name - {obj. radioName}</CardSubtitle>
+                              <CardSubtitle tag="h6" >Doctor Name - {obj.doctorName}</CardSubtitle>
+                              <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
                               <CardText>Case Description</CardText>
                              </CardBody>
                       </Card>
@@ -81,6 +110,15 @@ const PatientLanding = () => {
     </div>
     <div className="Patient-landing-about-us-section">
         <p>About Us</p>
+    </div>
+    <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <Logout userType="patient"/>
+            </div>
+          </div>
+        )}
       </div>
     </div>
     

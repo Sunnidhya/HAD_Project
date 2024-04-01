@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './ChangePassword.css'; 
+import { decryptData } from '../../EncryptDecrypt/EncDecrypt';
+import { radioChangePassword } from '../../Network/APIendpoints';
+import { request } from '../../Network/axiosHelper';
+import { useNavigate } from 'react-router-dom';
 
-function ChangePassword() {
+const ChangePassword = () => {
+  let nav = useNavigate()
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: ''
@@ -24,6 +29,33 @@ function ChangePassword() {
   const handleClose = () => {
     setIsVisible(false);
   };
+
+
+  const Submit = () =>{
+    const decryptedData = decryptData();
+    const data = {
+        userName: decryptedData,
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword
+    };
+    request("POST", radioChangePassword, data)
+      .then((response) => {
+        if(response.data.message === "Current Password or User Name entered wrongly ")
+        {
+          alert("Current Password entered wrongly ")
+        }
+        else if(response.data.message === "Same Password entered")
+        {
+          alert("Same Password entered")
+        }
+        else if (response.data.message === "Password updated successfully") {
+         nav("/radiologist")
+        }
+       })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }
 
   return (
     <>
@@ -55,7 +87,7 @@ function ChangePassword() {
             </label>
             <br />
             <br/>
-            <button type="submit">Submit</button>
+            <button type="submit" onClick={Submit}>Submit</button>
           </form>
         </div>
       )}
