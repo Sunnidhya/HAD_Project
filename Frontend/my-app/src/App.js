@@ -20,6 +20,7 @@ import DoctorDetails from './Components/Doctor/Details/DoctorDetails';
 import PatDetails from './Components/Patient/Details/PatientDetails';
 import AdminHomePage from './Components/Admin/AdminHomePage/AdminHomePage';
 import AdminLanding from './Components/Admin/AdminLanding/AdminLanding';
+import CaseForm from './Components/Form/CaseForm';
 
 
 
