@@ -68,7 +68,7 @@ const RadioLogin = () => {
         console.warn("DataOTP", response)
         if (response.data.message === "OTP Validated successfully, Login was Successful") {
           setAuthToken(response.data.token)
-          console.warn("Data", response.data)
+          window.localStorage.setItem("isRadioLoggedIn",true);
           alert("Login Successful");
           const dataToEncrypt = patUserNameV;
           encryptData(dataToEncrypt);

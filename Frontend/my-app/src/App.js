@@ -20,13 +20,19 @@ import DoctorDetails from './Components/Doctor/Details/DoctorDetails';
 import PatDetails from './Components/Patient/Details/PatientDetails';
 import AdminHomePage from './Components/Admin/AdminHomePage/AdminHomePage';
 import AdminLanding from './Components/Admin/AdminLanding/AdminLanding';
+import PrivateRoutes from './Auth/PrivateRoutes';
 
 
 
 function App() {
+  const radiologgedIn = window.localStorage.getItem("isRadioLoggedIn");
+  const doctorloggedIn = window.localStorage.getItem("isDoctorLoggedIn");
+  const labloggedIn = window.localStorage.getItem("isLabLoggedIn");
+  const patientloggedIn = window.localStorage.getItem("isPatientLoggedIn");
   return (
     <Routes>
-    <Route path="/" element={<FirstPage/>}/>
+     
+    <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>
@@ -34,22 +40,22 @@ function App() {
     <Route path="/patient" element={<PatientLogin/>}/>
     <Route path="/patient/register" element={<RegPatient/>}/>
     <Route path="/admin/landing" element={<AdminLanding/>}/>
-    <Route path="/patient/landing" element={<PatientLanding/>}/>
-    <Route path="/doctor/landing" element={<DoctorLanding/>}/>
-    <Route path="/lab/landing" element={<LabLanding/>}/>
-    <Route path="/radiologist/landing" element={<RadioLanding/>}/>
+    <Route element={<PrivateRoutes/>}>
+         <Route path="/doctor/landing" element={<DoctorLanding/>}/>
+         <Route path="/patient/landing" element={<PatientLanding/>}/>
+         <Route path="/lab/landing" element={<LabLanding/>}/>
+         <Route path="/radiologist/landing" element={<RadioLanding/>}/>
+         <Route path="/radiologist/profile" element={<RadiologistProfile/>}/>
+         <Route path="/patient/profile" element={<PatientProfile/>}/>
+         <Route path="/lab/profile" element={<LabProfile/>}/>
+         <Route path="/doctor/profile" element={<DoctorProfile/>}/>
+         <Route path="/radiologist/details" element={<RadiologistDetails/>}/>
+         <Route path="/doctor/details" element={<DoctorDetails/>}/>
+         <Route path="/patient/details" element={<PatDetails/>}/>
+         <Route path="/patient/register" element={<RegPatient/>}/>
+    </Route>
     <Route path="/admin/homepage" element={<AdminHomePage/>}/>
-    <Route path="/radiologist/profile" element={<RadiologistProfile/>}/>
-    <Route path="/patient/profile" element={<PatientProfile/>}/>
-    <Route path="/lab/profile" element={<LabProfile/>}/>
-    <Route path="/doctor/profile" element={<DoctorProfile/>}/>
-    <Route path="/radiologist/details" element={<RadiologistDetails/>}/>
-    <Route path="/doctor/details" element={<DoctorDetails/>}/>
-    <Route path="/patient/details" element={<PatDetails/>}/>
-    <Route path="/patient/register" element={<RegPatient/>}/>
   </Routes>
-
-
   );
 }
 

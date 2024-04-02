@@ -31,6 +31,7 @@ const labPasswordChange = "/lab/changePassword"
 const laboratoryProfile="/lab/getProfileDetails"
 const doctorProfile="/doctor/getProfileDetails"
 const patientProfie="/patient/getProfileDetails"
+const createcase="/doctor/createCase"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -62,6 +63,7 @@ export {patientLoginAPI,
     laboratoryProfile,
     doctorProfile,
     patientProfie,
+    createcase,
     doctorChangePassword,
     labPasswordChange,
     patientChangePassword

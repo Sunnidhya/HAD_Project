@@ -77,7 +77,7 @@ const PatientLanding = () => {
         <div className='Patient-Land-ver2'>
         <div className="Patient-card">
          <Container>
-            <Row xs={3}>
+            <Row xs={1}>
             {patient.map((obj, i) => {
                const date = new Date(obj.caseDate);
                const year = date.getFullYear();
@@ -98,7 +98,9 @@ const PatientLanding = () => {
                               <CardSubtitle tag="h6" >Radiologist Name - {obj. radioName}</CardSubtitle>
                               <CardSubtitle tag="h6" >Doctor Name - {obj.doctorName}</CardSubtitle>
                               <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
-                              <CardText>Case Description</CardText>
+                              <CardText>Case Description</CardText><br/>
+                              <button style={{ margin: '10px' }} onClick={ getProfile}>Add Lab </button><br/>
+                              <button style={{ margin: '10px' }} >Add Radiologist</button>
                              </CardBody>
                       </Card>
                       </Link>

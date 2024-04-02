@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './CaseForm.css';
+import { createcase } from '../../Network/APIendpoints';
+import { request } from '../../Network/axiosHelper';
 
-function LabForm() {
+function CaseForm() {
   const [formData, setFormData] = useState({
-    caseID: '',
+    caseName: '',
     doctorName: '',
     patientName: ''
   });
@@ -19,7 +21,13 @@ function LabForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    request("POST",createcase , formData)
+    .then((response) => {
+     alert(response.data.message)
+    })
+    .catch((error) => {
+      console.warn("Error", error);
+    });
   };
 
   const toggleVisibility = () => {
@@ -30,6 +38,8 @@ function LabForm() {
     e.stopPropagation();
   };
 
+  
+
   return (
     <>
       {isVisible && (
@@ -39,39 +49,39 @@ function LabForm() {
             <h2 className="form-header">Case Creation</h2>
             <form className="case-form" onSubmit={handleSubmit}>
               <label>
-                Case ID:
+                Case Name:
                 <input
                   type="text"
-                  name="caseID"
-                  placeholder="Enter case ID"
-                  value={formData.caseID}
+                  name="caseName"
+                  placeholder="Enter Case Name"
+                  value={formData.caseName}
                   onChange={handleChange}
                 />
               </label>
               <br />
               <label>
-                Doctor Name:
+                Doctor User Name:
                 <input
                   type="text"
                   name="doctorName"
-                  placeholder="Enter doctor name"
+                  placeholder="Enter doctor user name"
                   value={formData.doctorName}
                   onChange={handleChange}
                 />
               </label>
               <br />
               <label>
-                Patient Name:
+                Patient User Name:
                 <input
                   type="text"
                   name="patientName"
-                  placeholder="Enter patient name"
+                  placeholder="Enter patient user name"
                   value={formData.patientName}
                   onChange={handleChange}
                 />
               </label>
               <br />
-              <button type="submit">Submit</button>
+              <button type="submit" >Submit</button>
             </form>
           </div>
         </div>
@@ -80,4 +90,4 @@ function LabForm() {
   );
 }
 
-export default LabForm;
+export default CaseForm;

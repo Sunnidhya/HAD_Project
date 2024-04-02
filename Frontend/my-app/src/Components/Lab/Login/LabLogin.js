@@ -70,6 +70,7 @@ const LabLogin = () => {
         if (response.data.message === "OTP Validated successfully, Login was Successful") {
           setAuthToken(response.data.token)
           console.warn("Data", response.data)
+          window.localStorage.setItem("isLabLoggedIn",true);
           alert("Login Successful");
           const dataToEncrypt = patUserNameV;
           encryptData(dataToEncrypt);
