@@ -246,9 +246,8 @@ const AdminLanding = () => {
                         >
                           <CardBody>
                             <CardTitle tag="h5">Patient ID: {obj.patientId}</CardTitle>
-                            <CardSubtitle >Name: {obj.fullName}</CardSubtitle >
-                            <CardSubtitle >Contact No: {obj.contactNo}
-                            </CardSubtitle >
+                            <CardSubtitle >Name: {obj.fullName}</CardSubtitle>
+                            <CardSubtitle>Contact No: {obj.contactNo}</CardSubtitle>
                             <CardText>UserName: {obj.userName}</CardText>
                             <Button
                               style={{

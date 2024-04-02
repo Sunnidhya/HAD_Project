@@ -10,10 +10,19 @@ import radpic from '../../../Resources/radio1.avif';
 import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { request } from '../../../Network/axiosHelper';
 import { patientProfie } from '../../../Network/APIendpoints';
+import ChangePassword from '../../Form/ChangePassword';
+
+
 
 const PatientProfile = () => {
   let nav = useNavigate()
+  const userType = "Patient";
   const [patProfile, setPatientProfile] = useState()
+  const [showPopup, setShowPopup] = useState(false);
+
+  const changePassword = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
 
   useEffect(() => {
     const decryptedData = decryptData();
@@ -47,7 +56,7 @@ const PatientProfile = () => {
         <div class="Patient-picture">
             <img src={radpic} alt="Profile Picture"/><br/>
             <button class="Patient-edit-button" onclick="editProfile()">Update Profile</button><br/>
-            <button class="Patient-change-button" onclick="changePassword()">Change Password</button>
+            <button class="Patient-change-button" onClick={() => changePassword()}>Change Password</button>
         </div>
         
         {patProfile && (
@@ -64,6 +73,15 @@ const PatientProfile = () => {
         {/* About Us Section */}
       <div className="Patient-about-us-section">
         <p>About Us</p>
+      </div>
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={changePassword}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+            <ChangePassword  userProp={userType}/>
+          </div>
+          </div>
+        )}
       </div>
     </div>
     );

@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import './ChangePassword.css'; 
 import { decryptData } from '../../EncryptDecrypt/EncDecrypt';
 import { radioChangePassword } from '../../Network/APIendpoints';
+import { doctorChangePassword } from '../../Network/APIendpoints';
+import { patientChangePassword } from '../../Network/APIendpoints';
+import { labPasswordChange } from '../../Network/APIendpoints';
 import { request } from '../../Network/axiosHelper';
 import { useNavigate } from 'react-router-dom';
 
-const ChangePassword = () => {
+const ChangePassword = (props) => {
   let nav = useNavigate()
+  let apiEndPoint = ''
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: ''
   });
   const [isVisible, setIsVisible] = useState(true);
+  const { userProp } = props;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +43,20 @@ const ChangePassword = () => {
         currentPassword: formData.currentPassword,
         newPassword: formData.newPassword
     };
-    request("POST", radioChangePassword, data)
+    if(userProp === 'Doctor'){
+      apiEndPoint = doctorChangePassword
+    }
+    else if(userProp === 'Radiologist'){
+      apiEndPoint = radioChangePassword
+    }
+    else if(userProp === 'Laboratory'){
+      apiEndPoint = labPasswordChange
+    } 
+    else if(userProp === 'Patient'){
+      apiEndPoint = patientChangePassword
+    }
+
+    request("POST", apiEndPoint, data)
       .then((response) => {
         if(response.data.message === "Current Password or User Name entered wrongly ")
         {
@@ -49,7 +67,18 @@ const ChangePassword = () => {
           alert("Same Password entered")
         }
         else if (response.data.message === "Password updated successfully") {
-         nav("/radiologist")
+         if(userProp === 'Doctor'){
+          nav("/doctor")
+        }
+        else if(userProp === 'Radiologist'){
+          nav("/radiologist")
+        }
+        else if(userProp === 'Laboratory'){
+          nav("/lab")
+        } 
+        else if(userProp === 'Patient'){
+          nav("/patient")
+        }
         }
        })
       .catch((error) => {
