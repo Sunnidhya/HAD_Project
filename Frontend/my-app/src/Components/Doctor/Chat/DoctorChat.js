@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import logout from "../../../Resources/log-out.png";
 import "./DoctorChat.css";
 import { useNavigate } from "react-router-dom";
+import DwvComponent from "../../../DViewer/DwvComponent";
+
 const DoctorChat = () => {
   let nav = useNavigate();
   let dateVal = new Date()
@@ -10,6 +12,20 @@ const DoctorChat = () => {
   const [inputText, setInputText] = useState("");
   const [image, setImage] = useState(null);
   const [dateTime, setDateTime] = useState('');
+  const [blob, setBlob] = useState(null);
+  const imageUrl = "file:///D:/HAD_Project/Frontend/my-app/src/Resources/Vida_Head.MR.Comp_DR-Gain_DR.1005.1.2021.04.27.14.20.13.818.14380335.dcm"
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const blob = new Blob([reader.result], { type: file.type });
+      setBlob(blob);
+    };
+
+    reader.readAsArrayBuffer(file);
+  };
 
   const handleLogout = () => {
     localStorage.clear();
@@ -55,7 +71,7 @@ const DoctorChat = () => {
   };
 
   return (
-    <div class="Had-login-container">
+    <div class="Doctor-chat-container">
       <div class="Doctor-Login-hor">
         <div>
           <img src={imgside} id="docsideimg" />
@@ -64,6 +80,7 @@ const DoctorChat = () => {
           <img src={logout} alt="Logout" className="input-icon1" />
         </div>
       </div>
+      <div className="chatDicom">
       <div class="chat-wrapper">
         <div class="chat-container">
           <ul className="chat-list">
@@ -88,6 +105,11 @@ const DoctorChat = () => {
           <button onClick={handleSendMessage}>Send</button>
           <input type="file" onChange={handleImageChange} />
         </div>
+      </div>
+      <div className="dicom-viewer">
+        <h2>DICOM Viewer</h2>
+        <DwvComponent/>
+      </div>
       </div>
       <div class="Docfooter">
         <h2>About Us</h2>
