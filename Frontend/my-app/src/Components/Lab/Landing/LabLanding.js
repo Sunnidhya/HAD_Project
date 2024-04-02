@@ -47,6 +47,10 @@ const LabLanding = () => {
       });
   }, []);
 
+  const profileget = () => {
+    nav("/Lab/profile")
+  }
+
   const numberOfCards = 24;
   
   return (
@@ -67,7 +71,7 @@ const LabLanding = () => {
         <div className='Lab-Land-ver1'>
         
             <button style={{ margin: '10px' }}>Upload</button>
-            <button style={{ margin: '10px' }}>Profile</button>
+            <button style={{ margin: '10px' }} onClick={profileget}>Profile</button>
             
         
         </div>
