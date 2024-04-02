@@ -12,9 +12,11 @@ import { radioProfile } from '../../../Network/APIendpoints';
 import { request } from '../../../Network/axiosHelper';
 import ChangePassword from '../../Form/ChangePassword';
 
+
+
 const RadiologistProfile = () => {
   let nav = useNavigate()
-  
+  const userType = "Radiologist";
   const [showradPopup, setShowRadPopup] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
@@ -82,7 +84,7 @@ const RadiologistProfile = () => {
         {showPopup && (
           <div className="popup-overlay" onClick={changePassword}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-            <ChangePassword />
+            <ChangePassword  userProp={userType}/>
           </div>
           </div>
         )}

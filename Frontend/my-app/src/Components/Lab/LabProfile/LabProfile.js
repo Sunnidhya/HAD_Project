@@ -10,12 +10,20 @@ import { useNavigate } from 'react-router-dom';
 import radpic from '../../../Resources/radio1.avif';
 import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { request } from '../../../Network/axiosHelper';
+import ChangePassword from '../../Form/ChangePassword';
+
+
 
 const LabProfile = () => {
   let nav = useNavigate()
-
+  const userType = "Laboratory";
   const [searchQuery, setSearchQuery] = useState('');
   const [labProfile, setlabProfile] = useState()
+  const [showPopup, setShowPopup] = useState(false);
+
+  const changePassword = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
 
   useEffect(() => {
     const decryptedData = decryptData();
@@ -47,7 +55,7 @@ const LabProfile = () => {
         <div class="Lab-picture">
             <img src={radpic} alt="Profile Picture"/><br/>
             <button class="Lab-edit-button" onclick="editProfile()">Update Profile</button><br/>
-            <button class="Lab-change-button" onclick="changePassword()">Change Password</button>
+            <button class="Lab-change-button" onClick={() => changePassword()}>Change Password</button>
         </div>
         
         {labProfile && (
@@ -64,6 +72,16 @@ const LabProfile = () => {
         {/* About Us Section */}
       <div className="Lab-about-us-section">
         <p>About Us</p>
+      </div>
+
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={changePassword}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+            <ChangePassword  userProp={userType}/>
+          </div>
+          </div>
+        )}
       </div>
     </div>
     );

@@ -28,7 +28,7 @@ const RadioLanding = () => {
   };
 
   const profileget = () => {
-    nav("/radiologist/profile")
+    nav("/doctor/profile")
   }
 
   useEffect(() => {
