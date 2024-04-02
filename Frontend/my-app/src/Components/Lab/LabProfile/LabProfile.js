@@ -3,15 +3,34 @@ import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {laboratoryProfile} from '../../../Network/APIendpoints';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
 import radpic from '../../../Resources/radio1.avif';
+import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
+import { request } from '../../../Network/axiosHelper';
 
 const LabProfile = () => {
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [labProfile, setlabProfile] = useState()
+
+  useEffect(() => {
+    const decryptedData = decryptData();
+    const data = {
+        userName: decryptedData
+    };
+  request("POST", laboratoryProfile, data)
+    .then((response) => {
+      setlabProfile(response.data);
+      // console.warn("Data",response)
+    })
+    .catch((error) => {
+      console.warn("Error", error);
+    });
+}, []);
   return (
       
       <div class="Lab-login-container">
@@ -31,14 +50,16 @@ const LabProfile = () => {
             <button class="Lab-change-button" onclick="changePassword()">Change Password</button>
         </div>
         
-        <div class="Lab-user-info">
-            <h2>Samarpita Bhaumik</h2><br/>
-            <p><b>Degree:</b> MBBS</p>
-            <p><b>Specialization:</b> Radiology</p>
-            <p><b>UserName:</b> sammy</p>
-            <p><b>Department:</b> Radiology</p>
-            <p><b>Password:</b>1234</p>
+        {labProfile && (
+        <div>
+            <h2>{labProfile.labName}</h2><br/>
+            <p><b>ID: {labProfile.labId}</b></p>
+            <p><b>Name: {labProfile.labName}</b></p>
+            <p><b>UserName: {labProfile.userName}</b></p>
+            <p><b>Email: {labProfile.email}</b></p>
+            <p><b>Contact Number: {labProfile.contactNo}</b></p>
         </div>
+    )}
        </div>
         {/* About Us Section */}
       <div className="Lab-about-us-section">

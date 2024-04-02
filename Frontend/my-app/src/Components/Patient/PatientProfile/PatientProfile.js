@@ -3,13 +3,32 @@ import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
 import radpic from '../../../Resources/radio1.avif';
+import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
+import { request } from '../../../Network/axiosHelper';
+import { patientProfie } from '../../../Network/APIendpoints';
 
 const PatientProfile = () => {
   let nav = useNavigate()
+  const [patProfile, setPatientProfile] = useState()
+
+  useEffect(() => {
+    const decryptedData = decryptData();
+    const data = {
+        userName: decryptedData
+    };
+  request("POST", patientProfie, data)
+    .then((response) => {
+      setPatientProfile(response.data);
+      // console.warn("Data",response)
+    })
+    .catch((error) => {
+      console.warn("Error", error);
+    });
+}, []);
 
   const [searchQuery, setSearchQuery] = useState('');
   return (
@@ -31,14 +50,16 @@ const PatientProfile = () => {
             <button class="Patient-change-button" onclick="changePassword()">Change Password</button>
         </div>
         
-        <div class="Patient-user-info">
-            <h2>Samarpita Bhaumik</h2><br/>
-            <p><b>Degree:</b> MBBS</p>
-            <p><b>Specialization:</b> Radiology</p>
-            <p><b>UserName:</b> sammy</p>
-            <p><b>Department:</b> Radiology</p>
-            <p><b>Password:</b>1234</p>
+        {patProfile && (
+        <div>
+            <h2>{patProfile.userName}</h2><br/>
+            <p><b>Fullname: {patProfile.fullName}</b></p>
+            <p><b>Contact No: {patProfile.contactNo}</b></p>
+            <p><b>UserName: {patProfile.userName}</b></p>
+            <p><b>Address: {patProfile.address}</b></p>
+            <p><b>Email: {patProfile.email}</b></p>
         </div>
+    )}
        </div>
         {/* About Us Section */}
       <div className="Patient-about-us-section">

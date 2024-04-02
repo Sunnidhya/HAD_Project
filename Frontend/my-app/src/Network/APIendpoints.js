@@ -25,6 +25,9 @@ const getCasesOfLab="/lab/getListOfCases"
 const getCasesofPatient="/patient/getListOfCases"
 const radioProfile="/radiologist/getProfileDetails"
 const radioChangePassword ="/radiologist/changePassword"
+const laboratoryProfile="/lab/getProfileDetails"
+const doctorProfile="/doctor/getProfileDetails"
+const patientProfie="/patient/getProfileDetails"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -52,5 +55,8 @@ export {patientLoginAPI,
     getCasesOfLab,
     getCasesofPatient,
     radioProfile,
-    radioChangePassword
+    radioChangePassword,
+    laboratoryProfile,
+    doctorProfile,
+    patientProfie
 }

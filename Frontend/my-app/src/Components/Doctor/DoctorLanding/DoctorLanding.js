@@ -28,6 +28,10 @@ const DoctorLanding = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
   };
 
+  const getProfile = () => {
+    nav("/doctor/profile")
+  }
+
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -68,7 +72,7 @@ const DoctorLanding = () => {
         <div className='Doctor-Land-ver1'>
         
             <button style={{ margin: '10px' }}>Add new Case</button>
-            <button style={{ margin: '10px' }}>Profile</button>
+            <button style={{ margin: '10px' }} onClick={getProfile}>Profile</button>
             
         
         </div>
