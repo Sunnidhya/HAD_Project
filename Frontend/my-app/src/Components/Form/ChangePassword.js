@@ -38,6 +38,7 @@ const ChangePassword = () => {
         currentPassword: formData.currentPassword,
         newPassword: formData.newPassword
     };
+    
     request("POST", radioChangePassword, data)
       .then((response) => {
         if(response.data.message === "Current Password or User Name entered wrongly ")

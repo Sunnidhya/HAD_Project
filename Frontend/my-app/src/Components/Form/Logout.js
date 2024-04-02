@@ -22,7 +22,7 @@ function Logout(props) {
      
     else if(userType == 'lab')
     {
-      window.localStorage.setItem("isLabLoggedIn");
+      window.localStorage.removeItem("isLabLoggedIn");
       nav("/lab")
   }
     else if(userType == 'patient')

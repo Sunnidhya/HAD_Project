@@ -16,16 +16,22 @@ import { useNavigate } from 'react-router-dom';
 import Logout from '../../Form/Logout';
 import { getCasesOfDoctor } from '../../../Network/APIendpoints';
 import { request } from '../../../Network/axiosHelper';
+import CaseForm from '../../Form/CaseForm';
 const DoctorLanding = () => {
 
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupCase, setShowPopupCase] = useState(false);
   const [doctor, setDoctor] = useState([]);
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
+  const togglePopupDoctor = () => {
+    setShowPopupCase(prevShowPopup => !prevShowPopup);
   };
 
   const getProfile = () => {
@@ -71,7 +77,7 @@ const DoctorLanding = () => {
     <div className='Doctor-Land-ver'>
         <div className='Doctor-Land-ver1'>
         
-            <button style={{ margin: '10px' }}>Add new Case</button>
+            <button style={{ margin: '10px' }} onClick={togglePopupDoctor}>Add new Case</button>
             <button style={{ margin: '10px' }} onClick={getProfile}>Profile</button>
             
         
@@ -79,7 +85,7 @@ const DoctorLanding = () => {
         <div className='Doctor-Land-ver2'>
         <div className="Doctor-card">
          <Container>
-            <Row xs={3}>
+            <Row xs={1}>
             {doctor.map((obj, i) => {
                 const date = new Date(obj.caseDate);
                 const year = date.getFullYear();
@@ -121,6 +127,13 @@ const DoctorLanding = () => {
           <div className="popup-overlay" onClick={togglePopup}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
               <Logout userType="doctor"/>
+            </div>
+          </div>
+        )}
+        {showPopupCase && (
+          <div className="popup-overlay" onClick={togglePopupDoctor}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <CaseForm userType="doctor"/>
             </div>
           </div>
         )}

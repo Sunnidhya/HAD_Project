@@ -28,6 +28,7 @@ const radioChangePassword ="/radiologist/changePassword"
 const laboratoryProfile="/lab/getProfileDetails"
 const doctorProfile="/doctor/getProfileDetails"
 const patientProfie="/patient/getProfileDetails"
+const createcase="/doctor/createCase"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -58,5 +59,6 @@ export {patientLoginAPI,
     radioChangePassword,
     laboratoryProfile,
     doctorProfile,
-    patientProfie
+    patientProfie,
+    createcase
 }
