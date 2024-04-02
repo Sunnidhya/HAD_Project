@@ -15,13 +15,27 @@ function Logout(props) {
     else if(userType == 'adminhome')
      nav("/admin")
     else if(userType == 'doctor')
-     nav("/doctor")
+    {
+      window.localStorage.removeItem("isDoctorLoggedIn")
+      nav("/doctor")
+    }
+     
     else if(userType == 'lab')
-     nav("/lab")
+    {
+      window.localStorage.setItem("isLabLoggedIn");
+      nav("/lab")
+  }
     else if(userType == 'patient')
-     nav("/patient")
+    {
+      window.localStorage.removeItem("isPatientLoggedIn");
+      nav("/patient")
+    }
     else if(userType == 'radiologist')
-     nav("/radiologist")
+    {
+      window.localStorage.removeItem("isRadioLoggedIn")
+      nav("/radiologist")
+    }
+     
   };
 
   const handleNoClick = (event) => {

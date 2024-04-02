@@ -73,6 +73,7 @@ const PatientLogin = () => {
         if (response.data.message === "OTP Validated successfully, Login was Successful") {
           setAuthToken(response.data.token)
           console.warn("Data", response.data)
+          window.localStorage.setItem("isPatientLoggedIn",true);
           alert("Login Successful");
           const dataToEncrypt = patUserNameV;
           encryptData(dataToEncrypt);

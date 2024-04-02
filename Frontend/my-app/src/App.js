@@ -25,9 +25,14 @@ import PrivateRoutes from './Auth/PrivateRoutes';
 
 
 function App() {
+  const radiologgedIn = window.localStorage.getItem("isRadioLoggedIn");
+  const doctorloggedIn = window.localStorage.getItem("isDoctorLoggedIn");
+  const labloggedIn = window.localStorage.getItem("isLabLoggedIn");
+  const patientloggedIn = window.localStorage.getItem("isPatientLoggedIn");
   return (
     <Routes>
-    <Route path="/" element={<FirstPage/>}/>
+     
+    <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>
