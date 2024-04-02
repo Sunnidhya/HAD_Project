@@ -47,6 +47,10 @@ const PatientLanding = () => {
       });
   }, []);
 
+  const getProfile = ()=>{
+    nav("/patient/profile");
+  }
+
   const numberOfCards = 24;
   
   return (
@@ -67,9 +71,8 @@ const PatientLanding = () => {
         <div className='Patient-Land-ver1'>
         
             
-            <button style={{ margin: '10px' }}>Profile</button>
+            <button style={{ margin: '10px' }} onClick = {getProfile}>Profile</button>
             
-        
         </div>
         <div className='Patient-Land-ver2'>
         <div className="Patient-card">
