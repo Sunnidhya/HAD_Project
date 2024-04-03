@@ -12,10 +12,10 @@ import java.io.Serializable;
 
 public interface IOTPRepository extends JpaRepository<OTP, Serializable> {
     @Query("SELECT o from OTP o where o.oneTimePasswordCode=:otpValue")
-    OTP getOTPValue(@Param("otpValue") Integer otp);
+    OTP getOTPValue(@Param("otpValue") String otp);
 
     @Query("delete from OTP o where o.oneTimePasswordCode = :otpV")
     @Transactional
     @Modifying
-    void removeEntry(@Param("otpV") Integer otpVal);
+    void removeEntry(@Param("otpV") String otpVal);
 }

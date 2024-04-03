@@ -192,6 +192,10 @@ public class PatientService {
         return iPatientRegistrationRepository.findByPatientId(patientId);
     }
 
+    public Patient getPatientByUserName(String patientUserName) {
+        return iPatientRegistrationRepository.findByPatientUserName(patientUserName);
+    }
+
     public LoginMessage updateCaseR(CasesDTO casesDTO) {
         Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
         Radiologist radiologist = iRadiologistRegistrationRepository.getByRadiologistId(casesDTO.getRadiologistId());

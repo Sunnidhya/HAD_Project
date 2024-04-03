@@ -160,7 +160,6 @@ public class DoctorService {
     public OTP getOtp() {
         OTP otp = new OTP();
         Date date = new Date();
-
         String otpV = otpHelperService.createRandomOneTimePassword();
         otp.setOneTimePasswordCode(otpV);
         otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
@@ -188,6 +187,10 @@ public class DoctorService {
 
     public Doctor getDoctorById(Integer doctorId) {
         return iDoctorRegistrationRepository.findByDoctorId(doctorId);
+    }
+
+    public Doctor getDoctorByUserName(String doctorUserName) {
+        return iDoctorRegistrationRepository.findByDoctorUserName(doctorUserName);
     }
 
     public LoginMessage markAsDone(CasesDTO casesDTO) {

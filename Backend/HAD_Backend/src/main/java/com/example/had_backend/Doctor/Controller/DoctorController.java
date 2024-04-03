@@ -130,8 +130,16 @@ public class DoctorController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            casesReturnDTO.setLabName(cases.getLab().getLabName());
+            if(cases.getRadiologist() != null) {
+                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+            }else{
+                casesReturnDTO.setRadioName("Not yet assigned");
+            }
+            if(cases.getLab() != null) {
+                casesReturnDTO.setLabName(cases.getLab().getLabName());
+            }else{
+                casesReturnDTO.setLabName("Not yet assigned");
+            }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
             casesReturnDTO.setMarkAsDone(cases.getMarkAsDone());
             casesReturnDTOS.add(casesReturnDTO);
@@ -153,8 +161,8 @@ public class DoctorController {
         Date date = new Date();
         cases.setCaseName(casesDTO.getCaseName());
         cases.setCaseDate(date.getTime());
-        Doctor doctor = doctorService.getDoctorById(casesDTO.getDoctorId());
-        Patient patient = patientService.getPatientById(casesDTO.getPatientId());
+        Doctor doctor = doctorService.getDoctorByUserName(casesDTO.getDoctorName());
+        Patient patient = patientService.getPatientByUserName(casesDTO.getPatientName());
         cases.setDoctor(doctor);
         cases.setPatient(patient);
         LoginMessage loginMessage = doctorService.createCase(cases);
