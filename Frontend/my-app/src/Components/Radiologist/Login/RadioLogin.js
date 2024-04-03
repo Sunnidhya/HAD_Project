@@ -5,6 +5,7 @@ import imgside from '../../../Resources/AppLogo.png';
 import React,{useState, useEffect} from "react";
 import { otpRadiologist, radiologistLoginAPI } from '../../../Network/APIendpoints';
 import { useNavigate } from 'react-router-dom';
+import { encryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import './Radio.css'
 
 import {request,setAuthToken} from '../../../Network/axiosHelper';
@@ -67,10 +68,12 @@ const RadioLogin = () => {
         console.warn("DataOTP", response)
         if (response.data.message === "OTP Validated successfully, Login was Successful") {
           setAuthToken(response.data.token)
-          console.warn("Data", response.data)
+          window.localStorage.setItem("isRadioLoggedIn",true);
           alert("Login Successful");
+          const dataToEncrypt = patUserNameV;
+          encryptData(dataToEncrypt);
           nav('/radiologist/landing')
-
+        
         }
         else {
           alert("OTP is wrong, Please retry!!")

@@ -67,13 +67,13 @@ body {
     margin: 60px 0px 20px 80px;
   }
   
-  .Patient-user-info h2 {
+  .Patient-container h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: 300px;
     color: #1588C1;
   }
   
-  .Patient-user-info p {
+  .Patient-container p {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: 500px;
     color: #1588C1;

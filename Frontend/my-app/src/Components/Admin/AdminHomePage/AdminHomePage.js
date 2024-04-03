@@ -6,11 +6,17 @@ import { useNavigate } from "react-router-dom";
 import "./AdminHomePage.css";
 import { getCountOfUsers } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
+import Logout from "../../Form/Logout";
 const AdminHomePage = () => {
   const [patientValue, setPatientValue] = useState(0);
   const [radiologistValue, setRadiologistValue] = useState(0);
   const [doctorValue, setDoctorValue] = useState(0);
   const [labValue, setLabValue] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
 
   const dataP = "Patient"
   const dataL = "Lab"
@@ -49,19 +55,13 @@ const AdminHomePage = () => {
       });
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    alert("Logout successful!");
-    nav("/admin");
-  };
-
-  return (
+ return (
     <div className="Admin-land-container">
       <div class="Admin-Home-hor">
         <div>
           <img src={imgside} id="docsideimg" />
         </div>
-        <div class="AdminLogout" onClick={handleLogout}>
+        <div class="AdminLogout" style={{cursor:"pointer"}} onClick={togglePopup}>
           <img src={logout} alt="Logout" className="input-icon1" />
         </div>
     </div>
@@ -103,6 +103,15 @@ const AdminHomePage = () => {
     <div className="Admin-home-about-us-section">
         <p>About Us</p>
     </div>
+    <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <Logout userType="adminhome"/>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

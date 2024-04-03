@@ -19,6 +19,7 @@
     "cornerstone-wado-image-loader": "^4.13.2",
     "dicom-parser": "^1.8.21",
     "dwv": "^0.32.4",
+    "crypto-js": "^4.2.0",
     "react": "^18.2.0",
     "react-cornerstone-viewport": "^4.1.5",
     "react-dom": "^18.2.0",

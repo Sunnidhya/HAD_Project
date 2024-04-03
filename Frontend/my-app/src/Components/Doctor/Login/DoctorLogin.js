@@ -4,6 +4,7 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import React, { useState, useEffect } from "react";
 import { doctorLoginAPI, otpdoctor } from '../../../Network/APIendpoints';
+import { encryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { useNavigate } from 'react-router-dom';
 import './Doctor.css'
 
@@ -69,7 +70,10 @@ const DoctorLogin = () => {
         if (response.data.message === "OTP Validated successfully") {
           setAuthToken(response.data.token)
           console.warn("Data", response.data)
+          window.localStorage.setItem("isDoctorLoggedIn",true);
           alert("Login Successful");
+          const dataToEncrypt = userNameV;
+          encryptData(dataToEncrypt);
           nav('/doctor/landing')
 
         }

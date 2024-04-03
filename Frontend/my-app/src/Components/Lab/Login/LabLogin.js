@@ -4,6 +4,7 @@ import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
 import React,{useState, useEffect} from "react";
 import { labLoginAPI, otplab } from '../../../Network/APIendpoints';
+import { encryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { useNavigate } from 'react-router-dom';
 import './Lab.css'
 
@@ -69,7 +70,10 @@ const LabLogin = () => {
         if (response.data.message === "OTP Validated successfully, Login was Successful") {
           setAuthToken(response.data.token)
           console.warn("Data", response.data)
+          window.localStorage.setItem("isLabLoggedIn",true);
           alert("Login Successful");
+          const dataToEncrypt = patUserNameV;
+          encryptData(dataToEncrypt);
           nav('/lab/landing')
 
         }

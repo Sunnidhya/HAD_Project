@@ -19,6 +19,19 @@ const otpdoctor="/doctor/login/validateOTP"
 const otplab="/lab/login/validateOTP"
 const otpPatient="/patient/login/validateOTP"
 const otpRadiologist ="/radiologist/login/validateOTP"
+const getCasesOfRadiologists="/radiologist/getListOfCases"
+const getCasesOfDoctor="/doctor/getListOfCases"
+const getCasesOfLab="/lab/getListOfCases"
+const getCasesofPatient="/patient/getListOfCases"
+const radioProfile="/radiologist/getProfileDetails"
+const radioChangePassword ="/radiologist/changePassword"
+const doctorChangePassword = "/doctor/changePassword"
+const patientChangePassword = "/patient/changePassword"
+const labPasswordChange = "/lab/changePassword"
+const laboratoryProfile="/lab/getProfileDetails"
+const doctorProfile="/doctor/getProfileDetails"
+const patientProfie="/patient/getProfileDetails"
+const createcase="/doctor/createCase"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -40,5 +53,18 @@ export {patientLoginAPI,
     otpdoctor,
     otplab,
     otpPatient,
-    otpRadiologist
+    otpRadiologist,
+    getCasesOfRadiologists,
+    getCasesOfDoctor,
+    getCasesOfLab,
+    getCasesofPatient,
+    radioProfile,
+    radioChangePassword,
+    laboratoryProfile,
+    doctorProfile,
+    patientProfie,
+    createcase,
+    doctorChangePassword,
+    labPasswordChange,
+    patientChangePassword
 }
