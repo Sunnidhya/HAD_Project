@@ -4,16 +4,12 @@ import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
+import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
-import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
-import com.example.had_backend.Patient.Entity.Patient;
-import com.example.had_backend.Patient.Entity.PatientL;
-import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
-import com.example.had_backend.Radiologist.Entity.RadiologistL;
 import com.example.had_backend.Radiologist.Model.RadiologistChangePasswordDTO;
 import com.example.had_backend.Radiologist.Model.RadiologistRegistrationDTO;
 import com.example.had_backend.Radiologist.Service.RadiologistService;
@@ -42,10 +38,10 @@ public class RadiologistController {
     @PostMapping("/radiologist/login")
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         LoginMessage message = new LoginMessage();
-        RadiologistL radiologistL = radiologistService.authenticate(login);
+        Users users = radiologistService.authenticateUser(login);
         Radiologist radiologist = radiologistService.profile(login);
-        OTP otp = radiologistService.getOtp();
-        if(radiologistL.getRadiologist().getRadiologistId() != null){
+        OTP otp = radiologistService.getOtpUser(radiologist);
+        if(users != null){
             emailService.sendSimpleMessage(
                     radiologist.getEmail(),
                     "Please use the following OTP to Authenticate Login",

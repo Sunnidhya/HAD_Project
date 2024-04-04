@@ -20,7 +20,7 @@ public interface IPatientRegistrationRepository extends JpaRepository<Patient, S
     Patient getPatientProfileDetails(@Param("username") String userName);
 
 
-    @Query("delete from Patient p where p.patientId = :id")
+    @Query("delete from Patient p where p.userId = :id")
     @Transactional
     @Modifying
     void removeEntry(@Param("id") Integer patientId);
@@ -28,7 +28,7 @@ public interface IPatientRegistrationRepository extends JpaRepository<Patient, S
     @Query("SELECT p from Patient p")
     List<Patient> getCountPatient();
 
-    @Query("SELECT p from Patient p where p.patientId =:patientIdVal")
+    @Query("SELECT p from Patient p where p.userId =:patientIdVal")
     Patient findByPatientId(@Param("patientIdVal") Integer patientId);
 
     @Query("SELECT p from Patient p where p.userName =:patientUserNameVal")

@@ -48,7 +48,7 @@ const AdminLanding = () => {
   const [lab, setLab] = useState([]);
   const [radio, setRadio] = useState([]);
   const [doctor, setDoctor] = useState([]);
-  const [isP, setP] = useState(false);
+  const [isP, setP] = useState(true);
   const [isL, setL] = useState(false);
   const [isR, setR] = useState(false);
 
@@ -133,7 +133,7 @@ const AdminLanding = () => {
   useEffect(() => {
     let temp;
     if (receivedData === "Patient") {
-      setButtonV("Add Patient");
+      setP(false)
       temp = getListOfPatients;
     }
     if (receivedData === "Lab") {
@@ -191,8 +191,7 @@ const AdminLanding = () => {
       </div>
       <div className="Admin-Land-ver">
         <div className="Admin-Land-ver1">
-          <button style={{ margin: "10px" }} onClick={togglePopup}>{buttonV}</button>
-          <button style={{ margin: "10px" }}>Profile</button>
+          {isP && <button style={{ margin: "10px" }} onClick={togglePopup}>{buttonV}</button>}
         </div>
         <div className="Admin-Land-ver2">
           <div className="Admin-card" >
@@ -347,6 +346,15 @@ const AdminLanding = () => {
           <div className="popup-overlay" onClick={togglePopupLogout}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
               <Logout userType='admin'/>
+            </div>
+          </div>
+        )}
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              {receivedData === "Doctor" && <DoctorForm/>}
+              {receivedData === "Lab" && <LabForm/>}
+              {receivedData === "Radiologist" && <RadioForm/>}
             </div>
           </div>
         )}

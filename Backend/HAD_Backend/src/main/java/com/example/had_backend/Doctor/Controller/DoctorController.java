@@ -1,7 +1,6 @@
 package com.example.had_backend.Doctor.Controller;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
-import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
@@ -9,6 +8,7 @@ import com.example.had_backend.Doctor.Service.DoctorService;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
+import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesDTO;
 import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
@@ -22,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,10 +45,10 @@ public class DoctorController {
     @PostMapping("/doctor/login")
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         LoginMessage message = new LoginMessage();
-        DoctorL doctorL = doctorService.authenticate(login);
+        Users users = doctorService.authenticateUser(login);
         Doctor doctor = doctorService.profile(login);
-        OTP otp = doctorService.getOtp();
-        if(doctorL.getDoctor().getDoctorId() != null){
+        OTP otp = doctorService.getOtpUser(doctor);
+        if(users != null){
             emailService.sendSimpleMessage(
                     doctor.getEmail(),
                     "Please use the following OTP to Authenticate Login",

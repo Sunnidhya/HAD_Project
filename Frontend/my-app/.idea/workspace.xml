@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1dc19d4c-8497-4eff-ad3e-88aecac3f75c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Entity/Users.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Repository/IUsersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Controller/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Controller/DoctorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Entity/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Entity/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Entity/DoctorL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Repository/IDoctorLoginRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Repository/IDoctorRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Repository/IDoctorRegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Service/DoctorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Doctor/Service/DoctorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Entity/OTP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Entity/OTP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Entity/UserName.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Repository/ICasesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Repository/ICasesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Repository/ICountRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Repository/IOTPRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Repository/IUserNameRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Service/GlobalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Global/Service/GlobalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Controller/LabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Controller/LabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Entity/Lab.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Entity/Lab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Entity/Labl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Repository/ILabLoginRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Repository/ILabRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Repository/ILabRegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Service/LabService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Lab/Service/LabService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Controller/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Controller/PatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Entity/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Entity/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Entity/PatientL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Repository/IPatientLoginRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Repository/IPatientRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Repository/IPatientRegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Patient/Service/PatientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Controller/RadiologistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Controller/RadiologistController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Entity/Radiologist.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Entity/Radiologist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Entity/RadiologistL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Repository/IRadiologistLoginRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Repository/IRadiologistRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Repository/IRadiologistRegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Service/RadiologistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/java/com/example/had_backend/Radiologist/Service/RadiologistService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/HAD_Backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2ecjdSuhUpgfphD71YA6YSod6Qm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Sunnidhya",
+    "last_opened_file_path": "D:/HAD_Project/Frontend/my-app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1dc19d4c-8497-4eff-ad3e-88aecac3f75c" name="Changes" comment="" />
+      <created>1712210847435</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712210847435</updated>
+      <workItem from="1712210848519" duration="302000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+</project>

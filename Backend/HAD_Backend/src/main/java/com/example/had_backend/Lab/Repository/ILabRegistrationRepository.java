@@ -1,8 +1,6 @@
 package com.example.had_backend.Lab.Repository;
 
 import com.example.had_backend.Lab.Entity.Lab;
-import com.example.had_backend.Lab.Entity.Labl;
-import com.example.had_backend.Radiologist.Entity.Radiologist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +19,7 @@ public interface ILabRegistrationRepository  extends JpaRepository<Lab, Serializ
     Lab getProfile(@Param("username") String userName);
 
 
-    @Query("delete from Lab d where d.labId = :id")
+    @Query("delete from Lab d where d.userId = :id")
     @Transactional
     @Modifying
     void removeEntry(@Param("id") Integer labId);
@@ -29,6 +27,6 @@ public interface ILabRegistrationRepository  extends JpaRepository<Lab, Serializ
     @Query("SELECT l from Lab l")
     List<Lab> getCountLab();
 
-    @Query("SELECT l from Lab l where l.labId =:labIdVal")
+    @Query("SELECT l from Lab l where l.userId =:labIdVal")
     Lab getByLabId(@Param("labIdVal") Integer labId);
 }

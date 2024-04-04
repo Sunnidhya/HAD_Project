@@ -18,7 +18,7 @@ public interface IRadiologistRegistrationRepository extends JpaRepository<Radiol
     Radiologist getProfile(@Param("username") String userName);
 
 
-    @Query("delete from Radiologist r where r.radiologistId = :id")
+    @Query("delete from Radiologist r where r.userId = :id")
     @Transactional
     @Modifying
     void removeEntry(@Param("id") Integer radiologistId);
@@ -26,6 +26,6 @@ public interface IRadiologistRegistrationRepository extends JpaRepository<Radiol
     @Query("SELECT r from Radiologist r")
     List<Radiologist> getCountRadiologist();
 
-    @Query("SELECT r from Radiologist r where r.radiologistId =:radioIdVal")
+    @Query("SELECT r from Radiologist r where r.userId =:radioIdVal")
     Radiologist getByRadiologistId(@Param("radioIdVal") Integer radiologistId);
 }
