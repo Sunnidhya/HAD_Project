@@ -1,9 +1,13 @@
 import imgside from "../../../Resources/AppLogo.png";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import logout from "../../../Resources/log-out.png";
 import "./DoctorChat.css";
 import { useNavigate } from "react-router-dom";
 import DwvComponent from "../../../DViewer/DwvComponent";
+import { createFileName, useScreenshot } from "use-react-screenshot";
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
+import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
+import { v4 } from "uuid";
 
 const DoctorChat = () => {
   let nav = useNavigate();
@@ -11,14 +15,19 @@ const DoctorChat = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [image, setImage] = useState(null);
+  const [ssImg, setSSImg] = useState();
   const [dateTime, setDateTime] = useState('');
   const [blob, setBlob] = useState(null);
   const imageUrl = "file:///D:/HAD_Project/Frontend/my-app/src/Resources/Vida_Head.MR.Comp_DR-Gain_DR.1005.1.2021.04.27.14.20.13.818.14380335.dcm"
+  const ref1 = createRef(null)
 
+  const [screenshot, takeScreenshot]= useScreenshot({
+    type:'image/jpeg',
+    quality:1.0
+  })
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-
     reader.onload = () => {
       const blob = new Blob([reader.result], { type: file.type });
       setBlob(blob);
@@ -70,6 +79,40 @@ const DoctorChat = () => {
     }
   };
 
+  const download = (image, { name = "img", extension = "jpg"} = {}) => {
+    const a = document.createElement("a");
+    a.href = image;
+    a.download = createFileName(extension, name);
+    a.click();
+      //   const img = ref(imgDB, `Imgs/${v4()}`);
+      //   uploadBytes(img, image).then(data=>{
+      //   console.warn("Data", data);
+      //   getDownloadURL(data.ref).then(value=>{
+      //   console.warn("Data1",value)
+      //   loadImageFromUrl(value);
+      //   })
+      // })
+  }
+
+  const loadImageFromUrl = async (url) => {
+    try {
+      // Fetch the image from the URL
+      const response = await fetch(url);
+      console.warn("Data",response.url);
+      // setSSImg(response.url)
+    } catch (error) {
+      console.error('Error loading image:', error);
+    }
+  };
+
+  const downloadScreenshot = async () => {
+    try {
+      // Take the screenshot
+      await takeScreenshot(ref1.current).then(download); 
+    } catch (error) {
+      console.error('Error uploading screenshot:', error);
+    }
+  };
   return (
     <div class="Doctor-chat-container">
       <div class="Doctor-Login-hor">
@@ -107,9 +150,13 @@ const DoctorChat = () => {
         </div>
       </div>
       <div className="dicom-viewer">
-        <h2>DICOM Viewer</h2>
-        <DwvComponent/>
+        <div ref={ref1}>
+          <DwvComponent/>
+          </div>
+        
+       <button onClick={downloadScreenshot} className="screenshot">Screenshot</button>
       </div>
+      <img src={ssImg}/>
       </div>
       <div class="Docfooter">
         <h2>About Us</h2>

@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-// https://mui.com/material-ui/material-icons/
+
 import CloseIcon from '@mui/icons-material/Close';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -70,7 +70,7 @@ class DwvComponent extends React.Component {
         react: React.version
       },
       tools: {
-        Scroll: {},
+        // Scroll: {},
         ZoomAndPan: {},
         WindowLevel: {},
         Draw: {
@@ -129,12 +129,12 @@ class DwvComponent extends React.Component {
             onChange={this.onReset}
           ><RefreshIcon /></ToggleButton>
 
-          <ToggleButton size="small"
+          {/* <ToggleButton size="small"
             value="toggleOrientation"
             title="Toggle Orientation"
             disabled={!dataLoaded}
             onClick={this.toggleOrientation}
-          ><CameraswitchIcon /></ToggleButton>
+          ><CameraswitchIcon /></ToggleButton> */}
 
           <ToggleButton size="small"
             value="tags"
@@ -200,9 +200,9 @@ class DwvComponent extends React.Component {
         isFirstRender = false;
         // available tools
         let selectedTool = 'ZoomAndPan';
-        if (app.canScroll()) {
-          selectedTool = 'Scroll';
-        }
+        // if (app.canScroll()) {
+        //   selectedTool = 'Scroll';
+        // }
         this.onChangeTool(selectedTool);
       }
     });
@@ -263,9 +263,9 @@ class DwvComponent extends React.Component {
    */
   getToolIcon = (tool) => {
     let res;
-    if (tool === 'Scroll') {
-      res = (<MenuIcon />);
-    } else if (tool === 'ZoomAndPan') {
+    // if (tool === 'Scroll') {
+    //   res = (<MenuIcon />);
+    if (tool === 'ZoomAndPan') {
       res = (<SearchIcon />);
     } else if (tool === 'WindowLevel') {
       res = (<ContrastIcon />);
@@ -297,9 +297,10 @@ class DwvComponent extends React.Component {
    */
   canRunTool = (tool) => {
     let res;
-    if (tool === 'Scroll') {
-      res = this.state.dwvApp.canScroll();
-    } else if (tool === 'WindowLevel') {
+    // if (tool === 'Scroll') {
+    //   res = this.state.dwvApp.canScroll();
+    // } 
+    if (tool === 'WindowLevel') {
       res = this.state.dwvApp.canWindowLevel();
     } else {
       res = true;
@@ -310,34 +311,34 @@ class DwvComponent extends React.Component {
   /**
    * Toogle the viewer orientation.
    */
-  toggleOrientation = () => {
-    if (typeof this.state.orientation !== 'undefined') {
-      if (this.state.orientation === 'axial') {
-        this.state.orientation = 'coronal';
-      } else if (this.state.orientation === 'coronal') {
-        this.state.orientation = 'sagittal';
-      } else if (this.state.orientation === 'sagittal') {
-        this.state.orientation = 'axial';
-      }
-    } else {
-      // default is most probably axial
-      this.state.orientation = 'coronal';
-    }
-    // update data view config
-    const config = {
-      '*': [
-        {
-          divId: 'layerGroup0',
-          orientation: this.state.orientation
-        }
-      ]
-    };
-    this.state.dwvApp.setDataViewConfigs(config);
-    // render data
-    for (let i = 0; i < this.state.dwvApp.getNumberOfLoadedData(); ++i) {
-      this.state.dwvApp.render(i);
-    }
-  }
+  // toggleOrientation = () => {
+  //   if (typeof this.state.orientation !== 'undefined') {
+  //     if (this.state.orientation === 'axial') {
+  //       this.state.orientation = 'coronal';
+  //     } else if (this.state.orientation === 'coronal') {
+  //       this.state.orientation = 'sagittal';
+  //     } else if (this.state.orientation === 'sagittal') {
+  //       this.state.orientation = 'axial';
+  //     }
+  //   } else {
+  //     // default is most probably axial
+  //     this.state.orientation = 'coronal';
+  //   }
+  //   // update data view config
+  //   const config = {
+  //     '*': [
+  //       {
+  //         divId: 'layerGroup0',
+  //         orientation: this.state.orientation
+  //       }
+  //     ]
+  //   };
+  //   this.state.dwvApp.setDataViewConfigs(config);
+  //   // render data
+  //   for (let i = 0; i < this.state.dwvApp.getNumberOfLoadedData(); ++i) {
+  //     this.state.dwvApp.render(i);
+  //   }
+  // }
 
   /**
    * Handle a change draw shape event.
