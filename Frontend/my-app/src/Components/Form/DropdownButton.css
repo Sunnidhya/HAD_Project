@@ -1,0 +1,14 @@
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.fixed-button {
+  width: 100%;
+    padding: 1px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    cursor: pointer; 
+}

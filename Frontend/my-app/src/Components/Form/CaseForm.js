@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './CaseForm.css';
+import './DropdownButton.css';
 import { createcase } from '../../Network/APIendpoints';
 import { request } from '../../Network/axiosHelper';
+import DropdownButton from './Dropdown_button';
 
 function CaseForm() {
   const [formData, setFormData] = useState({
@@ -47,7 +49,7 @@ function CaseForm() {
           <button className="close-button-case" onClick={toggleVisibility}>X</button>
           <div className="container-case">
             <h2 className="form-header">Case Creation</h2>
-            <form className="case-form" onSubmit={handleSubmit}>
+            <form className="case-form" onSubmit={handleSubmit} >
               <label>
                 Case Name:
                 <input
@@ -55,6 +57,7 @@ function CaseForm() {
                   name="caseName"
                   placeholder="Enter Case Name"
                   value={formData.caseName}
+                  style={{border:"1.3px solid"}}
                   onChange={handleChange}
                 />
               </label>
@@ -66,18 +69,16 @@ function CaseForm() {
                   name="doctorName"
                   placeholder="Enter doctor user name"
                   value={formData.doctorName}
+                  style={{border:"1.3px solid"}}
                   onChange={handleChange}
                 />
               </label>
               <br />
               <label>
-                Patient User Name:
-                <input
-                  type="text"
-                  name="patientName"
-                  placeholder="Enter patient user name"
-                  value={formData.patientName}
-                  onChange={handleChange}
+                Patient Name:
+                <DropdownButton className="fixed-button"
+                  onSelect={(selectedOption) => setFormData({...formData, patientName: selectedOption})}
+                  selectedOption={formData.patientName}
                 />
               </label>
               <br />

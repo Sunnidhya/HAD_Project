@@ -65,3 +65,12 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  .dropdown{
+      width: 100%;
+      padding: 1px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer; 
+  }
