@@ -15,8 +15,8 @@ public class CasesDTO {
     private String caseName;
     private Long caseDate;
     private Integer caseId;
-    private Integer doctorId;
+    private String doctorName;
     private Integer labId;
     private Integer radiologistId;
-    private Integer patientId;
+    private String patientName;
 }

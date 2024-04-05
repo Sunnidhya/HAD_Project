@@ -1,21 +1,16 @@
 package com.example.had_backend.Lab.Service;
 
-import com.example.had_backend.Doctor.Entity.Doctor;
-import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
-import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
-import com.example.had_backend.Global.Repository.IOTPRepository;
-import com.example.had_backend.Global.Repository.IUserNameRepository;
+import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Lab.Entity.Lab;
-import com.example.had_backend.Lab.Entity.Labl;
 import com.example.had_backend.Lab.Model.LabChangePasswordDTO;
 import com.example.had_backend.Lab.Model.LabRegistrationDTO;
-import com.example.had_backend.Lab.Repository.ILabLoginRepository;
 import com.example.had_backend.Lab.Repository.ILabRegistrationRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
@@ -24,18 +19,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class LabService {
 
     @Autowired
-    private ILabLoginRepository iLabLoginRepository;
-
-    @Autowired
     private ILabRegistrationRepository iLabRegistrationRepository;
-
-    @Autowired
-    private IUserNameRepository iUserNameRepository;
 
     @Autowired
     private ICasesRepository iCasesRepository;
@@ -44,26 +34,23 @@ public class LabService {
     private OTPHelperService otpHelperService;
 
     @Autowired
-    private IOTPRepository iotpRepository;
+    private IUsersRepository iUsersRepository;
 
-    public Labl authenticate(LoginDTO loginDTO) {
-        Labl labl = new Labl();
+    public Users authenticateUser(LoginDTO login) {
+        Users users = new Users();
         try {
-            labl = iLabLoginRepository.findByEmailAndPassword(loginDTO.getUserName() , loginDTO.getPassword());
-            return labl;
+            return iUsersRepository.findByUserNameAndPassword(login.getUserName() , login.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return labl;
+        return users;
     }
 
     public LoginMessage registerLab(LabRegistrationDTO labRegistrationDTO) {
         Lab lab = new Lab();
-        Labl labl = new Labl();
-        UserName userName = new UserName();
 
-        UserName userName1 = iUserNameRepository.getProfile(labRegistrationDTO.getUserName());
-        if (userName1!=null){
+        Users usersN = iUsersRepository.getProfile(labRegistrationDTO.getUserName());
+        if (usersN!=null){
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.setMessage("UserName already exists");
             return loginMessage;
@@ -80,18 +67,8 @@ public class LabService {
         lab.setContactNo(labRegistrationDTO.getContactNo());
         lab.setEmail(labRegistrationDTO.getEmail());
         lab.setUserName(labRegistrationDTO.getUserName());
-
-        labl.setUserName(labRegistrationDTO.getUserName());
-        labl.setPassword(labRegistrationDTO.getPassword());
-        labl.setLab(lab);
-
-        iLabLoginRepository.save(labl);
-
-        lab.setLabl(labl);
+        lab.setPassword(labRegistrationDTO.getPassword());
         iLabRegistrationRepository.save(lab);
-
-        userName.setUserName(labRegistrationDTO.getUserName());
-        iUserNameRepository.save(userName);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
@@ -103,10 +80,8 @@ public class LabService {
     }
 
     public LoginMessage changePassword(LabChangePasswordDTO labChangePasswordDTO) {
-        Labl labl1 = iLabLoginRepository.findByEmailAndPassword(labChangePasswordDTO.getUserName(),labChangePasswordDTO.getCurrentPassword());
         Lab lab = iLabRegistrationRepository.getProfile(labChangePasswordDTO.getUserName());
-
-        if (labl1 == null) {
+        if (!Objects.equals(lab.getPassword(), labChangePasswordDTO.getCurrentPassword())) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("Current Password or User Name entered wrongly ");
             return loginMsg;
@@ -116,8 +91,8 @@ public class LabService {
             return loginMessage;
         }
 
-        iLabLoginRepository.changePassword(labChangePasswordDTO.getUserName(),labChangePasswordDTO.getNewPassword());
-        labChangePasswordDTO.setEmail(lab.getEmail());
+        lab.setPassword(labChangePasswordDTO.getNewPassword());
+        iLabRegistrationRepository.save(lab);
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
@@ -126,13 +101,10 @@ public class LabService {
     public LoginMessage removeLab(LabRegistrationDTO labRegistrationDTO) {
         Lab lab = iLabRegistrationRepository
                 .getLab(labRegistrationDTO.getUserName(), labRegistrationDTO.getEmail());
-
-
-        iLabLoginRepository.updateAndSetDocIdNull(lab.getLabId());
-        iLabRegistrationRepository.removeEntry(lab.getLabId());
-        LoginMessage removeDoc = new LoginMessage();
-        removeDoc.setMessage("Lab Profile Deleted Successfully");
-        return removeDoc;
+        iLabRegistrationRepository.delete(lab);
+        LoginMessage removeLab = new LoginMessage();
+        removeLab.setMessage("Lab Profile Deleted Successfully");
+        return removeLab;
     }
 
     public List<Cases> getCases(SearchResultDTO searchResultDTO) {
@@ -147,29 +119,32 @@ public class LabService {
         return iLabRegistrationRepository.findAll();
     }
 
-    public OTP getOtp() {
+    public OTP getOtp(Lab lab) {
         OTP otp = new OTP();
         Date date = new Date();
-
         String otpV = otpHelperService.createRandomOneTimePassword();
         otp.setOneTimePasswordCode(otpV);
         otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
-        iotpRepository.save(otp);
+        lab.setOtp(otp);
+        iLabRegistrationRepository.save(lab);
         return otp;
     }
 
     public LoginMessage validateOTP(OtpDTO otpDTO) {
         Date date = new Date();
         LoginMessage loginMessage = new LoginMessage();
-        OTP otp = iotpRepository.getOTPValue(otpDTO.getOtp());
-        if(otp != null && date.getTime() <= otp.getExpires()){
-            loginMessage.setMessage("OTP Validated successfully, Login was Successful");
-            iotpRepository.removeEntry(otpDTO.getOtp());
-        }else{
-            if(otp != null && date.getTime() > otp.getExpires()){
-                iotpRepository.removeEntry(otpDTO.getOtp());
+        Lab lab = iLabRegistrationRepository.getProfile(otpDTO.getUserName());
+
+        if(lab.getOtp() != null && date.getTime() <= lab.getOtp().getExpires()){
+            loginMessage.setMessage("OTP Validated successfully");
+            lab.setOtp(null);
+            iLabRegistrationRepository.save(lab);
+        }else {
+            if (lab.getOtp() != null && date.getTime() > lab.getOtp().getExpires()) {
+                lab.setOtp(null);
+                iLabRegistrationRepository.save(lab);
                 loginMessage.setMessage("OTP expired!! Please retry");
-            }else{
+            } else {
                 loginMessage.setMessage("OTP entered is wrong!! Please renter");
             }
         }

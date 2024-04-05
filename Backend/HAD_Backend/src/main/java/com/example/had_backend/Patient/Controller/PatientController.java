@@ -1,19 +1,16 @@
 package com.example.had_backend.Patient.Controller;
 
-import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
+import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesDTO;
 import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
-import com.example.had_backend.Lab.Entity.Lab;
-import com.example.had_backend.Lab.Entity.Labl;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Patient.Entity.Patient;
-import com.example.had_backend.Patient.Entity.PatientL;
 import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Service.PatientService;
@@ -42,10 +39,10 @@ public class PatientController {
     @PostMapping("/patient/login")
     public ResponseEntity<LoginMessage> login(@RequestBody @Validated LoginDTO login) {
         LoginMessage message = new LoginMessage();
-        PatientL patientL = patientService.authenticate(login);
+        Users users = patientService.authenticateUser(login);
         Patient patient = patientService.getProfile(login);
-        OTP otp = patientService.getOtp();
-        if(patientL.getPatient().getPatientId() != null){
+        OTP otp = patientService.getOtpUser(patient);
+        if(users != null){
             emailService.sendSimpleMessage(
                     patient.getEmail(),
                     "Please use the following OTP to Authenticate Login",
@@ -127,8 +124,16 @@ public class PatientController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            casesReturnDTO.setLabName(cases.getLab().getLabName());
+            if(cases.getRadiologist() != null) {
+                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+            }else{
+                casesReturnDTO.setRadioName("Not yet assigned");
+            }
+            if(cases.getLab() != null) {
+                casesReturnDTO.setLabName(cases.getLab().getLabName());
+            }else{
+                casesReturnDTO.setLabName("Not yet assigned");
+            }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
             casesReturnDTO.setMarkAsDone(cases.getMarkAsDone());
             casesReturnDTOS.add(casesReturnDTO);

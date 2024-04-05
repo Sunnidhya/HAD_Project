@@ -13,19 +13,14 @@ import lombok.NonNull;
 
 import java.util.Date;
 
-
-@Entity
+@Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "OTP")
 public class OTP {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
-    private Long id;
     @NonNull
     private String oneTimePasswordCode;
+
     @NonNull
     private Long expires;
 }

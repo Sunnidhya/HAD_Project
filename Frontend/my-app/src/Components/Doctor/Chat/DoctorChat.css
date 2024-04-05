@@ -15,6 +15,16 @@
 
 }
 
+.chatDicom{
+    display: flex;
+    flex-direction: row;
+}
+
+.dicom-viewer{
+    margin-right: 80px;
+    margin-top: 10px;
+}
+
 .DoctorSearch {
     height: 30px;
     width: 100vh;
@@ -62,7 +72,7 @@
 .chat-wrapper {
     flex: 1;
     /* This will make the chat container take the available space between header and footer */
-    overflow-y: auto;
+    /* overflow-y: auto; */
     /* Make the chat container scrollable */
     margin-left: 30px;
     margin-top: 5px;

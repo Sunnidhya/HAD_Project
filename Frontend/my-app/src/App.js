@@ -21,6 +21,7 @@ import PatDetails from './Components/Patient/Details/PatientDetails';
 import AdminHomePage from './Components/Admin/AdminHomePage/AdminHomePage';
 import AdminLanding from './Components/Admin/AdminLanding/AdminLanding';
 import PrivateRoutes from './Auth/PrivateRoutes';
+import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 
 
 
@@ -31,8 +32,8 @@ function App() {
   const patientloggedIn = window.localStorage.getItem("isPatientLoggedIn");
   return (
     <Routes>
-     
-    <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/>
+    {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
+    <Route path="/" element={<DoctorChat/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>

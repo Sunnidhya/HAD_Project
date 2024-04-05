@@ -1,20 +1,17 @@
 package com.example.had_backend.Doctor.Service;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
-import com.example.had_backend.Doctor.Entity.DoctorL;
 import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
-import com.example.had_backend.Doctor.Repository.IDoctorLoginRepository;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
-import com.example.had_backend.Global.Entity.UserName;
+import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
-import com.example.had_backend.Global.Repository.IOTPRepository;
-import com.example.had_backend.Global.Repository.IUserNameRepository;
+import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
@@ -23,17 +20,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DoctorService {
     @Autowired
-    private IDoctorLoginRepository iDoctorLoginRepository;
-
-    @Autowired
     private IDoctorRegistrationRepository iDoctorRegistrationRepository;
-
-    @Autowired
-    private IUserNameRepository iUserNameRepository;
 
     @Autowired
     private ICasesRepository iCasesRepository;
@@ -42,26 +34,13 @@ public class DoctorService {
     private OTPHelperService otpHelperService;
 
     @Autowired
-    private IOTPRepository iotpRepository;
-
-    public DoctorL authenticate(LoginDTO loginDTO) {
-        DoctorL doctorL = new DoctorL();
-        try {
-            doctorL = iDoctorLoginRepository.findByEmailAndPassword(loginDTO.getUserName() , loginDTO.getPassword());
-            return doctorL;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return doctorL;
-    }
+    private IUsersRepository iUsersRepository;
 
     public LoginMessage register(DoctorRegistrationDTO doctorRegistrationDTO) {
         Doctor doctor = new Doctor();
-        DoctorL doctorL = new DoctorL();
-        UserName userName = new UserName();
 
-        UserName userName1 = iUserNameRepository.getProfile(doctorRegistrationDTO.getUserName());
-        if (userName1!=null){
+        Users userN = iUsersRepository.getProfile(doctorRegistrationDTO.getUserName());
+        if (userN!=null){
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.setMessage("UserName already exists");
             return loginMessage;
@@ -78,21 +57,10 @@ public class DoctorService {
         doctor.setDegree(doctorRegistrationDTO.getDegree());
         doctor.setSpecialization(doctorRegistrationDTO.getSpecialization());
         doctor.setEmail(doctorRegistrationDTO.getEmail());
-        doctor.setUserName(doctorRegistrationDTO.getUserName());
         doctor.setDepartment(doctorRegistrationDTO.getDept());
-
-        doctorL.setUserName(doctorRegistrationDTO.getUserName());
-        doctorL.setPassword(doctorRegistrationDTO.getPassword());
-        doctorL.setDoctor(doctor);
-
-
-        iDoctorLoginRepository.save(doctorL);
-
-        doctor.setDoctorL(doctorL);
+        doctor.setUserName(doctorRegistrationDTO.getUserName());
+        doctor.setPassword(doctorRegistrationDTO.getPassword());
         iDoctorRegistrationRepository.save(doctor);
-
-        userName.setUserName(doctorRegistrationDTO.getUserName());
-        iUserNameRepository.save(userName);
 
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Registration Successful");
@@ -104,10 +72,8 @@ public class DoctorService {
     }
 
     public LoginMessage changePassword(DoctorChangePasswordDTO doctorChangePasswordDTO) {
-
-        DoctorL doctorL1=iDoctorLoginRepository.findByEmailAndPassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getCurrentPassword());
         Doctor doctor=iDoctorRegistrationRepository.getProfile(doctorChangePasswordDTO.getUserName());
-        if (doctorL1 == null) {
+        if (!Objects.equals(doctor.getPassword(), doctorChangePasswordDTO.getCurrentPassword())) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("Current Password or User Name entered wrongly ");
             return loginMsg;
@@ -117,8 +83,8 @@ public class DoctorService {
             return loginMessage;
         }
 
-        iDoctorLoginRepository.changePassword(doctorChangePasswordDTO.getUserName(),doctorChangePasswordDTO.getNewPassword());
-        doctorChangePasswordDTO.setEmail(doctor.getEmail());
+        doctor.setPassword(doctorChangePasswordDTO.getNewPassword());
+        iDoctorRegistrationRepository.save(doctor);
         LoginMessage loginMsg = new LoginMessage();
         loginMsg.setMessage("Password updated successfully");
         return loginMsg;
@@ -127,10 +93,7 @@ public class DoctorService {
     public LoginMessage removeDoctor(DoctorRegistrationDTO doctorRegistrationDTO) {
         Doctor doctor = iDoctorRegistrationRepository
                 .getDoctor(doctorRegistrationDTO.getUserName(), doctorRegistrationDTO.getEmail());
-
-
-        iDoctorLoginRepository.updateAndSetDocIdNull(doctor.getDoctorId());
-        iDoctorRegistrationRepository.removeEntry(doctor.getDoctorId());
+        iDoctorRegistrationRepository.delete(doctor);
         LoginMessage removeDoc = new LoginMessage();
         removeDoc.setMessage("Doctor Profile Deleted Successfully");
         return removeDoc;
@@ -157,27 +120,19 @@ public class DoctorService {
         return loginMessage;
     }
 
-    public OTP getOtp() {
-        OTP otp = new OTP();
-        Date date = new Date();
-
-        String otpV = otpHelperService.createRandomOneTimePassword();
-        otp.setOneTimePasswordCode(otpV);
-        otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
-        iotpRepository.save(otp);
-        return otp;
-    }
-
     public LoginMessage validateOTP(OtpDTO otpDTO) {
         Date date = new Date();
         LoginMessage loginMessage = new LoginMessage();
-        OTP otp = iotpRepository.getOTPValue(otpDTO.getOtp());
-        if(otp != null && date.getTime() <= otp.getExpires()){
+        Doctor doctor = iDoctorRegistrationRepository.getProfile(otpDTO.getUserName());
+
+        if(doctor.getOtp() != null && date.getTime() <= doctor.getOtp().getExpires()){
             loginMessage.setMessage("OTP Validated successfully");
-            iotpRepository.removeEntry(otpDTO.getOtp());
+            doctor.setOtp(null);
+            iDoctorRegistrationRepository.save(doctor);
         }else{
-            if(otp != null && date.getTime() > otp.getExpires()){
-                iotpRepository.removeEntry(otpDTO.getOtp());
+            if(doctor.getOtp() != null && date.getTime() > doctor.getOtp().getExpires()){
+                doctor.setOtp(null);
+                iDoctorRegistrationRepository.save(doctor);
                 loginMessage.setMessage("OTP expired!! Please retry");
             }else{
                 loginMessage.setMessage("OTP entered is wrong!! Please renter");
@@ -190,6 +145,10 @@ public class DoctorService {
         return iDoctorRegistrationRepository.findByDoctorId(doctorId);
     }
 
+    public Doctor getDoctorByUserName(String doctorUserName) {
+        return iDoctorRegistrationRepository.findByDoctorUserName(doctorUserName);
+    }
+
     public LoginMessage markAsDone(CasesDTO casesDTO) {
         Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
         cases.setMarkAsDone(true);
@@ -197,5 +156,26 @@ public class DoctorService {
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Case is Marked as done and closed");
         return loginMessage;
+    }
+
+    public Users authenticateUser(LoginDTO login) {
+        Users users = new Users();
+        try {
+            return iUsersRepository.findByUserNameAndPassword(login.getUserName() , login.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public OTP getOtpUser(Doctor doctor) {
+        OTP otp = new OTP();
+        Date date = new Date();
+        String otpV = otpHelperService.createRandomOneTimePassword();
+        otp.setOneTimePasswordCode(otpV);
+        otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
+        doctor.setOtp(otp);
+        iDoctorRegistrationRepository.save(doctor);
+        return otp;
     }
 }

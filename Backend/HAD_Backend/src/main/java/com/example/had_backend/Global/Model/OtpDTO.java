@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class OtpDTO {
-    Integer otp;
+    String otp;
     String userName;
 }
