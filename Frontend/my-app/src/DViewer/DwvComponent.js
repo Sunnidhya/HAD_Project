@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { imgDB } from '../ImageOb/KavachImgDBconfig';
+import { v4 } from 'uuid';
 import { withStyles, useTheme } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 
@@ -34,6 +36,7 @@ import {
   getDwvVersion,
   decoderScripts
 } from 'dwv';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 // Image decoders (for web workers)
 decoderScripts.jpeg2000 = `${process.env.PUBLIC_URL}/assets/dwv/decoders/pdfjs/decode-jpeg2000.js`;
@@ -430,9 +433,34 @@ class DwvComponent extends React.Component {
    */
   onInputFile = (event) => {
     if (event.target && event.target.files) {
-      this.state.dwvApp.loadFiles(event.target.files);
+      console.warn("Data2", event.target.files[0])
+      const img = ref(imgDB, `Imgs/${v4()}`);
+      uploadBytes(img, event.target.files[0]).then(data=>{
+        console.warn("Data", data);
+        getDownloadURL(data.ref).then(value=>{
+        console.warn("Data1",value)
+        this.loadImageFromUrl(value);
+        })
+      })
     }
   }
+
+  loadImageFromUrl = async (url) => {
+    try {
+      // Fetch the image from the URL
+      const response = await fetch(url);
+      const blob = await response.blob(); // Convert the response to a blob
+  
+      // Create a file object
+      const filename = url.substring(url.lastIndexOf('/') + 1); // Extract filename from the URL
+      const file = new File([blob], filename);
+  
+      // Now you can load the file using this.state.dwvApp.loadFiles
+      this.state.dwvApp.loadFiles([file]);
+    } catch (error) {
+      console.error('Error loading image:', error);
+    }
+  };
 
   /**
    * Show/hide the data load drop box.

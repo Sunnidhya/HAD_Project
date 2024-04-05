@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Cases")
+@Table(name = "cases")
 public class Cases {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +43,12 @@ public class Cases {
     @JoinColumn(name = "patientId", nullable = false, foreignKey = @ForeignKey(name="patientId"))
     @JsonIgnore
     private Patient patient;
+
+    @OneToOne(mappedBy = "cases", cascade = CascadeType.ALL)
+    private Chats chats;
+
+    @OneToOne(mappedBy = "cases", cascade = CascadeType.ALL)
+    private ImageOb imageOb;
 
     private Boolean markAsDone=false;
 }
