@@ -120,6 +120,17 @@ public class DoctorService {
         return loginMessage;
     }
 
+    public LoginMessage createCaseN(Cases cases, Doctor doctor) {
+        Date date = new Date();
+        cases.setCaseDate(date.getTime());
+        iCasesRepository.save(cases);
+        doctor.getCases().add(cases);
+        iDoctorRegistrationRepository.save(doctor);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Case is created successfully");
+        return loginMessage;
+    }
+
     public LoginMessage validateOTP(OtpDTO otpDTO) {
         Date date = new Date();
         LoginMessage loginMessage = new LoginMessage();

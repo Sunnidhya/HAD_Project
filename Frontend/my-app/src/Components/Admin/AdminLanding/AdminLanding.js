@@ -209,7 +209,7 @@ const AdminLanding = () => {
                           }}
                         >
                           <CardBody>
-                            <CardTitle tag="h5">Doctor ID: {obj.doctorId}</CardTitle>
+                            <CardTitle tag="h5">Doctor ID: {obj.userId}</CardTitle>
                             <CardSubtitle >
                               Name: {obj.name}
                             </CardSubtitle>
@@ -244,7 +244,7 @@ const AdminLanding = () => {
                           }}
                         >
                           <CardBody>
-                            <CardTitle tag="h5">Patient ID: {obj.patientId}</CardTitle>
+                            <CardTitle tag="h5">Patient ID: {obj.userId}</CardTitle>
                             <CardSubtitle >Name: {obj.fullName}</CardSubtitle>
                             <CardSubtitle>Contact No: {obj.contactNo}</CardSubtitle>
                             <CardText>UserName: {obj.userName}</CardText>
@@ -275,14 +275,10 @@ const AdminLanding = () => {
                           }}
                         >
                           <CardBody>
-                            <CardTitle tag="h5">Radiologist ID - {obj.radiologistId}</CardTitle>
-                            <CardSubtitle>
-                              {obj.name}
-                            </CardSubtitle>
-                            <CardSubtitle>
-                              {obj.degree}
-                            </CardSubtitle>
-                            <CardText>{obj.userName}</CardText>
+                            <CardTitle tag="h5">Radiologist ID - {obj.userId}</CardTitle>
+                            <CardSubtitle>Name - {obj.name}</CardSubtitle>                            
+                            <CardSubtitle>Degree - {obj.degree}</CardSubtitle>
+                            <CardText>Username - {obj.userName}</CardText>
                             <Button
                               style={{
                                 borderRadius: "5px",
@@ -310,14 +306,10 @@ const AdminLanding = () => {
                           }}
                         >
                           <CardBody>
-                            <CardTitle tag="h5">Lab ID - {obj.labId}</CardTitle>
-                            <CardSubtitle >
-                              {obj.labName}
-                            </CardSubtitle>
-                            <CardSubtitle>
-                              {obj.contactNo}
-                            </CardSubtitle>
-                            <CardText>{obj.userName}</CardText>
+                            <CardTitle tag="h5">Lab ID - {obj.userId}</CardTitle>
+                            <CardSubtitle >Name - {obj.labName}</CardSubtitle>                                                          
+                            <CardSubtitle>Contact No - {obj.contactNo}</CardSubtitle>
+                            <CardText>Username - {obj.userName}</CardText>
                             <Button
                               style={{
                                 borderRadius: "5px",

@@ -164,7 +164,7 @@ public class DoctorController {
         Patient patient = patientService.getPatientByUserName(casesDTO.getPatientName());
         cases.setDoctor(doctor);
         cases.setPatient(patient);
-        LoginMessage loginMessage = doctorService.createCase(cases);
+        LoginMessage loginMessage = doctorService.createCaseN(cases, doctor);
         return ResponseEntity.ok(loginMessage);
     }
 
