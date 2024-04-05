@@ -22,6 +22,8 @@ import AdminHomePage from './Components/Admin/AdminHomePage/AdminHomePage';
 import AdminLanding from './Components/Admin/AdminLanding/AdminLanding';
 import PrivateRoutes from './Auth/PrivateRoutes';
 import DoctorChat from './Components/Doctor/Chat/DoctorChat';
+import Dropdown_button from './Components/Form/Dropdown_button';
+import CaseForm from './Components/Form/CaseForm';
 
 
 
@@ -33,7 +35,7 @@ function App() {
   return (
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
-    <Route path="/" element={<DoctorChat/>}/>
+    <Route path="/" element={<CaseForm/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>
