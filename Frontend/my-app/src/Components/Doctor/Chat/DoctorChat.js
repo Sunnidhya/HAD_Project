@@ -8,6 +8,7 @@ import { createFileName, useScreenshot } from "use-react-screenshot";
 import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
 import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
+import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 
 const DoctorChat = () => {
   let nav = useNavigate();
@@ -18,7 +19,6 @@ const DoctorChat = () => {
   const [ssImg, setSSImg] = useState();
   const [dateTime, setDateTime] = useState('');
   const [blob, setBlob] = useState(null);
-  const imageUrl = "file:///D:/HAD_Project/Frontend/my-app/src/Resources/Vida_Head.MR.Comp_DR-Gain_DR.1005.1.2021.04.27.14.20.13.818.14380335.dcm"
   const ref1 = createRef(null)
 
   const [screenshot, takeScreenshot]= useScreenshot({
@@ -67,7 +67,8 @@ const DoctorChat = () => {
       console.warn("Data",dateTime)
 
       const newMessage = {
-        user: "A",
+        
+        user: decryptData()+"(You)",
         text: inputText,
         image: image ? URL.createObjectURL(image) : null,
         timestamp: dateTime,
@@ -78,41 +79,70 @@ const DoctorChat = () => {
       setImage(null);
     }
   };
-
-  const download = (image, { name = "img", extension = "jpg"} = {}) => {
-    const a = document.createElement("a");
-    a.href = image;
-    a.download = createFileName(extension, name);
-    a.click();
-      //   const img = ref(imgDB, `Imgs/${v4()}`);
-      //   uploadBytes(img, image).then(data=>{
-      //   console.warn("Data", data);
-      //   getDownloadURL(data.ref).then(value=>{
-      //   console.warn("Data1",value)
-      //   loadImageFromUrl(value);
-      //   })
-      // })
+  const img = new Image();
+  const c = document.createElement("canvas");
+  const ctx = c.getContext("2d");
+  
+  function setCanvasImage(path, func) {
+    img.onload = function () {
+      c.width = this.naturalWidth;
+      c.height = this.naturalHeight;
+      ctx.drawImage(this, 0, 0);
+      c.toBlob((blob) => {
+        func(blob);
+      }, "image/png");
+    };
+    img.src = path;
   }
-
-  const loadImageFromUrl = async (url) => {
+  
+  const downloadScreenshot = async () => {
+    try {
+      // Take the screenshot
+      await takeScreenshot(ref1.current).then(async (image) => {
+        // Call setCanvasImage to prepare canvas for copying
+        setCanvasImage(image, async (imgBlob) => {
+          // Write the blob to the clipboard
+          const img = ref(imgDB, `Imgs/${v4()}`);
+          uploadBytes(img, imgBlob).then(data=>{
+            console.warn("Data", data);
+            getDownloadURL(data.ref).then(value=>{
+            console.warn("Data1",value)
+            loadImageFromUrl(value);
+            })
+          })
+         
+        });
+      });
+    } catch (error) {
+      console.error("Error copying screenshot:", error);
+    }
+  };
+  
+  let loadImageFromUrl = async (url) => {
     try {
       // Fetch the image from the URL
       const response = await fetch(url);
-      console.warn("Data",response.url);
-      // setSSImg(response.url)
+      let blob1 = await response.blob(); // Convert the response to a blob
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob1 })]);
+       // Alert user that the image has been copied to the clipboard
+       alert("Screenshot copied to clipboard!");
+      
     } catch (error) {
       console.error('Error loading image:', error);
     }
   };
 
-  const downloadScreenshot = async () => {
-    try {
-      // Take the screenshot
-      await takeScreenshot(ref1.current).then(download); 
-    } catch (error) {
-      console.error('Error uploading screenshot:', error);
+  const handlePaste = (event) => {
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    for (let index in items) {
+      const item = items[index];
+      if (item.kind === 'file') {
+        const blob = item.getAsFile();
+        setImage(blob);
+      }
     }
   };
+  
   return (
     <div class="Doctor-chat-container">
       <div class="Doctor-Login-hor">
@@ -144,7 +174,7 @@ const DoctorChat = () => {
           </ul>
         </div>
         <div className="send-upload">
-          <input placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} />
+          <input placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} onPaste={handlePaste} />
           <button onClick={handleSendMessage}>Send</button>
           <input type="file" onChange={handleImageChange} />
         </div>
@@ -158,9 +188,9 @@ const DoctorChat = () => {
       </div>
       <img src={ssImg}/>
       </div>
-      <div class="Docfooter">
-        <h2>About Us</h2>
-      </div>
+      <div className="DoctorChat-about-us-section">
+        <p>About Us</p>
+    </div>
     </div>
   );
 };
