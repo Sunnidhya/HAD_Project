@@ -20,6 +20,7 @@ const DoctorChat = () => {
   const [dateTime, setDateTime] = useState('');
   const [blob, setBlob] = useState(null);
   const ref1 = createRef(null)
+  const [value, setValue] = useState('');
 
   const [screenshot, takeScreenshot]= useScreenshot({
     type:'image/jpeg',
@@ -69,7 +70,7 @@ const DoctorChat = () => {
       const newMessage = {
         
         user: decryptData()+"(You)",
-        text: inputText,
+        text: inputText.split('\n').map((line, i) => <span key={i}>{line}<br/></span>),
         image: image ? URL.createObjectURL(image) : null,
         timestamp: dateTime,
       };
@@ -174,7 +175,7 @@ const DoctorChat = () => {
           </ul>
         </div>
         <div className="send-upload">
-          <input placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} onPaste={handlePaste} />
+          <br/><textarea placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} onPaste={handlePaste} cols={50} style={{ height: 'auto', minHeight: '50px',borderRadius:'4px' }}/>
           <button onClick={handleSendMessage}>Send</button>
           <input type="file" onChange={handleImageChange} />
         </div>

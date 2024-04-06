@@ -118,6 +118,7 @@
     padding: 10px;
     margin: 20px;
     border-radius: 5px;
+    overflow-wrap: break-word;
 }
 
 .chat-image {
@@ -164,7 +165,7 @@
 .DoctorChat-about-us-section { 
     margin-top: 20px;
     height: auto;
-    padding: 5px;
+    padding: 10px;
     background-color: rgb(7,110,101);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
