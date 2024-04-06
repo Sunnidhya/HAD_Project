@@ -1,8 +1,8 @@
 #docsideimg {
     padding-top: 1%;
     padding-left: 10%;
-    height: 120px;
-    width: 120px;
+    height: 80px;
+    width: 80px;
 }
 
 .Search {
@@ -118,6 +118,7 @@
     padding: 10px;
     margin: 20px;
     border-radius: 5px;
+    overflow-wrap: break-word;
 }
 
 .chat-image {
@@ -161,9 +162,13 @@
     /* Color of the scrollbar track */
 }
 
-
-/* .send-upload{
-    border: 4px solid black;
-    border-radius: 0 0 1 1;
-    max-width: 450px;
-} */
+.DoctorChat-about-us-section { 
+    margin-top: 20px;
+    height: auto;
+    padding: 10px;
+    background-color: rgb(7,110,101);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
