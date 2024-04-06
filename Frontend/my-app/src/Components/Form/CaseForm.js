@@ -13,6 +13,7 @@ function CaseForm() {
   });
   const [patients, setPatients] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   useEffect(() => {
     fetchPatients();
@@ -37,11 +38,20 @@ function CaseForm() {
     });
   };
 
+  const handleDropdownSelect = (selectedOption) => {
+    setSelectedPatient(selectedOption);
+    const updatedFormData = { ...formData }; // Make a copy of the formData object
+    updatedFormData.patientName = selectedOption.userName; // Add patientName to the formData object
+    setFormData(updatedFormData); // Update the state with the modified object
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     request("POST", createcase, formData)
       .then((response) => {
         alert(response.data.message);
+        toggleVisibility()
+        window.location.reload();
       })
       .catch((error) => {
         console.warn("Error", error);
@@ -93,11 +103,8 @@ function CaseForm() {
               <label>
                 Patient Name:
                 <DropdownButton
-                  onSelect={(selectedOption) =>
-                    setFormData({ ...formData, patientName: selectedOption })
-                  }
-                  selectedOption={formData.patientName}
-                  options={patients.map((patient) => patient.userName)}
+                  patientValue = {patients}
+                  onSelect={handleDropdownSelect}
                 />
               </label>
               <br />

@@ -4,33 +4,22 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { createcase, getListOfPatients } from '../../Network/APIendpoints';
 import './DropdownButton.css'; 
 
-function DropdownButton() {
+function DropdownButton({patientValue,onSelect}) {
   const [formData, setFormData] = useState({
     caseName: '',
     doctorName: '',
     patientName: ''
   });
+
   const [selectedOption, setSelectedOption] = useState(null);
-  const [patients, setPatients] = useState([]);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option,patient) => {
+    //console.warn("Data",option)
     setSelectedOption(option);
+    onSelect(patientValue.find(patient => patient.userName === option));
   };
 
-  useEffect(() => {
-    fetchPatients();
-  }, []);
 
-  const fetchPatients = () => {
-    request("GET", getListOfPatients)
-      .then((response) => {
-        setPatients(response.data); 
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.warn("Error fetching patients", error);
-      });
-  };
   return (
     <div className="center-container">
       <Dropdown style={{ width: '100%' }}>
@@ -39,8 +28,8 @@ function DropdownButton() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu style={{ width: '100%' }}>
-        {patients.map((patient) => (
-            <Dropdown.Item key={patient.id} onClick={() => handleOptionClick(patient.userName)}>
+        {patientValue.map((patient,index) => (
+            <Dropdown.Item key={patient.id} onClick={() => handleOptionClick(patient.userName,patient)}>
               {patient.userName}
             </Dropdown.Item>
           ))}
