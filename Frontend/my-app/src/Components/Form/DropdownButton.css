@@ -7,7 +7,7 @@
 .fixed-button {
   width: 100%;
     padding: 1px;
-    background-color: black;
+    background-color: rgb(46, 7, 136);
     color: #fff;
     border: none;
     cursor: pointer; 
