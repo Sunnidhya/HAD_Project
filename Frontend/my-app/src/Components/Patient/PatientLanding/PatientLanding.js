@@ -44,7 +44,7 @@ const PatientLanding = () => {
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
-      userName: decryptedData,
+      userName: decryptedData
     };
 
     request("POST", getCasesofPatient, data)
