@@ -59,6 +59,7 @@ function App() {
          <Route path="/patient/register" element={<RegPatient/>}/>
     </Route>
     <Route path="/admin/homepage" element={<AdminHomePage/>}/>
+    <Route path="/doctor/chat" element={<DoctorChat/>}/>
   </Routes>
   );
 }

@@ -29,6 +29,10 @@ const DoctorDetails = () => {
     nav("/doctor")
   };
 
+  const goToDoctorChat = () => {
+    nav("/doctor/chat")
+  }
+
   return (
     <div className="Doc-land-container">
         <div class="Doc-Det-hor">
@@ -52,7 +56,7 @@ const DoctorDetails = () => {
         <div className='Doc-Det-ver2-inner'>
             <div className='Doc-Det-ver2-inner-upper'>
             <div className='DocVerUp'>
-                <div className='Doc-Det-ver2-1'>
+                <div className='Doc-Det-ver2-1' onClick={goToDoctorChat}>
                     <img src={scan} alt="scan" className='docscanned'/>
                     <p className='scantext'>Scanned Images</p>
                 </div>
