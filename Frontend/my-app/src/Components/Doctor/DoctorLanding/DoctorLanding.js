@@ -79,8 +79,6 @@ const DoctorLanding = () => {
         
             <button style={{ margin: '10px' }} onClick={togglePopupDoctor}>Add new Case</button>
             <button style={{ margin: '10px' }} onClick={getProfile}>Profile</button>
-            
-        
         </div>
         <div className='Doctor-Land-ver2'>
         <div className="Doctor-card">
@@ -97,7 +95,7 @@ const DoctorLanding = () => {
                 const formattedDateTime = `${year}-${month}-${day}`;
                 return (
                   <Col>
-                      <Link to={`/card/${i+1}`}className="LinkStyle">
+                      <Link to={`/doctor/details`}className="LinkStyle">
                         <Card className='DoctorLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red', color: 'white'}}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
