@@ -51,4 +51,6 @@ public class Cases {
     private ImageOb imageOb;
 
     private Boolean markAsDone=false;
+
+    private String caseDescription="No description to show";
 }

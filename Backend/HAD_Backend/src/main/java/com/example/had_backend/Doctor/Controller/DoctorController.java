@@ -141,6 +141,7 @@ public class DoctorController {
             }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
             casesReturnDTO.setMarkAsDone(cases.getMarkAsDone());
+            casesReturnDTO.setCaseDescription(cases.getCaseDescription());
             casesReturnDTOS.add(casesReturnDTO);
         }
         return ResponseEntity.ok(casesReturnDTOS);
@@ -160,6 +161,7 @@ public class DoctorController {
         Date date = new Date();
         cases.setCaseName(casesDTO.getCaseName());
         cases.setCaseDate(date.getTime());
+        cases.setCaseDescription(cases.getCaseDescription());
         Doctor doctor = doctorService.getDoctorByUserName(casesDTO.getDoctorName());
         Patient patient = patientService.getPatientByUserName(casesDTO.getPatientName());
         cases.setDoctor(doctor);

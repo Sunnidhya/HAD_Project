@@ -24,6 +24,7 @@ import PrivateRoutes from './Auth/PrivateRoutes';
 import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 import Dropdown_button from './Components/Form/Dropdown_button';
 import CaseForm from './Components/Form/CaseForm';
+import UploadImage from './Components/Form/UploadImage';
 
 
 
@@ -35,7 +36,7 @@ function App() {
   return (
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
-    <Route path="/" element={<FirstPage/>}/>
+    <Route path="/" element={<UploadImage/>}/>
     <Route path="/doctorchat" element={<DoctorChat/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>

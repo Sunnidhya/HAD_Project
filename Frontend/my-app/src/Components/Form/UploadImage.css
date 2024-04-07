@@ -130,4 +130,10 @@
   background-color: #fff;
 }
 
-  
+.case-id-input {
+  width: auto;
+  padding: 10px;
+  text-align: center;
+  margin-right: 40px;
+  margin-left: 40px;
+}

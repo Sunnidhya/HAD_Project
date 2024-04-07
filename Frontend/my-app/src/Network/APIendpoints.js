@@ -32,6 +32,8 @@ const laboratoryProfile="/lab/getProfileDetails"
 const doctorProfile="/doctor/getProfileDetails"
 const patientProfie="/patient/getProfileDetails"
 const createcase="/doctor/createCase"
+const assignRadio = "/patient/assignRadiologist"
+const assignLab = "/patient/assignLab"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -66,5 +68,7 @@ export {patientLoginAPI,
     createcase,
     doctorChangePassword,
     labPasswordChange,
-    patientChangePassword
+    patientChangePassword,
+    assignRadio,
+    assignLab
 }

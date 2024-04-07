@@ -105,3 +105,9 @@
   .LinkStyle {
     text-decoration: none;
   }
+
+  .buttonsToUse {
+    margin-right: 35%;
+    margin-left: 35%;
+    margin-bottom: 10px;
+  }

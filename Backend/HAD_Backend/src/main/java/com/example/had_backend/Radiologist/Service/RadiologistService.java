@@ -138,7 +138,7 @@ public class RadiologistService {
         Radiologist radiologist = iRadiologistRegistrationRepository.getProfile(otpDTO.getUserName());
 
         if(radiologist.getOtp() != null && date.getTime() <= radiologist.getOtp().getExpires()){
-            loginMessage.setMessage("OTP Validated successfully");
+            loginMessage.setMessage("OTP Validated successfully, Login was Successful");
             radiologist.setOtp(null);
             iRadiologistRegistrationRepository.save(radiologist);
         }else{

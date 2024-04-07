@@ -16,16 +16,22 @@ import { useNavigate } from 'react-router-dom';
 import Logout from '../../Form/Logout';
 import { getCasesOfLab } from '../../../Network/APIendpoints';
 import { request } from '../../../Network/axiosHelper';
+import UploadImage from '../../Form/UploadImage';
 const LabLanding = () => {
 
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupUpload, setShowPopupUpload] = useState(false);
   const [lab, setLab] = useState([]);
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
+  const togglePopupUpload = () => {
+    setShowPopupUpload(prevShowPopup => !prevShowPopup);
   };
 
   const handleSearch = (event) => {
@@ -120,6 +126,13 @@ const LabLanding = () => {
           <div className="popup-overlay" onClick={togglePopup}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
               <Logout userType="lab"/>
+            </div>
+          </div>
+        )}
+        {showPopupUpload && (
+          <div className="popup-overlay" onClick={togglePopupUpload}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <UploadImage/>
             </div>
           </div>
         )}

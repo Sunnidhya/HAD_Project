@@ -104,7 +104,7 @@ const DoctorLanding = () => {
                               <CardSubtitle tag="h6" >Radiologist Name - {obj. radioName}</CardSubtitle>
                               <CardSubtitle tag="h6" >Lab Name - {obj.labName}</CardSubtitle>
                               <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
-                              <CardText>Case Description</CardText>
+                              <CardText>Case Description - {obj.caseDescription}</CardText>
                              </CardBody>
                       </Card>
                       </Link>
