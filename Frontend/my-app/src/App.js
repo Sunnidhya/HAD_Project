@@ -35,7 +35,7 @@ function App() {
   return (
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
-    <Route path="/" element={<FirstPage/>}/>
+    <Route path="/" element={<DoctorDetails/>}/>
     <Route path="/doctorchat" element={<DoctorChat/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
@@ -53,7 +53,6 @@ function App() {
          <Route path="/patient/profile" element={<PatientProfile/>}/>
          <Route path="/lab/profile" element={<LabProfile/>}/>
          <Route path="/doctor/profile" element={<DoctorProfile/>}/>
-         <Route path="/radiologist/details" element={<RadiologistDetails/>}/>
          <Route path="/doctor/details" element={<DoctorDetails/>}/>
          <Route path="/patient/details" element={<PatDetails/>}/>
          <Route path="/patient/register" element={<RegPatient/>}/>
