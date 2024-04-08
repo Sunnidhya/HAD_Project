@@ -138,7 +138,7 @@ public class LabService {
         Lab lab = iLabRegistrationRepository.getProfile(otpDTO.getUserName());
 
         if(lab.getOtp() != null && date.getTime() <= lab.getOtp().getExpires()){
-            loginMessage.setMessage("OTP Validated successfully");
+            loginMessage.setMessage("OTP Validated successfully, Login was Successful");
             lab.setOtp(null);
             iLabRegistrationRepository.save(lab);
         }else {

@@ -5,6 +5,8 @@ import DwvComponentUpload from '../../DViewer/DwvComponentUpload';
 import { imgDB } from '../../ImageOb/KavachImgDBconfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
+import { uploadImages } from '../../Network/APIendpoints';
+import { request } from '../../Network/axiosHelper';
 
 function UploadImage() {
   const [imageSrc1, setImageSrc1] = useState(null);
@@ -12,6 +14,12 @@ function UploadImage() {
   const [isVisible, setIsVisible] = useState(true);
   const [dicomImage, setDicomImage] = useState(null);
   const [dicomImageURL, setDicomImageURL] = useState(null);
+  const [prescriptionURLV, setPrescriptionURL] = useState(null);
+  const [caseIdV, setCaseId] = useState(''); // Initialize state for caseId
+
+  const handleChange = (event) => {
+      setCaseId(event.target.value);
+  };
 
   const handleImageUpload1 = (e) => {
     if (e.target && e.target.files) {
@@ -49,7 +57,7 @@ function UploadImage() {
       const img = ref(imgDB, `Imgs/${v4()}`);
       uploadBytes(img, e.target.files[0]).then(data=>{
         getDownloadURL(data.ref).then(value=>{
-        // setDicomImageURL(value);
+        setPrescriptionURL(value)
         loadImageFromUrlP(value);
         })
       })
@@ -76,6 +84,23 @@ function UploadImage() {
     setIsVisible(false);
   };
 
+  const assignVal = () => {
+    const data = {
+      caseId:caseIdV,
+      prescriptionURL: prescriptionURLV,
+      scannedImageURL: dicomImageURL
+    }
+
+    request("POST",uploadImages , data)
+      .then((response) => {
+        alert(response.message)
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }
+
   return (
     <>
       {isVisible && (
@@ -85,8 +110,10 @@ function UploadImage() {
           <br/>
           <input
             type="text"
-            placeholder="Enter the case id"
+            placeholder="Enter case id"
             className="case-id-input"
+            value={caseIdV} // Bind the value of the input to the caseId state
+            onChange={handleChange}
           />
           <br/>
           <br/>
@@ -137,7 +164,7 @@ function UploadImage() {
             </div>
             <br />
           </div>
-          <button className="btn1">Submit</button>
+          <button className="btn1" onClick={()=>assignVal()}>Submit</button>
         </div>
       )}
     </>

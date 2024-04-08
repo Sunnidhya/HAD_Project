@@ -59,7 +59,7 @@ const DoctorDetails = () => {
                 <div className="col-md-6 m-b-20" draggable="false">
 
                   <div className="card-sub">
-                    <img className="card-img-top img-fluid" src={scan} alt="Card image cap" style={{height:"344px", width:"500px",padding:"20px"}}/>
+                    <img className="card-img-top img-fluid" src={scan} alt="Card image cap" style={{height:"344px", maxWidth:"100%",padding:"20px"}}/>
                     <div className="card-block" style={{textAlign:"center", color:"#076E65"}}>
                       <h5 className="card-title">Scanned Images</h5>
                     </div>
@@ -67,7 +67,7 @@ const DoctorDetails = () => {
                 </div>
                 <div className="col-md-6  m-b-20">
                   <div className="card-sub">
-                    <img className="card-img-top img-fluid" src={prescription} alt="Card image cap" style={{height:"344px",width:"500px",padding:"20px"}}/>
+                    <img className="card-img-top img-fluid" src={prescription} alt="Card image cap" style={{height:"344px",maxWidth:"100%",padding:"20px"}}/>
                     <div className="card-block" style={{textAlign:"center", color:"#076E65"}}>
                       <h5 className="card-title">Prescription</h5>
                     </div>
@@ -75,7 +75,7 @@ const DoctorDetails = () => {
                 </div>
                 <div className="col-md-6  m-b-20" >
                   <div className="card-sub">
-                    <img className="card-img-top img-fluid" src={finaldiagnosis} alt="Card image cap" style={{height:"344px",width:"500px",padding:"20px"}} />
+                    <img className="card-img-top img-fluid" src={finaldiagnosis} alt="Card image cap" style={{height:"344px",maxWidth:"100%",padding:"20px"}} />
                     <div className="card-block" style={{textAlign:"center", color:"#076E65"}} >
                       <h5 className="card-title">Final Diagnosis</h5>
                     </div>

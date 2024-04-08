@@ -1,18 +1,15 @@
 package com.example.had_backend.Global.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
-@Entity
+@Embeddable
 @Data
-@Table(name = "imageob")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ImageOb {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "case_image_id")
-    private Integer caseImageId;
-
     @Column(nullable = true)
     private String prescriptionURL;
 

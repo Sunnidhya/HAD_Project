@@ -76,7 +76,7 @@ const LabLanding = () => {
     <div className='Lab-Land-ver'>
         <div className='Lab-Land-ver1'>
         
-            <button style={{ margin: '10px' }}>Upload</button>
+            <button style={{ margin: '10px' }} onClick={togglePopupUpload}>Upload</button>
             <button style={{ margin: '10px' }} onClick={profileget}>Profile</button>
             
         

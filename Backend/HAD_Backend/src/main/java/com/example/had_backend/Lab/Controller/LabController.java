@@ -148,7 +148,7 @@ public class LabController {
     }
 
     @CrossOrigin
-    @GetMapping("/lab/uploadImages")
+    @PostMapping("/lab/uploadImages")
     public ResponseEntity<LoginMessage> uploadPrescriptionScannedImage(@RequestBody @Validated UploadImagesDTO uploadImagesDTO) {
         LoginMessage loginMessage = labService.uploadImages(uploadImagesDTO);
         return ResponseEntity.ok(loginMessage);
