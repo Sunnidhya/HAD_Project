@@ -35,7 +35,7 @@ function App() {
   return (
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
-    <Route path="/" element={<DoctorDetails/>}/>
+    <Route path="/" element={<FirstPage/>}/>
     <Route path="/doctorchat" element={<DoctorChat/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>

@@ -1,230 +1,155 @@
-.Pat-land-container{
-    display: flex;
-    /* width: 100%; */
-    /* background-color: rgb(230, 157, 31); */
-    height: auto;
-    flex-direction: column;
-    width: auto;
-    overflow: hidden;
-}
-
-
-
-
-.Pat-Home-hor{
+.Pat-Det-hor{
     display: flex;
     background-color: #1588C2;
-    height: 18%;
-    width: auto;
     flex-direction: row;
-    padding: 0px;
+    overflow-y: scroll;
 }
 
-.pat-hor-det-icon{
-    padding-top: 35% ;
-    padding-left:15%;
-    height: 35%;
-    width: 74%;
-    padding-right: 5%;
-    margin-top: 5%;
-    margin-bottom: 15%;
-    padding-right: 5%;
-    align-self: center;
-    margin-left: 10%;
+#patdetimg{
+    flex: 1;
+    padding: 10%;
+    height: 80px;
+    width: 80px;
+    margin-left: 15px;
 }
-  
-  
-.Pat-Det-ver1 p{
+.PatDetLogout
+{
+    flex:1;
+    text-align: right;
+    margin: 0 auto;
+    padding: 25px;
+    position: relative;
+
+}
+.pat-input-icon1{
+   cursor: pointer;
+}
+
+
+/*---------------------------------------*/
+
+
+
+.Pat-Det-ver {
+     display: flex;
+    flex-direction: row;
+    background-color: white;
+    margin-bottom:15px;
+}
+
+.Pat-Det-ver1 {
+    width: 100px;
+    flex:0.4;
+    height: 100vh;
+    margin-top: 10px;
+    margin-left: 6px;
+    margin-right: 30px;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    color: #1588C2;
     
+}
+
+.Pat-Det-ver1 p{
     font-size: small;
-    background-color: #1588C2;
+    background-color: white;
     justify-self: center;
+    padding: 4px;
     margin: 5%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     text-align: center;
+    border-style: solid;
+    border-radius: 5px;
+    border: black dotted 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ProfilePatDetails
+{
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
     color: white;
+    border: #1588C2 solid 6px;
+    background-color: #1588C2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
 
-
+.Pat-Det-ver2-inner{
+    margin-top: 10px;
+    flex:2;
+    height: auto;
+    padding-right: 1%;
+    background-color: transparent;
 }
 
 
-.Patfooter{
-    padding: 20px;
+.card {
+    border: none;
+    margin-bottom: 10px;
+    overflow-x: hidden;
+    background-color: transparent;
+    box-shadow: none;
+}
+.card-block {
+    padding: 4px;
+    background-color: #ffffff;
+}
+.card-title{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    
+}
+.m-b-20 {
+    margin-bottom: 20px;
+   
+}
+
+.card-sub {
+    cursor: pointer;
+    border: none;
+    -webkit-box-shadow: 0 0 1px 2px rgba(27, 26, 26, 0.05), 0 -2px 1px -2px rgba(22, 21, 21, 0.04), 0 0 0 -1px rgba(32, 31, 31, 0.05);
+    box-shadow: 5px 5px 5px 5px rgba(31, 31, 31, 0.05), 0 -2px 1px -2px rgba(32, 32, 32, 0.04), 0 0 0 -1px rgba(22, 22, 22, 0.05);
+    width: auto;
+    padding: auto;
+    border-radius: 5px;
+}
+.PatGenerateReport{
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: white;
+    border: #1588C2 solid 6px;
+    background-color: #1588C2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.PatMarkDone{
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: white;
+    border: #1588C2 solid 6px;
+    background-color: #1588C2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.patient-details-about-us-section{
+   margin-top: 20px;
+    height: auto;
+    padding: 10px;
     background-color: #1588C2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: white;
     font-weight: bold;
-    font-size: small;
-}
-
-
-
-.PatLogout{
-    width: 100%;      
-}
-
-.pat-input-icon1{
-    margin-left: 95%;
-    margin-top: 3%;
-}
-
-.Pat-Det-ver {
-    display: flex;
-    flex-direction: row;
-    background-color: white;
-    height: auto;
-    margin-bottom: 0.1%;
-    max-height: 70%;
-}
-
-/* .Admin-Home-ver1, .Admin-Home-ver2 {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;     
-    height: 100%;
-    width: 6px;            
-} */
-.Pat-Det-ver1 {
-    font-size: large;
-   
-    width: auto;
-    height: auto;
-    background: white ;
-    margin-top: 3%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 3%;
-    max-width: 20%;
-    border-radius: 25px;
-   
-   
-}
-
-.Pat-Det-ver2 {
-    background-color: white;
-    width: auto;
-    height: auto;
-    margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 5%;
-    max-width: fit-content;
-    
-}
-
-.Pat-Det-ver2-inner{
-    padding: 1%;
-    display: flex;
-    flex-direction: row;
-    height: auto;
-    background-color: #fcf6f6;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1;
-    transform: translateY(-13%);
-    border-radius: 5px;
-
-}
-
-
-.Pat-Det-ver2-1{
-   
-    width:auto;
-    height: 50%;
-    border-radius: 5px;
-    padding: 1%;
-    align-items: center;
-
-    
-}
-.Pat-Det-ver2-2{
-    
-    width:auto;
-    height: 50%;
-    border-radius: 5px;
-    padding: 1%;
-    align-items: center;
-
-   
-}
-.Pat-Det-ver2-3{
-    
-    width:auto;
-    height: 50%;
-    border-radius: 5px;
-    padding: 1%;
-    align-items: center;
-
-    
-}
-.Pat-Det-ver2-4{
-    
-    width:auto;
-    height: 50%;
-    border-radius: 5px;
-    padding: 1%;
-    align-items: center;
-
-   
 }
 
 
 
 
-.patscan:hover, 
-.patpres:hover, 
-.patradioReport:hover, 
-.patfinalDiag:hover {
-    transform: scale(1.05); /* Zoom effect on hover */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
-}
 
 
-.PatVerUp,.PatVerDown{
-    display: flex;
-    flex-direction: column; 
-    height: auto;
-    width: auto;;
-    
-
-}
-.PatVerDown{
-   
-    flex: 1;
-}
-.PatVerUp{
-    
-    flex: 1;
-}
-
-.patscan,.patpres, .patradioReport, .patfinalDiag{
-    width: 100%;         /* ensures the image doesn't exceed the container's width */
-    height: 100%;
-    max-width: 500px;
-    max-height: 300px;
-    min-width: 30%;
-    min-height: 30%;
-    padding: 7%;
-    /* justify-content: center; */
-    /* margin: 5%; */
-    /* margin-top: 2%; */
-    border-color: #fcf6f6;
-    border-radius: 5px;  
-    align-content: center; 
-
-
-    
-}
-
-
-
-
-.scantext, .prestext, .rep, .diagtext{
-    width: auto;
-    color: black;
-    font-size: large;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
-}
