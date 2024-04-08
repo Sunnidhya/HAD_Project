@@ -46,12 +46,12 @@ const DoctorDetails = () => {
       <div className='Doc-Det-ver'>
         <div className='Doc-Det-ver1'>
           <button className="ProfileDocDetails" style={{ margin: '10px' }} onClick={getProfile}>Profile</button>
-          <p>Consulting Doctor's Name: Samarpita</p>
+          <p>Patients's Name: Samarpita</p>
           <p>Consulting Radiologist's Name : Samarpita</p>
           <p>Consulting Lab's Name: Samarpita</p>
         </div>
         <div className='Doc-Det-ver2-inner'>
-          <div class="card">
+          <div className="card">
 
             <div className="card-block">
               <div className="row" id="sortable">
