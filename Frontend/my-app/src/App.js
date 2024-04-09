@@ -25,6 +25,7 @@ import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 import Dropdown_button from './Components/Form/Dropdown_button';
 import CaseForm from './Components/Form/CaseForm';
 import UploadImage from './Components/Form/UploadImage';
+import RadioChat from './Components/Radiologist/RadioChat/RadioChat';
 
 
 
