@@ -24,6 +24,7 @@ import PrivateRoutes from './Auth/PrivateRoutes';
 import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 import Dropdown_button from './Components/Form/Dropdown_button';
 import CaseForm from './Components/Form/CaseForm';
+import RadioChat from './Components/Radiologist/RadioChat/RadioChat';
 
 
 
