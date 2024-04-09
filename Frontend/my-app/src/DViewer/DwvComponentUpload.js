@@ -113,7 +113,7 @@ class DwvComponentUpload extends React.Component {
     });
 
     return (
-      <div id="dwv">
+      <div id="dwvUpload">
         <LinearProgress variant="determinate" value={loadProgress} />
         <Stack direction="row" spacing={1} padding={1} justifyContent="center">
           <ToggleButtonGroup size="small"
