@@ -1,23 +1,38 @@
-#docsideimg {
+.Doc-chat-hor{
+    display: flex;
+    background-color: rgb(7, 110, 101);
+    flex-direction: row;
+    overflow-y: scroll;
+}
+
+#docchatsideimg{
     padding-top: 1%;
     padding-left: 10%;
     height: 80px;
     width: 80px;
 }
 
-.Search {
-    display: flex;
-    justify-content: center;
-    /* Center horizontally */
-    align-items: center;
-    /* Center vertically */
-    padding-left: 10%;
+.DocchatLogout
+{
+    flex:1;
+    text-align: right;
+    margin: 0 auto;
+    padding: 25px;
+    position: relative;
 
 }
+.doc-input-icon1{
+   cursor: pointer;
+}
+
+
+
+/*------------------------------------------*/
 
 .chatDicom{
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 }
 
 .dicom-viewer{
@@ -42,56 +57,13 @@
     background-color: #066E65;
     height: 40px;
 }
-.DoctorSearch {
-    height: 30px;
-    width: 100vh;
-    border-radius: 50px;
-    border-width: 3px;
-    border-color: rgb(7, 110, 101);
-    margin-left: 150px;
-    margin-top: 20px;
-
-}
-
-.DocLogout {
-    display: flex;
-    justify-content: center;
-    /* Center horizontally */
-    align-items: center;
-    /* Center vertically */
-
-}
-
-.input-icon1 {
-    margin-left: 250px;
-    margin-top: 20px;
-}
-
-
-.Had-login-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    /* Make the container take the full height of the viewport */
-}
-
-.Doctor-Login-hor {
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
-    padding: 10px;
-}
-
-.Docfooter {
-    padding: 10px;
-}
 
 .chat-wrapper {
     flex: 1;
-    /* This will make the chat container take the available space between header and footer */
-    /* overflow-y: auto; */
-    /* Make the chat container scrollable */
-    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-right: 40px;
     margin-top: 5px;
 }
 
@@ -99,7 +71,8 @@
     border: 4px solid #ccc;
     padding: 10px;
     border-radius: 10px;
-    max-width: 650px;
+    width: 650px;
+    border-color:rgb(7, 110, 101) ;
     /* Adjust according to your design */
     height: 600px;
     /* Set a fixed height for the chat container */
@@ -124,12 +97,76 @@
 .chat-image {
     max-width: 100%;
     border-radius: 5px;
+    height: 300px;
+    padding-bottom: 10px;
 }
 
-.inputTextVal {
-    width: 370px;
-    height: 20px;
+.timestamp
+{
+    font-size: small;
+    
 }
+
+.inputWithButton{
+  margin-top: 2%;;
+  display:flex;
+  flex-direction:row;
+  width: 650px;
+  /* This bit draws the box around it */
+  border:1px solid grey;
+
+  /* I've used padding so you can see the edges of the elements. */
+  padding:1px;
+  border-radius: 5px;
+}
+
+
+input {
+    /* Tell the input to use all the available space */
+    flex:2;
+    /* And hide the input's outline, so the form looks like the outline */
+    border:none;
+  }
+  
+  /* remove the input focus blue box, it will be in the wrong place. */
+  input:focus {
+    outline: none;
+  }
+  
+  /* Add the focus effect to the form so it contains the button */
+  form:focus-within { 
+    outline: 1px solid blue 
+  }
+  
+  .button {
+    /* Just a little styling to make it pretty */
+    size: 2px;
+    border:1px solid #066E65;
+    background:#066E65;
+    color:white;
+    height: auto;
+    width:auto;
+    margin: 2px;
+    border-radius: 5px;
+  }
+
+ input[type="file"]
+ {
+    display: none;
+   
+ }
+ .custom-file-upload{
+    padding: 10px 12px;
+    cursor: pointer;
+    size: 2px;
+    border:1px solid #066E65;
+    background:#066E65;
+    color:white;
+    height: auto;
+    width:auto;
+    margin: 2px;
+    border-radius: 5px;
+ }
 
 .userNameVal {
     color: blue;

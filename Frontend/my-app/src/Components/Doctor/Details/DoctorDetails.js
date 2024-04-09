@@ -39,7 +39,7 @@ const DoctorDetails = () => {
         <div className='logodocdet'>
           <img src={imgside} id="docdetsideimg" />
         </div>
-        <div class="DocDetLogout" onClick={handleLogout}>
+        <div className="DocDetLogout" onClick={handleLogout}>
           <img src={logout} alt="Logout" className="doc-input-icon1" />
         </div>
       </div>

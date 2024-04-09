@@ -145,18 +145,18 @@ const DoctorChat = () => {
   };
   
   return (
-    <div class="Doctor-chat-container">
-      <div class="Doctor-Login-hor">
-        <div>
-          <img src={imgside} id="docsideimg" />
+    <div className="Doctor-chat-container">
+      <div className="Doc-chat-hor">
+        <div className='logodocchat'>
+          <img src={imgside} id="docchatsideimg" />
         </div>
-        <div class="DocLogout" onClick={handleLogout}>
-          <img src={logout} alt="Logout" className="input-icon1" />
+        <div className="DocchatLogout" onClick={handleLogout}>
+          <img src={logout} alt="Logout" className="doc-input-icon1" />
         </div>
       </div>
       <div className="chatDicom">
-      <div class="chat-wrapper">
-        <div class="chat-container">
+      <div className="chat-wrapper">
+        <div className="chat-container">
           <ul className="chat-list">
             {messages.map((message, index) => (
               <li key={index} className="chat-item" onClick={() => handleListItemClick(index)}>
@@ -169,15 +169,21 @@ const DoctorChat = () => {
                     className="chat-image"
                   />
                 )}
-                <p>{message.timestamp}</p>
+                <p className="timestamp">{message.timestamp}</p>
               </li>
             ))}
           </ul>
         </div>
         <div className="send-upload">
-          <br/><textarea placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} onPaste={handlePaste} cols={50} style={{ height: 'auto', minHeight: '50px',borderRadius:'4px' }}/>
-          <button onClick={handleSendMessage}>Send</button>
-          <input type="file" onChange={handleImageChange} />
+          <div className='inputWithButton'>
+          <br/><input placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} onPaste={handlePaste} cols={50} style={{ height: 'auto', minHeight: '50px',borderRadius:'4px' }}/>
+          <button className="button" onClick={handleSendMessage}>Send</button>
+          <label for="file-upload" class="custom-file-upload">
+            Choose File 
+          </label>
+          <input type="file" id="file-upload" onChange={handleImageChange}/>
+          </div>
+          
         </div>
       </div>
       <div className="dicom-viewer">
