@@ -37,6 +37,7 @@ const assignLab = "/patient/assignLab"
 const uploadImages = "/lab/uploadImages"
 const getCaseById = "/doctor/getCaseByCaseId"
 const getPatCaseById = "/patient/getCaseByCaseId"
+const insertChat = "/doctor/insertThreadChat"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -76,5 +77,6 @@ export {patientLoginAPI,
     assignLab,
     uploadImages,
     getCaseById,
-    getPatCaseById
+    getPatCaseById,
+    insertChat
 }
