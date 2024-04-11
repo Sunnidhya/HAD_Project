@@ -24,6 +24,7 @@ import PrivateRoutes from './Auth/PrivateRoutes';
 import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 import Dropdown_button from './Components/Form/Dropdown_button';
 import CaseForm from './Components/Form/CaseForm';
+//import ImageForm from './Components/Form/ImageForm';
 
 
 
@@ -32,6 +33,7 @@ function App() {
   const doctorloggedIn = window.localStorage.getItem("isDoctorLoggedIn");
   const labloggedIn = window.localStorage.getItem("isLabLoggedIn");
   const patientloggedIn = window.localStorage.getItem("isPatientLoggedIn");
+  //const imageUrl = "https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs11042-020-10151-w/MediaObjects/11042_2020_10151_Fig2_HTML.png"
   return (
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}

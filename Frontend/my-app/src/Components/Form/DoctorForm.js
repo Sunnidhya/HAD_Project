@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './DoctorForm.css';
 import { registerDoctor } from '../../Network/APIendpoints';
 import { request } from '../../Network/axiosHelper';
+import { encryptDataUser } from '../../EncryptDecrypt/EncDecrypt';
 
 function DoctorForm() {
   const [formData, setFormData] = useState({

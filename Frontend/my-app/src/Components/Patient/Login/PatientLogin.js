@@ -5,9 +5,12 @@ import React,{useState, useEffect} from "react";
 import imgside from '../../../Resources/AppLogo.png';
 import { request, setAuthToken } from '../../../Network/axiosHelper';
 import { otpPatient, patientLoginAPI } from '../../../Network/APIendpoints';
-import { encryptData } from '../../../EncryptDecrypt/EncDecrypt';
+import { encryptData,encryptDataUser} from '../../../EncryptDecrypt/EncDecrypt';
 import { useNavigate } from 'react-router-dom';
-import './Patient.css'
+import CryptoJS from 'crypto-js';
+import './Patient.css';
+
+
 const PatientLogin = () => {
 
   let nav = useNavigate()
@@ -36,56 +39,57 @@ const PatientLogin = () => {
   const loginP = async (e,usernameD,passwordD) => {
     e.preventDefault();
     localStorage.clear()
+    const encryptedPassword = await encryptDataUser(passwordD);
     if (button === "Login") {
       const data = {
         userName: usernameD,
-        password: passwordD
+        password: encryptedPassword
       };
-      request("POST",
-      patientLoginAPI,
-        data
-      ).then((response) => {
-        if (response.data.message === "OTP sent to registered email address") {
-          alert(response.data.message)
-          setTitle('OTP')
-          setVisible(false)
-          setButton('Submit')
-          setPlaceholder('Enter your OTP')
-        }
-        else if (response.data.message === "Login failed, Check username/password") {
-          alert(response.data.message)
-        }
-      })
-        .catch((error) => {
-          console.warn("Error", error)
-        });
-    }
-    else if (button === "Submit") {
-      const data = {
-        otp: patotpV,
-        userName: patUserNameV
-      };
-      request("POST",
-        otpPatient,
-        data
-      ).then((response) => {
-        console.warn("DataOTP", response)
-        if (response.data.message === "OTP Validated successfully, Login was Successful") {
-          setAuthToken(response.data.token)
-          console.warn("Data", response.data)
-          window.localStorage.setItem("isPatientLoggedIn",true);
-          alert("Login Successful");
-          const dataToEncrypt = patUserNameV;
-          encryptData(dataToEncrypt);
-          nav('/patient/landing')
+     request("POST",
+       patientLoginAPI,
+       data
+       ).then((response) => {
+         if (response.data.message === "OTP sent to registered email address") {
+           alert(response.data.message)
+           setTitle('OTP')
+           setVisible(false)
+           setButton('Submit')
+           setPlaceholder('Enter your OTP')
+         }
+         else if (response.data.message === "Login failed, Check username/password") {
+           alert(response.data.message)
+         }
+       })
+         .catch((error) => {
+           console.warn("Error", error)
+         });
+     }
+     else if (button === "Submit") {
+       const data = {
+         otp: patotpV,
+         userName: patUserNameV
+       };
+       request("POST",
+         otpPatient,
+         data
+       ).then((response) => {
+         console.warn("DataOTP", response)
+         if (response.data.message === "OTP Validated successfully, Login was Successful") {
+           setAuthToken(response.data.token)
+           console.warn("Data", response.data)
+           window.localStorage.setItem("isPatientLoggedIn",true);
+           alert("Login Successful");
+           const dataToEncrypt = patUserNameV;
+           encryptData(dataToEncrypt);
+           nav('/patient/landing')
 
-        }
-        else {
-          alert("OTP is wrong, Please retry!!")
-        }
-      })
-        .catch((error) => {
-          console.warn("Error", error)
+         }
+         else {
+           alert("OTP is wrong, Please retry!!")
+         }
+       })
+         .catch((error) => {
+           console.warn("Error", error)
         });
     }
   };

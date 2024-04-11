@@ -11,9 +11,11 @@ import { patientRegisterAPI } from '../../../Network/APIendpoints';
 import './RegPatient.css';
 import { useNavigate } from 'react-router-dom';
 import { request } from '../../../Network/axiosHelper';
+import { encryptDataUser } from '../../../EncryptDecrypt/EncDecrypt';
+import CryptoJS from 'crypto-js';
+
 
 const RegPatient = () => {
-//   here password1 is variable and set password is function
   let nav = useNavigate()
   const [password1, setPassword] = useState(''); 
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -42,28 +44,30 @@ const RegPatient = () => {
     if(passwordP === confirmPasswordP){
       e.preventDefault();
       localStorage.clear()
+      const encryptedPassword = await encryptDataUser(passwordP);
+
       const data = {
         userName: usernameP,
-        password: passwordP,
+        password: encryptedPassword,
         fullName: fullnameP,
         address: addressP,
         email: emailP,
         contactNo: contactP
       };
       request("POST",
-      patientRegisterAPI, 
+     patientRegisterAPI, 
       data
-      ).then((response) => {
-        console.warn("Data",response.data)
-        alert(response.data.message);
-        nav('/patient')
-      })
-      .catch((error) => {
-        console.warn("Error", error)
-      });
-    }else{
+       ).then((response) => {
+         console.warn("Data",response.data)
+         alert(response.data.message);
+         nav('/patient')
+       })
+       .catch((error) => {
+         console.warn("Error", error)
+       });
+     }else{
       alert("Password Mismatch")
-    }
+     }
   };
 
   return (
