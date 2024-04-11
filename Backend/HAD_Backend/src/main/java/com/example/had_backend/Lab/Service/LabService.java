@@ -2,9 +2,11 @@ package com.example.had_backend.Lab.Service;
 
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Global.Entity.Cases;
+import com.example.had_backend.Global.Entity.ImageOb;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Model.UploadImagesDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
@@ -136,7 +138,7 @@ public class LabService {
         Lab lab = iLabRegistrationRepository.getProfile(otpDTO.getUserName());
 
         if(lab.getOtp() != null && date.getTime() <= lab.getOtp().getExpires()){
-            loginMessage.setMessage("OTP Validated successfully");
+            loginMessage.setMessage("OTP Validated successfully, Login was Successful");
             lab.setOtp(null);
             iLabRegistrationRepository.save(lab);
         }else {
@@ -148,6 +150,18 @@ public class LabService {
                 loginMessage.setMessage("OTP entered is wrong!! Please renter");
             }
         }
+        return loginMessage;
+    }
+
+    public LoginMessage uploadImages(UploadImagesDTO uploadImagesDTO) {
+        LoginMessage loginMessage = new LoginMessage();
+        Cases cases = iCasesRepository.getCaseByCaseId(uploadImagesDTO.getCaseId());
+        ImageOb imageOb = new ImageOb();
+        imageOb.setPrescriptionURL(uploadImagesDTO.getPrescriptionURL());
+        imageOb.setScannedImageURL(uploadImagesDTO.getScannedImageURL());
+        cases.setImageOb(imageOb);
+        iCasesRepository.save(cases);
+        loginMessage.setMessage("Images uploaded successfully");
         return loginMessage;
     }
 }

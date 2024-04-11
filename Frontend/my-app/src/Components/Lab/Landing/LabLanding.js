@@ -16,16 +16,22 @@ import { useNavigate } from 'react-router-dom';
 import Logout from '../../Form/Logout';
 import { getCasesOfLab } from '../../../Network/APIendpoints';
 import { request } from '../../../Network/axiosHelper';
+import UploadImage from '../../Form/UploadImage';
 const LabLanding = () => {
 
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupUpload, setShowPopupUpload] = useState(false);
   const [lab, setLab] = useState([]);
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
+  const togglePopupUpload = () => {
+    setShowPopupUpload(prevShowPopup => !prevShowPopup);
   };
 
   const handleSearch = (event) => {
@@ -50,8 +56,6 @@ const LabLanding = () => {
   const profileget = () => {
     nav("/Lab/profile")
   }
-
-  const numberOfCards = 24;
   
   return (
     <div class="Lab-landing-container">
@@ -70,7 +74,7 @@ const LabLanding = () => {
     <div className='Lab-Land-ver'>
         <div className='Lab-Land-ver1'>
         
-            <button style={{ margin: '10px' }}>Upload</button>
+            <button style={{ margin: '10px' }} onClick={togglePopupUpload}>Upload</button>
             <button style={{ margin: '10px' }} onClick={profileget}>Profile</button>
             
         
@@ -90,7 +94,6 @@ const LabLanding = () => {
                 const formattedDateTime = `${year}-${month}-${day}`;
                 return (
                   <Col>
-                      <Link to={`/card/${i+1}`}className="LinkStyle">
                         <Card className='LabLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red',color: 'white'}}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
@@ -101,9 +104,7 @@ const LabLanding = () => {
                               <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
                               <CardText>Case Description</CardText>
                              </CardBody>
-                      </Card>
-                      </Link>
-                      
+                      </Card>                      
                   </Col>
                 )
             })}
@@ -120,6 +121,13 @@ const LabLanding = () => {
           <div className="popup-overlay" onClick={togglePopup}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
               <Logout userType="lab"/>
+            </div>
+          </div>
+        )}
+        {showPopupUpload && (
+          <div className="popup-overlay" onClick={togglePopupUpload}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <UploadImage/>
             </div>
           </div>
         )}

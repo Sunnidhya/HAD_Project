@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { createcase, getListOfPatients } from '../../Network/APIendpoints';
 import './DropdownButton.css'; 
 
-function DropdownButton({patientValue,onSelect}) {
+function DropdownButton({patientValue,onSelect,flow}) {
   const [formData, setFormData] = useState({
     caseName: '',
     doctorName: '',
@@ -24,7 +24,10 @@ function DropdownButton({patientValue,onSelect}) {
     <div className="center-container">
       <Dropdown style={{ width: '100%' }}>
         <Dropdown.Toggle variant="success" id="dropdown-basic" className="fixed-button">
-          {selectedOption ? selectedOption : 'Select Patient Name'}
+        {flow === "Select Patient Name" && selectedOption ? selectedOption : 
+      flow === "Select Radiologist Name" && selectedOption ? selectedOption :
+      flow === "Select Lab Name" && selectedOption ? selectedOption : flow}
+          
         </Dropdown.Toggle>
 
         <Dropdown.Menu style={{ width: '100%' }}>

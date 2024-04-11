@@ -30,7 +30,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import TagsTable from './TagsTable';
 
-import './DwvComponent.css';
+import './DwvComponentUpload.css';
 import {
   App,
   getDwvVersion,
@@ -60,7 +60,7 @@ export const TransitionUp = React.forwardRef((props, ref) => (
   <Slide direction="up" {...props} ref={ref} />
 ))
 
-class DwvComponent extends React.Component {
+class DwvComponentUpload extends React.Component {
 
   constructor(props) {
     super(props);
@@ -71,11 +71,11 @@ class DwvComponent extends React.Component {
       },
       tools: {
         // Scroll: {},
-        ZoomAndPan: {},
-        WindowLevel: {},
-        Draw: {
-          options: ['Ruler']
-        }
+        // ZoomAndPan: {},
+        // WindowLevel: {},
+        // Draw: {
+        //   options: ['Ruler']
+        // }
       },
       selectedTool: 'Select Tool',
       loadProgress: 0,
@@ -92,9 +92,11 @@ class DwvComponent extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     const { dicomProp } = this.props;
+    const { classes } = this.props;
     const { versions, tools, loadProgress, dataLoaded, metaData } = this.state;
+
+    // Now you can load the file using this.state.dwvApp.loadFiles
 
     const handleToolChange = (event, newTool) => {
       if (newTool) {
@@ -111,7 +113,7 @@ class DwvComponent extends React.Component {
     });
 
     return (
-      <div id="dwv">
+      <div id="dwvUpload">
         <LinearProgress variant="determinate" value={loadProgress} />
         <Stack direction="row" spacing={1} padding={1} justifyContent="center">
           <ToggleButtonGroup size="small"
@@ -170,17 +172,6 @@ class DwvComponent extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
-    // Check if dicomProp has changed
-    if (this.props.dicomProp !== prevProps.dicomProp) {
-        if (this.props.dicomProp) {
-            console.warn('Data', 'Hi');
-            // Load files when dicomProp changes
-            this.state.dwvApp.loadFiles([this.props.dicomProp]);
-        }
-    }
-  }
-
   componentDidMount() {
     // create app
     const app = new App();
@@ -211,11 +202,11 @@ class DwvComponent extends React.Component {
       if (isFirstRender) {
         isFirstRender = false;
         // available tools
-        let selectedTool = 'ZoomAndPan';
-        // if (app.canScroll()) {
-        //   selectedTool = 'Scroll';
-        // }
-        this.onChangeTool(selectedTool);
+        // let selectedTool = 'ZoomAndPan';
+        // // if (app.canScroll()) {
+        // //   selectedTool = 'Scroll';
+        // // }
+        // this.onChangeTool(selectedTool);
       }
     });
     app.addEventListener("load", (/*event*/) => {
@@ -265,6 +256,10 @@ class DwvComponent extends React.Component {
 
     // possible load from location
     app.loadFromUri(window.location.href);
+
+    if (this.props.dicomProp) {
+        app.loadFiles([this.props.dicomProp]);
+      }
   }
 
   /**
@@ -277,13 +272,13 @@ class DwvComponent extends React.Component {
     let res;
     // if (tool === 'Scroll') {
     //   res = (<MenuIcon />);
-    if (tool === 'ZoomAndPan') {
-      res = (<SearchIcon />);
-    } else if (tool === 'WindowLevel') {
-      res = (<ContrastIcon />);
-    } else if (tool === 'Draw') {
-      res = (<StraightenIcon />);
-    }
+    // if (tool === 'ZoomAndPan') {
+    //   res = (<SearchIcon />);
+    // } else if (tool === 'WindowLevel') {
+    //   res = (<ContrastIcon />);
+    // } else if (tool === 'Draw') {
+    //   res = (<StraightenIcon />);
+    // }
     return res;
   }
 
@@ -545,10 +540,10 @@ class DwvComponent extends React.Component {
 
   // drag and drop [end] -------------------------------------------------------
 
-} // DwvComponent
+} // DwvComponentUpload
 
-DwvComponent.propTypes = {
+DwvComponentUpload.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DwvComponent);
+export default withStyles(styles)(DwvComponentUpload);

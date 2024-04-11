@@ -1,7 +1,7 @@
 import imgside from "../../../Resources/AppLogo.png";
 import React, { useState, useEffect, createRef } from "react";
 import logout from "../../../Resources/log-out.png";
-import "./DoctorChat.css";
+import "./RadioChat.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import DwvComponent from "../../../DViewer/DwvComponent";
 import { createFileName, useScreenshot } from "use-react-screenshot";
@@ -15,11 +15,10 @@ import {
 import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
-import { getCaseById } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
-import DwvComponentUpload from "../../../DViewer/DwvComponentUpload";
+import { getCaseById } from "../../../Network/APIendpoints";
 
-const DoctorChat = () => {
+const RadioChat = () => {
   let nav = useNavigate();
   let dateVal = new Date();
   const [messages, setMessages] = useState([]);
@@ -32,9 +31,6 @@ const DoctorChat = () => {
   const [value, setValue] = useState("");
   const [caseObj, setCaseObj] = useState(null);
   const [dicomImage, setDicomImage] = useState(null);
-
-  const loc = useLocation();
-  const { caseIdValue } = loc.state || {};
 
   const [screenshot, takeScreenshot] = useScreenshot({
     type: "image/jpeg",
@@ -51,10 +47,13 @@ const DoctorChat = () => {
     reader.readAsArrayBuffer(file);
   };
 
+  const loc = useLocation();
+  const { caseIdValue } = loc.state || {};
+
   const handleLogout = () => {
     localStorage.clear();
     alert("Logout successful!");
-    nav("/doctor");
+    nav("/radiologist");
   };
 
   const handleInputChange = (event) => {
@@ -192,18 +191,18 @@ const DoctorChat = () => {
   }, []);
 
   return (
-    <div className="Doctor-chat-container">
-      <div className="Doc-chat-hor">
-        <div className="logodocchat">
-          <img src={imgside} id="docchatsideimg" />
+    <div className="Radio-chat-container">
+      <div className="Radio-chat-hor">
+        <div className="logoradiochat">
+          <img src={imgside} id="radiochatsideimg" />
         </div>
-        <div className="DocchatLogout" onClick={handleLogout}>
-          <img src={logout} alt="Logout" className="doc-input-icon1" />
+        <div className="RadiochatLogout" onClick={handleLogout}>
+          <img src={logout} alt="Logout" className="radio-input-icon1" />
         </div>
       </div>
       <div className="chatDicom">
         <div className="chat-wrapper">
-          <div className="chat-container">
+          <div className="radio-chat-container">
             <ul className="chat-list">
               {messages.map((message, index) => (
                 <li
@@ -225,8 +224,8 @@ const DoctorChat = () => {
               ))}
             </ul>
           </div>
-          <div className="send-upload">
-            <div className="inputWithButton">
+          <div className="radio-send-upload">
+            <div className="radio-inputWithButton">
               <br />
               <input
                 placeholder="Enter your text"
@@ -242,15 +241,15 @@ const DoctorChat = () => {
                   borderRadius: "4px",
                 }}
               />
-              <button className="button" onClick={handleSendMessage}>
+              <button className="radio-button" onClick={handleSendMessage}>
                 Send
               </button>
-              <label for="file-upload" class="custom-file-upload">
+              <label for="radio-file-upload" class="radio-custom-file-upload">
                 Choose File
               </label>
               <input
                 type="file"
-                id="file-upload"
+                id="radio-file-upload"
                 onChange={handleImageChange}
               />
             </div>
@@ -261,17 +260,17 @@ const DoctorChat = () => {
             <div ref={ref1}>
               <DwvComponent dicomProp={dicomImage} />
             </div>
-            <button onClick={downloadScreenshot} className="screenshot">
+            <button onClick={downloadScreenshot} className="radio-screenshot">
               Screenshot
             </button>
           </div>
         )} */}
       </div>
-      <div className="DoctorChat-about-us-section">
+      <div className="RadioChat-about-us-section">
         <p>About Us</p>
       </div>
     </div>
   );
 };
 
-export default DoctorChat;
+export default RadioChat;
