@@ -1,0 +1,148 @@
+.upload-container {
+    display: flex;
+    justify-content: center;
+    
+  }
+
+.upload-image-container {
+    text-align: center;
+  }
+
+  .gap {
+    width: 100px;
+  }
+  
+  .image-preview1 {
+    min-width: auto;
+    min-height:auto;
+    height: 500px;
+    margin: 0 auto 20px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+  }
+  
+  
+  .uploaded-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .placeholder-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+  }
+  
+  .input-file {
+    display: none;
+  }
+  
+  .upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .upload-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .remove-button {
+    position: absolute;
+    left:180px;
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .image-preview {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+  }
+
+  .container-upload {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .btn1{
+    position: relative;
+    margin-top: 50px;
+    left:42%;
+    padding: 10px 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn1:hover{
+    background-color: #0056b3;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .remove-button {
+        left: 50%; /* Adjusted for smaller screens */
+        transform: translateX(-50%);
+    }
+}
+
+.close-button-upload {
+  position: relative;
+  top: 17%;
+  right:-95%;
+  background-color: #b4b2b2;
+  color:black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.container-upload{
+  background-color: #fff;
+}
+
+.upload-container{
+  background-color: #fff;
+}
+
+.download-button{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    margin-left: 40%;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+  }
