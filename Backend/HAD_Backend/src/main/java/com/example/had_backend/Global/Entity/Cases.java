@@ -7,10 +7,13 @@ import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "cases")
 public class Cases {
     @Id
@@ -44,7 +47,8 @@ public class Cases {
     @JsonIgnore
     private Patient patient;
 
-    @OneToOne(mappedBy = "cases", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ref_chat_id", referencedColumnName = "chat_id")
     private Chats chats;
 
     @Column(nullable = true)

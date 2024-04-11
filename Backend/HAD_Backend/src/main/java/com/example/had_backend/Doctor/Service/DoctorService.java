@@ -5,14 +5,11 @@ import com.example.had_backend.Doctor.Model.DoctorChangePasswordDTO;
 import com.example.had_backend.Doctor.Model.DoctorRegistrationDTO;
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
-import com.example.had_backend.Global.Entity.Cases;
-import com.example.had_backend.Global.Entity.OTP;
-import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.CasesReturnDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Entity.*;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Global.Repository.ICasesRepository;
+import com.example.had_backend.Global.Repository.IChatRepository;
+import com.example.had_backend.Global.Repository.IThreadRepository;
 import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Model.LoginDTO;
@@ -20,6 +17,7 @@ import com.example.had_backend.Model.LoginMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +35,12 @@ public class DoctorService {
 
     @Autowired
     private IUsersRepository iUsersRepository;
+
+    @Autowired
+    private IThreadRepository iThreadRepository;
+
+    @Autowired
+    private IChatRepository iChatRepository;
 
     public LoginMessage register(DoctorRegistrationDTO doctorRegistrationDTO) {
         Doctor doctor = new Doctor();
@@ -213,6 +217,16 @@ public class DoctorService {
         casesDetailsDTO.setPatientName(cases.getPatient().getFullName());
         casesDetailsDTO.setMarkAsDone(cases.getMarkAsDone());
         casesDetailsDTO.setCaseDescription(cases.getCaseDescription());
+        List<ThreadsDTO> threadsF = new ArrayList<>();
+        for(Threads threads: cases.getChats().getThreads()){
+            ThreadsDTO threadsDTO = new ThreadsDTO();
+            threadsDTO.setText(threads.getText());
+            threadsDTO.setTimeStamp(threads.getTimeStamp());
+            threadsDTO.setImageURL(threads.getImageURL());
+            threadsDTO.setUserName(threads.getUserName());
+            threadsF.add(threadsDTO);
+        }
+        casesDetailsDTO.setThreads(threadsF);
 
         if(cases.getImageOb() != null){
             if(cases.getImageOb().getFinalDiagnosis() != null){
@@ -227,6 +241,74 @@ public class DoctorService {
             }
             casesDetailsDTO.setPrescriptionURL(cases.getImageOb().getPrescriptionURL());
             casesDetailsDTO.setScannedImageURL(cases.getImageOb().getScannedImageURL());
+        }
+        return casesDetailsDTO;
+    }
+
+    public CasesDetailsDTO insertChatThread(CasesChatDTO casesChatDTO) {
+        Cases cases = iCasesRepository.getCaseByCaseId(casesChatDTO.getCaseId());
+        Chats chats = cases.getChats();
+        Threads threads = new Threads();
+        if(chats == null){
+            chats = new Chats();
+            chats = iChatRepository.save(chats);
+            cases.setChats(chats);
+            iCasesRepository.save(cases);
+        }
+        threads.setText(casesChatDTO.getText());
+        threads.setUserName(casesChatDTO.getUserName());
+        threads.setImageURL(casesChatDTO.getImage());
+        threads.setTimeStamp(casesChatDTO.getTimestamp());
+        threads.setChats(chats);
+        iThreadRepository.save(threads);
+        chats.getThreads().add(threads);
+        iChatRepository.save(chats);
+        cases.setChats(chats);
+
+        Cases cases1 = iCasesRepository.getCaseByCaseId(casesChatDTO.getCaseId());
+
+        CasesDetailsDTO casesDetailsDTO = new CasesDetailsDTO();
+        casesDetailsDTO.setCaseId(cases1.getCaseId());
+        casesDetailsDTO.setCaseName(cases1.getCaseName());
+        casesDetailsDTO.setCaseDate(cases1.getCaseDate());
+        casesDetailsDTO.setDoctorName(cases1.getDoctor().getName());
+        if(cases1.getRadiologist() != null) {
+            casesDetailsDTO.setRadioName(cases1.getRadiologist().getName());
+        }else{
+            casesDetailsDTO.setRadioName("Not yet assigned");
+        }
+        if(cases1.getLab() != null) {
+            casesDetailsDTO.setLabName(cases1.getLab().getLabName());
+        }else{
+            casesDetailsDTO.setLabName("Not yet assigned");
+        }
+        casesDetailsDTO.setPatientName(cases1.getPatient().getFullName());
+        casesDetailsDTO.setMarkAsDone(cases1.getMarkAsDone());
+        casesDetailsDTO.setCaseDescription(cases1.getCaseDescription());
+        List<ThreadsDTO> threadsF = new ArrayList<>();
+        for(Threads threads1: cases1.getChats().getThreads()){
+            ThreadsDTO threadsDTO = new ThreadsDTO();
+            threadsDTO.setText(threads1.getText());
+            threadsDTO.setTimeStamp(threads1.getTimeStamp());
+            threadsDTO.setImageURL(threads1.getImageURL());
+            threadsDTO.setUserName(threads1.getUserName());
+            threadsF.add(threadsDTO);
+        }
+        casesDetailsDTO.setThreads(threadsF);
+
+        if(cases1.getImageOb() != null){
+            if(cases1.getImageOb().getFinalDiagnosis() != null){
+                casesDetailsDTO.setAge(cases1.getImageOb().getFinalDiagnosis().getAge());
+                casesDetailsDTO.setConclusion(cases1.getImageOb().getFinalDiagnosis().getConclusion());
+                casesDetailsDTO.setStatus(cases1.getImageOb().getFinalDiagnosis().getStatus());
+                casesDetailsDTO.setTherapy(cases1.getImageOb().getFinalDiagnosis().getTherapy());
+                casesDetailsDTO.setMedicalHistory(cases1.getImageOb().getFinalDiagnosis().getMedicalHistory());
+                casesDetailsDTO.setRadiologistConclusion(cases1.getImageOb().getFinalDiagnosis().getRadiologistConclusion());
+                casesDetailsDTO.setTreatmentRecommendation(cases1.getImageOb().getFinalDiagnosis().getTreatmentRecommendations());
+                casesDetailsDTO.setSurgery(cases1.getImageOb().getFinalDiagnosis().getSurgery());
+            }
+            casesDetailsDTO.setPrescriptionURL(cases1.getImageOb().getPrescriptionURL());
+            casesDetailsDTO.setScannedImageURL(cases1.getImageOb().getScannedImageURL());
         }
         return casesDetailsDTO;
     }
