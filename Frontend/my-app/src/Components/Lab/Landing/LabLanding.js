@@ -56,8 +56,6 @@ const LabLanding = () => {
   const profileget = () => {
     nav("/Lab/profile")
   }
-
-  const numberOfCards = 24;
   
   return (
     <div class="Lab-landing-container">
@@ -96,7 +94,6 @@ const LabLanding = () => {
                 const formattedDateTime = `${year}-${month}-${day}`;
                 return (
                   <Col>
-                      <Link to={`/card/${i+1}`}className="LinkStyle">
                         <Card className='LabLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red',color: 'white'}}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
@@ -107,9 +104,7 @@ const LabLanding = () => {
                               <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
                               <CardText>Case Description</CardText>
                              </CardBody>
-                      </Card>
-                      </Link>
-                      
+                      </Card>                      
                   </Col>
                 )
             })}

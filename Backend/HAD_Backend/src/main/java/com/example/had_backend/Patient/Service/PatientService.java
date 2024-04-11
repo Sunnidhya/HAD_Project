@@ -6,6 +6,7 @@ import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesDTO;
+import com.example.had_backend.Global.Model.CasesDetailsDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUsersRepository;
@@ -189,5 +190,39 @@ public class PatientService {
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Lab Assigned Successfully");
         return loginMessage;
+    }
+
+    public CasesDetailsDTO getCaseByCaseId(CasesDTO casesDTO) {
+        Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
+
+        CasesDetailsDTO casesDetailsDTO = new CasesDetailsDTO();
+        casesDetailsDTO.setCaseId(cases.getCaseId());
+        casesDetailsDTO.setCaseName(cases.getCaseName());
+        casesDetailsDTO.setCaseDate(cases.getCaseDate());
+        casesDetailsDTO.setDoctorName(cases.getDoctor().getName());
+        if(cases.getRadiologist() != null) {
+            casesDetailsDTO.setRadioName(cases.getRadiologist().getName());
+        }else{
+            casesDetailsDTO.setRadioName("Not yet assigned");
+        }
+        if(cases.getLab() != null) {
+            casesDetailsDTO.setLabName(cases.getLab().getLabName());
+        }else{
+            casesDetailsDTO.setLabName("Not yet assigned");
+        }
+        casesDetailsDTO.setPatientName(cases.getPatient().getFullName());
+        casesDetailsDTO.setMarkAsDone(cases.getMarkAsDone());
+        casesDetailsDTO.setCaseDescription(cases.getCaseDescription());
+        casesDetailsDTO.setAge(cases.getImageOb().getFinalDiagnosis().getAge());
+        casesDetailsDTO.setConclusion(cases.getImageOb().getFinalDiagnosis().getConclusion());
+        casesDetailsDTO.setStatus(cases.getImageOb().getFinalDiagnosis().getStatus());
+        casesDetailsDTO.setTherapy(cases.getImageOb().getFinalDiagnosis().getTherapy());
+        casesDetailsDTO.setMedicalHistory(cases.getImageOb().getFinalDiagnosis().getMedicalHistory());
+        casesDetailsDTO.setRadiologistConclusion(cases.getImageOb().getFinalDiagnosis().getRadiologistConclusion());
+        casesDetailsDTO.setTreatmentRecommendation(cases.getImageOb().getFinalDiagnosis().getTreatmentRecommendations());
+        casesDetailsDTO.setPrescriptionURL(cases.getImageOb().getPrescriptionURL());
+        casesDetailsDTO.setScannedImageURL(cases.getImageOb().getScannedImageURL());
+        casesDetailsDTO.setSurgery(cases.getImageOb().getFinalDiagnosis().getSurgery());
+        return casesDetailsDTO;
     }
 }

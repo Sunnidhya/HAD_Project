@@ -2,30 +2,44 @@ import imgside from "../../../Resources/AppLogo.png";
 import React, { useState, useEffect, createRef } from "react";
 import logout from "../../../Resources/log-out.png";
 import "./DoctorChat.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import DwvComponent from "../../../DViewer/DwvComponent";
 import { createFileName, useScreenshot } from "use-react-screenshot";
-import { getDownloadURL, getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadString,
+} from "firebase/storage";
 import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
+import { getCaseById } from "../../../Network/APIendpoints";
+import { request } from "../../../Network/axiosHelper";
+import DwvComponentUpload from "../../../DViewer/DwvComponentUpload";
 
 const DoctorChat = () => {
   let nav = useNavigate();
-  let dateVal = new Date()
+  let dateVal = new Date();
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [image, setImage] = useState(null);
   const [ssImg, setSSImg] = useState();
-  const [dateTime, setDateTime] = useState('');
+  const [dateTime, setDateTime] = useState("");
   const [blob, setBlob] = useState(null);
-  const ref1 = createRef(null)
-  const [value, setValue] = useState('');
+  const ref1 = createRef(null);
+  const [value, setValue] = useState("");
+  const [caseObj, setCaseObj] = useState(null);
+  const [dicomImage, setDicomImage] = useState(null);
+
+  const loc = useLocation();
+  const { caseIdValue } = loc.state || {};
 
   const [screenshot, takeScreenshot] = useScreenshot({
-    type: 'image/jpeg',
-    quality: 1.0
-  })
+    type: "image/jpeg",
+    quality: 1.0,
+  });
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -48,7 +62,7 @@ const DoctorChat = () => {
   };
 
   const handleListItemClick = (index) => {
-    alert(index)
+    alert(index);
   };
 
   const handleImageChange = (event) => {
@@ -65,12 +79,16 @@ const DoctorChat = () => {
       const date = dateObject.toLocaleDateString();
       const time = dateObject.toLocaleTimeString();
       setDateTime(`${date} ${time}`);
-      console.warn("Data", dateTime)
+      console.warn("Data", dateTime);
 
       const newMessage = {
-
         user: decryptData() + "(You)",
-        text: inputText.split('\n').map((line, i) => <span key={i}>{line}<br /></span>),
+        text: inputText.split("\n").map((line, i) => (
+          <span key={i}>
+            {line}
+            <br />
+          </span>
+        )),
         image: image ? URL.createObjectURL(image) : null,
         timestamp: dateTime,
       };
@@ -104,14 +122,13 @@ const DoctorChat = () => {
         setCanvasImage(image, async (imgBlob) => {
           // Write the blob to the clipboard
           const img = ref(imgDB, `Imgs/${v4()}`);
-          uploadBytes(img, imgBlob).then(data => {
+          uploadBytes(img, imgBlob).then((data) => {
             console.warn("Data", data);
-            getDownloadURL(data.ref).then(value => {
-              console.warn("Data1", value)
+            getDownloadURL(data.ref).then((value) => {
+              console.warn("Data1", value);
               loadImageFromUrl(value);
-            })
-          })
-
+            });
+          });
         });
       });
     } catch (error) {
@@ -124,29 +141,60 @@ const DoctorChat = () => {
       // Fetch the image from the URL
       const response = await fetch(url);
       let blob1 = await response.blob(); // Convert the response to a blob
-      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob1 })]);
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob1 }),
+      ]);
       alert("Screenshot copied to clipboard!");
-
     } catch (error) {
-      console.error('Error loading image:', error);
+      console.error("Error loading image:", error);
     }
   };
 
   const handlePaste = (event) => {
-    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    const items = (event.clipboardData || event.originalEvent.clipboardData)
+      .items;
     for (let index in items) {
       const item = items[index];
-      if (item.kind === 'file') {
+      if (item.kind === "file") {
         const blob = item.getAsFile();
         setImage(blob);
       }
     }
   };
 
+  const loadImageFromUrl1 = async (url) => {
+    try {
+      // Fetch the image from the URL
+      const response = await fetch(url);
+      const blob = await response.blob(); // Convert the response to a blob
+
+      // Create a file object
+      const filename = url.substring(url.lastIndexOf("/") + 1); // Extract filename from the URL
+      const file = new File([blob], filename);
+      setDicomImage(file);
+    } catch (error) {
+      console.error("Error loading image:", error);
+    }
+  };
+
+  useEffect(() => {
+    const data = {
+      caseId: caseIdValue,
+    };
+    request("POST", getCaseById, data)
+      .then((response) => {
+        setCaseObj(response.data);
+        loadImageFromUrl1(response.data.scannedImageURL);
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }, []);
+
   return (
     <div className="Doctor-chat-container">
       <div className="Doc-chat-hor">
-        <div className='logodocchat'>
+        <div className="logodocchat">
           <img src={imgside} id="docchatsideimg" />
         </div>
         <div className="DocchatLogout" onClick={handleLogout}>
@@ -158,7 +206,11 @@ const DoctorChat = () => {
           <div className="chat-container">
             <ul className="chat-list">
               {messages.map((message, index) => (
-                <li key={index} className="chat-item" onClick={() => handleListItemClick(index)}>
+                <li
+                  key={index}
+                  className="chat-item"
+                  onClick={() => handleListItemClick(index)}
+                >
                   <p className="userNameVal">{message.user}</p>
                   <p>{message.text}</p>
                   {message.image && (
@@ -174,25 +226,46 @@ const DoctorChat = () => {
             </ul>
           </div>
           <div className="send-upload">
-            <div className='inputWithButton'>
-              <br /><input placeholder="Enter your text" className="inputTextVal" type="text" value={inputText} onChange={handleInputChange} onPaste={handlePaste} cols={50} style={{ height: 'auto', minHeight: '50px', borderRadius: '4px' }} />
-              <button className="button" onClick={handleSendMessage}>Send</button>
+            <div className="inputWithButton">
+              <br />
+              <input
+                placeholder="Enter your text"
+                className="inputTextVal"
+                type="text"
+                value={inputText}
+                onChange={handleInputChange}
+                onPaste={handlePaste}
+                cols={50}
+                style={{
+                  height: "auto",
+                  minHeight: "50px",
+                  borderRadius: "4px",
+                }}
+              />
+              <button className="button" onClick={handleSendMessage}>
+                Send
+              </button>
               <label for="file-upload" class="custom-file-upload">
                 Choose File
               </label>
-              <input type="file" id="file-upload" onChange={handleImageChange} />
+              <input
+                type="file"
+                id="file-upload"
+                onChange={handleImageChange}
+              />
             </div>
-
           </div>
         </div>
-        <div className="dicom-viewer">
-          <div ref={ref1}>
-            <DwvComponent />
+        {/* {dicomImage && (
+          <div className="dicom-viewer">
+            <div ref={ref1}>
+              <DwvComponent dicomProp={dicomImage} />
+            </div>
+            <button onClick={downloadScreenshot} className="screenshot">
+              Screenshot
+            </button>
           </div>
-
-          <button onClick={downloadScreenshot} className="screenshot">Screenshot</button>
-        </div>
-        <img src={ssImg} />
+        )} */}
       </div>
       <div className="DoctorChat-about-us-section">
         <p>About Us</p>

@@ -10,6 +10,7 @@ import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesDTO;
+import com.example.had_backend.Global.Model.CasesDetailsDTO;
 import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Model.LoginDTO;
@@ -175,5 +176,12 @@ public class DoctorController {
     public ResponseEntity<LoginMessage> markAsDone(@RequestBody @Validated CasesDTO casesDTO) {
         LoginMessage loginMessage= doctorService.markAsDone(casesDTO);
         return ResponseEntity.ok(loginMessage);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/getCaseByCaseId")
+    public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
+        CasesDetailsDTO casesDetailsDTO = doctorService.getCaseByCaseId(casesDTO);
+        return ResponseEntity.ok(casesDetailsDTO);
     }
 }

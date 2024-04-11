@@ -4,26 +4,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImageOb {
-    @Column(nullable = true)
+    @NonNull
     private String prescriptionURL;
 
-    @Column(nullable = true)
+    @NonNull
     private String reportURL;
 
-    @Column(nullable = true)
+    @NonNull
     private String scannedImageURL;
 
-    @Column(nullable = true)
     @Embedded
+    @NonNull
     private FinalDiagnosis finalDiagnosis;
-
-    @OneToOne
-    @JoinColumn(name = "case_id")
-    private Cases cases;
 }

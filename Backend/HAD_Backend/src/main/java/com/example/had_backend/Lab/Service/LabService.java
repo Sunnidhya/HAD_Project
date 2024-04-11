@@ -160,6 +160,7 @@ public class LabService {
         imageOb.setPrescriptionURL(uploadImagesDTO.getPrescriptionURL());
         imageOb.setScannedImageURL(uploadImagesDTO.getScannedImageURL());
         cases.setImageOb(imageOb);
+        iCasesRepository.save(cases);
         loginMessage.setMessage("Images uploaded successfully");
         return loginMessage;
     }

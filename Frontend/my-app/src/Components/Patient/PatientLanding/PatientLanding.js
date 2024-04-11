@@ -42,8 +42,8 @@ const PatientLanding = () => {
     setSearchQuery(event.target.value);
   };
 
-  const goToDetailsPage = (obj) => {
-    nav("/doctor/details")
+  const goToDetailsPage = (objectVal) => {
+    nav('/patient/details', {state: {caseIdVal: objectVal}});
   }
 
   const handleDropdownSelect = (selectedOption, obj, flow) => {
@@ -167,7 +167,7 @@ const PatientLanding = () => {
                             color: "white",
                           }}
                         >
-                          <CardBody onClick={() => goToDetailsPage(obj)} style={{cursor:"pointer"}}>
+                          <CardBody onClick={() => goToDetailsPage(obj.caseId)} style={{cursor:"pointer"}}>
                             <CardTitle tag="h5">
                               Case ID - {obj.caseId}
                             </CardTitle>

@@ -93,7 +93,7 @@ function UploadImage() {
 
     request("POST",uploadImages , data)
       .then((response) => {
-        alert(response.message)
+        alert(response.data.message)
         window.location.reload();
       })
       .catch((error) => {

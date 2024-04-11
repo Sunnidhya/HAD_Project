@@ -93,6 +93,7 @@ class DwvComponent extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { dicomProp } = this.props;
     const { versions, tools, loadProgress, dataLoaded, metaData } = this.state;
 
     const handleToolChange = (event, newTool) => {
@@ -167,6 +168,17 @@ class DwvComponent extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    // Check if dicomProp has changed
+    if (this.props.dicomProp !== prevProps.dicomProp) {
+        if (this.props.dicomProp) {
+            console.warn('Data', 'Hi');
+            // Load files when dicomProp changes
+            this.state.dwvApp.loadFiles([this.props.dicomProp]);
+        }
+    }
   }
 
   componentDidMount() {
