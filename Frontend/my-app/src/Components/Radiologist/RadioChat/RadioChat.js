@@ -16,7 +16,7 @@ import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 import { request } from "../../../Network/axiosHelper";
-import { getCaseById } from "../../../Network/APIendpoints";
+import { getCaseById,insertChat} from "../../../Network/APIendpoints";
 
 const RadioChat = () => {
   let nav = useNavigate();
@@ -31,21 +31,23 @@ const RadioChat = () => {
   const [value, setValue] = useState("");
   const [caseObj, setCaseObj] = useState(null);
   const [dicomImage, setDicomImage] = useState(null);
+  const [chatImage,setChatImage] = useState();
+  const [loadImage,setLoadImage]=useState();
 
   const [screenshot, takeScreenshot] = useScreenshot({
     type: "image/jpeg",
     quality: 1.0,
   });
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const blob = new Blob([reader.result], { type: file.type });
-      setBlob(blob);
-    };
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     const blob = new Blob([reader.result], { type: file.type });
+  //     setBlob(blob);
+  //   };
 
-    reader.readAsArrayBuffer(file);
-  };
+  //   reader.readAsArrayBuffer(file);
+  // };
 
   const loc = useLocation();
   const { caseIdValue } = loc.state || {};
@@ -66,6 +68,13 @@ const RadioChat = () => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    const img = ref(imgDB, `Imgs/${v4()}`);
+    uploadBytes(img, file).then((data) => {
+    getDownloadURL(data.ref).then((value) => {
+    setChatImage(value)
+    alert("Image uploaded to firestore successfully")
+      });
+    });
     setImage(file);
   };
 
@@ -80,21 +89,20 @@ const RadioChat = () => {
       setDateTime(`${date} ${time}`);
       console.warn("Data", dateTime);
 
-      const newMessage = {
-        user: decryptData() + "(You)",
-        text: inputText.split("\n").map((line, i) => (
-          <span key={i}>
-            {line}
-            <br />
-          </span>
-        )),
-        image: image ? URL.createObjectURL(image) : null,
+      const newMessage1 = {
+        caseId:caseObj.caseId,
+         userName: decryptData(),
+         text: inputText,
+         image: image ? chatImage: null,
         timestamp: dateTime,
       };
-
-      setMessages([...messages, newMessage]);
-      setInputText("");
-      setImage(null);
+      request("POST",insertChat , newMessage1)
+      .then((response) => {
+        // loadChatImage(response.data)
+        setCaseObj(response.data)
+      }).catch((error) => {
+        console.warn("Error", error);
+      });
     }
   };
   const img = new Image();
@@ -125,6 +133,7 @@ const RadioChat = () => {
             console.warn("Data", data);
             getDownloadURL(data.ref).then((value) => {
               console.warn("Data1", value);
+              setChatImage(value)
               loadImageFromUrl(value);
             });
           });
@@ -161,6 +170,27 @@ const RadioChat = () => {
     }
   };
 
+  let loadChatImage = async (obj) => {
+    try {
+      // Fetch the image from the 
+      for (let i = 0; i < obj.threads.length; i++) {
+        if(obj.threads[i].imageURL!==null){
+          let url=obj.threads[i].imageURL;
+          const response = await fetch(url);
+          let blob1 = await response.blob();
+          const imgURL=URL.createObjectURL(blob1)
+          obj.threads[i].imageURL=imgURL;
+        }
+       
+      }
+      console.warn("Data",obj)
+      setCaseObj(obj);
+    
+    } catch (error) {
+      console.error("Error loading image:", error);
+    }
+  }; 
+
   const loadImageFromUrl1 = async (url) => {
     try {
       // Fetch the image from the URL
@@ -182,7 +212,7 @@ const RadioChat = () => {
     };
     request("POST", getCaseById, data)
       .then((response) => {
-        setCaseObj(response.data);
+        loadChatImage(response.data);
         loadImageFromUrl1(response.data.scannedImageURL);
       })
       .catch((error) => {
@@ -204,22 +234,22 @@ const RadioChat = () => {
         <div className="chat-wrapper">
           <div className="radio-chat-container">
             <ul className="chat-list">
-              {messages.map((message, index) => (
+            {caseObj && caseObj.threads && caseObj.threads.map((message, index) => (
                 <li
                   key={index}
                   className="chat-item"
                   onClick={() => handleListItemClick(index)}
                 >
-                  <p className="userNameVal">{message.user}</p>
+                  <p className="userNameVal">{message.userName}</p>
                   <p>{message.text}</p>
-                  {message.image && (
+                  {message.imageURL && (
                     <img
-                      src={message.image}
+                      src={message.imageURL}
                       alt="Uploaded"
                       className="chat-image"
                     />
                   )}
-                  <p className="timestamp">{message.timestamp}</p>
+                  <p className="timestamp">{message.timeStamp}</p>
                 </li>
               ))}
             </ul>
@@ -255,7 +285,7 @@ const RadioChat = () => {
             </div>
           </div>
         </div>
-        {/* {dicomImage && (
+        {dicomImage && (
           <div className="dicom-viewer">
             <div ref={ref1}>
               <DwvComponent dicomProp={dicomImage} />
@@ -264,7 +294,7 @@ const RadioChat = () => {
               Screenshot
             </button>
           </div>
-        )} */}
+        )}
       </div>
       <div className="RadioChat-about-us-section">
         <p>About Us</p>

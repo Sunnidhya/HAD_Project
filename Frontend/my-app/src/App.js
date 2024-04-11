@@ -26,6 +26,8 @@ import Dropdown_button from './Components/Form/Dropdown_button';
 import CaseForm from './Components/Form/CaseForm';
 import UploadImage from './Components/Form/UploadImage';
 import RadioChat from './Components/Radiologist/RadioChat/RadioChat';
+import ImageForm from './Components/Form/ImageForm';
+
 
 
 
@@ -34,9 +36,11 @@ function App() {
   const doctorloggedIn = window.localStorage.getItem("isDoctorLoggedIn");
   const labloggedIn = window.localStorage.getItem("isLabLoggedIn");
   const patientloggedIn = window.localStorage.getItem("isPatientLoggedIn");
+ // const imgurl="https://www.researchgate.net/publication/345830022/figure/fig4/AS:957640029003789@1605330583881/Sample-prescription-used-as-input-to-the-GUI-developed-in-the-present-work.png";
   return (
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
+    {/* <Route path="/" element={<ImageForm imageUrl={imgurl}/>}/> */}
     <Route path="/" element={<FirstPage/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
