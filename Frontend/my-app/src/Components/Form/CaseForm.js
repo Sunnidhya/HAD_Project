@@ -8,6 +8,7 @@ import DropdownButton from './Dropdown_button';
 function CaseForm() {
   const [formData, setFormData] = useState({
     caseName: '',
+    caseDescription: '',
     doctorName: '',
     patientName: ''
   });
@@ -89,6 +90,18 @@ function CaseForm() {
               </label>
               <br />
               <label>
+                Case Description:
+                <input
+                  type="text"
+                  name="caseDescription"
+                  placeholder="Enter Case Description"
+                  value={formData.caseDescription}
+                  style={{ border: "1.3px solid" }}
+                  onChange={handleChange}
+                />
+              </label>
+              <br />
+              <label>
                 Doctor User Name:
                 <input
                   type="text"
@@ -105,6 +118,7 @@ function CaseForm() {
                 <DropdownButton
                   patientValue = {patients}
                   onSelect={handleDropdownSelect}
+                  flow = {"Select Patient Name"}
                 />
               </label>
               <br />

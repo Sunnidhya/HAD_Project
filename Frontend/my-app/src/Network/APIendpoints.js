@@ -32,6 +32,11 @@ const laboratoryProfile="/lab/getProfileDetails"
 const doctorProfile="/doctor/getProfileDetails"
 const patientProfie="/patient/getProfileDetails"
 const createcase="/doctor/createCase"
+const assignRadio = "/patient/assignRadiologist"
+const assignLab = "/patient/assignLab"
+const uploadImages = "/lab/uploadImages"
+const getCaseById = "/doctor/getCaseByCaseId"
+const getPatCaseById = "/patient/getCaseByCaseId"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -66,5 +71,10 @@ export {patientLoginAPI,
     createcase,
     doctorChangePassword,
     labPasswordChange,
-    patientChangePassword
+    patientChangePassword,
+    assignRadio,
+    assignLab,
+    uploadImages,
+    getCaseById,
+    getPatCaseById
 }

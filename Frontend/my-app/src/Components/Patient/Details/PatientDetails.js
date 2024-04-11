@@ -2,35 +2,56 @@ import imgmain from '../../../Resources/login-hero.svg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import './PatientDetails.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import scan from '../../../Resources/scanned-image3.webp';
 import prescription from '../../../Resources/prescription1.avif';
 import radiologistreport from '../../../Resources/radioreport.webp';
 import finaldiagnosis from '../../../Resources/finaldiagnosis.avif';
 import admin from '../../../Resources/Picture1.png';
+import { request } from '../../../Network/axiosHelper';
+import { getCaseById, getPatCaseById } from '../../../Network/APIendpoints';
 
 const PatDetails = () => {
 
   let nav = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [caseObj, setCaseObj] = useState(null);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
 
+  const loc = useLocation();
+  const {caseIdVal} = loc.state || {}
+  console.warn("Data", caseIdVal);
+
   const handleLogout = () => {
     localStorage.clear()
     alert('Logout successful!');
-    nav("/doctor")
+    nav("/patient")
   };
 
   const getProfile = () => {
     nav("/patient/profile")
   }
+
+  useEffect(() => {
+    const data = {
+      caseId: caseIdVal
+    };
+
+    request("POST", getCaseById , data)
+      .then((response) => {
+        setCaseObj(response.data);
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }, []);
 
   return (
     <div className="Pat-details-container">
@@ -45,9 +66,9 @@ const PatDetails = () => {
       <div className='Pat-Det-ver'>
         <div className='Pat-Det-ver1'>
           <button className="ProfilePatDetails" style={{ margin: '10px' }} onClick={getProfile}>Profile</button>
-          <p>Consulting Doctor's Name: Samarpita</p>
-          <p>Consulting Radiologist's Name : Samarpita</p>
-          <p>Consulting Lab's Name: Samarpita</p>
+          <p>Consulting Doctor's Name: {caseObj ? caseObj.doctorName : "NA"}</p>
+          <p>Consulting Radiologist's Name : {caseObj ? caseObj.radioName : "NA"}</p>
+          <p>Consulting Lab's Name: {caseObj ? caseObj.labName : "NA"}</p>
         </div>
         <div className='Pat-Det-ver2-inner'>
           <div className="card">

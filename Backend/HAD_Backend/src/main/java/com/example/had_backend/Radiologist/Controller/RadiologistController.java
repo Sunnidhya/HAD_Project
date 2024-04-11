@@ -5,6 +5,8 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
+import com.example.had_backend.Global.Model.CasesDTO;
+import com.example.had_backend.Global.Model.CasesDetailsDTO;
 import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
 import com.example.had_backend.Model.LoginDTO;
@@ -144,5 +146,12 @@ public class RadiologistController {
     public ResponseEntity<List<Radiologist>> getListOfRadiologists() {
         List<Radiologist> list = radiologistService.getAllRadiologists();
         return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @GetMapping("/radiologist/getCaseByCaseId")
+    public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
+        CasesDetailsDTO casesDetailsDTO = radiologistService.getCaseByCaseId(casesDTO);
+        return ResponseEntity.ok(casesDetailsDTO);
     }
 }

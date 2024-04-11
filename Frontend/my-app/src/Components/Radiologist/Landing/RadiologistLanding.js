@@ -31,6 +31,10 @@ const RadioLanding = () => {
     nav("/doctor/profile")
   }
 
+  const goToDetailsPage = (objectVal) => {
+    nav('/radiologist/chat', {state: {caseIdValue: objectVal}});
+  }
+
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
@@ -46,8 +50,6 @@ const RadioLanding = () => {
         console.warn("Error", error);
       });
   }, []);
-
-  const numberOfCards = 24;
   
   return (
     <div class="Radio-landing-container">
@@ -82,8 +84,7 @@ const RadioLanding = () => {
                   const formattedDateTime = `${year}-${month}-${day}`;
                   return (
                     <Col>
-                      <Link to={`/card/${i + 1}`} className="LinkStyle">
-                        <Card className='RadioLandingcard' style={{ backgroundColor: obj.markAsDone ? 'lightgreen' : 'red', color: 'white' }}>
+                        <Card className='RadioLandingcard' style={{ backgroundColor: obj.markAsDone ? 'lightgreen' : 'red', color: 'white', cursor:'pointer' }} onClick={() => goToDetailsPage(obj.caseId)}>
                           <CardBody>
                             <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle><br />
                             <CardSubtitle tag="h6" >Case Name - {obj.caseName}</CardSubtitle>
@@ -94,8 +95,6 @@ const RadioLanding = () => {
                             <CardText>Case Description</CardText>
                           </CardBody>
                         </Card>
-                      </Link>
-
                     </Col>
                   )
                 })}

@@ -22,8 +22,9 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import Logout from "../../Form/Logout";
-import { getCasesofPatient, getListOfLabs, getListOfRadio } from "../../../Network/APIendpoints";
+import { assignLab, assignRadio, getCasesofPatient, getListOfLabs, getListOfRadio } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
+import DropdownButton from "../../Form/Dropdown_button";
 const PatientLanding = () => {
   let nav = useNavigate();
 
@@ -41,10 +42,42 @@ const PatientLanding = () => {
     setSearchQuery(event.target.value);
   };
 
+  const goToDetailsPage = (objectVal) => {
+    nav('/patient/details', {state: {caseIdVal: objectVal}});
+  }
+
+  const handleDropdownSelect = (selectedOption, obj, flow) => {
+    if(flow === "Select Radiologist Name"){
+      const data ={
+        caseId: obj.caseId,
+        radiologistId: selectedOption.userId
+      }
+      request("POST", assignRadio, data)
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+    }else if(flow === "Select Lab Name"){
+      const data ={
+        caseId: obj.caseId,
+        labId: selectedOption.userId
+      }
+      request("POST", assignLab, data)
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+    }
+  };
+
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
-      userName: decryptedData,
+      userName: decryptedData
     };
 
     request("POST", getCasesofPatient, data)
@@ -123,18 +156,18 @@ const PatientLanding = () => {
                   const seconds = date.getSeconds().toString().padStart(2, "0");
                   const formattedDateTime = `${year}-${month}-${day}`;
                   return (
+                    <>
                     <Col>
-                      <Link to={`/card/${i + 1}`} className="LinkStyle">
                         <Card
                           className="PatientLandingcard"
                           style={{
                             backgroundColor: obj.markAsDone
-                              ? "lightgreen"
-                              : "red",
+                              ? "#5ce495"
+                              : "#b45f5f",
                             color: "white",
                           }}
                         >
-                          <CardBody>
+                          <CardBody onClick={() => goToDetailsPage(obj.caseId)} style={{cursor:"pointer"}}>
                             <CardTitle tag="h5">
                               Case ID - {obj.caseId}
                             </CardTitle>
@@ -154,21 +187,27 @@ const PatientLanding = () => {
                               Case Date - {formattedDateTime}
                             </CardSubtitle>
                             <CardText>Case Description</CardText>
-                            <br />
-                            <button
-                              style={{ margin: "10px" }}
-                              onClick={getProfile}
-                            >
-                              Add Lab{" "}
-                            </button>
-                            <br />
-                            <button style={{ margin: "10px" }}>
-                              Add Radiologist
-                            </button>
                           </CardBody>
+                          {(obj.radioName === "Not yet assigned" || obj.labName === "Not yet assigned") &&  
+                          <div className="buttonsToUse">
+                          {obj.radioName === "Not yet assigned" &&
+                            <DropdownButton
+                            patientValue = {radioList}
+                            onSelect={(selectedValue) => handleDropdownSelect(selectedValue, obj, "Select Radiologist Name")}
+                            flow = {"Select Radiologist Name"}
+                          />}
+                            <br />
+                            {obj.labName === "Not yet assigned" && 
+                            <DropdownButton
+                            patientValue = {labList}
+                            onSelect={(selectedValue) => handleDropdownSelect(selectedValue, obj, "Select Lab Name")}
+                            flow = {"Select Lab Name"}
+                          />}
+                          </div>
+                          }
                         </Card>
-                      </Link>
                     </Col>
+                    </>
                   );
                 })}
               </Row>

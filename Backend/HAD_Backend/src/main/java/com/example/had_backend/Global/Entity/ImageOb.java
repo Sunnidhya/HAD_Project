@@ -1,32 +1,26 @@
 package com.example.had_backend.Global.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-
-@Entity
+@Embeddable
 @Data
-@Table(name = "imageob")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ImageOb {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "case_image_id")
-    private Integer caseImageId;
-
-    @Column(nullable = true)
+    @NonNull
     private String prescriptionURL;
 
-    @Column(nullable = true)
+    @NonNull
     private String reportURL;
 
-    @Column(nullable = true)
+    @NonNull
     private String scannedImageURL;
 
-    @Column(nullable = true)
     @Embedded
+    @NonNull
     private FinalDiagnosis finalDiagnosis;
-
-    @OneToOne
-    @JoinColumn(name = "case_id")
-    private Cases cases;
 }

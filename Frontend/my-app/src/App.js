@@ -24,6 +24,7 @@ import PrivateRoutes from './Auth/PrivateRoutes';
 import DoctorChat from './Components/Doctor/Chat/DoctorChat';
 import Dropdown_button from './Components/Form/Dropdown_button';
 import CaseForm from './Components/Form/CaseForm';
+import UploadImage from './Components/Form/UploadImage';
 import RadioChat from './Components/Radiologist/RadioChat/RadioChat';
 
 
@@ -37,7 +38,6 @@ function App() {
     <Routes>
     {/* <Route path="/" element={radiologgedIn ?<RadioLanding/> :(doctorloggedIn ?<DoctorLanding/>:(patientloggedIn ? <PatientLanding/>:(labloggedIn ?<LabLanding/> :<FirstPage/>)))}/> */}
     <Route path="/" element={<FirstPage/>}/>
-    <Route path="/doctorchat" element={<DoctorChat/>}/>
     <Route path="/admin" element={<AdminLogin/>}/>
     <Route path="/doctor" element={<DoctorLogin/>}/>
     <Route path="/radiologist" element={<RadioLogin/>}/>
@@ -45,6 +45,7 @@ function App() {
     <Route path="/patient" element={<PatientLogin/>}/>
     <Route path="/patient/register" element={<RegPatient/>}/>
     <Route path="/admin/landing" element={<AdminLanding/>}/>
+    <Route path="/admin/homepage" element={<AdminHomePage/>}/>
     <Route element={<PrivateRoutes/>}>
          <Route path="/doctor/landing" element={<DoctorLanding/>}/>
          <Route path="/patient/landing" element={<PatientLanding/>}/>
@@ -57,9 +58,9 @@ function App() {
          <Route path="/doctor/details" element={<DoctorDetails/>}/>
          <Route path="/patient/details" element={<PatDetails/>}/>
          <Route path="/patient/register" element={<RegPatient/>}/>
+         <Route path="/doctor/chat" element={<DoctorChat/>}/>
+         <Route path="/radiologist/chat" element={<RadioChat/>}/>
     </Route>
-    <Route path="/admin/homepage" element={<AdminHomePage/>}/>
-    <Route path="/doctor/chat" element={<DoctorChat/>}/>
   </Routes>
   );
 }

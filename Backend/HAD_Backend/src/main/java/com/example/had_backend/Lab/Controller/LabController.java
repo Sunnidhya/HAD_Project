@@ -7,6 +7,7 @@ import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
 import com.example.had_backend.Global.Model.CasesReturnDTO;
 import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Model.UploadImagesDTO;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Model.LabChangePasswordDTO;
 import com.example.had_backend.Lab.Model.LabRegistrationDTO;
@@ -144,6 +145,13 @@ public class LabController {
     public ResponseEntity<List<Lab>> getListOfLabs() {
         List<Lab> list = labService.getAllLabs();
         return ResponseEntity.ok(list);
+    }
+
+    @CrossOrigin
+    @PostMapping("/lab/uploadImages")
+    public ResponseEntity<LoginMessage> uploadPrescriptionScannedImage(@RequestBody @Validated UploadImagesDTO uploadImagesDTO) {
+        LoginMessage message = labService.uploadImages(uploadImagesDTO);
+        return ResponseEntity.ok(message);
     }
 }
 

@@ -47,8 +47,11 @@ public class Cases {
     @OneToOne(mappedBy = "cases", cascade = CascadeType.ALL)
     private Chats chats;
 
-    @OneToOne(mappedBy = "cases", cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    @Embedded
     private ImageOb imageOb;
 
     private Boolean markAsDone=false;
+
+    private String caseDescription="No description to show";
 }

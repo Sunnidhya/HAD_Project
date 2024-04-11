@@ -26,6 +26,10 @@ const DoctorLanding = () => {
   const [showPopupCase, setShowPopupCase] = useState(false);
   const [doctor, setDoctor] = useState([]);
 
+  const goToDetailsPage = (objectVal) => {
+    nav('/doctor/details', {state: {caseIdVal: objectVal}});
+  }
+
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
   };
@@ -57,8 +61,6 @@ const DoctorLanding = () => {
         console.warn("Error", error);
       });
   }, []);
-
-  const numberOfCards = 24;
   
   return (
     <div class="Doctor-landing-container">
@@ -95,8 +97,7 @@ const DoctorLanding = () => {
                 const formattedDateTime = `${year}-${month}-${day}`;
                 return (
                   <Col>
-                      <Link to={`/doctor/details`}className="LinkStyle">
-                        <Card className='DoctorLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red', color: 'white'}}>
+                        <Card className='DoctorLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red', color: 'white', cursor: 'pointer'}} onClick={() => goToDetailsPage(obj.caseId)}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
                               <CardSubtitle tag="h6">Case Name - {obj.caseName}</CardSubtitle>
@@ -104,11 +105,9 @@ const DoctorLanding = () => {
                               <CardSubtitle tag="h6" >Radiologist Name - {obj. radioName}</CardSubtitle>
                               <CardSubtitle tag="h6" >Lab Name - {obj.labName}</CardSubtitle>
                               <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
-                              <CardText>Case Description</CardText>
+                              <CardText>Case Description - {obj.caseDescription}</CardText>
                              </CardBody>
                       </Card>
-                      </Link>
-                      
                   </Col>
                 )
             })}
