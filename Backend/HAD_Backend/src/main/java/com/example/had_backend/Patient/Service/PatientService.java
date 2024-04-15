@@ -92,7 +92,6 @@ public class PatientService {
         patient.setUserName(register.getUserName());
         String hashedP = passwordConfig.encode(register.getPassword());
         patient.setPassword(hashedP);
-        patient.setPassword(register.getPassword());
         iPatientRegistrationRepository.save(patient);
 
         LoginMessage loginMessage = new LoginMessage();

@@ -77,7 +77,6 @@ public class LabService {
         lab.setContactNo(labRegistrationDTO.getContactNo());
         lab.setEmail(labRegistrationDTO.getEmail());
         lab.setUserName(labRegistrationDTO.getUserName());
-        lab.setPassword(labRegistrationDTO.getPassword());
         String hashedP = passwordConfig.encode(labRegistrationDTO.getPassword());
         lab.setPassword(hashedP);
         iLabRegistrationRepository.save(lab);
