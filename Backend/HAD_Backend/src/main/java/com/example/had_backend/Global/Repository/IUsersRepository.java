@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.io.Serializable;
 
 public interface IUsersRepository extends JpaRepository<Users, Serializable> {
-    @Query("SELECT e FROM Users e where e.userName = :username AND e.password = :password")
-    Users findByUserNameAndPassword(@Param("username") String userName, @Param("password") String password);
+    @Query("SELECT e FROM Users e where e.userName = :username")
+    Users findByUserNameAndPassword(@Param("username") String userName);
 
 
     @Query("SELECT u FROM Users u where u.userName = :username")

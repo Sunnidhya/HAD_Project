@@ -21,6 +21,7 @@ import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Repository.IPatientRegistrationRepository;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRepository;
+import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,10 +49,19 @@ public class PatientService {
     @Autowired
     private IUsersRepository iUsersRepository;
 
+    private PasswordConfig passwordConfig = new PasswordConfig();
+
     public Users authenticateUser(LoginDTO login) {
         Users users = new Users();
         try {
-            return iUsersRepository.findByUserNameAndPassword(login.getUserName() , login.getPassword());
+            Users user1 = iUsersRepository.findByUserNameAndPassword(login.getUserName());
+            Boolean flag = passwordConfig.matches(login.getPassword(), user1.getPassword());
+            if(flag)
+            {
+                return user1;
+            }else{
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,6 +90,8 @@ public class PatientService {
         patient.setEmail(register.getEmail());
         patient.setFullName(register.getFullName());
         patient.setUserName(register.getUserName());
+        String hashedP = passwordConfig.encode(register.getPassword());
+        patient.setPassword(hashedP);
         patient.setPassword(register.getPassword());
         iPatientRegistrationRepository.save(patient);
 
