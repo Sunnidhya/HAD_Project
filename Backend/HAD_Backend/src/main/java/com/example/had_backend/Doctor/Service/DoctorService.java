@@ -14,6 +14,7 @@ import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,8 @@ public class DoctorService {
     @Autowired
     private IChatRepository iChatRepository;
 
+    private PasswordConfig passwordConfig = new PasswordConfig();
+
     public LoginMessage register(DoctorRegistrationDTO doctorRegistrationDTO) {
         Doctor doctor = new Doctor();
 
@@ -65,7 +68,8 @@ public class DoctorService {
         doctor.setEmail(doctorRegistrationDTO.getEmail());
         doctor.setDepartment(doctorRegistrationDTO.getDept());
         doctor.setUserName(doctorRegistrationDTO.getUserName());
-        doctor.setPassword(doctorRegistrationDTO.getPassword());
+        String hashedP = passwordConfig.encode(doctorRegistrationDTO.getPassword());
+        doctor.setPassword(hashedP);
         iDoctorRegistrationRepository.save(doctor);
 
         LoginMessage loginMessage = new LoginMessage();
@@ -178,7 +182,13 @@ public class DoctorService {
     public Users authenticateUser(LoginDTO login) {
         Users users = new Users();
         try {
-            return iUsersRepository.findByUserNameAndPassword(login.getUserName() , login.getPassword());
+            Users users1 = iUsersRepository.findByUserNameAndPassword(login.getUserName());
+            Boolean flag = passwordConfig.matches(login.getPassword(), users1.getPassword());
+            if(flag){
+                return users1;
+            }else{
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
