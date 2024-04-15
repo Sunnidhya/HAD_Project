@@ -188,4 +188,11 @@ public class DoctorController {
         CasesDetailsDTO casesDetailsDTO = doctorService.insertChatThread(casesChatDTO);
         return ResponseEntity.ok(casesDetailsDTO);
     }
+
+    @CrossOrigin
+    @PostMapping("/doctor/updateReport")
+    public ResponseEntity<CasesDetailsDTO> updateReport(@RequestBody @Validated CasesDetailsDTO casesDetailsDTO) {
+        CasesDetailsDTO caseDetailsDTO = doctorService.updateReport(casesDetailsDTO);
+        return ResponseEntity.ok(casesDetailsDTO);
+    }
 }
