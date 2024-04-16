@@ -159,7 +159,7 @@ public class DoctorController {
         Date date = new Date();
         cases.setCaseName(casesDTO.getCaseName());
         cases.setCaseDate(date.getTime());
-        cases.setCaseDescription(cases.getCaseDescription());
+        cases.setCaseDescription(casesDTO.getCaseDescription());
         Doctor doctor = doctorService.getDoctorByUserName(casesDTO.getDoctorName());
         Patient patient = patientService.getPatientByUserName(casesDTO.getPatientName());
         cases.setDoctor(doctor);

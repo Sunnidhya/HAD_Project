@@ -228,13 +228,15 @@ public class DoctorService {
         casesDetailsDTO.setMarkAsDone(cases.getMarkAsDone());
         casesDetailsDTO.setCaseDescription(cases.getCaseDescription());
         List<ThreadsDTO> threadsF = new ArrayList<>();
-        for(Threads threads: cases.getChats().getThreads()){
-            ThreadsDTO threadsDTO = new ThreadsDTO();
-            threadsDTO.setText(threads.getText());
-            threadsDTO.setTimeStamp(threads.getTimeStamp());
-            threadsDTO.setImageURL(threads.getImageURL());
-            threadsDTO.setUserName(threads.getUserName());
-            threadsF.add(threadsDTO);
+        if(cases.getChats() != null){
+            for(Threads threads: cases.getChats().getThreads()){
+                ThreadsDTO threadsDTO = new ThreadsDTO();
+                threadsDTO.setText(threads.getText());
+                threadsDTO.setTimeStamp(threads.getTimeStamp());
+                threadsDTO.setImageURL(threads.getImageURL());
+                threadsDTO.setUserName(threads.getUserName());
+                threadsF.add(threadsDTO);
+            }
         }
         casesDetailsDTO.setThreads(threadsF);
 
