@@ -18,6 +18,7 @@ import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 import { getCaseById, insertChat } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
 import DwvComponentUpload from "../../../DViewer/DwvComponentUpload";
+import Logout from "../../Form/Logout";
 
 const DoctorChat = () => {
   let nav = useNavigate();
@@ -34,6 +35,7 @@ const DoctorChat = () => {
   const [dicomImage, setDicomImage] = useState(null);
   const [chatImage,setChatImage] = useState();
   const [loadImage,setLoadImage]=useState();
+  const [showPopup, setShowPopup] = useState(false);
 
   const loc = useLocation();
   const { caseIdValue } = loc.state || {};
@@ -102,6 +104,7 @@ const DoctorChat = () => {
       .then((response) => {
         // loadChatImage(response.data)
         setCaseObj(response.data)
+       
         newMessage1=null
       }).catch((error) => {
         console.warn("Error", error);
@@ -194,6 +197,10 @@ const DoctorChat = () => {
     }
   };
 
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
   const loadImageFromUrl1 = async (url) => {
     try {
       // Fetch the image from the URL
@@ -229,7 +236,7 @@ const DoctorChat = () => {
         <div className="logodocchat">
           <img src={imgside} id="docchatsideimg" />
         </div>
-        <div className="DocchatLogout" onClick={handleLogout}>
+        <div className="DocchatLogout" onClick={togglePopup}>
           <img src={logout} alt="Logout" className="doc-input-icon1" />
         </div>
       </div>
@@ -260,9 +267,10 @@ const DoctorChat = () => {
           <div className="send-upload">
             <div className="inputWithButton">
               <br />
-              <input
+              <input 
                 placeholder="Enter your text"
-                className="inputTextVal"
+                className="docinput"
+                id="docinput1"
                 type="text"
                 value={inputText}
                 onChange={handleInputChange}
@@ -280,7 +288,7 @@ const DoctorChat = () => {
               <label for="file-upload" class="custom-file-upload">
                 Choose File
               </label>
-              <input
+              <input className="docinput"
                 type="file"
                 id="file-upload"
                 onChange={handleImageChange}
@@ -301,6 +309,15 @@ const DoctorChat = () => {
       </div>
       <div className="DoctorChat-about-us-section">
         <p>About Us</p>
+      </div>
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <Logout userType="doctor"/>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

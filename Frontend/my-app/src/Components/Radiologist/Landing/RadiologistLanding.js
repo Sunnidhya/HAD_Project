@@ -72,7 +72,7 @@ const RadioLanding = () => {
         <div className='Radio-Land-ver2'>
           <div className="Radio-card">
             <Container>
-              <Row xs={3}>
+              <Row xs={2}>
                 {radiologist.map((obj, i) => {
                   const date = new Date(obj.caseDate);
                   const year = date.getFullYear();

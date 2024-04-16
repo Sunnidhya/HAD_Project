@@ -27,48 +27,45 @@ const DoctorProfile = () => {
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
-        userName: decryptedData
+      userName: decryptedData
     };
-  request("POST", doctorProfile, data)
-    .then((response) => {
-      setdocProfile(response.data);
-      // console.warn("Data",response)
-    })
-    .catch((error) => {
-      console.warn("Error", error);
-    });
-}, []);
+    request("POST", doctorProfile, data)
+      .then((response) => {
+        setdocProfile(response.data);
+        // console.warn("Data",response)
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  }, []);
   return (
-      
-      <div class="Doctor-login-container">
-      <div class="Doctor-Login-hor">
+
+    <div className="Doctor-profile-container">
+      <div className="Doctor-profile-hor">
         <div>
-          <img src={imgside} id="profilesideimg"/>
+          <img src={imgside} id="doctorprofilesideimg" />
         </div>
-        <div className='divisions1'>
-          <h2 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h2>
-        </div>
+     </div>
+
+      <div className="Doctor-container">
+        <div className="Doctor-picture">
+          <img src={radpic} alt="Profile Picture" /><br />
+          <button className="Doctor-edit-button" onclick="editProfile()">Update Profile</button><br />
+          <button className="Doctor-change-button" onClick={() => changePassword()} >Change Password</button>
         </div>
 
-        <div class="Doctor-container">
-        <div class="Doctor-picture">
-            <img src={radpic} alt="Profile Picture"/><br/>
-            <button class="Doctor-edit-button" onclick="editProfile()">Update Profile</button><br/>
-            <button class="Doctor-change-button" onClick={() => changePassword()} >Change Password</button>
-        </div>
-        
         {docProfile && (
-        <div>
-            <h2>{docProfile.name}</h2><br/>
+          <div className='doctormainprofile'>
+            <h2>{docProfile.name}</h2><br />
             <p><b>Degree: {docProfile.degree}</b></p>
             <p><b>Specialization: {docProfile.specialization}</b></p>
             <p><b>UserName: {docProfile.userName}</b></p>
             <p><b>Department: {docProfile.department}</b></p>
             <p><b>Email: {docProfile.email}</b></p>
-        </div>
-    )}
-       </div>
-        {/* About Us Section */}
+          </div>
+        )}
+      </div>
+      {/* About Us Section */}
       <div className="Doctor-about-us-section">
         <p>About Us</p>
       </div>
@@ -76,12 +73,12 @@ const DoctorProfile = () => {
         {showPopup && (
           <div className="popup-overlay" onClick={changePassword}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-            <ChangePassword  userProp={userType}/>
-          </div>
+              <ChangePassword userProp={userType} />
+            </div>
           </div>
         )}
       </div>
     </div>
-    );
+  );
 }
 export default DoctorProfile;
