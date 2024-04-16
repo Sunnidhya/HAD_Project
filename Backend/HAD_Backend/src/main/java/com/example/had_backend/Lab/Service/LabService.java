@@ -16,6 +16,7 @@ import com.example.had_backend.Lab.Model.LabRegistrationDTO;
 import com.example.had_backend.Lab.Repository.ILabRegistrationRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +39,17 @@ public class LabService {
     @Autowired
     private IUsersRepository iUsersRepository;
 
+    private PasswordConfig passwordConfig = new PasswordConfig();
+
     public Users authenticateUser(LoginDTO login) {
         Users users = new Users();
         try {
-            return iUsersRepository.findByUserNameAndPassword(login.getUserName() , login.getPassword());
+            Users user1 = iUsersRepository.findByUserNameAndPassword(login.getUserName());
+            Boolean flag = passwordConfig.matches(login.getPassword(), user1.getPassword());
+            if(flag){
+                return user1;
+            }else{
+                return null;            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,7 +77,8 @@ public class LabService {
         lab.setContactNo(labRegistrationDTO.getContactNo());
         lab.setEmail(labRegistrationDTO.getEmail());
         lab.setUserName(labRegistrationDTO.getUserName());
-        lab.setPassword(labRegistrationDTO.getPassword());
+        String hashedP = passwordConfig.encode(labRegistrationDTO.getPassword());
+        lab.setPassword(hashedP);
         iLabRegistrationRepository.save(lab);
 
         LoginMessage loginMessage = new LoginMessage();

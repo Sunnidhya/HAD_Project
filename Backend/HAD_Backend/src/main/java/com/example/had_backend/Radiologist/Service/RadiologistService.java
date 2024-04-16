@@ -16,6 +16,7 @@ import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.Radiologist.Model.RadiologistChangePasswordDTO;
 import com.example.had_backend.Radiologist.Model.RadiologistRegistrationDTO;
 import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRepository;
+import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,17 @@ public class RadiologistService {
     @Autowired
     private IUsersRepository iUsersRepository;
 
+    PasswordConfig passwordConfig = new PasswordConfig();
     public Users authenticateUser(LoginDTO login) {
         Users users = new Users();
         try {
-            return iUsersRepository.findByUserNameAndPassword(login.getUserName() , login.getPassword());
+            Users user1=iUsersRepository.findByUserNameAndPassword(login.getUserName());
+            Boolean flag=passwordConfig.matches(login.getPassword(), user1.getPassword());
+            if(flag){
+                return user1;
+            }else{
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +79,8 @@ public class RadiologistService {
         radiologist.setEmail(radiologistRegistrationDTO.getEmail());
         radiologist.setDepartment(radiologistRegistrationDTO.getDept());
         radiologist.setUserName(radiologistRegistrationDTO.getUserName());
-        radiologist.setPassword(radiologistRegistrationDTO.getPassword());
+        String hashedP = passwordConfig.encode(radiologistRegistrationDTO.getPassword());
+        radiologist.setPassword(hashedP);
         iRadiologistRegistrationRepository.save(radiologist);
 
         LoginMessage loginMessage = new LoginMessage();
