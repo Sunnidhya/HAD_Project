@@ -120,7 +120,7 @@
 }
 
 
-input {
+.docinput {
     /* Tell the input to use all the available space */
     flex:2;
     /* And hide the input's outline, so the form looks like the outline */
@@ -128,14 +128,14 @@ input {
   }
   
   /* remove the input focus blue box, it will be in the wrong place. */
-  input:focus {
+  .docinput:focus {
     outline: none;
   }
   
   /* Add the focus effect to the form so it contains the button */
-  form:focus-within { 
+  /* form:focus-within { 
     outline: 1px solid blue 
-  }
+  } */
   
   .button {
     /* Just a little styling to make it pretty */

@@ -259,7 +259,7 @@ const RadioChat = () => {
               <br />
               <input
                 placeholder="Enter your text"
-                className="inputTextVal"
+                className="radinput"
                 type="text"
                 value={inputText}
                 onChange={handleInputChange}
@@ -278,6 +278,7 @@ const RadioChat = () => {
                 Choose File
               </label>
               <input
+                className="radinput"
                 type="file"
                 id="radio-file-upload"
                 onChange={handleImageChange}

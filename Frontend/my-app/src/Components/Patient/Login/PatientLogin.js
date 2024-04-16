@@ -1,4 +1,4 @@
-import imgmain from '../../../Resources/patient6.avif';
+import imgmain from '../../../Resources/scanned-image.jpg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import React,{useState, useEffect} from "react";
