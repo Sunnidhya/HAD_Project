@@ -14,6 +14,7 @@ import radiologistreport from '../../../Resources/radioreport.webp';
 import finaldiagnosis from '../../../Resources/finaldiagnosis.avif';
 import { getCaseById } from '../../../Network/APIendpoints';
 import { request } from '../../../Network/axiosHelper';
+import Logout from '../../Form/Logout';
 
 const DoctorDetails = () => {
 
@@ -21,9 +22,14 @@ const DoctorDetails = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [caseObj, setCaseObj] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
   };
 
   const loc = useLocation();
@@ -63,7 +69,7 @@ const DoctorDetails = () => {
         <div className='logodocdet'>
           <img src={imgside} id="docdetsideimg" />
         </div>
-        <div className="DocDetLogout" onClick={handleLogout}>
+        <div className="DocDetLogout" onClick={togglePopup}>
           <img src={logout} alt="Logout" className="doc-input-icon1" />
         </div>
       </div>
@@ -120,6 +126,15 @@ const DoctorDetails = () => {
       </div>
       <div className="doctor-details-about-us-section">
         <p>About Us</p>
+      </div>
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <Logout userType="doctor"/>
+            </div>
+          </div>
+        )}
       </div>
     </div>
 

@@ -70,20 +70,20 @@ const RegPatient = () => {
     <div className="Patient-login-container">
       <div className="Patient-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" alt="App Logo" />
+          <img src={imgside} id="patRseideimg" alt="App Logo" />
         </div>
-        <div className="divisions1">
-          <h1 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h1>
+        <div className="divisions1PR">
+          <h1 className="pageTitlePR">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
       </div>
       <div className="Patient-Login-Ver">
         <div className="Patient-Login-Ver-Left">
-          <img src={imgmain} id="radiomainimg" alt="Patient" />
+          <img src={imgmain} id="patRmainimg" alt="Patient" />
         </div>
         <div className="Patient-Login-Ver-Right">
           <div className="login-container">
             <h3>Register Yourself !!</h3>
-            <form className="login-form">
+            <form className="login-formPR">
               <div className="form-group">
                 <input type="text" id="username" name="username" placeholder='Username' required />
                 <img src={userIcon} alt="Username" className="input-icon" />

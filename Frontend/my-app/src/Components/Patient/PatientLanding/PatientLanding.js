@@ -143,7 +143,7 @@ const PatientLanding = () => {
         <div className="Patient-Land-ver2">
           <div className="Patient-card">
             <Container>
-              <Row xs={1}>
+              <Row xs={2}>
                 {patient.map((obj, i) => {
                   const date = new Date(obj.caseDate);
                   const year = date.getFullYear();

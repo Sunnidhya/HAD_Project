@@ -63,29 +63,29 @@ const DoctorLanding = () => {
   }, []);
   
   return (
-    <div class="Doctor-landing-container">
-     <div class="Doctor-landing-hor">
+    <div className="Doctor-landing-container">
+     <div className="Doctor-landing-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="doclandsideimg" />
         </div>
-        <div class="Search">  
+        <div className="DoctorLandingSearch" id="myInput">  
            <input className="DoctorSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
-        <div class="DoctorLandingLogout" onClick={togglePopup}>  
-           <img src={logout} alt="Logout" className="input-icon2" />
+        <div className="DoctorLandingLogout" onClick={togglePopup}>  
+           <img src={logout} alt="Logout" className="input-doc-land-icon2" />
         </div>
     </div>
 
     <div className='Doctor-Land-ver'>
         <div className='Doctor-Land-ver1'>
         
-            <button style={{ margin: '10px' }} onClick={togglePopupDoctor}>Add new Case</button>
-            <button style={{ margin: '10px' }} onClick={getProfile}>Profile</button>
+            <button style={{ margin: '10px' }} onClick={togglePopupDoctor} className='doc-landing-button'>Add new Case</button>
+            <button style={{ margin: '10px' }} onClick={getProfile} className='doc-landing-button'>Profile</button>
         </div>
         <div className='Doctor-Land-ver2'>
         <div className="Doctor-card">
          <Container>
-            <Row xs={1}>
+            <Row xs={2}>
             {doctor.map((obj, i) => {
                 const date = new Date(obj.caseDate);
                 const year = date.getFullYear();
@@ -97,7 +97,7 @@ const DoctorLanding = () => {
                 const formattedDateTime = `${year}-${month}-${day}`;
                 return (
                   <Col>
-                        <Card className='DoctorLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red', color: 'white', cursor: 'pointer'}} onClick={() => goToDetailsPage(obj.caseId)}>
+                         <Card className='DoctorLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : '#C15556', color: 'white', cursor: 'pointer'}} onClick={() => goToDetailsPage(obj.caseId)}>
                           <CardBody>
                               <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
                               <CardSubtitle tag="h6">Case Name - {obj.caseName}</CardSubtitle>
