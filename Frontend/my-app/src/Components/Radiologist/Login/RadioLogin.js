@@ -97,7 +97,7 @@ const RadioLogin = () => {
     </div>
       <div class="Radio-Login-Ver">
         <div class="Radio-Login-Ver-Left">
-          <img src={imgmain} id="radiomainimg" />
+          <img src={imgmain} id="radiologimg" />
         </div>
         <div class="Radio-Login-Ver-Right">
           <div className="login-container">

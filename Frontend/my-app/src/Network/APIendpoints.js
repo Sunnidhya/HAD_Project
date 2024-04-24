@@ -36,8 +36,11 @@ const assignRadio = "/patient/assignRadiologist"
 const assignLab = "/patient/assignLab"
 const uploadImages = "/lab/uploadImages"
 const getCaseById = "/doctor/getCaseByCaseId"
+const getCaseByCaseRadioId = "/radiologist/getCaseByCaseId"
 const getPatCaseById = "/patient/getCaseByCaseId"
 const insertChat = "/doctor/insertThreadChat"
+const assignNewRadio = "/doctor/assignNewRadiologist"
+const assignNewRadioPat = "/patient/assignRemoveNewRadiologist"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -78,5 +81,8 @@ export {patientLoginAPI,
     uploadImages,
     getCaseById,
     getPatCaseById,
-    insertChat
+    insertChat,
+    getCaseByCaseRadioId,
+    assignNewRadio,
+    assignNewRadioPat
 }

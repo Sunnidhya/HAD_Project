@@ -16,7 +16,7 @@ import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 import { request } from "../../../Network/axiosHelper";
-import { getCaseById,insertChat} from "../../../Network/APIendpoints";
+import { getCaseByCaseRadioId, getCaseById,insertChat} from "../../../Network/APIendpoints";
 
 const RadioChat = () => {
   let nav = useNavigate();
@@ -90,7 +90,8 @@ const RadioChat = () => {
       console.warn("Data", dateTime);
 
       const newMessage1 = {
-        caseId:caseObj.caseId,
+         caseId:caseObj.caseId,
+         radioId:caseObj.threads[0].radioId,
          userName: decryptData(),
          text: inputText,
          image: image ? chatImage: null,
@@ -209,8 +210,9 @@ const RadioChat = () => {
   useEffect(() => {
     const data = {
       caseId: caseIdValue,
+      radioUserName: decryptData()
     };
-    request("POST", getCaseById, data)
+    request("POST", getCaseByCaseRadioId, data)
       .then((response) => {
         loadChatImage(response.data);
         loadImageFromUrl1(response.data.scannedImageURL);
@@ -234,7 +236,8 @@ const RadioChat = () => {
         <div className="chat-wrapper">
           <div className="radio-chat-container">
             <ul className="chat-list">
-            {caseObj && caseObj.threads && caseObj.threads.map((message, index) => (
+            {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
+               && caseObj.threads[0].threadsDTO.map((message, index) => (
                 <li
                   key={index}
                   className="chat-item"

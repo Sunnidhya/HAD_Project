@@ -15,10 +15,11 @@ import {
 import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
-import { getCaseById, insertChat } from "../../../Network/APIendpoints";
+import { assignNewRadio, getCaseById, getListOfRadio, insertChat } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
 import DwvComponentUpload from "../../../DViewer/DwvComponentUpload";
 import Logout from "../../Form/Logout";
+import DropdownButton from "../../Form/Dropdown_button";
 
 const DoctorChat = () => {
   let nav = useNavigate();
@@ -36,6 +37,7 @@ const DoctorChat = () => {
   const [chatImage,setChatImage] = useState();
   const [loadImage,setLoadImage]=useState();
   const [showPopup, setShowPopup] = useState(false);
+  const [radioList, setRadioList] = useState([]);
 
   const loc = useLocation();
   const { caseIdValue } = loc.state || {};
@@ -69,6 +71,22 @@ const DoctorChat = () => {
     alert(index);
   };
 
+  const handleDropdownSelect = (selectedOption, obj, flow) => {
+    if(flow === "Select Radiologist Name"){
+      const data ={
+        caseId: obj.caseId,
+        radiologistId: selectedOption.userId
+      }
+      request("POST", assignNewRadio, data)
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+    }
+  };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     const img = ref(imgDB, `Imgs/${v4()}`);
@@ -93,7 +111,8 @@ const DoctorChat = () => {
       console.warn("Data", dateTime);
 
       const newMessage1 = {
-       caseId:caseObj.caseId,
+        caseId:caseObj.caseId,
+        radioId:caseObj.threads[0].radioId,
         userName: decryptData(),
         text: inputText,
         image: image ? chatImage: null,
@@ -179,6 +198,7 @@ const DoctorChat = () => {
       }
       console.warn("Data",obj)
       setCaseObj(obj);
+      setRadioList(obj.threads)
     
     } catch (error) {
       console.error("Error loading image:", error);
@@ -228,6 +248,14 @@ const DoctorChat = () => {
       .catch((error) => {
         console.warn("Error", error);
       });
+    
+      request("GET", getListOfRadio, data)
+      .then((response) => {
+        setRadioList(response.data);
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
   }, []);
 
   return (
@@ -242,9 +270,26 @@ const DoctorChat = () => {
       </div>
       <div className="chatDicom">
         <div className="chat-wrapper">
+          {caseObj && caseObj.threads.length === 1 && 
+            <div>
+            <DropdownButton
+                              patientValue = {radioList}
+                              onSelect={(selectedValue) => handleDropdownSelect(selectedValue, caseObj, "Select Radiologist Name")}
+                              flow = {"Select Radiologist Name"}/>
+            </div>
+          }
+          {caseObj && caseObj.threads.length === 2 && 
+            <div>
+            <DropdownButton
+                              patientValue = {radioList}
+                              onSelect={(selectedValue) => handleDropdownSelect(selectedValue, caseObj, "Select Radiologist Name")}
+                              flow = {"Select Radiologist Name"}/>
+            </div>
+          }
           <div className="chat-container">
             <ul className="chat-list">
-              {caseObj && caseObj.threads && caseObj.threads.map((message, index) => (
+              {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
+               && caseObj.threads[0].threadsDTO.map((message, index) => (
                 <li
                   key={index}
                   className="chat-item"

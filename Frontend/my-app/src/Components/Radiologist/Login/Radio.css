@@ -109,8 +109,9 @@
 #login_radio:hover {
     background-color:rgb(88, 175, 197);
 }
-#radiomainimg{
-    padding-left: 10%;
+#radiologimg{
+    height: auto;
+    width:100%;
 }
 
 .input-iconR {

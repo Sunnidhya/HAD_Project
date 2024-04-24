@@ -1,12 +1,8 @@
 package com.example.had_backend.Radiologist.Service;
 
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
-import com.example.had_backend.Global.Entity.Cases;
-import com.example.had_backend.Global.Entity.OTP;
-import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Entity.*;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Global.Repository.ICasesRepository;
 import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
@@ -20,9 +16,7 @@ import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class RadiologistService {
@@ -125,7 +119,14 @@ public class RadiologistService {
     }
 
     public List<Cases> getAllCases(SearchResultDTO searchResultDTO) {
-        return iCasesRepository.getAllCasesRadiologist(searchResultDTO.getUserName());
+        List<Cases> cases = new ArrayList<>();
+        Radiologist radiologist = iRadiologistRegistrationRepository.getProfile(searchResultDTO.getUserName());
+        if(radiologist != null){
+            Set<Cases> case1 = radiologist.getCases();
+            cases = new ArrayList<>(case1);
+        }
+//        cases = iCasesRepository.getAllCasesRadiologist(searchResultDTO.getUserName());
+        return cases;
     }
 
     public List<Radiologist> getAllRadiologists() {
@@ -172,9 +173,16 @@ public class RadiologistService {
         casesDetailsDTO.setCaseName(cases.getCaseName());
         casesDetailsDTO.setCaseDate(cases.getCaseDate());
         casesDetailsDTO.setDoctorName(cases.getDoctor().getName());
-        if(cases.getRadiologist() != null) {
-            casesDetailsDTO.setRadioName(cases.getRadiologist().getName());
-        }else{
+        Set<Radiologist> radiologists = cases.getRadiologist();
+        Radiologist radiologistV = null;
+        for(Radiologist radiologist: radiologists){
+            if(radiologist.getUserName().equals(casesDTO.getRadioUserName())){
+                radiologistV = radiologist;
+            }
+        }
+        if (radiologistV != null) {
+            casesDetailsDTO.setRadioName(radiologistV.getName());
+        } else {
             casesDetailsDTO.setRadioName("Not yet assigned");
         }
         if(cases.getLab() != null) {
@@ -185,16 +193,42 @@ public class RadiologistService {
         casesDetailsDTO.setPatientName(cases.getPatient().getFullName());
         casesDetailsDTO.setMarkAsDone(cases.getMarkAsDone());
         casesDetailsDTO.setCaseDescription(cases.getCaseDescription());
-        casesDetailsDTO.setAge(cases.getImageOb().getFinalDiagnosis().getAge());
-        casesDetailsDTO.setConclusion(cases.getImageOb().getFinalDiagnosis().getConclusion());
-        casesDetailsDTO.setStatus(cases.getImageOb().getFinalDiagnosis().getStatus());
-        casesDetailsDTO.setTherapy(cases.getImageOb().getFinalDiagnosis().getTherapy());
-        casesDetailsDTO.setMedicalHistory(cases.getImageOb().getFinalDiagnosis().getMedicalHistory());
-        casesDetailsDTO.setRadiologistConclusion(cases.getImageOb().getFinalDiagnosis().getRadiologistConclusion());
-        casesDetailsDTO.setTreatmentRecommendation(cases.getImageOb().getFinalDiagnosis().getTreatmentRecommendations());
-        casesDetailsDTO.setPrescriptionURL(cases.getImageOb().getPrescriptionURL());
-        casesDetailsDTO.setScannedImageURL(cases.getImageOb().getScannedImageURL());
-        casesDetailsDTO.setSurgery(cases.getImageOb().getFinalDiagnosis().getSurgery());
+
+        List<ChatsDTO> chatsDTOF = new ArrayList<>();
+        for(Chats chats1: cases.getChats()){
+            if(Objects.equals(chats1.getRadioId(), radiologistV != null ? radiologistV.getUserId() : null)){
+                ChatsDTO chatsDTO = new ChatsDTO();
+                chatsDTO.setRadioId(chats1.getRadioId());
+                chatsDTO.setRadioName(chats1.getRadioName());
+                List<ThreadsDTO> threadsF = new ArrayList<>();
+                for(Threads threads1: chats1.getThreads()){
+                    ThreadsDTO threadsDTO = new ThreadsDTO();
+                    threadsDTO.setText(threads1.getText());
+                    threadsDTO.setTimeStamp(threads1.getTimeStamp());
+                    threadsDTO.setImageURL(threads1.getImageURL());
+                    threadsDTO.setUserName(threads1.getUserName());
+                    threadsF.add(threadsDTO);
+                }
+                chatsDTO.setThreadsDTO(threadsF);
+                chatsDTOF.add(chatsDTO);
+            }
+        }
+        casesDetailsDTO.setThreads(chatsDTOF);
+
+        if(cases.getImageOb() != null){
+            if(cases.getImageOb().getFinalDiagnosis() != null){
+                casesDetailsDTO.setAge(cases.getImageOb().getFinalDiagnosis().getAge());
+                casesDetailsDTO.setConclusion(cases.getImageOb().getFinalDiagnosis().getConclusion());
+                casesDetailsDTO.setStatus(cases.getImageOb().getFinalDiagnosis().getStatus());
+                casesDetailsDTO.setTherapy(cases.getImageOb().getFinalDiagnosis().getTherapy());
+                casesDetailsDTO.setMedicalHistory(cases.getImageOb().getFinalDiagnosis().getMedicalHistory());
+                casesDetailsDTO.setRadiologistConclusion(cases.getImageOb().getFinalDiagnosis().getRadiologistConclusion());
+                casesDetailsDTO.setTreatmentRecommendation(cases.getImageOb().getFinalDiagnosis().getTreatmentRecommendations());
+                casesDetailsDTO.setSurgery(cases.getImageOb().getFinalDiagnosis().getSurgery());
+            }
+            casesDetailsDTO.setPrescriptionURL(cases.getImageOb().getPrescriptionURL());
+            casesDetailsDTO.setScannedImageURL(cases.getImageOb().getScannedImageURL());
+        }
         return casesDetailsDTO;
     }
 }

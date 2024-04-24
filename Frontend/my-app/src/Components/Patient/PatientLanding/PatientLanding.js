@@ -22,7 +22,14 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import Logout from "../../Form/Logout";
-import { assignLab, assignRadio, getCasesofPatient, getListOfLabs, getListOfRadio } from "../../../Network/APIendpoints";
+import {
+  assignLab,
+  assignNewRadioPat,
+  assignRadio,
+  getCasesofPatient,
+  getListOfLabs,
+  getListOfRadio,
+} from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
 import DropdownButton from "../../Form/Dropdown_button";
 const PatientLanding = () => {
@@ -33,6 +40,7 @@ const PatientLanding = () => {
   const [patient, setPatient] = useState([]);
   const [radioList, setRadioList] = useState([]);
   const [labList, setLabList] = useState([]);
+  const [radioNew, assignNewRadio] = useState(null);
 
   const togglePopup = () => {
     setShowPopup((prevShowPopup) => !prevShowPopup);
@@ -42,47 +50,71 @@ const PatientLanding = () => {
     setSearchQuery(event.target.value);
   };
 
+  const assignNewRadioByDoc = (flag, obj, obj1) => {
+    const data = {
+      caseId: obj.caseId,
+      radiologistId: obj1.radioId,
+      consent: flag,
+    };
+    request("POST", assignNewRadioPat, data)
+      .then((response) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  };
+
   const goToDetailsPage = (objectVal) => {
-    nav('/patient/details', {state: {caseIdVal: objectVal}});
-  }
+    nav("/patient/details", { state: { caseIdVal: objectVal } });
+  };
 
   const handleDropdownSelect = (selectedOption, obj, flow) => {
-    if(flow === "Select Radiologist Name"){
-      const data ={
+    if (flow === "Select Radiologist Name") {
+      const data = {
         caseId: obj.caseId,
-        radiologistId: selectedOption.userId
-      }
+        radiologistId: selectedOption.userId,
+      };
       request("POST", assignRadio, data)
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.warn("Error", error);
-      });
-    }else if(flow === "Select Lab Name"){
-      const data ={
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.warn("Error", error);
+        });
+    } else if (flow === "Select Lab Name") {
+      const data = {
         caseId: obj.caseId,
-        labId: selectedOption.userId
-      }
+        labId: selectedOption.userId,
+      };
       request("POST", assignLab, data)
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.warn("Error", error);
-      });
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.warn("Error", error);
+        });
     }
   };
 
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
-      userName: decryptedData
+      userName: decryptedData,
     };
 
     request("POST", getCasesofPatient, data)
       .then((response) => {
         setPatient(response.data);
+        console.warn("data", response.data[0].radioDTOList);
+        if (response.data.radioDTOList !== null) {
+          response.data[0].radioDTOList.map((obj, index) => {
+            if (obj.radioConsent === null || obj.radioConsent === false) {
+              console.warn("data", obj);
+              assignNewRadio(obj);
+            }
+          });
+        }
       })
       .catch((error) => {
         console.warn("Error", error);
@@ -96,14 +128,13 @@ const PatientLanding = () => {
         console.warn("Error", error);
       });
 
-      request("GET", getListOfLabs, data)
-        .then((response) => {
-          setLabList(response.data);
-        })
-        .catch((error) => {
-          console.warn("Error", error);
-        });
-
+    request("GET", getListOfLabs, data)
+      .then((response) => {
+        setLabList(response.data);
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
   }, []);
 
   const getProfile = () => {
@@ -157,7 +188,7 @@ const PatientLanding = () => {
                   const formattedDateTime = `${year}-${month}-${day}`;
                   return (
                     <>
-                    <Col>
+                      <Col>
                         <Card
                           className="PatientLandingcard"
                           style={{
@@ -167,7 +198,10 @@ const PatientLanding = () => {
                             color: "white",
                           }}
                         >
-                          <CardBody onClick={() => goToDetailsPage(obj.caseId)} style={{cursor:"pointer"}}>
+                          <CardBody
+                            onClick={() => goToDetailsPage(obj.caseId)}
+                            style={{ cursor: "pointer" }}
+                          >
                             <CardTitle tag="h5">
                               Case ID - {obj.caseId}
                             </CardTitle>
@@ -188,25 +222,73 @@ const PatientLanding = () => {
                             </CardSubtitle>
                             <CardText>Case Description</CardText>
                           </CardBody>
-                          {(obj.radioName === "Not yet assigned" || obj.labName === "Not yet assigned") &&  
-                          <div className="buttonsToUse">
-                          {obj.radioName === "Not yet assigned" &&
-                            <DropdownButton
-                            patientValue = {radioList}
-                            onSelect={(selectedValue) => handleDropdownSelect(selectedValue, obj, "Select Radiologist Name")}
-                            flow = {"Select Radiologist Name"}
-                          />}
-                            <br />
-                            {obj.labName === "Not yet assigned" && 
-                            <DropdownButton
-                            patientValue = {labList}
-                            onSelect={(selectedValue) => handleDropdownSelect(selectedValue, obj, "Select Lab Name")}
-                            flow = {"Select Lab Name"}
-                          />}
-                          </div>
-                          }
+                          {obj.radioDTOList.map((obj1, index) => {
+                            if (
+                              obj1.radioConsent === null ||
+                              obj1.radioConsent === false
+                            ) {
+                              return (
+                                <div key={index}>
+                                  <p>
+                                    New radiologist assigned:{" "}
+                                    {obj1.radioName}
+                                  </p>
+                                  <p>Provide Consent?</p>
+                                  <div>
+                                    <button
+                                      onClick={() =>
+                                        assignNewRadioByDoc(true, obj, obj1)
+                                      }
+                                    >
+                                      Yes
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        assignNewRadioByDoc(false, obj, obj1)
+                                      }
+                                    >
+                                      No
+                                    </button>
+                                  </div>
+                                  <br />
+                                </div>
+                              );
+                            }
+                          })}
+                          {(obj.radioName === "Not yet assigned" ||
+                            obj.labName === "Not yet assigned") && (
+                            <div className="buttonsToUse">
+                              {obj.radioName === "Not yet assigned" && (
+                                <DropdownButton
+                                  patientValue={radioList}
+                                  onSelect={(selectedValue) =>
+                                    handleDropdownSelect(
+                                      selectedValue,
+                                      obj,
+                                      "Select Radiologist Name"
+                                    )
+                                  }
+                                  flow={"Select Radiologist Name"}
+                                />
+                              )}
+                              <br />
+                              {obj.labName === "Not yet assigned" && (
+                                <DropdownButton
+                                  patientValue={labList}
+                                  onSelect={(selectedValue) =>
+                                    handleDropdownSelect(
+                                      selectedValue,
+                                      obj,
+                                      "Select Lab Name"
+                                    )
+                                  }
+                                  flow={"Select Lab Name"}
+                                />
+                              )}
+                            </div>
+                          )}
                         </Card>
-                    </Col>
+                      </Col>
                     </>
                   );
                 })}

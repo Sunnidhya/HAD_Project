@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,7 +30,13 @@ public class Radiologist extends Users{
     @Column(nullable = false)
     private String department;
 
-    @OneToMany(mappedBy = "radiologist")
+//    @OneToMany(mappedBy = "radiologist")
+//    @JsonIgnore
+//    private List<Cases> cases;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "cases_radio",  joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "case_id"))
     @JsonIgnore
-    private List<Cases> cases;
+    private Set<Cases> cases;
 }

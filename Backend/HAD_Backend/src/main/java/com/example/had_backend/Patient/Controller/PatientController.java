@@ -5,16 +5,14 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.CasesReturnDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Patient.Entity.Patient;
 import com.example.had_backend.Patient.Model.PatientChangePasswordDTO;
 import com.example.had_backend.Patient.Model.RegisterDTO;
 import com.example.had_backend.Patient.Service.PatientService;
+import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class PatientController {
@@ -125,9 +124,20 @@ public class PatientController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            if(cases.getRadiologist() != null) {
-                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            }else{
+//            if(cases.getRadiologist() != null) {
+//                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+//            }else{
+//                casesReturnDTO.setRadioName("Not yet assigned");
+//            }
+            Set<Radiologist> radiologists = cases.getRadiologist();
+            if (radiologists != null && !radiologists.isEmpty()) {
+                StringBuilder radiologistNames = new StringBuilder();
+                for (Radiologist radiologist : radiologists) {
+                    radiologistNames.append(radiologist.getName()).append(", ");
+                }
+                radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+                casesReturnDTO.setRadioName(radiologistNames.toString());
+            } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
             if(cases.getLab() != null) {
@@ -138,6 +148,17 @@ public class PatientController {
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
             casesReturnDTO.setMarkAsDone(cases.getMarkAsDone());
             casesReturnDTOS.add(casesReturnDTO);
+            List<RadioDTO> radioDTOS = new ArrayList<>();
+            if(cases.getConsent() != null && cases.getConsent().getRadioDTOS() != null){
+                for(RadioDTO radioDTO : cases.getConsent().getRadioDTOS()){
+                    RadioDTO radioDTO1 = new RadioDTO();
+                    radioDTO1.setRadioId(radioDTO.getRadioId());
+                    radioDTO1.setRadioName(radioDTO.getRadioName());
+                    radioDTO1.setRadioConsent(radioDTO.getRadioConsent());
+                    radioDTOS.add(radioDTO1);
+                }
+            }
+            casesReturnDTO.setRadioDTOList(radioDTOS);
         }
         return ResponseEntity.ok(casesReturnDTOS);
     }
@@ -168,5 +189,12 @@ public class PatientController {
     public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
         CasesDetailsDTO casesDetailsDTO = patientService.getCaseByCaseId(casesDTO);
         return ResponseEntity.ok(casesDetailsDTO);
+    }
+
+    @CrossOrigin
+    @PostMapping("/patient/assignRemoveNewRadiologist")
+    public ResponseEntity<LoginMessage> assignRemoveNewRadiologist(@RequestBody @Validated CasesNewRadioDTO casesNewRadioDTO) {
+        LoginMessage loginMessage = patientService.assignNewRadio(casesNewRadioDTO);
+        return ResponseEntity.ok(loginMessage);
     }
 }

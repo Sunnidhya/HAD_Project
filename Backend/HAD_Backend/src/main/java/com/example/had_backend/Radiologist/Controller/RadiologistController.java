@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class RadiologistController {
@@ -124,9 +125,20 @@ public class RadiologistController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            if(cases.getRadiologist() != null) {
-                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            }else{
+//            if(cases.getRadiologist() != null) {
+//                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+//            }else{
+//                casesReturnDTO.setRadioName("Not yet assigned");
+//            }
+            Set<Radiologist> radiologists = cases.getRadiologist();
+            if (radiologists != null && !radiologists.isEmpty()) {
+                StringBuilder radiologistNames = new StringBuilder();
+                for (Radiologist radiologist : radiologists) {
+                    radiologistNames.append(radiologist.getName()).append(", ");
+                }
+                radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+                casesReturnDTO.setRadioName(radiologistNames.toString());
+            } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
             if(cases.getLab() != null) {
@@ -149,7 +161,7 @@ public class RadiologistController {
     }
 
     @CrossOrigin
-    @GetMapping("/radiologist/getCaseByCaseId")
+    @PostMapping("/radiologist/getCaseByCaseId")
     public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
         CasesDetailsDTO casesDetailsDTO = radiologistService.getCaseByCaseId(casesDTO);
         return ResponseEntity.ok(casesDetailsDTO);

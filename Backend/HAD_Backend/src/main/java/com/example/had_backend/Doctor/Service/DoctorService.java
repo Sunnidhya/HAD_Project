@@ -7,21 +7,17 @@ import com.example.had_backend.Doctor.Model.SearchResultDTO;
 import com.example.had_backend.Doctor.Repository.IDoctorRegistrationRepository;
 import com.example.had_backend.Global.Entity.*;
 import com.example.had_backend.Global.Model.*;
-import com.example.had_backend.Global.Repository.ICasesRepository;
-import com.example.had_backend.Global.Repository.IChatRepository;
-import com.example.had_backend.Global.Repository.IThreadRepository;
-import com.example.had_backend.Global.Repository.IUsersRepository;
+import com.example.had_backend.Global.Repository.*;
 import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Radiologist.Entity.Radiologist;
+import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRepository;
 import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class DoctorService {
@@ -43,7 +39,12 @@ public class DoctorService {
     @Autowired
     private IChatRepository iChatRepository;
 
+    @Autowired
+    private IConsentRepository iConsentRepository;
+
     private PasswordConfig passwordConfig = new PasswordConfig();
+    @Autowired
+    private IRadiologistRegistrationRepository iRadiologistRegistrationRepository;
 
     public LoginMessage register(DoctorRegistrationDTO doctorRegistrationDTO) {
         Doctor doctor = new Doctor();
@@ -214,9 +215,20 @@ public class DoctorService {
         casesDetailsDTO.setCaseName(cases.getCaseName());
         casesDetailsDTO.setCaseDate(cases.getCaseDate());
         casesDetailsDTO.setDoctorName(cases.getDoctor().getName());
-        if(cases.getRadiologist() != null) {
-            casesDetailsDTO.setRadioName(cases.getRadiologist().getName());
-        }else{
+//        if(cases.getRadiologist() != null) {
+//            casesDetailsDTO.setRadioName(cases.getRadiologist().getName());
+//        }else{
+//            casesDetailsDTO.setRadioName("Not yet assigned");
+//        }
+        Set<Radiologist> radiologists = cases.getRadiologist();
+        if (radiologists != null && !radiologists.isEmpty()) {
+            StringBuilder radiologistNames = new StringBuilder();
+            for (Radiologist radiologist : radiologists) {
+                radiologistNames.append(radiologist.getName()).append(", ");
+            }
+            radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+            casesDetailsDTO.setRadioName(radiologistNames.toString());
+        } else {
             casesDetailsDTO.setRadioName("Not yet assigned");
         }
         if(cases.getLab() != null) {
@@ -227,18 +239,37 @@ public class DoctorService {
         casesDetailsDTO.setPatientName(cases.getPatient().getFullName());
         casesDetailsDTO.setMarkAsDone(cases.getMarkAsDone());
         casesDetailsDTO.setCaseDescription(cases.getCaseDescription());
-        List<ThreadsDTO> threadsF = new ArrayList<>();
-        if(cases.getChats() != null){
-            for(Threads threads: cases.getChats().getThreads()){
+//        List<ChatsDTO> threadsF = new ArrayList<>();
+//        if(cases.getChats() != null){
+//            for(Threads threads: cases.getChats().getThreads()){
+//                ChatsDTO chatsDTO = new ChatsDTO();
+//                chatsDTO.setText(threads.getText());
+//                chatsDTO.setTimeStamp(threads.getTimeStamp());
+//                chatsDTO.setImageURL(threads.getImageURL());
+//                chatsDTO.setUserName(threads.getUserName());
+//                threadsF.add(chatsDTO);
+//            }
+//        }
+//        casesDetailsDTO.setThreads(threadsF);
+
+        List<ChatsDTO> chatsDTOF = new ArrayList<>();
+        for(Chats chats1: cases.getChats()){
+            ChatsDTO chatsDTO = new ChatsDTO();
+            chatsDTO.setRadioId(chats1.getRadioId());
+            chatsDTO.setRadioName(chats1.getRadioName());
+            List<ThreadsDTO> threadsF = new ArrayList<>();
+            for(Threads threads1: chats1.getThreads()){
                 ThreadsDTO threadsDTO = new ThreadsDTO();
-                threadsDTO.setText(threads.getText());
-                threadsDTO.setTimeStamp(threads.getTimeStamp());
-                threadsDTO.setImageURL(threads.getImageURL());
-                threadsDTO.setUserName(threads.getUserName());
+                threadsDTO.setText(threads1.getText());
+                threadsDTO.setTimeStamp(threads1.getTimeStamp());
+                threadsDTO.setImageURL(threads1.getImageURL());
+                threadsDTO.setUserName(threads1.getUserName());
                 threadsF.add(threadsDTO);
             }
+            chatsDTO.setThreadsDTO(threadsF);
+            chatsDTOF.add(chatsDTO);
         }
-        casesDetailsDTO.setThreads(threadsF);
+        casesDetailsDTO.setThreads(chatsDTOF);
 
         if(cases.getImageOb() != null){
             if(cases.getImageOb().getFinalDiagnosis() != null){
@@ -259,22 +290,43 @@ public class DoctorService {
 
     public CasesDetailsDTO insertChatThread(CasesChatDTO casesChatDTO) {
         Cases cases = iCasesRepository.getCaseByCaseId(casesChatDTO.getCaseId());
-        Chats chats = cases.getChats();
+        Radiologist radiologist1 = iRadiologistRegistrationRepository.getByRadiologistId(casesChatDTO.getRadioId());
+        List<Chats> chats = cases.getChats() != null ? cases.getChats() : new ArrayList<>();
         Threads threads = new Threads();
-        if(chats == null){
-            chats = new Chats();
-            chats = iChatRepository.save(chats);
+        Chats chat = new Chats();
+        if(chats.isEmpty()){
+            chat.setRadioId(casesChatDTO.getRadioId());
+            chat.setRadioName(radiologist1.getName());
+            iChatRepository.save(chat);
+            chats.add(chat);
             cases.setChats(chats);
             iCasesRepository.save(cases);
+        }else{
+            Chats foundChat = null;
+            for(Chats chatV: chats){
+                if(chatV.getRadioId().equals(casesChatDTO.getRadioId())){
+                    foundChat = chatV;
+                }
+            }
+            if(foundChat == null){
+                chat.setRadioId(casesChatDTO.getRadioId());
+                chat.setRadioName(radiologist1.getName());
+                iChatRepository.save(chat);
+                chats.add(chat);
+                cases.setChats(chats);
+                iCasesRepository.save(cases);
+            }else{
+                chat = foundChat;
+            }
         }
         threads.setText(casesChatDTO.getText());
         threads.setUserName(casesChatDTO.getUserName());
         threads.setImageURL(casesChatDTO.getImage());
         threads.setTimeStamp(casesChatDTO.getTimestamp());
-        threads.setChats(chats);
+        threads.setChats(chat);
         iThreadRepository.save(threads);
-        chats.getThreads().add(threads);
-        iChatRepository.save(chats);
+        chat.getThreads().add(threads);
+        iChatRepository.save(chat);
         cases.setChats(chats);
 
         Cases cases1 = iCasesRepository.getCaseByCaseId(casesChatDTO.getCaseId());
@@ -284,9 +336,20 @@ public class DoctorService {
         casesDetailsDTO.setCaseName(cases1.getCaseName());
         casesDetailsDTO.setCaseDate(cases1.getCaseDate());
         casesDetailsDTO.setDoctorName(cases1.getDoctor().getName());
-        if(cases1.getRadiologist() != null) {
-            casesDetailsDTO.setRadioName(cases1.getRadiologist().getName());
-        }else{
+//        if(cases1.getRadiologist() != null) {
+//            casesDetailsDTO.setRadioName(cases1.getRadiologist().getName());
+//        }else{
+//            casesDetailsDTO.setRadioName("Not yet assigned");
+//        }
+        Set<Radiologist> radiologists = cases.getRadiologist();
+        if (radiologists != null && !radiologists.isEmpty()) {
+            StringBuilder radiologistNames = new StringBuilder();
+            for (Radiologist radiologist : radiologists) {
+                radiologistNames.append(radiologist.getName()).append(", ");
+            }
+            radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+            casesDetailsDTO.setRadioName(radiologistNames.toString());
+        } else {
             casesDetailsDTO.setRadioName("Not yet assigned");
         }
         if(cases1.getLab() != null) {
@@ -297,16 +360,23 @@ public class DoctorService {
         casesDetailsDTO.setPatientName(cases1.getPatient().getFullName());
         casesDetailsDTO.setMarkAsDone(cases1.getMarkAsDone());
         casesDetailsDTO.setCaseDescription(cases1.getCaseDescription());
-        List<ThreadsDTO> threadsF = new ArrayList<>();
-        for(Threads threads1: cases1.getChats().getThreads()){
-            ThreadsDTO threadsDTO = new ThreadsDTO();
-            threadsDTO.setText(threads1.getText());
-            threadsDTO.setTimeStamp(threads1.getTimeStamp());
-            threadsDTO.setImageURL(threads1.getImageURL());
-            threadsDTO.setUserName(threads1.getUserName());
-            threadsF.add(threadsDTO);
+        List<ChatsDTO> chatsDTOF = new ArrayList<>();
+        for(Chats chats1: cases1.getChats()){
+            ChatsDTO chatsDTO = new ChatsDTO();
+            chatsDTO.setRadioId(chats1.getRadioId());
+            List<ThreadsDTO> threadsF = new ArrayList<>();
+            for(Threads threads1: chats1.getThreads()){
+                ThreadsDTO threadsDTO = new ThreadsDTO();
+                threadsDTO.setText(threads1.getText());
+                threadsDTO.setTimeStamp(threads1.getTimeStamp());
+                threadsDTO.setImageURL(threads1.getImageURL());
+                threadsDTO.setUserName(threads1.getUserName());
+                threadsF.add(threadsDTO);
+            }
+            chatsDTO.setThreadsDTO(threadsF);
+            chatsDTOF.add(chatsDTO);
         }
-        casesDetailsDTO.setThreads(threadsF);
+        casesDetailsDTO.setThreads(chatsDTOF);
 
         if(cases1.getImageOb() != null){
             if(cases1.getImageOb().getFinalDiagnosis() != null){
@@ -325,6 +395,59 @@ public class DoctorService {
         return casesDetailsDTO;
     }
 
+    public LoginMessage assignNewRadio(CasesDTO casesDTO) {
+        Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
+        Radiologist radiologist = iRadiologistRegistrationRepository.getByRadiologistId(casesDTO.getRadiologistId());
+//        Set<Radiologist> radiologists = cases.getRadiologist();
+//        radiologists.add(radiologist);
+//        cases.setRadiologist(radiologists);
+        if (cases.getConsent() != null) {
+            Consent consent = cases.getConsent();
+            RadioDTO radioDTO = new RadioDTO();
+            radioDTO.setRadioId(casesDTO.getRadiologistId());
+            radioDTO.setRadioName(radiologist.getName());
+            List<RadioDTO> radioDTOS;
+            if (consent.getRadioDTOS() != null) {
+                radioDTOS = consent.getRadioDTOS();
+            } else {
+                radioDTOS = new ArrayList<>();
+            }
+            radioDTOS.add(radioDTO);
+            consent.setRadioDTOS(radioDTOS);
+            iConsentRepository.save(consent);
+            cases.setConsent(consent);
+        } else {
+            Consent consent = new Consent();
+            RadioDTO radioDTO = new RadioDTO();
+            radioDTO.setRadioId(casesDTO.getRadiologistId());
+            radioDTO.setRadioName(radiologist.getName());
+            List<RadioDTO> radioDTOS = new ArrayList<>();
+            radioDTOS.add(radioDTO);
+            consent.setRadioDTOS(radioDTOS);
+            iConsentRepository.save(consent);
+            cases.setConsent(consent);
+        }
+//        Chats chats = new Chats();
+//        chats.setRadioId(radiologist.getUserId());
+//        chats.setRadioName(radiologist.getName());
+//        chats.setCases(cases);
+//        iChatRepository.save(chats);
+//        if(cases.getChats().isEmpty()){
+//            List<Chats> chats1 = new ArrayList<>();
+//            chats1.add(chats);
+//            cases.setChats(chats1);
+//        }else{
+//            cases.getChats().add(chats);
+//        }
+        iCasesRepository.save(cases);
+//        radiologist.getCases().add(cases);
+//        iRadiologistRegistrationRepository.save(radiologist);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Radiologist Assigned Successfully");
+        return loginMessage;
+    }
+
+
     public CasesDetailsDTO updateReport(CasesDetailsDTO caseDetailsDTO) {
         Cases cases1 = iCasesRepository.getCaseByCaseId(caseDetailsDTO.getCaseId());
 
@@ -333,9 +456,20 @@ public class DoctorService {
         casesDetailsDTO.setCaseName(cases1.getCaseName());
         casesDetailsDTO.setCaseDate(cases1.getCaseDate());
         casesDetailsDTO.setDoctorName(cases1.getDoctor().getName());
-        if(cases1.getRadiologist() != null) {
-            casesDetailsDTO.setRadioName(cases1.getRadiologist().getName());
-        }else{
+//        if(cases1.getRadiologist() != null) {
+//            casesDetailsDTO.setRadioName(cases1.getRadiologist().getName());
+//        }else{
+//            casesDetailsDTO.setRadioName("Not yet assigned");
+//        }
+        Set<Radiologist> radiologists = cases1.getRadiologist();
+        if (radiologists != null && !radiologists.isEmpty()) {
+            StringBuilder radiologistNames = new StringBuilder();
+            for (Radiologist radiologist : radiologists) {
+                radiologistNames.append(radiologist.getName()).append(", ");
+            }
+            radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+            casesDetailsDTO.setRadioName(radiologistNames.toString());
+        } else {
             casesDetailsDTO.setRadioName("Not yet assigned");
         }
         if(cases1.getLab() != null) {
@@ -346,16 +480,36 @@ public class DoctorService {
         casesDetailsDTO.setPatientName(cases1.getPatient().getFullName());
         casesDetailsDTO.setMarkAsDone(cases1.getMarkAsDone());
         casesDetailsDTO.setCaseDescription(cases1.getCaseDescription());
-        List<ThreadsDTO> threadsF = new ArrayList<>();
-        for(Threads threads1: cases1.getChats().getThreads()){
-            ThreadsDTO threadsDTO = new ThreadsDTO();
-            threadsDTO.setText(threads1.getText());
-            threadsDTO.setTimeStamp(threads1.getTimeStamp());
-            threadsDTO.setImageURL(threads1.getImageURL());
-            threadsDTO.setUserName(threads1.getUserName());
-            threadsF.add(threadsDTO);
+//        List<ChatsDTO> threadsF = new ArrayList<>();
+//        for(Threads threads1: cases1.getChats().getThreads()){
+//            ChatsDTO chatsDTO = new ChatsDTO();
+//            chatsDTO.setText(threads1.getText());
+//            chatsDTO.setTimeStamp(threads1.getTimeStamp());
+//            chatsDTO.setImageURL(threads1.getImageURL());
+//            chatsDTO.setUserName(threads1.getUserName());
+//            threadsF.add(chatsDTO);
+//        }
+//        casesDetailsDTO.setThreads(threadsF);
+
+        List<ChatsDTO> chatsDTOF = new ArrayList<>();
+        for(Chats chats1: cases1.getChats()){
+            ChatsDTO chatsDTO = new ChatsDTO();
+            chatsDTO.setRadioId(chats1.getRadioId());
+            List<ThreadsDTO> threadsF = new ArrayList<>();
+            for(Threads threads1: chats1.getThreads()){
+                ThreadsDTO threadsDTO = new ThreadsDTO();
+                threadsDTO.setText(threads1.getText());
+                threadsDTO.setTimeStamp(threads1.getTimeStamp());
+                threadsDTO.setImageURL(threads1.getImageURL());
+                threadsDTO.setUserName(threads1.getUserName());
+                threadsF.add(threadsDTO);
+            }
+            chatsDTO.setThreadsDTO(threadsF);
+            chatsDTOF.add(chatsDTO);
         }
-        casesDetailsDTO.setThreads(threadsF);
+        casesDetailsDTO.setThreads(chatsDTOF);
+
+
 
         if(cases1.getImageOb() != null){
             if(cases1.getImageOb().getFinalDiagnosis() != null){

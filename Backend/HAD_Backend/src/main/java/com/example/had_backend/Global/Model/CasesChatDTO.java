@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CasesChatDTO {
     private Integer caseId;
+    private Integer radioId;
     private String userName;
     private String text;
     private String image;
