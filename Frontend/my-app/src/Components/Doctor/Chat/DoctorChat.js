@@ -38,6 +38,7 @@ const DoctorChat = () => {
   const [loadImage,setLoadImage]=useState();
   const [showPopup, setShowPopup] = useState(false);
   const [radioList, setRadioList] = useState([]);
+  const [radioSelected, setRadioSelected] = useState();
 
   const loc = useLocation();
   const { caseIdValue } = loc.state || {};
@@ -84,6 +85,8 @@ const DoctorChat = () => {
       .catch((error) => {
         console.warn("Error", error);
       });
+    }else if(flow === "Select Radiologist"){
+      setRadioSelected(selectedOption)
     }
   };
 
@@ -112,7 +115,7 @@ const DoctorChat = () => {
 
       const newMessage1 = {
         caseId:caseObj.caseId,
-        radioId:caseObj.threads[0].radioId,
+        radioId:radioSelected.radioId,
         userName: decryptData(),
         text: inputText,
         image: image ? chatImage: null,
@@ -196,9 +199,11 @@ const DoctorChat = () => {
         }
        
       }
-      console.warn("Data",obj)
+      console.warn("Data",obj.threads)
       setCaseObj(obj);
-      setRadioList(obj.threads)
+      if(obj.threads.length === 2){
+        setRadioList(obj.threads)
+      }
     
     } catch (error) {
       console.error("Error loading image:", error);
@@ -282,14 +287,32 @@ const DoctorChat = () => {
             <div>
             <DropdownButton
                               patientValue = {radioList}
-                              onSelect={(selectedValue) => handleDropdownSelect(selectedValue, caseObj, "Select Radiologist Name")}
-                              flow = {"Select Radiologist Name"}/>
+                              onSelect={(selectedValue) => handleDropdownSelect(selectedValue, caseObj, "Select Radiologist")}
+                              flow = {"Select Radiologist"}/>
             </div>
           }
-          <div className="chat-container">
+          {radioSelected && <div className="chat-container">
             <ul className="chat-list">
-              {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
+              {/* {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
                && caseObj.threads[0].threadsDTO.map((message, index) => (
+                <li
+                  key={index}
+                  className="chat-item"
+                  onClick={() => handleListItemClick(index) }
+                >
+                  <p className="userNameVal">{message.userName}</p>
+                  <p>{message.text}</p>
+                  {message.imageURL && (
+                    <img
+                      src={message.imageURL}
+                      alt="Uploaded"
+                      className="chat-image"
+                    />
+                  )}
+                  <p className="timestamp">{message.timeStamp}</p>
+                </li>
+              ))} */}
+              {radioSelected && radioSelected.threadsDTO.map((message, index) => (
                 <li
                   key={index}
                   className="chat-item"
@@ -308,8 +331,8 @@ const DoctorChat = () => {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="send-upload">
+          </div>}
+          {radioSelected && <div className="send-upload">
             <div className="inputWithButton">
               <br />
               <input 
@@ -339,7 +362,7 @@ const DoctorChat = () => {
                 onChange={handleImageChange}
               />
             </div>
-          </div>
+          </div>}
         </div>
         {dicomImage && (
           <div className="dicom-viewer">
