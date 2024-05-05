@@ -16,10 +16,15 @@ function UploadImage() {
   const [dicomImageURL, setDicomImageURL] = useState(null);
   const [prescriptionURLV, setPrescriptionURL] = useState(null);
   const [caseIdV, setCaseId] = useState(''); // Initialize state for caseId
+  const [userName, setUserName] = useState(''); // Initialize state for caseId
 
   const handleChange = (event) => {
       setCaseId(event.target.value);
   };
+
+  const handleChangeP = (event) => {
+    setUserName(event.target.value);
+};
 
   const handleImageUpload1 = (e) => {
     if (e.target && e.target.files) {
@@ -87,14 +92,17 @@ function UploadImage() {
   const assignVal = () => {
     const data = {
       caseId:caseIdV,
+      patientUserName: userName,
       prescriptionURL: prescriptionURLV,
       scannedImageURL: dicomImageURL
     }
 
     request("POST",uploadImages , data)
       .then((response) => {
+        if(response.data.message !== 'Wrong UserName, Please recheck!!'){
+          window.location.reload();
+        }
         alert(response.data.message)
-        window.location.reload();
       })
       .catch((error) => {
         console.warn("Error", error);
@@ -114,6 +122,15 @@ function UploadImage() {
             className="case-id-input"
             value={caseIdV} // Bind the value of the input to the caseId state
             onChange={handleChange}
+          />
+          <br/>
+          <br/>
+          <input
+            type="text"
+            placeholder="Enter patient's username for authentication"
+            className="case-id-input"
+            value={userName} // Bind the value of the input to the caseId state
+            onChange={handleChangeP}
           />
           <br/>
           <br/>

@@ -7,13 +7,16 @@ import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "chats")
 public class Chats {
     @Id
@@ -21,10 +24,20 @@ public class Chats {
     @Column(name = "chat_id")
     private Integer chatId;
 
+    @Column
+    private Integer radioId;
+
+    @Column
+    private String radioName;
+
+    @Column
+    private String radioImpression;
+
+    @ManyToOne
+    @JoinColumn(name = "chats", nullable = false, foreignKey = @ForeignKey(name="case_id"))
+    @JsonIgnore
+    private Cases cases;
+
     @OneToMany(mappedBy = "chats", cascade = CascadeType.ALL)
     private List<Threads> threads = new ArrayList<>();
-
-    @OneToOne
-    @JoinColumn(name = "case_id")
-    private Cases cases;
 }

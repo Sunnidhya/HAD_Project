@@ -2,6 +2,8 @@ package com.example.had_backend.Global.Model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CasesDetailsDTO {
     private Integer caseId;
@@ -23,4 +25,5 @@ public class CasesDetailsDTO {
     private String radioName;
     private String patientName;
     private Boolean markAsDone;
+    private List<ChatsDTO> threads;
 }

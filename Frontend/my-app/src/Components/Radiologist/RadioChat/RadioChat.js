@@ -16,7 +16,7 @@ import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 import { request } from "../../../Network/axiosHelper";
-import { getCaseById,insertChat} from "../../../Network/APIendpoints";
+import { getCaseByCaseRadioId, getCaseById,insertChat, updateRadioImpression} from "../../../Network/APIendpoints";
 
 const RadioChat = () => {
   let nav = useNavigate();
@@ -33,6 +33,7 @@ const RadioChat = () => {
   const [dicomImage, setDicomImage] = useState(null);
   const [chatImage,setChatImage] = useState();
   const [loadImage,setLoadImage]=useState();
+  const [textInput, setTextInput] = useState('');
 
   const [screenshot, takeScreenshot] = useScreenshot({
     type: "image/jpeg",
@@ -90,7 +91,8 @@ const RadioChat = () => {
       console.warn("Data", dateTime);
 
       const newMessage1 = {
-        caseId:caseObj.caseId,
+         caseId:caseObj.caseId,
+         radioId:caseObj.threads[0].radioId,
          userName: decryptData(),
          text: inputText,
          image: image ? chatImage: null,
@@ -158,6 +160,25 @@ const RadioChat = () => {
     }
   };
 
+  const handleSubmit = () => {
+    // Do whatever you want with the textInput here
+    console.log('Submitted text:', textInput);
+    // You can reset the text input after submission if needed
+    setTextInput('');
+    const data = {
+      caseId: caseIdValue,
+      radioUserName: decryptData(),
+      radioImpression: textInput
+    };
+    request("POST", updateRadioImpression, data)
+      .then((response) => {
+        alert(response.data.message)
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
+  };
+
   const handlePaste = (event) => {
     const items = (event.clipboardData || event.originalEvent.clipboardData)
       .items;
@@ -209,8 +230,9 @@ const RadioChat = () => {
   useEffect(() => {
     const data = {
       caseId: caseIdValue,
+      radioUserName: decryptData()
     };
-    request("POST", getCaseById, data)
+    request("POST", getCaseByCaseRadioId, data)
       .then((response) => {
         loadChatImage(response.data);
         loadImageFromUrl1(response.data.scannedImageURL);
@@ -234,7 +256,8 @@ const RadioChat = () => {
         <div className="chat-wrapper">
           <div className="radio-chat-container">
             <ul className="chat-list">
-            {caseObj && caseObj.threads && caseObj.threads.map((message, index) => (
+            {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
+               && caseObj.threads[0].threadsDTO.map((message, index) => (
                 <li
                   key={index}
                   className="chat-item"
@@ -294,6 +317,19 @@ const RadioChat = () => {
             <button onClick={downloadScreenshot} className="radio-screenshot">
               Screenshot
             </button>
+            <div>
+              <textarea
+              style={{marginTop:'5px', borderRadius: '8px', padding: '8px', border: '1px solid #ccc'}}
+                rows="4"
+                cols="60"
+                placeholder="Enter radiologist's impression"
+                value={textInput}
+                onChange={(e) => setTextInput(e.target.value)}
+              />
+              <button onClick={handleSubmit} className="submit-button">
+                Submit
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { saveAs } from 'file-saver';
 import './ImageForm.css';
+import DwvComponentUpload from '../../DViewer/DwvComponentUpload';
+import DwvComponent from '../../DViewer/DwvComponent';
+import DWVComponentPatientViewer from '../../DViewer/DWVComponentPatientViewer';
 
-function ImageForm({ imageUrl }) {
+function ImageForm({ imageUrl, type }) {
   console.warn("data",imageUrl)
   const [isVisible, setIsVisible] = useState(true);
   const [image1,setImage] = useState(null);
+  const [typeV, setType] = useState(null)
   const handleClose = () => {
     setIsVisible(false);
   };
@@ -32,14 +36,10 @@ function ImageForm({ imageUrl }) {
     }
 };
 
-
-
-
-
-
-  useEffect(() => {
+useEffect(() => {
     setImage(imageUrl);
-  }, [imageUrl]);
+    setType(type)
+  }, [imageUrl,type]);
 
   return (
     <>
@@ -49,7 +49,7 @@ function ImageForm({ imageUrl }) {
           <div className="upload-container">
             <div className="upload-image-container">
               <h3>Image</h3>
-              <div className="image-preview1">
+              {typeV === 'presc' && <div className="image-preview1">
                 {image1 ? (
                   <>
                     <img src={image1} alt="Uploaded" className="uploaded-image" />
@@ -57,7 +57,16 @@ function ImageForm({ imageUrl }) {
                 ) : (
                   <div className="placeholder-image">No image uploaded</div>
                 )}
-              </div>
+              </div>}
+              {typeV === 'dicom' && <div className="image-preview1">
+                {image1 ? (
+                  <>
+                  <DWVComponentPatientViewer dicomProp={image1}/>
+                </>
+                ) : (
+                  <div className="placeholder-image">No image uploaded</div>
+                )}
+              </div>}
             </div>
             <br />
           </div>

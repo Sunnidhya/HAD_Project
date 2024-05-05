@@ -1,38 +1,35 @@
 package com.example.had_backend.Global.Entity;
 
 import com.example.had_backend.Doctor.Entity.Doctor;
+import com.example.had_backend.Global.Model.RadioDTO;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Patient.Entity.Patient;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 
 @Entity
 @Getter
 @Setter
-@Table(name = "threads")
-public class Threads {
+@Table(name = "consent")
+public class Consent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer threadId;
-
-    @Column(nullable = false)
-    private String userName;
+    @Column(name = "consent_id")
+    private Integer consentId;
 
     @Column(nullable = true)
-    private String text;
+    private Integer labId;
 
     @Column(nullable = true)
-    private String imageURL;
+    private Boolean labConsent = false;
 
-    @Column(nullable = false)
-    private String timeStamp;
-
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chats chats;
+    @ElementCollection
+    @CollectionTable(name = "consent_radio_dto", joinColumns = @JoinColumn(name = "consent_id"))
+    private List<RadioDTO> radioDTOS;
 }

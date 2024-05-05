@@ -2,13 +2,11 @@ package com.example.had_backend.Patient.Service;
 
 
 import com.example.had_backend.Doctor.Model.SearchResultDTO;
-import com.example.had_backend.Global.Entity.Cases;
-import com.example.had_backend.Global.Entity.OTP;
-import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Entity.*;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Global.Repository.ICasesRepository;
+import com.example.had_backend.Global.Repository.IChatRepository;
+import com.example.had_backend.Global.Repository.IConsentRepository;
 import com.example.had_backend.Global.Repository.IUsersRepository;
 import com.example.had_backend.Global.Service.OTPHelperService;
 import com.example.had_backend.Lab.Entity.Lab;
@@ -25,9 +23,7 @@ import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class PatientService {
@@ -49,17 +45,22 @@ public class PatientService {
     @Autowired
     private IUsersRepository iUsersRepository;
 
+    @Autowired
+    private IConsentRepository iConsentRepository;
+
     private PasswordConfig passwordConfig = new PasswordConfig();
+
+    @Autowired
+    private IChatRepository iChatRepository;
 
     public Users authenticateUser(LoginDTO login) {
         Users users = new Users();
         try {
             Users user1 = iUsersRepository.findByUserNameAndPassword(login.getUserName());
             Boolean flag = passwordConfig.matches(login.getPassword(), user1.getPassword());
-            if(flag)
-            {
+            if (flag) {
                 return user1;
-            }else{
+            } else {
                 return null;
             }
         } catch (Exception e) {
@@ -72,13 +73,13 @@ public class PatientService {
         Patient patient = new Patient();
 
         Users userN = iUsersRepository.getProfile(register.getUserName());
-        if (userN!=null){
+        if (userN != null) {
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.setMessage("UserName already exists");
             return loginMessage;
         }
 
-        Patient patient2=iPatientRegistrationRepository.getPatientProfile(register.getUserName(),register.getEmail());
+        Patient patient2 = iPatientRegistrationRepository.getPatientProfile(register.getUserName(), register.getEmail());
         if (patient2 != null) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("User is already registered");
@@ -104,7 +105,7 @@ public class PatientService {
     }
 
     public LoginMessage changePassword(PatientChangePasswordDTO patientChangePasswordDTO) {
-        Patient patient=iPatientRegistrationRepository.getPatientProfileDetails(patientChangePasswordDTO.getUserName());
+        Patient patient = iPatientRegistrationRepository.getPatientProfileDetails(patientChangePasswordDTO.getUserName());
         if (!Objects.equals(patient.getPassword(), patientChangePasswordDTO.getCurrentPassword())) {
             LoginMessage loginMsg = new LoginMessage();
             loginMsg.setMessage("Current Password or User Name entered wrongly ");
@@ -148,7 +149,7 @@ public class PatientService {
         Date date = new Date();
         String otpV = otpHelperService.createRandomOneTimePassword();
         otp.setOneTimePasswordCode(otpV);
-        otp.setExpires(date.getTime()+5*60*1000);//5 minute OTP expiration time.
+        otp.setExpires(date.getTime() + 5 * 60 * 1000);//5 minute OTP expiration time.
         patient.setOtp(otp);
         iPatientRegistrationRepository.save(patient);
         return otp;
@@ -159,16 +160,16 @@ public class PatientService {
         LoginMessage loginMessage = new LoginMessage();
         Patient patient = iPatientRegistrationRepository.getPatientProfileDetails(otpDTO.getUserName());
 
-        if(patient.getOtp() != null && date.getTime() <= patient.getOtp().getExpires()){
+        if (patient.getOtp() != null && date.getTime() <= patient.getOtp().getExpires()) {
             loginMessage.setMessage("OTP Validated successfully, Login was Successful");
             patient.setOtp(null);
             iPatientRegistrationRepository.save(patient);
-        }else{
-            if(patient.getOtp() != null && date.getTime() > patient.getOtp().getExpires()){
+        } else {
+            if (patient.getOtp() != null && date.getTime() > patient.getOtp().getExpires()) {
                 patient.setOtp(null);
                 iPatientRegistrationRepository.save(patient);
                 loginMessage.setMessage("OTP expired!! Please retry");
-            }else{
+            } else {
                 loginMessage.setMessage("OTP entered is wrong!! Please renter");
             }
         }
@@ -186,8 +187,52 @@ public class PatientService {
     public LoginMessage updateCaseR(CasesDTO casesDTO) {
         Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
         Radiologist radiologist = iRadiologistRegistrationRepository.getByRadiologistId(casesDTO.getRadiologistId());
-        cases.setRadiologist(radiologist);
+        Set<Radiologist> radiologists = cases.getRadiologist();
+        radiologists.add(radiologist);
+        cases.setRadiologist(radiologists);
+        if (cases.getConsent() != null) {
+            Consent consent = cases.getConsent();
+            RadioDTO radioDTO = new RadioDTO();
+            radioDTO.setRadioId(casesDTO.getRadiologistId());
+            radioDTO.setRadioConsent(true);
+            radioDTO.setRadioName(radiologist.getName());
+            List<RadioDTO> radioDTOS;
+            if (consent.getRadioDTOS() != null) {
+                radioDTOS = consent.getRadioDTOS();
+            } else {
+                radioDTOS = new ArrayList<>();
+            }
+            radioDTOS.add(radioDTO);
+            consent.setRadioDTOS(radioDTOS);
+            iConsentRepository.save(consent);
+            cases.setConsent(consent);
+        } else {
+            Consent consent = new Consent();
+            RadioDTO radioDTO = new RadioDTO();
+            radioDTO.setRadioId(casesDTO.getRadiologistId());
+            radioDTO.setRadioConsent(true);
+            radioDTO.setRadioName(radiologist.getName());
+            List<RadioDTO> radioDTOS = new ArrayList<>();
+            radioDTOS.add(radioDTO);
+            consent.setRadioDTOS(radioDTOS);
+            iConsentRepository.save(consent);
+            cases.setConsent(consent);
+        }
+        Chats chats = new Chats();
+        chats.setRadioId(radiologist.getUserId());
+        chats.setRadioName(radiologist.getName());
+        chats.setCases(cases);
+        iChatRepository.save(chats);
+        if(cases.getChats().isEmpty()){
+            List<Chats> chats1 = new ArrayList<>();
+            chats1.add(chats);
+            cases.setChats(chats1);
+        }else{
+            cases.getChats().add(chats);
+        }
         iCasesRepository.save(cases);
+        radiologist.getCases().add(cases);
+        iRadiologistRegistrationRepository.save(radiologist);
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Radiologist Assigned Successfully");
         return loginMessage;
@@ -197,6 +242,19 @@ public class PatientService {
         Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
         Lab lab = iLabRegistrationRepository.getByLabId(casesDTO.getLabId());
         cases.setLab(lab);
+        if (cases.getConsent() == null) {
+            Consent consent = new Consent();
+            consent.setLabId(casesDTO.getLabId());
+            consent.setLabConsent(true);
+            iConsentRepository.save(consent);
+            cases.setConsent(consent);
+        } else {
+            Consent consent = cases.getConsent();
+            consent.setLabId(casesDTO.getLabId());
+            consent.setLabConsent(true);
+            iConsentRepository.save(consent);
+            cases.setConsent(consent);
+        }
         iCasesRepository.save(cases);
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Lab Assigned Successfully");
@@ -211,14 +269,25 @@ public class PatientService {
         casesDetailsDTO.setCaseName(cases.getCaseName());
         casesDetailsDTO.setCaseDate(cases.getCaseDate());
         casesDetailsDTO.setDoctorName(cases.getDoctor().getName());
-        if(cases.getRadiologist() != null) {
-            casesDetailsDTO.setRadioName(cases.getRadiologist().getName());
-        }else{
+//        if(cases.getRadiologist() != null) {
+//            casesDetailsDTO.setRadioName(cases.getRadiologist().getName());
+//        }else{
+//            casesDetailsDTO.setRadioName("Not yet assigned");
+//        }
+        Set<Radiologist> radiologists = cases.getRadiologist();
+        if (radiologists != null && !radiologists.isEmpty()) {
+            StringBuilder radiologistNames = new StringBuilder();
+            for (Radiologist radiologist : radiologists) {
+                radiologistNames.append(radiologist.getName()).append(", ");
+            }
+            radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+            casesDetailsDTO.setRadioName(radiologistNames.toString());
+        } else {
             casesDetailsDTO.setRadioName("Not yet assigned");
         }
-        if(cases.getLab() != null) {
+        if (cases.getLab() != null) {
             casesDetailsDTO.setLabName(cases.getLab().getLabName());
-        }else{
+        } else {
             casesDetailsDTO.setLabName("Not yet assigned");
         }
         casesDetailsDTO.setPatientName(cases.getPatient().getFullName());
@@ -235,5 +304,52 @@ public class PatientService {
         casesDetailsDTO.setScannedImageURL(cases.getImageOb().getScannedImageURL());
         casesDetailsDTO.setSurgery(cases.getImageOb().getFinalDiagnosis().getSurgery());
         return casesDetailsDTO;
+    }
+
+    public LoginMessage assignNewRadio(CasesNewRadioDTO casesDTO) {
+        LoginMessage loginMessage = new LoginMessage();
+        Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
+        Radiologist radiologist = iRadiologistRegistrationRepository.getByRadiologistId(casesDTO.getRadiologistId());
+        if(casesDTO.getConsent()){
+            Set<Radiologist> radiologists = cases.getRadiologist();
+            radiologists.add(radiologist);
+            cases.setRadiologist(radiologists);
+            if (cases.getConsent() != null) {
+                Consent consent = cases.getConsent();
+                for(RadioDTO radioDtos:  consent.getRadioDTOS()){
+                    if(radioDtos.getRadioId().equals(casesDTO.getRadiologistId())){
+                        radioDtos.setRadioConsent(true);
+                    }
+                }
+                iConsentRepository.save(consent);
+                cases.setConsent(consent);
+            }
+            Chats chats = new Chats();
+            chats.setRadioId(radiologist.getUserId());
+            chats.setRadioName(radiologist.getName());
+            chats.setCases(cases);
+            iChatRepository.save(chats);
+            if(cases.getChats().isEmpty()){
+                List<Chats> chats1 = new ArrayList<>();
+                chats1.add(chats);
+                cases.setChats(chats1);
+            }else{
+                cases.getChats().add(chats);
+            }
+            iCasesRepository.save(cases);
+            radiologist.getCases().add(cases);
+            iRadiologistRegistrationRepository.save(radiologist);
+            loginMessage.setMessage("Radiologist Assigned Successfully");
+        }else{
+            if (cases.getConsent() != null) {
+                Consent consent = cases.getConsent();;
+                consent.getRadioDTOS().removeIf(radioDto -> radioDto.getRadioId().equals(casesDTO.getRadiologistId()));
+                iConsentRepository.save(consent);
+                cases.setConsent(consent);
+            }
+            iCasesRepository.save(cases);
+            loginMessage.setMessage("Radiologist Removed Successfully");
+        }
+        return loginMessage;
     }
 }

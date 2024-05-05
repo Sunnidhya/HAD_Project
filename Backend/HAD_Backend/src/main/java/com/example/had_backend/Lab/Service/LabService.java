@@ -16,6 +16,7 @@ import com.example.had_backend.Lab.Model.LabRegistrationDTO;
 import com.example.had_backend.Lab.Repository.ILabRegistrationRepository;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Patient.Entity.Patient;
 import com.example.had_backend.WebSecConfig.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,6 +165,11 @@ public class LabService {
 
     public LoginMessage uploadImages(UploadImagesDTO uploadImagesDTO) {
         LoginMessage loginMessage = new LoginMessage();
+        Users users = iUsersRepository.getProfile(uploadImagesDTO.getPatientUserName());
+        if(users == null){
+            loginMessage.setMessage("Wrong UserName, Please recheck!!");
+            return loginMessage;
+        }
         Cases cases = iCasesRepository.getCaseByCaseId(uploadImagesDTO.getCaseId());
         ImageOb imageOb = new ImageOb();
         imageOb.setPrescriptionURL(uploadImagesDTO.getPrescriptionURL());
