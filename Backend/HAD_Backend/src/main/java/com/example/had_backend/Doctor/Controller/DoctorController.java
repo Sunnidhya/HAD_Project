@@ -182,7 +182,7 @@ public class DoctorController {
     }
 
     @CrossOrigin
-    @GetMapping("/doctor/markAsDone")
+    @PostMapping("/doctor/markAsDone")
     public ResponseEntity<LoginMessage> markAsDone(@RequestBody @Validated CasesDTO casesDTO) {
         LoginMessage loginMessage= doctorService.markAsDone(casesDTO);
         return ResponseEntity.ok(loginMessage);
@@ -205,8 +205,8 @@ public class DoctorController {
     @CrossOrigin
     @PostMapping("/doctor/updateReport")
     public ResponseEntity<CasesDetailsDTO> updateReport(@RequestBody @Validated CasesDetailsDTO casesDetailsDTO) {
-        CasesDetailsDTO caseDetailsDTO = doctorService.updateReport(casesDetailsDTO);
-        return ResponseEntity.ok(casesDetailsDTO);
+        CasesDetailsDTO caseDetailsDTO1 = doctorService.updateReport(casesDetailsDTO);
+        return ResponseEntity.ok(caseDetailsDTO1);
     }
 
     @CrossOrigin

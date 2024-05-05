@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import './DoctorReport.css';
+import generateDoctorReportPdf from './pdfUtils';
+import { request } from '../../Network/axiosHelper';
+import { generateReport } from '../../Network/APIendpoints';
 
-function DoctorReport() {
+function DoctorReport({caseIdValue}) {
   const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
+    patientName: '',
     age: '',
     status: '',
     medicalHistory: '',
     conclusion: '',
-    treatmentRecommendations: '',
+    treatmentRecommendation: '',
     surgery: '',
     therapy: '',
-    radiologistName: '',
-    radiologistConclusion: ''
+    caseId: caseIdValue
   });
 
   const handleChange = (e) => {
@@ -24,9 +26,34 @@ function DoctorReport() {
     });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log(formData);
+
+  //   try {
+  //     const pdfBytes = await generateDoctorReportPdf(formData);
+  //     const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+  //     const url = window.URL.createObjectURL(pdfBlob);
+  //     const link = document.createElement('a');
+  //     link.href = url;
+  //     link.setAttribute('download', 'doctor_report.pdf');
+  //     document.body.appendChild(link);
+  //     link.click();
+  //   } catch (error) {
+  //     console.error('Error generating PDF:', error);
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    request("POST",generateReport , formData)
+      .then((response) => {
+        alert("Report Submitted")
+      }).catch((error) => {
+        console.warn("Error", error);
+      });
   };
 
   const handleClose = () => {
@@ -45,7 +72,7 @@ function DoctorReport() {
                 Name:
                 <input
                   type="text"
-                  name="name"
+                  name="patientName"
                   placeholder="Enter Name"
                   value={formData.name}
                   onChange={handleChange}
@@ -102,7 +129,7 @@ function DoctorReport() {
                 Treatment Recommendations:
                 <input
                   type="text"
-                  name="treatmentRecommendations"
+                  name="treatmentRecommendation"
                   placeholder="Enter Treatment Recommendations"
                   value={formData.treatmentRecommendations}
                   onChange={handleChange}
@@ -132,30 +159,9 @@ function DoctorReport() {
                   className="scrollable-input"
                 />
               </label>
-              <h3 className="form-header">Radiologist Report</h3>
-              <label>
-                Radiologist Name:
-                <input
-                  type="text"
-                  name="radiologistName"
-                  placeholder="Enter Radiologist Name"
-                  value={formData.radiologistName}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Radiologist Conclusion:
-                <input
-                  type="text"
-                  name="radiologistConclusion"
-                  placeholder="Enter Radiologist Conclusion"
-                  value={formData.radiologistConclusion}
-                  onChange={handleChange}
-                  className="scrollable-input"
-                />
-              </label>
               <br />
               <button type="submit">Submit</button>
+              <br />
             </form>
           </div>
         </div>
@@ -165,5 +171,7 @@ function DoctorReport() {
 }
 
 export default DoctorReport;
+
+      
 
 

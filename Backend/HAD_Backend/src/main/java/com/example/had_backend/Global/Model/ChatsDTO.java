@@ -19,5 +19,8 @@ public class ChatsDTO {
     private String radioName;
 
     @Nullable
+    private String radioImpression;
+
+    @Nullable
     List<ThreadsDTO> threadsDTO = new ArrayList<>();
 }

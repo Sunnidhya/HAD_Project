@@ -30,6 +30,9 @@ public class Chats {
     @Column
     private String radioName;
 
+    @Column
+    private String radioImpression;
+
     @ManyToOne
     @JoinColumn(name = "chats", nullable = false, foreignKey = @ForeignKey(name="case_id"))
     @JsonIgnore

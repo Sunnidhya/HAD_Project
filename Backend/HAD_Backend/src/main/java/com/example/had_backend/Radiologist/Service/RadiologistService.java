@@ -13,6 +13,7 @@ import com.example.had_backend.Radiologist.Model.RadiologistChangePasswordDTO;
 import com.example.had_backend.Radiologist.Model.RadiologistRegistrationDTO;
 import com.example.had_backend.Radiologist.Repository.IRadiologistRegistrationRepository;
 import com.example.had_backend.WebSecConfig.PasswordConfig;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -165,6 +166,21 @@ public class RadiologistService {
         return loginMessage;
     }
 
+    public LoginMessage updateRadioImpression(RadioImpressionDTO radioImpressionDTO){
+        Cases cases = iCasesRepository.getCaseByCaseId(radioImpressionDTO.getCaseId());
+        Radiologist radiologist = iRadiologistRegistrationRepository.getProfile(radioImpressionDTO.getRadioUserName());
+        Integer radioId = radiologist.getUserId();
+        for(Chats i:cases.getChats()){
+            if(Objects.equals(i.getRadioId(), radioId)){
+                i.setRadioImpression(radioImpressionDTO.getRadioImpression());
+            }
+        }
+        iCasesRepository.save(cases);
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setMessage("Impression added successfully");
+        return loginMessage;
+    }
+
     public CasesDetailsDTO getCaseByCaseId(CasesDTO casesDTO) {
         Cases cases = iCasesRepository.getCaseByCaseId(casesDTO.getCaseId());
 
@@ -200,6 +216,7 @@ public class RadiologistService {
                 ChatsDTO chatsDTO = new ChatsDTO();
                 chatsDTO.setRadioId(chats1.getRadioId());
                 chatsDTO.setRadioName(chats1.getRadioName());
+                chatsDTO.setRadioImpression(chats1.getRadioImpression());
                 List<ThreadsDTO> threadsF = new ArrayList<>();
                 for(Threads threads1: chats1.getThreads()){
                     ThreadsDTO threadsDTO = new ThreadsDTO();

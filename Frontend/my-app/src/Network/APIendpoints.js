@@ -41,6 +41,9 @@ const getPatCaseById = "/patient/getCaseByCaseId"
 const insertChat = "/doctor/insertThreadChat"
 const assignNewRadio = "/doctor/assignNewRadiologist"
 const assignNewRadioPat = "/patient/assignRemoveNewRadiologist"
+const updateRadioImpression = "/radiologist/updateRadioImpression"
+const generateReport = "/doctor/updateReport"
+const markAndClose = "/doctor/markAsDone"
 
 export {patientLoginAPI, 
     doctorLoginAPI,
@@ -84,5 +87,8 @@ export {patientLoginAPI,
     insertChat,
     getCaseByCaseRadioId,
     assignNewRadio,
-    assignNewRadioPat
+    assignNewRadioPat,
+    updateRadioImpression,
+    generateReport,
+    markAndClose
 }

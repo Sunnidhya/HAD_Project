@@ -5,10 +5,7 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.CasesReturnDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
@@ -165,5 +162,12 @@ public class RadiologistController {
     public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
         CasesDetailsDTO casesDetailsDTO = radiologistService.getCaseByCaseId(casesDTO);
         return ResponseEntity.ok(casesDetailsDTO);
+    }
+
+    @CrossOrigin
+    @PostMapping("/radiologist/updateRadioImpression")
+    public ResponseEntity<LoginMessage> radioImpressionUpdate(@RequestBody @Validated RadioImpressionDTO radioImpressionDTO) {
+        LoginMessage loginMessage = radiologistService.updateRadioImpression(radioImpressionDTO);
+        return ResponseEntity.ok(loginMessage);
     }
 }

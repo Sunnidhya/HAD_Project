@@ -257,6 +257,7 @@ public class DoctorService {
             ChatsDTO chatsDTO = new ChatsDTO();
             chatsDTO.setRadioId(chats1.getRadioId());
             chatsDTO.setRadioName(chats1.getRadioName());
+            chatsDTO.setRadioImpression(chats1.getRadioImpression());
             List<ThreadsDTO> threadsF = new ArrayList<>();
             for(Threads threads1: chats1.getThreads()){
                 ThreadsDTO threadsDTO = new ThreadsDTO();
@@ -364,6 +365,8 @@ public class DoctorService {
         for(Chats chats1: cases1.getChats()){
             ChatsDTO chatsDTO = new ChatsDTO();
             chatsDTO.setRadioId(chats1.getRadioId());
+            chatsDTO.setRadioName(chats1.getRadioName());
+            chatsDTO.setRadioImpression(chats1.getRadioImpression());
             List<ThreadsDTO> threadsF = new ArrayList<>();
             for(Threads threads1: chats1.getThreads()){
                 ThreadsDTO threadsDTO = new ThreadsDTO();
@@ -450,81 +453,19 @@ public class DoctorService {
 
     public CasesDetailsDTO updateReport(CasesDetailsDTO caseDetailsDTO) {
         Cases cases1 = iCasesRepository.getCaseByCaseId(caseDetailsDTO.getCaseId());
+        FinalDiagnosis finalDiagnosis = new FinalDiagnosis();
+        finalDiagnosis.setAge(caseDetailsDTO.getAge());
+        finalDiagnosis.setName(caseDetailsDTO.getPatientName());
+        finalDiagnosis.setConclusion(caseDetailsDTO.getConclusion());
+        finalDiagnosis.setSurgery(caseDetailsDTO.getSurgery());
+        finalDiagnosis.setMedicalHistory(caseDetailsDTO.getMedicalHistory());
+        finalDiagnosis.setTreatmentRecommendations(caseDetailsDTO.getTreatmentRecommendation());
+        finalDiagnosis.setTherapy(caseDetailsDTO.getTherapy());
 
-        CasesDetailsDTO casesDetailsDTO = new CasesDetailsDTO();
-        casesDetailsDTO.setCaseId(cases1.getCaseId());
-        casesDetailsDTO.setCaseName(cases1.getCaseName());
-        casesDetailsDTO.setCaseDate(cases1.getCaseDate());
-        casesDetailsDTO.setDoctorName(cases1.getDoctor().getName());
-//        if(cases1.getRadiologist() != null) {
-//            casesDetailsDTO.setRadioName(cases1.getRadiologist().getName());
-//        }else{
-//            casesDetailsDTO.setRadioName("Not yet assigned");
-//        }
-        Set<Radiologist> radiologists = cases1.getRadiologist();
-        if (radiologists != null && !radiologists.isEmpty()) {
-            StringBuilder radiologistNames = new StringBuilder();
-            for (Radiologist radiologist : radiologists) {
-                radiologistNames.append(radiologist.getName()).append(", ");
-            }
-            radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
-            casesDetailsDTO.setRadioName(radiologistNames.toString());
-        } else {
-            casesDetailsDTO.setRadioName("Not yet assigned");
-        }
-        if(cases1.getLab() != null) {
-            casesDetailsDTO.setLabName(cases1.getLab().getLabName());
-        }else{
-            casesDetailsDTO.setLabName("Not yet assigned");
-        }
-        casesDetailsDTO.setPatientName(cases1.getPatient().getFullName());
-        casesDetailsDTO.setMarkAsDone(cases1.getMarkAsDone());
-        casesDetailsDTO.setCaseDescription(cases1.getCaseDescription());
-//        List<ChatsDTO> threadsF = new ArrayList<>();
-//        for(Threads threads1: cases1.getChats().getThreads()){
-//            ChatsDTO chatsDTO = new ChatsDTO();
-//            chatsDTO.setText(threads1.getText());
-//            chatsDTO.setTimeStamp(threads1.getTimeStamp());
-//            chatsDTO.setImageURL(threads1.getImageURL());
-//            chatsDTO.setUserName(threads1.getUserName());
-//            threadsF.add(chatsDTO);
-//        }
-//        casesDetailsDTO.setThreads(threadsF);
-
-        List<ChatsDTO> chatsDTOF = new ArrayList<>();
-        for(Chats chats1: cases1.getChats()){
-            ChatsDTO chatsDTO = new ChatsDTO();
-            chatsDTO.setRadioId(chats1.getRadioId());
-            List<ThreadsDTO> threadsF = new ArrayList<>();
-            for(Threads threads1: chats1.getThreads()){
-                ThreadsDTO threadsDTO = new ThreadsDTO();
-                threadsDTO.setText(threads1.getText());
-                threadsDTO.setTimeStamp(threads1.getTimeStamp());
-                threadsDTO.setImageURL(threads1.getImageURL());
-                threadsDTO.setUserName(threads1.getUserName());
-                threadsF.add(threadsDTO);
-            }
-            chatsDTO.setThreadsDTO(threadsF);
-            chatsDTOF.add(chatsDTO);
-        }
-        casesDetailsDTO.setThreads(chatsDTOF);
-
-
-
-        if(cases1.getImageOb() != null){
-            if(cases1.getImageOb().getFinalDiagnosis() != null){
-                casesDetailsDTO.setAge(cases1.getImageOb().getFinalDiagnosis().getAge());
-                casesDetailsDTO.setConclusion(cases1.getImageOb().getFinalDiagnosis().getConclusion());
-                casesDetailsDTO.setStatus(cases1.getImageOb().getFinalDiagnosis().getStatus());
-                casesDetailsDTO.setTherapy(cases1.getImageOb().getFinalDiagnosis().getTherapy());
-                casesDetailsDTO.setMedicalHistory(cases1.getImageOb().getFinalDiagnosis().getMedicalHistory());
-                casesDetailsDTO.setRadiologistConclusion(cases1.getImageOb().getFinalDiagnosis().getRadiologistConclusion());
-                casesDetailsDTO.setTreatmentRecommendation(cases1.getImageOb().getFinalDiagnosis().getTreatmentRecommendations());
-                casesDetailsDTO.setSurgery(cases1.getImageOb().getFinalDiagnosis().getSurgery());
-            }
-            casesDetailsDTO.setPrescriptionURL(cases1.getImageOb().getPrescriptionURL());
-            casesDetailsDTO.setScannedImageURL(cases1.getImageOb().getScannedImageURL());
-        }
-        return casesDetailsDTO;
+        cases1.getImageOb().setFinalDiagnosis(finalDiagnosis);
+        iCasesRepository.save(cases1);
+        CasesDTO casesDTO = new CasesDTO();
+        casesDTO.setCaseId(caseDetailsDTO.getCaseId());
+        return getCaseByCaseId(casesDTO);
     }
 }

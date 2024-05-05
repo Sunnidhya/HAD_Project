@@ -16,7 +16,7 @@ import { imgDB } from "../../../ImageOb/KavachImgDBconfig";
 import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 import { request } from "../../../Network/axiosHelper";
-import { getCaseByCaseRadioId, getCaseById,insertChat} from "../../../Network/APIendpoints";
+import { getCaseByCaseRadioId, getCaseById,insertChat, updateRadioImpression} from "../../../Network/APIendpoints";
 
 const RadioChat = () => {
   let nav = useNavigate();
@@ -33,6 +33,7 @@ const RadioChat = () => {
   const [dicomImage, setDicomImage] = useState(null);
   const [chatImage,setChatImage] = useState();
   const [loadImage,setLoadImage]=useState();
+  const [textInput, setTextInput] = useState('');
 
   const [screenshot, takeScreenshot] = useScreenshot({
     type: "image/jpeg",
@@ -157,6 +158,25 @@ const RadioChat = () => {
     } catch (error) {
       console.error("Error loading image:", error);
     }
+  };
+
+  const handleSubmit = () => {
+    // Do whatever you want with the textInput here
+    console.log('Submitted text:', textInput);
+    // You can reset the text input after submission if needed
+    setTextInput('');
+    const data = {
+      caseId: caseIdValue,
+      radioUserName: decryptData(),
+      radioImpression: textInput
+    };
+    request("POST", updateRadioImpression, data)
+      .then((response) => {
+        alert(response.data.message)
+      })
+      .catch((error) => {
+        console.warn("Error", error);
+      });
   };
 
   const handlePaste = (event) => {
@@ -297,6 +317,19 @@ const RadioChat = () => {
             <button onClick={downloadScreenshot} className="radio-screenshot">
               Screenshot
             </button>
+            <div>
+              <textarea
+              style={{marginTop:'5px', borderRadius: '8px', padding: '8px', border: '1px solid #ccc'}}
+                rows="4"
+                cols="60"
+                placeholder="Enter radiologist's impression"
+                value={textInput}
+                onChange={(e) => setTextInput(e.target.value)}
+              />
+              <button onClick={handleSubmit} className="submit-button">
+                Submit
+              </button>
+            </div>
           </div>
         )}
       </div>

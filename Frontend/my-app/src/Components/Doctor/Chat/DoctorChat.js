@@ -126,8 +126,13 @@ const DoctorChat = () => {
       .then((response) => {
         // loadChatImage(response.data)
         setCaseObj(response.data)
-       
-        newMessage1=null
+        caseObj.threads.map((item) => {
+          // console.warn("dataTh", item)
+          // console.warn("dataTh", radioSelected)
+           if(item.radioId === radioSelected.radioId){
+            setRadioSelected(item)
+           }
+        })
       }).catch((error) => {
         console.warn("Error", error);
       });
@@ -203,6 +208,8 @@ const DoctorChat = () => {
       setCaseObj(obj);
       if(obj.threads.length === 2){
         setRadioList(obj.threads)
+      }else if(obj.threads.length === 1){
+        setRadioSelected(obj.threads[0])
       }
     
     } catch (error) {
