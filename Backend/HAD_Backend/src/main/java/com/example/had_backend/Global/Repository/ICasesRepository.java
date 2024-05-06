@@ -16,7 +16,7 @@ public interface ICasesRepository extends JpaRepository<Cases, Serializable> {
     @Query("select c from Cases c where c.doctor.userName = :userName")
     List<Cases> getAllCasesDoctor(@Param("userName") String searchResult);
 
-    @Query("select c from Cases c where c.radiologist.userName = :userName")
+    @Query("select c from Cases c")// where c.radiologist.userName = :userName
     List<Cases> getAllCasesRadiologist(@Param("userName") String searchResult);
 
     @Query("select c from Cases c where c.lab.userName = :userName")

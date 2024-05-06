@@ -136,6 +136,16 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.CaseClosed{
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    border: rgb(99, 110, 109) solid 6px;
+    background-color: rgb(99, 110, 109);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .doctor-details-about-us-section{
    margin-top: 20px;
     height: auto;

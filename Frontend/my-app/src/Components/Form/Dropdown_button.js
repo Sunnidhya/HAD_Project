@@ -16,7 +16,11 @@ function DropdownButton({patientValue,onSelect,flow}) {
   const handleOptionClick = (option,patient) => {
     //console.warn("Data",option)
     setSelectedOption(option);
-    onSelect(patientValue.find(patient => patient.userName === option));
+    if(flow === "Select Radiologist"){
+      onSelect(patientValue.find(patient => patient.radioName === option));
+    }else{
+      onSelect(patientValue.find(patient => patient.userName === option));
+    }
   };
 
 
@@ -31,7 +35,11 @@ function DropdownButton({patientValue,onSelect,flow}) {
         </Dropdown.Toggle>
 
         <Dropdown.Menu style={{ width: '100%' }}>
-        {patientValue.map((patient,index) => (
+        {flow === "Select Radiologist" ? patientValue.map((patient,index) => (
+            <Dropdown.Item key={patient.radioId} onClick={() => handleOptionClick(patient.radioName,patient)}>
+              {patient.radioName}
+            </Dropdown.Item>
+          )) : patientValue.map((patient,index) => (
             <Dropdown.Item key={patient.id} onClick={() => handleOptionClick(patient.userName,patient)}>
               {patient.userName}
             </Dropdown.Item>

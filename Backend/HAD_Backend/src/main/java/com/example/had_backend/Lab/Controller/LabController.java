@@ -14,6 +14,7 @@ import com.example.had_backend.Lab.Model.LabRegistrationDTO;
 import com.example.had_backend.Lab.Service.LabService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
+import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class LabController {
@@ -123,9 +125,20 @@ public class LabController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            if(cases.getRadiologist() != null) {
-                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            }else{
+//            if(cases.getRadiologist() != null) {
+//                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+//            }else{
+//                casesReturnDTO.setRadioName("Not yet assigned");
+//            }
+            Set<Radiologist> radiologists = cases.getRadiologist();
+            if (radiologists != null && !radiologists.isEmpty()) {
+                StringBuilder radiologistNames = new StringBuilder();
+                for (Radiologist radiologist : radiologists) {
+                    radiologistNames.append(radiologist.getName()).append(", ");
+                }
+                radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+                casesReturnDTO.setRadioName(radiologistNames.toString());
+            } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
             if(cases.getLab() != null) {

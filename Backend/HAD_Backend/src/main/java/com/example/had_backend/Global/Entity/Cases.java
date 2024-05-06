@@ -7,10 +7,16 @@ import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "cases")
 public class Cases {
     @Id
@@ -34,18 +40,31 @@ public class Cases {
     @JsonIgnore
     private Lab lab;
 
-    @ManyToOne
-    @JoinColumn(name = "radioId", nullable = true, foreignKey = @ForeignKey(name="radiologistId"))
+//    @ManyToOne
+//    @JoinColumn(name = "radioId", nullable = true, foreignKey = @ForeignKey(name="radiologistId"))
+//    @JsonIgnore
+//    private Radiologist radiologist;
+
+    @ManyToMany(mappedBy = "cases",fetch = FetchType.LAZY)
     @JsonIgnore
-    private Radiologist radiologist;
+    private Set<Radiologist> radiologist;
 
     @ManyToOne
     @JoinColumn(name = "patientId", nullable = false, foreignKey = @ForeignKey(name="patientId"))
     @JsonIgnore
     private Patient patient;
 
-    @OneToOne(mappedBy = "cases", cascade = CascadeType.ALL)
-    private Chats chats;
+    @OneToMany(mappedBy = "cases")
+    @JsonIgnore
+    private List<Chats> chats;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "ref_chat_id", referencedColumnName = "chat_id")
+//    private Chats chats;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ref_consent_id", referencedColumnName = "consent_id")
+    private Consent consent;
 
     @Column(nullable = true)
     @Embedded

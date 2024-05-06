@@ -9,14 +9,12 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.CasesReturnDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Patient.Entity.Patient;
 import com.example.had_backend.Patient.Service.PatientService;
+import com.example.had_backend.Radiologist.Entity.Radiologist;
 import com.example.had_backend.WebSecConfig.UserAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class DoctorController {
@@ -130,9 +129,20 @@ public class DoctorController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            if(cases.getRadiologist() != null) {
-                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            }else{
+//            if(cases.getRadiologist() != null) {
+//                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+//            }else{
+//                casesReturnDTO.setRadioName("Not yet assigned");
+//            }
+            Set<Radiologist> radiologists = cases.getRadiologist();
+            if (radiologists != null && !radiologists.isEmpty()) {
+                StringBuilder radiologistNames = new StringBuilder();
+                for (Radiologist radiologist : radiologists) {
+                    radiologistNames.append(radiologist.getName()).append(", ");
+                }
+                radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+                casesReturnDTO.setRadioName(radiologistNames.toString());
+            } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
             if(cases.getLab() != null) {
@@ -162,7 +172,7 @@ public class DoctorController {
         Date date = new Date();
         cases.setCaseName(casesDTO.getCaseName());
         cases.setCaseDate(date.getTime());
-        cases.setCaseDescription(cases.getCaseDescription());
+        cases.setCaseDescription(casesDTO.getCaseDescription());
         Doctor doctor = doctorService.getDoctorByUserName(casesDTO.getDoctorName());
         Patient patient = patientService.getPatientByUserName(casesDTO.getPatientName());
         cases.setDoctor(doctor);
@@ -172,7 +182,7 @@ public class DoctorController {
     }
 
     @CrossOrigin
-    @GetMapping("/doctor/markAsDone")
+    @PostMapping("/doctor/markAsDone")
     public ResponseEntity<LoginMessage> markAsDone(@RequestBody @Validated CasesDTO casesDTO) {
         LoginMessage loginMessage= doctorService.markAsDone(casesDTO);
         return ResponseEntity.ok(loginMessage);
@@ -183,5 +193,26 @@ public class DoctorController {
     public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
         CasesDetailsDTO casesDetailsDTO = doctorService.getCaseByCaseId(casesDTO);
         return ResponseEntity.ok(casesDetailsDTO);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/insertThreadChat")
+    public ResponseEntity<CasesDetailsDTO> insertChatThread(@RequestBody @Validated CasesChatDTO casesChatDTO) {
+        CasesDetailsDTO casesDetailsDTO = doctorService.insertChatThread(casesChatDTO);
+        return ResponseEntity.ok(casesDetailsDTO);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/updateReport")
+    public ResponseEntity<CasesDetailsDTO> updateReport(@RequestBody @Validated CasesDetailsDTO casesDetailsDTO) {
+        CasesDetailsDTO caseDetailsDTO1 = doctorService.updateReport(casesDetailsDTO);
+        return ResponseEntity.ok(caseDetailsDTO1);
+    }
+
+    @CrossOrigin
+    @PostMapping("/doctor/assignNewRadiologist")
+    public ResponseEntity<LoginMessage> assignNewRadiologist(@RequestBody @Validated CasesDTO casesDTO) {
+        LoginMessage loginMessage = doctorService.assignNewRadio(casesDTO);
+        return ResponseEntity.ok(loginMessage);
     }
 }

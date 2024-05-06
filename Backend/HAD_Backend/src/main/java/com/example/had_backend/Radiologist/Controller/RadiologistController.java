@@ -5,10 +5,7 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesDTO;
-import com.example.had_backend.Global.Model.CasesDetailsDTO;
-import com.example.had_backend.Global.Model.CasesReturnDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
 import com.example.had_backend.Radiologist.Entity.Radiologist;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class RadiologistController {
@@ -124,9 +122,20 @@ public class RadiologistController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
-            if(cases.getRadiologist() != null) {
-                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
-            }else{
+//            if(cases.getRadiologist() != null) {
+//                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
+//            }else{
+//                casesReturnDTO.setRadioName("Not yet assigned");
+//            }
+            Set<Radiologist> radiologists = cases.getRadiologist();
+            if (radiologists != null && !radiologists.isEmpty()) {
+                StringBuilder radiologistNames = new StringBuilder();
+                for (Radiologist radiologist : radiologists) {
+                    radiologistNames.append(radiologist.getName()).append(", ");
+                }
+                radiologistNames.delete(radiologistNames.length() - 2, radiologistNames.length()); // Remove the last comma and space
+                casesReturnDTO.setRadioName(radiologistNames.toString());
+            } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
             if(cases.getLab() != null) {
@@ -149,9 +158,16 @@ public class RadiologistController {
     }
 
     @CrossOrigin
-    @GetMapping("/radiologist/getCaseByCaseId")
+    @PostMapping("/radiologist/getCaseByCaseId")
     public ResponseEntity<CasesDetailsDTO> getCaseByCaseId(@RequestBody @Validated CasesDTO casesDTO) {
         CasesDetailsDTO casesDetailsDTO = radiologistService.getCaseByCaseId(casesDTO);
         return ResponseEntity.ok(casesDetailsDTO);
+    }
+
+    @CrossOrigin
+    @PostMapping("/radiologist/updateRadioImpression")
+    public ResponseEntity<LoginMessage> radioImpressionUpdate(@RequestBody @Validated RadioImpressionDTO radioImpressionDTO) {
+        LoginMessage loginMessage = radiologistService.updateRadioImpression(radioImpressionDTO);
+        return ResponseEntity.ok(loginMessage);
     }
 }
