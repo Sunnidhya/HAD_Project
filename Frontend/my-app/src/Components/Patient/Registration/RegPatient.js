@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import imgmain from '../../../Resources/patient6.avif';
+import imgmain from '../../../Resources/scanned-image.jpg';
 import userIcon from '../../../Resources/UserIcon.png';
 import passwordIcon from '../../../Resources/PasswordIcon.png';
 import imgside from '../../../Resources/AppLogo.png';
@@ -67,21 +67,21 @@ const RegPatient = () => {
   };
 
   return (
-    <div className="Patient-login-container">
-      <div className="Patient-Login-hor">
+    <div className="Patient-Reg-container1">
+      <div className="Patient-Reg-hor">
         <div>
-          <img src={imgside} id="patRseideimg" alt="App Logo" />
+          <img src={imgside} id="patRsideimg" alt="App Logo" />
         </div>
         <div className="divisions1PR">
           <h1 className="pageTitlePR">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
       </div>
-      <div className="Patient-Login-Ver">
-        <div className="Patient-Login-Ver-Left">
+      <div className="Patient-Reg-Ver">
+        <div className="Patient-Reg-Ver-Left">
           <img src={imgmain} id="patRmainimg" alt="Patient" />
         </div>
-        <div className="Patient-Login-Ver-Right">
-          <div className="login-container">
+        <div className="Patient-Reg-Ver-Right">
+          <div className="Patient-Reg-container">
             <h3>Register Yourself !!</h3>
             <form className="login-formPR">
               <div className="form-group">
@@ -116,7 +116,7 @@ const RegPatient = () => {
               </div>
               
             </form>
-            <button type="submit" id="login_patient"
+            <button type="submit" id="reg_patient"
             onClick={(e) =>
               regP(
                 e,
