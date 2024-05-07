@@ -1,102 +1,70 @@
-body {
-  margin: 0; 
-  padding: 0; 
-  /* background-image: url("../../../Resources/beige\ background.avif");  */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  }
-.Profile-Login-hor{
+.Radio-Profile-hor{
   display: flex;
   background-color: #0E0F62;
-  overflow: hidden;
+  justify-content: space-between;
+  flex-direction: row;
+  overflow-y: hidden;
 }
-.divisions1
-{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 10%;
-}  
-
-#profilesideimg{
-  padding-top: 1%;
-  padding-left: 10%;
-  height: 120px;
-  width: 120px;
+#radioprofilesideimg{
+  flex: 1;
+  padding: 10%;
+  height: 80px;
+  width: 80px;
+  margin-left: 15px;
 }
-
-
-.pageTitle {
-  color: white;
-  text-align: start;
-  
-}
-
-
 
 /* ------------------------------------------------------ */
 
 
 
-.profile-container {
+.Radio-profile-container 
+{
   margin-left: 200px;
   margin-right: 200px;
   margin-top: 50px;
   margin-bottom: 50px;
-  background-color: #FCECD4;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   display: flex;
   align-items: center;
-  
+  background-image: url('../../../Resources/peach1.jpg');  
 }
 
-.profile-picture {
+.Radio-profile-picture {
   text-align: center;
   margin-right: 80px;
 }
 
-.profile-picture img {
+.Radio-profile-picture img {
   width: 300px;
-  height: 300px;
-  border-radius: 80px;
-  object-fit: cover;
-  border: 3px solid #333;
-  margin: 60px 0px 20px 80px;
+    height: 300px;
+    border-radius: 80px;
+    object-fit: cover;
+    border: 3px solid #333;
+    margin: 60px 0px 20px 80px;
 }
 
-.user-info h2 {
+.radiomainprofile h2 {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 300px;
-  color: rgb(14, 14, 98);
+  color: #0E0F62;
 }
 
-.user-info p {
+.radiomainprofile p {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 500px;
-  color: rgb(14, 14, 98);
-}
-.edit-button {
-  margin-top: 6px; 
-  margin-left: 80px;
-  color:white;
-  background-color: rgb(14, 14, 98);
-  padding: 6px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 300;
-  
+  color: #0E0F62;
 }
 
-.change-button {
+
+
+
+.Radio-change-button {
   margin-top: 10px; 
   margin-left: 80px;
   color:white;
-  background-color: rgb(14, 14, 98);
+  background-color: #0E0F62;
   padding: 6px;
   border: none;
   border-radius: 4px;
@@ -106,18 +74,12 @@ body {
 }
 
 
-.about-us-section {
-  margin-top: 20px; 
-  padding: 20px;
+.Radio-profile-about-us-section {
+  height: auto;
+  padding: 10px;
   background-color: #0E0F62;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   color: white;
   font-weight: bold;
-}
-
-.about-us-section p {
-  font-size: 16px;
-  line-height: 1;
-  margin-bottom: 10px;
 }

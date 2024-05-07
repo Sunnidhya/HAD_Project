@@ -282,6 +282,7 @@ const DoctorChat = () => {
       </div>
       <div className="chatDicom">
         <div className="chat-wrapper">
+          <div style={{width:'300px', marginBottom:'10px', alignItems:'center',alignContent:'center',marginRight:'10px'}}>
           {caseObj && caseObj.threads.length === 1 && 
             <div>
             <DropdownButton
@@ -298,6 +299,8 @@ const DoctorChat = () => {
                               flow = {"Select Radiologist"}/>
             </div>
           }
+          </div>
+       
           {radioSelected && <div className="chat-container">
             <ul className="chat-list">
               {/* {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO

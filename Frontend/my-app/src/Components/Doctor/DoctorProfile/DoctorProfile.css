@@ -5,14 +5,6 @@
     flex-direction: row;
     overflow-y: hidden;
   }
-  .doctorprofiledivisions1
-  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 10%;
-  }  
-  
   #doctorprofilesideimg{
     flex: 1;
     padding: 10%;
@@ -67,19 +59,6 @@
     font-weight: 500px;
     color: #066E65;
   }
-  .Doctor-edit-button {
-    margin-top: 6px; 
-    margin-left: 80px;
-    color:white;
-    background-color: #066E65;
-    padding: 6px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 300;
-    
-  }
   
   .Doctor-change-button {
     margin-top: 10px; 
@@ -96,8 +75,8 @@
   
   
   .Doctor-about-us-section {
-    margin-top: 20px; 
-    padding: 20px;
+    height: auto;
+    padding: 10px;
     background-color: #066E65;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -105,8 +84,3 @@
     font-weight: bold;
   }
   
-  .Doctor-about-us-section p {
-    font-size: 16px;
-    line-height: 1;
-    margin-bottom: 10px;
-  }

@@ -26,8 +26,8 @@ function DropdownButton({patientValue,onSelect,flow}) {
 
   return (
     <div className="center-container">
-      <Dropdown style={{ width: '100%' }}>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" className="fixed-button">
+      <Dropdown style={{ width: '100%'}}>
+        <Dropdown.Toggle  id="dropdown-basic" className="fixed-button">
         {flow === "Select Patient Name" && selectedOption ? selectedOption : 
       flow === "Select Radiologist Name" && selectedOption ? selectedOption :
       flow === "Select Lab Name" && selectedOption ? selectedOption : flow}
