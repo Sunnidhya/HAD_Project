@@ -45,26 +45,23 @@ const RadiologistProfile = () => {
 
   return (
       
-      <div class="Profile-login-container">
-      <div class="Profile-Login-hor">
+      <div class="Radio-container">
+      <div class="Radio-Profile-hor">
         <div>
-          <img src={imgside} id="profilesideimg"/>
-        </div>
-        <div className='divisions1'>
-          <h2 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h2>
-        </div>
-        </div>
-
-        <div class="profile-container">
-        <div class="profile-picture">
-            <img src={radpic} alt="Profile Picture"/><br/>
-            <button class="edit-button" onClick="editProfile()">Update Profile</button><br/>
-            <button class="change-button" onClick={() => changePassword()}>Change Password</button>
+          <img src={imgside} id="radioprofilesideimg"/>
         </div>
         
-        <div class="user-info">
+        </div>
+
+        <div class="Radio-profile-container">
+        <div class="Radio-profile-picture">
+            <img src={radpic} alt="Profile Picture"/><br/>
+            <button class="Radio-change-button" onClick={() => changePassword()}>Change Password</button>
+        </div>
+        
+       
         {radiologistProfile && (
-        <div>
+        <div className='radiomainprofile'>
             <h2>{radiologistProfile.name}</h2><br/>
             <p><b>Degree: {radiologistProfile.degree}</b></p>
             <p><b>Specialization: {radiologistProfile.specialization}</b></p>
@@ -73,11 +70,11 @@ const RadiologistProfile = () => {
             <p><b>Email: {radiologistProfile.email}</b></p>
         </div>
     )}
-        </div>
+        
     
        </div>
        
-      <div className="about-us-section">
+      <div className="Radio-profile-about-us-section">
         <p>About Us</p>
       </div>
       <div>

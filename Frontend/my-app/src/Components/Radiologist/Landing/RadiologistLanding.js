@@ -28,13 +28,17 @@ const RadioLanding = () => {
   };
 
   const profileget = () => {
-    nav("/doctor/profile")
+    nav("/radiologist/profile")
   }
 
   const goToDetailsPage = (objectVal) => {
     nav('/radiologist/chat', {state: {caseIdValue: objectVal}});
   }
 
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
@@ -55,24 +59,24 @@ const RadioLanding = () => {
     <div class="Radio-landing-container">
       <div class="Radio-landing-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="radlandsideimg" />
         </div>
-        <div class="Search">
-          <input className="RadioSearch" type="text" placeholder="Search..." value={searchQuery} />
+        <div class="DoctorLandingSearch" id="myInput">
+          <input className="RadioSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
-        <div class="RadioLogout" style={{ cursor: "pointer" }} onClick={togglePopup}>
-          <img src={logout} alt="Logout" className="input-icon1" />
+        <div class="RadioLandingLogout" style={{ cursor: "pointer" }} onClick={togglePopup}>
+          <img src={logout} alt="Logout" className="input-rad-land-icon2" />
         </div>
       </div>
 
       <div className='Radio-Land-ver'>
         <div className='Radio-Land-ver1'>
-          <button style={{ margin: '10px' }} onClick={profileget}>Profile</button>
+          <button style={{ margin: '10px' }} onClick={profileget} className='radio-landing-button'>Profile</button>
         </div>
         <div className='Radio-Land-ver2'>
           <div className="Radio-card">
             <Container>
-              <Row xs={2}>
+              <Row xs={1}>
                 {radiologist.map((obj, i) => {
                   const date = new Date(obj.caseDate);
                   const year = date.getFullYear();
@@ -84,15 +88,30 @@ const RadioLanding = () => {
                   const formattedDateTime = `${year}-${month}-${day}`;
                   return (
                     <Col>
-                        <Card className='RadioLandingcard' style={{ backgroundColor: obj.markAsDone ? 'lightgreen' : 'red', color: 'white', cursor:'pointer' }} onClick={() => goToDetailsPage(obj.caseId)}>
-                          <CardBody>
-                            <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle><br />
-                            <CardSubtitle tag="h6" >Case Name - {obj.caseName}</CardSubtitle>
-                            <CardSubtitle tag="h6" >Patient Name - {obj.patientName}</CardSubtitle>
-                            <CardSubtitle tag="h6" >Doctor Name - {obj.doctorName}</CardSubtitle>
-                            <CardSubtitle tag="h6" >Lab Name - {obj.labName}</CardSubtitle>
-                            <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
-                            <CardText>Case Description</CardText>
+                        <Card className='RadioLandingcard' style={{ background: obj.markAsDone ? 'linear-gradient(to right, lightgreen, rgb(37,116,68))' : 'linear-gradient(to right, #E9755F, #C15556)',
+                          color: 'white',
+                          cursor: 'pointer',
+                          boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.3)',
+                          border: 'rgb(241, 247, 247) solid 3px', }} onClick={() => goToDetailsPage(obj.caseId)}>
+                          <CardBody style={{ fontFamily: 'Arial, sans-serif' }}>
+                          <Row>
+                            <Col xs="4">
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                            <CardTitle tag="h4" style={{ marginBottom: '10px' }}>Case ID - {obj.caseId}</CardTitle>
+
+                            </div>
+                            </Col>
+                            <Col xs="8">
+                              <div style={{ textAlign: 'left',borderLeft: '2px solid lightgray',paddingLeft: '25px' }}>
+                            <CardSubtitle  style={{ marginBottom: '5px',fontSize:'18px' }}>Case Name - {obj.caseName}</CardSubtitle>
+                            <CardSubtitle  style={{ marginBottom: '5px',fontSize:'18px'}}>Patient Name - {obj.patientName}</CardSubtitle>
+                            <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Doctor Name - {obj.doctorName}</CardSubtitle>
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>Lab Name - {obj.labName}</CardSubtitle>
+                            <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Date - {formattedDateTime}</CardSubtitle>
+                            <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Description - </CardSubtitle>
+                            </div>
+                            </Col>
+                          </Row>
                           </CardBody>
                         </Card>
                     </Col>

@@ -17,6 +17,7 @@ import { v4 } from "uuid";
 import { decryptData } from "../../../EncryptDecrypt/EncDecrypt";
 import { request } from "../../../Network/axiosHelper";
 import { getCaseByCaseRadioId, getCaseById,insertChat, updateRadioImpression} from "../../../Network/APIendpoints";
+import Logout from "../../Form/Logout";
 
 const RadioChat = () => {
   let nav = useNavigate();
@@ -34,6 +35,7 @@ const RadioChat = () => {
   const [chatImage,setChatImage] = useState();
   const [loadImage,setLoadImage]=useState();
   const [textInput, setTextInput] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const [screenshot, takeScreenshot] = useScreenshot({
     type: "image/jpeg",
@@ -227,6 +229,10 @@ const RadioChat = () => {
     }
   };
 
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
   useEffect(() => {
     const data = {
       caseId: caseIdValue,
@@ -248,7 +254,7 @@ const RadioChat = () => {
         <div className="logoradiochat">
           <img src={imgside} id="radiochatsideimg" />
         </div>
-        <div className="RadiochatLogout" onClick={handleLogout}>
+        <div className="RadiochatLogout" onClick={togglePopup}>
           <img src={logout} alt="Logout" className="radio-input-icon1" />
         </div>
       </div>
@@ -335,6 +341,15 @@ const RadioChat = () => {
       </div>
       <div className="RadioChat-about-us-section">
         <p>About Us</p>
+      </div>
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <Logout userType="radiologist"/>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -50,7 +50,6 @@ const DoctorProfile = () => {
       <div className="Doctor-container">
         <div className="Doctor-picture">
           <img src={radpic} alt="Profile Picture" /><br />
-          <button className="Doctor-edit-button" onclick="editProfile()">Update Profile</button><br />
           <button className="Doctor-change-button" onClick={() => changePassword()} >Change Password</button>
         </div>
 

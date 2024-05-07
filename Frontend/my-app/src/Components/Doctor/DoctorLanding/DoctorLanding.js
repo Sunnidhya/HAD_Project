@@ -27,7 +27,7 @@ const DoctorLanding = () => {
   const [doctor, setDoctor] = useState([]);
 
   const goToDetailsPage = (objectVal) => {
-    nav('/doctor/details', {state: {caseIdVal: objectVal}});
+    nav('/doctor/details', { state: { caseIdVal: objectVal } });
   }
 
   const togglePopup = () => {
@@ -53,7 +53,7 @@ const DoctorLanding = () => {
       userName: decryptedData
     };
 
-    request("POST",getCasesOfDoctor , data)
+    request("POST", getCasesOfDoctor, data)
       .then((response) => {
         setDoctor(response.data);
       })
@@ -61,82 +61,103 @@ const DoctorLanding = () => {
         console.warn("Error", error);
       });
   }, []);
-  
+
   return (
     <div className="Doctor-landing-container">
-     <div className="Doctor-landing-hor">
+      <div className="Doctor-landing-hor">
         <div>
           <img src={imgside} id="doclandsideimg" />
         </div>
-        <div className="DoctorLandingSearch" id="myInput">  
-           <input className="DoctorSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
+        <div className="DoctorLandingSearch" id="myInput">
+          <input className="DoctorSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch} />
         </div>
-        <div className="DoctorLandingLogout" onClick={togglePopup}>  
-           <img src={logout} alt="Logout" className="input-doc-land-icon2" />
+        <div className="DoctorLandingLogout" onClick={togglePopup}>
+          <img src={logout} alt="Logout" className="input-doc-land-icon2" />
         </div>
-    </div>
+      </div>
 
-    <div className='Doctor-Land-ver'>
+      <div className='Doctor-Land-ver'>
         <div className='Doctor-Land-ver1'>
-        
-            <button style={{ margin: '10px' }} onClick={togglePopupDoctor} className='doc-landing-button'>Add new Case</button>
-            <button style={{ margin: '10px' }} onClick={getProfile} className='doc-landing-button'>Profile</button>
+
+          <button style={{ margin: '10px' }} onClick={togglePopupDoctor} className='doc-landing-button'>Add new Case</button>
+          <button style={{ margin: '10px' }} onClick={getProfile} className='doc-landing-button'>Profile</button>
         </div>
         <div className='Doctor-Land-ver2'>
-        <div className="Doctor-card">
-         <Container>
-            <Row xs={2}>
-            {doctor.map((obj, i) => {
-                const date = new Date(obj.caseDate);
-                const year = date.getFullYear();
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const day = date.getDate().toString().padStart(2, '0');
-                const hours = date.getHours().toString().padStart(2, '0');
-                const minutes = date.getMinutes().toString().padStart(2, '0');
-                const seconds = date.getSeconds().toString().padStart(2, '0');
-                const formattedDateTime = `${year}-${month}-${day}`;
-                return (
-                  <Col>
-                         <Card className='DoctorLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : '#C15556', color: 'white', cursor: 'pointer'}} onClick={() => goToDetailsPage(obj.caseId)}>
-                          <CardBody>
-                              <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
-                              <CardSubtitle tag="h6">Case Name - {obj.caseName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Patient Name - {obj.patientName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Radiologist Name - {obj. radioName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Lab Name - {obj.labName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
-                              <CardText>Case Description - {obj.caseDescription}</CardText>
-                             </CardBody>
+          <div className="Doctor-card">
+            <Container>
+              <Row xs={1}>
+                {doctor.map((obj, i) => {
+                  const date = new Date(obj.caseDate);
+                  const year = date.getFullYear();
+                  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                  const day = date.getDate().toString().padStart(2, '0');
+                  const hours = date.getHours().toString().padStart(2, '0');
+                  const minutes = date.getMinutes().toString().padStart(2, '0');
+                  const seconds = date.getSeconds().toString().padStart(2, '0');
+                  const formattedDateTime = `${year}-${month}-${day}`;
+                  return (
+                    <Col>
+                      <Card
+                        className='DoctorLandingcard'
+                        style={{
+                          background: obj.markAsDone ? 'linear-gradient(to right, lightgreen, rgb(37,116,68))' : 'linear-gradient(to right, #E9755F, #C15556)',
+                          color: 'white',
+                          cursor: 'pointer',
+                          boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.3)',
+                          border: 'rgb(241, 247, 247) solid 3px',
+                        }}
+                        onClick={() => goToDetailsPage(obj.caseId)}
+                      >
+                        <CardBody style={{ fontFamily: 'Arial, sans-serif' }}>
+                          <Row>
+                            <Col xs="4">
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                <CardTitle tag="h4" style={{ marginBottom: '10px' }}>Case ID - {obj.caseId}</CardTitle>
+                              </div>
+                            </Col>
+                            
+                            <Col xs="8">
+                              <div style={{ textAlign: 'left',borderLeft: '2px solid lightgray',paddingLeft: '25px' }}>
+                                <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>Case Name - {obj.caseName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Patient Name - {obj.patientName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Radiologist Name - {obj.radioName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Lab Name - {obj.labName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Date - {formattedDateTime}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Description - {obj.caseDescription}</CardSubtitle>
+                              </div>
+                            </Col>
+                          </Row>
+                        </CardBody>
                       </Card>
-                  </Col>
-                )
-            })}
-            </Row>
-        </Container>
-    </div>
-    </div>
-    </div>
-    <div className="Doctor-landing-about-us-section">
+                    </Col>
+                  )
+                })}
+              </Row>
+            </Container>
+          </div>
+        </div>
+      </div>
+      <div className="Doctor-landing-about-us-section">
         <p>About Us</p>
-    </div>
-    <div>
+      </div>
+      <div>
         {showPopup && (
           <div className="popup-overlay" onClick={togglePopup}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-              <Logout userType="doctor"/>
+              <Logout userType="doctor" />
             </div>
           </div>
         )}
         {showPopupCase && (
           <div className="popup-overlay" onClick={togglePopupDoctor}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-              <CaseForm userType="doctor"/>
+              <CaseForm userType="doctor" />
             </div>
           </div>
         )}
       </div>
     </div>
-    
+
   );
 };
 
