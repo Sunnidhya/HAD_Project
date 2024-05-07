@@ -44,7 +44,7 @@ const LabLanding = () => {
       userName: decryptedData
     };
 
-    request("POST",getCasesOfLab , data)
+    request("POST", getCasesOfLab, data)
       .then((response) => {
         setLab(response.data);
       })
@@ -56,84 +56,104 @@ const LabLanding = () => {
   const profileget = () => {
     nav("/Lab/profile")
   }
-  
+
   return (
     <div class="Lab-landing-container">
-     <div class="Lab-landing-hor">
+      <div class="Lab-landing-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="lablandsideimg" />
         </div>
-        <div class="Search">  
-           <input className="LabSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
+        <div class="LabLandingSearch">
+          <input className="LabSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch} />
         </div>
-        <div class="LabLandingLogout" style={{cursor:"pointer"}} onClick={togglePopup}>  
-           <img src={logout} alt="Logout" className="input-icon2" />
+        <div class="LabLandingLogout" style={{ cursor: "pointer" }} onClick={togglePopup}>
+          <img src={logout} alt="Logout" className="input-lab-land-icon2" />
         </div>
-    </div>
+      </div>
 
-    <div className='Lab-Land-ver'>
+      <div className='Lab-Land-ver'>
         <div className='Lab-Land-ver1'>
-        
-            <button style={{ margin: '10px' }} onClick={togglePopupUpload}>Upload</button>
-            <button style={{ margin: '10px' }} onClick={profileget}>Profile</button>
-            
-        
+
+          <button style={{ margin: '10px' }} onClick={togglePopupUpload} className='lab-landing-button'>Upload</button>
+          <button style={{ margin: '10px' }} onClick={profileget} className='lab-landing-button'>Profile</button>
+
+
         </div>
         <div className='Lab-Land-ver2'>
-        <div className="Lab-card">
-         <Container>
-            <Row xs={2}>
-            {lab.map((obj, i) => {
-                const date = new Date(obj.caseDate);
-                const year = date.getFullYear();
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const day = date.getDate().toString().padStart(2, '0');
-                const hours = date.getHours().toString().padStart(2, '0');
-                const minutes = date.getMinutes().toString().padStart(2, '0');
-                const seconds = date.getSeconds().toString().padStart(2, '0');
-                const formattedDateTime = `${year}-${month}-${day}`;
-                return (
-                  <Col>
-                        <Card className='LabLandingcard'style={{ backgroundColor:obj.markAsDone ? 'lightgreen' : 'red',color: 'white'}}>
-                          <CardBody>
-                              <CardTitle tag="h5">Case ID - {obj.caseId}</CardTitle>
-                              <CardSubtitle tag="h6" >Case Name - {obj.caseName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Patient Name - {obj.patientName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Radiologist Name - {obj. radioName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Doctor Name - {obj.doctorName}</CardSubtitle>
-                              <CardSubtitle tag="h6" >Case Date - {formattedDateTime}</CardSubtitle>
-                              <CardText>Case Description</CardText>
-                             </CardBody>
-                      </Card>                      
-                  </Col>
-                )
-            })}
-            </Row>
-        </Container>
-    </div>
-    </div>
-    </div>
-    <div className="Lab-landing-about-us-section">
+          <div className="Lab-card">
+            <Container>
+              <Row xs={1}>
+                {lab.map((obj, i) => {
+                  const date = new Date(obj.caseDate);
+                  const year = date.getFullYear();
+                  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                  const day = date.getDate().toString().padStart(2, '0');
+                  const hours = date.getHours().toString().padStart(2, '0');
+                  const minutes = date.getMinutes().toString().padStart(2, '0');
+                  const seconds = date.getSeconds().toString().padStart(2, '0');
+                  const formattedDateTime = `${year}-${month}-${day}`;
+                  return (
+                    <Col>
+                      <Card className='LabLandingcard'
+                        style=
+                        {{
+                          background: obj.markAsDone ? 'linear-gradient(to right, lightgreen, rgb(37,116,68))' : 'linear-gradient(to right, #E9755F, #C15556)',
+                          color: 'white',
+                          boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.3)',
+                          border: 'rgb(241, 247, 247) solid 3px',
+                        }}
+                      >
+                        <CardBody style={{ fontFamily: 'Arial, sans-serif' }}>
+                          <Row>
+                            <Col xs="4">
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                <CardTitle tag="h4" style={{ marginBottom: '10px' }}>Case ID - {obj.caseId}</CardTitle>
+                              </div>
+                            </Col>
+                            <Col xs="8">
+                              <div style={{ textAlign: 'left', borderLeft: '2px solid lightgray', paddingLeft: '25px' }}>
+
+                                
+                                <CardSubtitle  style={{ marginBottom: '5px',fontSize:'18px' }} >Case Name - {obj.caseName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }} >Patient Name - {obj.patientName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }} >Radiologist Name - {obj.radioName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }} >Doctor Name - {obj.doctorName}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }} >Case Date - {formattedDateTime}</CardSubtitle>
+                                <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }} >Case Description - {obj.caseDescription}</CardSubtitle>
+                              </div>
+                            </Col>
+                          </Row>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                  )
+                })}
+              </Row>
+            </Container>
+          </div>
+        </div>
+      </div>
+      <div className="Lab-landing-about-us-section">
         <p>About Us</p>
-    </div>
-    <div>
+      </div>
+      <div>
         {showPopup && (
           <div className="popup-overlay" onClick={togglePopup}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-              <Logout userType="lab"/>
+              <Logout userType="lab" />
             </div>
           </div>
         )}
         {showPopupUpload && (
           <div className="popup-overlay" onClick={togglePopupUpload}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-              <UploadImage/>
+              <UploadImage />
             </div>
           </div>
         )}
       </div>
     </div>
-    
+
   );
 };
 

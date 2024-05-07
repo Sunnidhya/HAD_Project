@@ -44,24 +44,21 @@ const LabProfile = () => {
       <div class="Lab-login-container">
       <div class="Lab-Login-hor">
         <div>
-          <img src={imgside} id="profilesideimg"/>
+          <img src={imgside} id="labprofilesideimg"/>
         </div>
-        <div className='divisions1'>
-          <h2 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h2>
-        </div>
+        
         </div>
 
         <div class="Lab-container">
         <div class="Lab-picture">
             <img src={radpic} alt="Profile Picture"/><br/>
-            <button class="Lab-edit-button" onclick="editProfile()">Update Profile</button><br/>
             <button class="Lab-change-button" onClick={() => changePassword()}>Change Password</button>
         </div>
         
         {labProfile && (
-        <div>
+        <div className='labmainprofile'>
             <h2>{labProfile.labName}</h2><br/>
-            <p><b>ID: {labProfile.labId}</b></p>
+            <p><b>ID: {labProfile.userId}</b></p>
             <p><b>Name: {labProfile.labName}</b></p>
             <p><b>UserName: {labProfile.userName}</b></p>
             <p><b>Email: {labProfile.email}</b></p>

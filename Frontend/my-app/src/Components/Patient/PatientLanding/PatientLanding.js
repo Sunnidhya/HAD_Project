@@ -145,9 +145,9 @@ const PatientLanding = () => {
     <div class="Patient-landing-container">
       <div class="Patient-landing-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="patientlandsideimg" />
         </div>
-        <div class="Search">
+        <div class="PatientLandingSearch">
           <input
             className="PatientSearch"
             type="text"
@@ -157,24 +157,24 @@ const PatientLanding = () => {
           />
         </div>
         <div
-          class="PatientLogout"
+          class="PatientLandingLogout"
           style={{ cursor: "pointer" }}
           onClick={togglePopup}
         >
-          <img src={logout} alt="Logout" className="input-icon1" />
+          <img src={logout} alt="Logout" className="input-patient-land-icon2" />
         </div>
       </div>
 
       <div className="Patient-Land-ver">
         <div className="Patient-Land-ver1">
-          <button style={{ margin: "10px" }} onClick={getProfile}>
+          <button style={{ margin: "10px" }} onClick={getProfile} className='patient-landing-button'>
             Profile
           </button>
         </div>
         <div className="Patient-Land-ver2">
           <div className="Patient-card">
             <Container>
-              <Row xs={2}>
+              <Row xs={1}>
                 {patient.map((obj, i) => {
                   const date = new Date(obj.caseDate);
                   const year = date.getFullYear();
@@ -192,35 +192,48 @@ const PatientLanding = () => {
                         <Card
                           className="PatientLandingcard"
                           style={{
-                            backgroundColor: obj.markAsDone
-                              ? "#5ce495"
-                              : "#b45f5f",
-                            color: "white",
+                            background: obj.markAsDone ? 'linear-gradient(to right, lightgreen, rgb(37,116,68))' : 'linear-gradient(to right, #E9755F, #C15556)',
+                            color: 'white',
+                            cursor: 'pointer',
+                            boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.3)',
+                            border: 'rgb(241, 247, 247) solid 3px',
                           }}
                         >
                           <CardBody
                             onClick={() => goToDetailsPage(obj.caseId)}
-                            style={{ cursor: "pointer" }}
+                            style={{ fontFamily: 'Arial, sans-serif' }}
                           >
-                            <CardTitle tag="h5">
+                            <Row>
+                            <Col xs="4">
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                
+                            <CardTitle tag="h4" style={{ marginBottom: '10px' }}>
                               Case ID - {obj.caseId}
                             </CardTitle>
-                            <CardSubtitle tag="h6">
+                            </div>
+                            </Col>
+                            <Col xs="8">
+                              <div style={{ textAlign: 'left',borderLeft: '2px solid lightgray',paddingLeft: '25px' }}>
+                                
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>
                               Case Name - {obj.caseName}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6">
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>
                               Lab Name - {obj.labName}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6">
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>
                               Radiologist Name - {obj.radioName}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6">
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>
                               Doctor Name - {obj.doctorName}
                             </CardSubtitle>
-                            <CardSubtitle tag="h6">
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>
                               Case Date - {formattedDateTime}
                             </CardSubtitle>
-                            <CardText>Case Description</CardText>
+                            <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>Case Description - {obj.caseDescription}</CardSubtitle>
+                            </div>
+                            </Col>
+                          </Row>
                           </CardBody>
                           {obj.radioDTOList.map((obj1, index) => {
                             if (

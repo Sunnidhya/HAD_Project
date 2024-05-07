@@ -62,7 +62,7 @@
 .Radio-Land-ver {
   display: flex;
   flex-direction: row;
-  background-image: url('../../../Resources/doc-land.jpg');
+  background-image: url('../../../Resources/radio-landing.jpg');
   background-repeat: no-repeat; 
   background-size: cover;
   background-position: center center; 
@@ -74,7 +74,7 @@
   left: 0;
   width: 100%;
   height: calc(100% - -15px);  
-  background-color: rgba(0, 0, 0, 0.4);  
+  background-color: rgba(0, 0, 0, 0.5);  
   z-index: 1;  
 }
 

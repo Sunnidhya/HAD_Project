@@ -42,25 +42,21 @@ const PatientProfile = () => {
   const [searchQuery, setSearchQuery] = useState('');
   return (
       
-      <div class="Patient-login-container">
-      <div class="Patient-Login-hor">
+      <div class="Patient-profile-container">
+      <div class="Patient-profile-hor">
         <div>
-          <img src={imgside} id="profilesideimg"/>
-        </div>
-        <div className='divisions1'>
-          <h2 className="pageTitle">Kavach - India's Leading Tele-Radiology Platform</h2>
+          <img src={imgside} id="Patientprofilesideimg"/>
         </div>
         </div>
 
         <div class="Patient-container">
         <div class="Patient-picture">
             <img src={radpic} alt="Profile Picture"/><br/>
-            <button class="Patient-edit-button" onclick="editProfile()">Update Profile</button><br/>
             <button class="Patient-change-button" onClick={() => changePassword()}>Change Password</button>
         </div>
         
         {patProfile && (
-        <div>
+        <div className='patientmainprofile'>
             <h2>{patProfile.userName}</h2><br/>
             <p><b>Fullname: {patProfile.fullName}</b></p>
             <p><b>Contact No: {patProfile.contactNo}</b></p>

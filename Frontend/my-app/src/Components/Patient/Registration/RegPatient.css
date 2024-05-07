@@ -1,5 +1,5 @@
 /* To be included before every new file */
-.Patient-Login-hor{
+.Patient-Reg-hor{
     display: flex;
     background-color: rgb(21, 136, 194);
 }
@@ -7,11 +7,11 @@
 {
     display: flex;
     flex: 1;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center; 
+    align-items: center; 
 }  
   
-#patRseideimg{
+#patRsideimg{
     padding: 10%;
     height: 120px;
     width: 120px;
@@ -30,28 +30,24 @@
 
 
 
-.Patient-Login-Ver{
+.Patient-Reg-Ver{
     display: flex;
 }
   
-.Patient-Login-Ver-Left{
+.Patient-Reg-Ver-Left{
     width: 60%;
     background-color: white;
     padding-top: 2%;
 }
-.Patient-Login-Ver-Right{
+.Patient-Reg-Ver-Right{
     width: 40%;
     background-color: white;
     display: flex;
     justify-content: center;
-    padding-top: 12%;
-}
-.form{    
-    display: flex;
-    justify-content: center;
+    padding-top: 2%;
 }
   
-.login-container {
+.Patient-Reg-container {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 8px;
@@ -63,7 +59,7 @@
     
 }
   
-.login-container h2 {
+.Patient-Reg-container h2 {
     text-align: center;
     color: #333333;
     padding-bottom: 30%;
@@ -99,7 +95,7 @@
 
 
   
-#login_patient {
+#reg_patient {
     color:white;
     background-color: rgb(16, 151, 230);
     padding: 10px;
@@ -111,14 +107,15 @@
     margin-top: 10px;
 }
 
-#login_patient:hover{
+#reg_patient:hover{
     background-color: rgb(37, 65, 149);
 }
   
 
 #patRmainimg{
     padding-left: 5%;
-    height:500px;
+    height:600px;
+    width: 1000px;
 }
 
 .input-icon {
@@ -157,10 +154,4 @@
 }
 #Confirmpassword{
     padding-left: 35px;
-}
-.ForgotPasswordDoc{
-    float: right;
-    font-size: 12px;
-    color: rgb(16, 151, 230);
-    cursor: pointer;
 }

@@ -61,7 +61,7 @@ const RadioLanding = () => {
         <div>
           <img src={imgside} id="radlandsideimg" />
         </div>
-        <div class="DoctorLandingSearch" id="myInput">
+        <div class="RadioLandingSearch" id="myInput">
           <input className="RadioSearch" type="text" placeholder="Search..." value={searchQuery} onChange={handleSearch}/>
         </div>
         <div class="RadioLandingLogout" style={{ cursor: "pointer" }} onClick={togglePopup}>
@@ -108,7 +108,7 @@ const RadioLanding = () => {
                             <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Doctor Name - {obj.doctorName}</CardSubtitle>
                             <CardSubtitle style={{ marginBottom: '5px' ,fontSize:'18px'}}>Lab Name - {obj.labName}</CardSubtitle>
                             <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Date - {formattedDateTime}</CardSubtitle>
-                            <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Description - </CardSubtitle>
+                            <CardSubtitle style={{ marginBottom: '5px',fontSize:'18px' }}>Case Description - {obj.caseDescription} </CardSubtitle>
                             </div>
                             </Col>
                           </Row>
