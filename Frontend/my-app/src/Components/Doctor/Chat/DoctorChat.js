@@ -208,6 +208,7 @@ const DoctorChat = () => {
       setCaseObj(obj);
       if(obj.threads.length === 2){
         setRadioList(obj.threads)
+        setRadioSelected(obj.threads[0])
       }else if(obj.threads.length === 1){
         setRadioSelected(obj.threads[0])
       }
