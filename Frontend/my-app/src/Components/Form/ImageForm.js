@@ -15,25 +15,52 @@ function ImageForm({ imageUrl, type }) {
   };
 
   const handleDownload = async (imageSrc) => {
-    try {
-        const response = await fetch(imageSrc);
-        if (!response.ok) {
-            throw new Error('Failed to fetch image');
-        }
-        console.log(response);
-        const imageBlob = await response.blob();
-        //const blobOptions = { type: 'image/jpeg' };
-        const jpegBlob = new Blob([imageBlob], { type: imageBlob.type });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(jpegBlob);
-        console.warn(link);
-        link.download = 'image1.jpg'; 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } catch (error) {
-        console.error('Error downloading image:', error);
+    fetch(imageSrc)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Failed to fetch image');
     }
+    return response.blob();
+  })
+  .then((imageBlob) => {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(imageBlob);
+    link.download = 'downloaded_image.jpg'; // You can change the file name and extension
+    link.click();
+  })
+  .catch((error) => {
+    console.error('Error downloading image:', error);
+  });
+};
+
+// Function to show loading alert
+const showLoadingAlert = () => {
+  // Create a loading alert element or use an existing one
+  const loadingAlert = document.createElement("div");
+  loadingAlert.textContent = "Loading..."; // Set text content to indicate loading
+  loadingAlert.className = "loading-alert"; // Assign a class for easier identification
+  loadingAlert.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Semi-transparent background
+  loadingAlert.style.color = "#fff"; // Text color
+  loadingAlert.style.position = "fixed"; // Fixed position
+  loadingAlert.style.top = "0"; // Align to top
+  loadingAlert.style.left = "0"; // Align to left
+  loadingAlert.style.width = "100%"; // Full width
+  loadingAlert.style.height = "100%"; // Full height
+  loadingAlert.style.display = "flex"; // Flex container
+  loadingAlert.style.justifyContent = "center"; // Center content horizontally
+  loadingAlert.style.alignItems = "center"; // Center content vertically
+
+  // Append the loading alert element to the document body
+  document.body.appendChild(loadingAlert);
+};
+
+// Function to hide loading alert
+const hideLoadingAlert = () => {
+  // Find and remove the loading alert element
+  const loadingAlert = document.querySelector(".loading-alert");
+  if (loadingAlert) {
+    loadingAlert.remove();
+  }
 };
 
 useEffect(() => {
@@ -44,11 +71,14 @@ useEffect(() => {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="container-upload">
           <button className="close-button-upload" onClick={handleClose}>X</button>
           <div className="upload-container">
             <div className="upload-image-container">
-              <h3>Image</h3>
+              {typeV === 'presc' && <h3>Doctor's Prescription</h3>}
+              {typeV === 'dicom' && <h3>Scanned Image</h3>}
               {typeV === 'presc' && <div className="image-preview1">
                 {image1 ? (
                   <>
@@ -71,8 +101,9 @@ useEffect(() => {
             <br />
           </div>
           <br />
-          <button className="download-button" onClick={() => handleDownload({imageUrl})}>Download</button>
+          <button className="download-button" onClick={() => handleDownload(imageUrl)}>Download</button>
         </div>
+        </>
       )}
     </>
   );

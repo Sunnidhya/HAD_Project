@@ -147,6 +147,7 @@ public class PatientController {
             }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
             casesReturnDTO.setMarkAsDone(cases.getMarkAsDone());
+            casesReturnDTO.setCaseDescription(cases.getCaseDescription());
             casesReturnDTOS.add(casesReturnDTO);
             List<RadioDTO> radioDTOS = new ArrayList<>();
             if(cases.getConsent() != null && cases.getConsent().getRadioDTOS() != null){
@@ -174,6 +175,14 @@ public class PatientController {
     @PostMapping("/patient/assignRadiologist")
     public ResponseEntity<LoginMessage> assignRadiologist(@RequestBody @Validated CasesDTO casesDTO){
         LoginMessage loginMessage = patientService.updateCaseR(casesDTO);
+        if(loginMessage.getMessage().equals("Radiologist Assigned Successfully")){
+            emailService.sendSimpleMessage(
+                    loginMessage.getEmail(),
+                    "A new case has been assigned",
+                    "CaseName: "+casesDTO.getCaseName()+ "\n"+"Doctor assigned: "+casesDTO.getDoctorName()+"\n"+
+                            "Case Description: "+casesDTO.getCaseDescription());
+        }
+        loginMessage.setEmail("");
         return ResponseEntity.ok(loginMessage);
     }
 
@@ -181,6 +190,14 @@ public class PatientController {
     @PostMapping("/patient/assignLab")
     public ResponseEntity<LoginMessage> assignLab(@RequestBody @Validated CasesDTO casesDTO){
         LoginMessage loginMessage = patientService.updateCaseL(casesDTO);
+        if(loginMessage.getMessage().equals("Lab Assigned Successfully")){
+            emailService.sendSimpleMessage(
+                    loginMessage.getEmail(),
+                    "A new case has been assigned",
+                    "CaseName: "+casesDTO.getCaseName()+ "\n"+"Doctor assigned: "+casesDTO.getDoctorName()+"\n"+
+                            "Case Description: "+casesDTO.getCaseDescription());
+        }
+        loginMessage.setEmail("");
         return ResponseEntity.ok(loginMessage);
     }
 
@@ -195,6 +212,15 @@ public class PatientController {
     @PostMapping("/patient/assignRemoveNewRadiologist")
     public ResponseEntity<LoginMessage> assignRemoveNewRadiologist(@RequestBody @Validated CasesNewRadioDTO casesNewRadioDTO) {
         LoginMessage loginMessage = patientService.assignNewRadio(casesNewRadioDTO);
+        if(loginMessage.getMessage().equals("Lab Assigned Successfully")){
+            Cases cases = patientService.getCaseByCaseId(casesNewRadioDTO.getCaseId());
+            emailService.sendSimpleMessage(
+                    loginMessage.getEmail(),
+                    "A new case has been assigned",
+                    "CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
+                            "Case Description: "+cases.getCaseDescription());
+        }
+        loginMessage.setEmail("");
         return ResponseEntity.ok(loginMessage);
     }
 }

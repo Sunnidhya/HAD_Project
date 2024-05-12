@@ -178,6 +178,13 @@ public class DoctorController {
         cases.setDoctor(doctor);
         cases.setPatient(patient);
         LoginMessage loginMessage = doctorService.createCaseN(cases, doctor);
+        if(loginMessage.getMessage().equals("Case is created successfully")){
+            emailService.sendSimpleMessage(
+                    patient.getEmail(),
+                    "A new case has been created",
+                    "CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
+                    "Case Description: "+cases.getCaseDescription());
+        }
         return ResponseEntity.ok(loginMessage);
     }
 

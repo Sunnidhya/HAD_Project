@@ -1,3 +1,4 @@
+const adminLoginAPI = "/admin/login"
 const patientLoginAPI = "/patient/login"
 const doctorLoginAPI = "/doctor/login"
 const labLoginAPI = "/lab/login"
@@ -44,8 +45,10 @@ const assignNewRadioPat = "/patient/assignRemoveNewRadiologist"
 const updateRadioImpression = "/radiologist/updateRadioImpression"
 const generateReport = "/doctor/updateReport"
 const markAndClose = "/doctor/markAsDone"
+const sendOTP = '/lab/sendOTP'
 
-export {patientLoginAPI, 
+export {adminLoginAPI,
+    patientLoginAPI, 
     doctorLoginAPI,
     labLoginAPI,
     patientRegisterAPI,
@@ -90,5 +93,6 @@ export {patientLoginAPI,
     assignNewRadioPat,
     updateRadioImpression,
     generateReport,
-    markAndClose
+    markAndClose,
+    sendOTP
 }

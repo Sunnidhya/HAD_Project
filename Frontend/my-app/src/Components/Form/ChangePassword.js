@@ -89,6 +89,8 @@ const ChangePassword = (props) => {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="form-container-password">
           <button className="close-button-password" onClick={handleClose}>X</button>
           <h2 className="form-header">Change Password</h2>
@@ -119,6 +121,7 @@ const ChangePassword = (props) => {
             <button type="submit" onClick={Submit}>Submit</button>
           </form>
         </div>
+        </>
       )}
     </>
   );

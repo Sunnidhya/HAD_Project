@@ -63,6 +63,8 @@ function DoctorReport({caseIdValue}) {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="form-container-report">
           <button className="close-button-report" onClick={handleClose}>X</button>
           <div className="container-report">
@@ -165,6 +167,7 @@ function DoctorReport({caseIdValue}) {
             </form>
           </div>
         </div>
+        </>
       )}
     </>
   );

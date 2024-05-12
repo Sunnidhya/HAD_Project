@@ -5,12 +5,11 @@ import com.example.had_backend.Email.EmailService;
 import com.example.had_backend.Global.Entity.Cases;
 import com.example.had_backend.Global.Entity.OTP;
 import com.example.had_backend.Global.Entity.Users;
-import com.example.had_backend.Global.Model.CasesReturnDTO;
-import com.example.had_backend.Global.Model.OtpDTO;
-import com.example.had_backend.Global.Model.UploadImagesDTO;
+import com.example.had_backend.Global.Model.*;
 import com.example.had_backend.Lab.Entity.Lab;
 import com.example.had_backend.Lab.Model.LabChangePasswordDTO;
 import com.example.had_backend.Lab.Model.LabRegistrationDTO;
+import com.example.had_backend.Lab.Model.LabSendOTPDTO;
 import com.example.had_backend.Lab.Service.LabService;
 import com.example.had_backend.Model.LoginDTO;
 import com.example.had_backend.Model.LoginMessage;
@@ -125,6 +124,7 @@ public class LabController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
+            casesReturnDTO.setCaseDescription(cases.getCaseDescription());
 //            if(cases.getRadiologist() != null) {
 //                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
 //            }else{
@@ -163,7 +163,46 @@ public class LabController {
     @CrossOrigin
     @PostMapping("/lab/uploadImages")
     public ResponseEntity<LoginMessage> uploadPrescriptionScannedImage(@RequestBody @Validated UploadImagesDTO uploadImagesDTO) {
-        LoginMessage message = labService.uploadImages(uploadImagesDTO);
+        LoginMessage loginMessage = labService.uploadImages(uploadImagesDTO);
+        if(loginMessage.getMessage().equals("Images uploaded successfully")){
+            Cases cases = labService.getCaseByCaseId(uploadImagesDTO.getCaseId());
+            emailService.sendSimpleMessage(
+                    cases.getDoctor().getEmail(),
+                    "Lab has uploaded the image",
+                    "CaseId: "+cases.getCaseId()+"\n"+"CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
+                            "Case Description: "+cases.getCaseDescription());
+
+            emailService.sendSimpleMessage(
+                    cases.getPatient().getEmail(),
+                    "Lab has uploaded the image",
+                    "CaseId: "+cases.getCaseId()+"\n"+"CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
+                            "Case Description: "+cases.getCaseDescription());
+
+            for(Radiologist r: cases.getRadiologist()){
+                emailService.sendSimpleMessage(
+                        r.getEmail(),
+                        "Lab has uploaded the image",
+                        "CaseId: "+cases.getCaseId()+"\n"+"CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
+                                "Case Description: "+cases.getCaseDescription());
+            }
+        }
+        return ResponseEntity.ok(loginMessage);
+    }
+
+    @CrossOrigin
+    @PostMapping("/lab/sendOTP")
+    public ResponseEntity<LoginMessage> sendOTP(@RequestBody @Validated CasesDTO casesDTO) {
+        LabSendOTPDTO otp = labService.sendOTP(casesDTO);
+        LoginMessage message = new LoginMessage();
+        if(otp != null){
+            emailService.sendSimpleMessage(
+                    otp.getEmail(),
+                    "Please use the following OTP to Authenticate yourself to the Lab",
+                    "OTP: " + otp.getOtp().getOneTimePasswordCode());
+            message.setMessage("OTP sent to registered email address");
+        }else {
+            message.setMessage("Login failed, Check username/password");
+        }
         return ResponseEntity.ok(message);
     }
 }

@@ -122,6 +122,7 @@ public class RadiologistController {
             casesReturnDTO.setCaseName(cases.getCaseName());
             casesReturnDTO.setCaseDate(cases.getCaseDate());
             casesReturnDTO.setDoctorName(cases.getDoctor().getName());
+            casesReturnDTO.setCaseDescription(cases.getCaseDescription());
 //            if(cases.getRadiologist() != null) {
 //                casesReturnDTO.setRadioName(cases.getRadiologist().getName());
 //            }else{

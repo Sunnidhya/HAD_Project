@@ -48,6 +48,8 @@ function RadioForm() {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="form-container1"onClick={stopPropagation}>
         <button className="close-button-radio" onClick={toggleVisibility}>X</button>
           <div className="container2">
@@ -134,6 +136,7 @@ function RadioForm() {
             </form>
           </div>
         </div>
+        </>
       )}
     </>
   );

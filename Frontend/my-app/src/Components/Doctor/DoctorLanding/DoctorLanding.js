@@ -25,6 +25,7 @@ const DoctorLanding = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupCase, setShowPopupCase] = useState(false);
   const [doctor, setDoctor] = useState([]);
+  const [originalDoc, setOriginalDoc] = useState([]);
 
   const goToDetailsPage = (objectVal) => {
     nav('/doctor/details', { state: { caseIdVal: objectVal } });
@@ -44,6 +45,18 @@ const DoctorLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(searchQuery !== ''){
+      setDoctor(doctor.filter(doctor =>
+        doctor.caseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doctor.caseId.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doctor.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doctor.doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doctor.labName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doctor.radioName.toLowerCase().includes(searchQuery.toLowerCase())
+      ));
+    }else{
+      setDoctor(originalDoc)
+    }
   };
 
   useEffect(() => {
@@ -56,6 +69,7 @@ const DoctorLanding = () => {
     request("POST", getCasesOfDoctor, data)
       .then((response) => {
         setDoctor(response.data);
+        setOriginalDoc(response.data)
       })
       .catch((error) => {
         console.warn("Error", error);

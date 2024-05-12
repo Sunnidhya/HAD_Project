@@ -235,6 +235,7 @@ public class PatientService {
         iRadiologistRegistrationRepository.save(radiologist);
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Radiologist Assigned Successfully");
+        loginMessage.setEmail(radiologist.getEmail());
         return loginMessage;
     }
 
@@ -258,7 +259,12 @@ public class PatientService {
         iCasesRepository.save(cases);
         LoginMessage loginMessage = new LoginMessage();
         loginMessage.setMessage("Lab Assigned Successfully");
+        loginMessage.setEmail(lab.getEmail());
         return loginMessage;
+    }
+
+    public Cases getCaseByCaseId(Integer caseIdVal){
+        return iCasesRepository.getCaseByCaseId(caseIdVal);
     }
 
     public CasesDetailsDTO getCaseByCaseId(CasesDTO casesDTO) {
@@ -340,6 +346,7 @@ public class PatientService {
             radiologist.getCases().add(cases);
             iRadiologistRegistrationRepository.save(radiologist);
             loginMessage.setMessage("Radiologist Assigned Successfully");
+            loginMessage.setEmail(radiologist.getEmail());
         }else{
             if (cases.getConsent() != null) {
                 Consent consent = cases.getConsent();;

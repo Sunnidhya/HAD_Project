@@ -11,23 +11,82 @@ import { patientRegisterAPI } from '../../../Network/APIendpoints';
 import './RegPatient.css';
 import { useNavigate } from 'react-router-dom';
 import { request } from '../../../Network/axiosHelper';
+import ConsentForm from '../../Form/ConsentForm';
 
 const RegPatient = () => {
 //   here password1 is variable and set password is function
   let nav = useNavigate()
   const [password1, setPassword] = useState(''); 
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState(true); 
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [showPopup, setShowPopup] = useState(false); 
+  const [tempData, setTempData] = useState({})
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleToggle = () => {
     const passwordInput = document.getElementById('password');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
 
+  const togglePopup = () => {
+    setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
+  const handleFormSubmit = (flag) => {
+    setFormSubmitted(flag);
+    console.warn("DataConsent", flag)
+    if(flag){
+      togglePopup()
+      showLoadingAlert()
+      request("POST",
+      patientRegisterAPI, 
+      tempData
+      ).then((response) => {
+        console.warn("Data",response.data)
+        alert(response.data.message);
+        hideLoadingAlert()
+        nav('/patient')
+      })
+      .catch((error) => {
+        console.warn("Error", error)
+      });
+    }
+  };
+
   const handleToggleConfirm = () => {
     const passwordInput = document.getElementById('Confirmpassword');
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   };
+
+  // Function to show loading alert
+const showLoadingAlert = () => {
+  // Create a loading alert element or use an existing one
+  const loadingAlert = document.createElement("div");
+  loadingAlert.textContent = "Loading..."; // Set text content to indicate loading
+  loadingAlert.className = "loading-alert"; // Assign a class for easier identification
+  loadingAlert.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Semi-transparent background
+  loadingAlert.style.color = "#fff"; // Text color
+  loadingAlert.style.position = "fixed"; // Fixed position
+  loadingAlert.style.top = "0"; // Align to top
+  loadingAlert.style.left = "0"; // Align to left
+  loadingAlert.style.width = "100%"; // Full width
+  loadingAlert.style.height = "100%"; // Full height
+  loadingAlert.style.display = "flex"; // Flex container
+  loadingAlert.style.justifyContent = "center"; // Center content horizontally
+  loadingAlert.style.alignItems = "center"; // Center content vertically
+
+  // Append the loading alert element to the document body
+  document.body.appendChild(loadingAlert);
+};
+
+// Function to hide loading alert
+const hideLoadingAlert = () => {
+  // Find and remove the loading alert element
+  const loadingAlert = document.querySelector(".loading-alert");
+  if (loadingAlert) {
+    loadingAlert.remove();
+  }
+};
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
@@ -50,17 +109,8 @@ const RegPatient = () => {
         email: emailP,
         contactNo: contactP
       };
-      request("POST",
-      patientRegisterAPI, 
-      data
-      ).then((response) => {
-        console.warn("Data",response.data)
-        alert(response.data.message);
-        nav('/patient')
-      })
-      .catch((error) => {
-        console.warn("Error", error)
-      });
+      setTempData(data)
+      togglePopup()
     }else{
       alert("Password Mismatch")
     }
@@ -134,6 +184,15 @@ const RegPatient = () => {
             </button>
           </div>
         </div>
+      </div>
+      <div>
+        {showPopup && (
+          <div className="popup-overlay" onClick={togglePopup}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <ConsentForm onFormSubmit={handleFormSubmit} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
