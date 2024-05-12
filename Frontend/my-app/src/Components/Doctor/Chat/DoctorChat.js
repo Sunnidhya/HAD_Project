@@ -105,13 +105,13 @@ const DoctorChat = () => {
   const handleSendMessage = () => {
     if (inputText.trim() !== "" || image) {
       // Convert milliseconds to Date object
-      const dateObject = new Date(dateVal.getTime());
+      let dateObject = new Date();
 
       // Get date and time strings
       const date = dateObject.toLocaleDateString();
       const time = dateObject.toLocaleTimeString();
-      setDateTime(`${date} ${time}`);
-      console.warn("Data", dateTime);
+      let dateTimeToBePassed = `${date} ${time}`
+      // setDateTime(`${date} ${time}`);
 
       const newMessage1 = {
         caseId:caseObj.caseId,
@@ -119,18 +119,23 @@ const DoctorChat = () => {
         userName: decryptData(),
         text: inputText,
         image: image ? chatImage: null,
-        timestamp: dateTime,
+        timestamp: dateTimeToBePassed,
       };
       
       request("POST",insertChat , newMessage1)
       .then((response) => {
         // loadChatImage(response.data)
         setCaseObj(response.data)
-        caseObj.threads.map((item) => {
+        console.warn("DataChat", response.data)
+        setInputText("")
+        setImage(null)
+        setChatImage(null)
+        response.data.threads.map((item) => {
           // console.warn("dataTh", item)
           // console.warn("dataTh", radioSelected)
            if(item.radioId === radioSelected.radioId){
             setRadioSelected(item)
+            console.warn("DataChat", item)
            }
         })
       }).catch((error) => {

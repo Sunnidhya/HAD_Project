@@ -37,7 +37,7 @@
 }
 
 .dicom-viewer{
-    margin-right: 80px;
+    margin-right: 50px;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -73,6 +73,7 @@
     border-radius: 4px;
     background-color: rgb(14, 14, 98);
     height: 40px;
+    margin-top: 5px;
 }
 
 .chat-wrapper {
