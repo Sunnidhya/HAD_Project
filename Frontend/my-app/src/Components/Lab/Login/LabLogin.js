@@ -156,7 +156,7 @@ const hideLoadingAlert = () => {
                 <input type="otp" id="otp" name="otp" placeholder='Type your otp' value={patotpV} onChange={(e) => setotpP(e.target.value)} required />
               </div>)}
              </form>
-             {isVisible && (<div className='ForgotPasswordLab'><b>Forgot Password?</b></div>)}
+             
             
             {isVisible && (<button type="submit" id="login_lab"onClick={(e) =>
               loginD(

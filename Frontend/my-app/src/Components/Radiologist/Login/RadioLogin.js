@@ -120,40 +120,40 @@ const hideLoadingAlert = () => {
 };
   
   return (
-    <div class="Radio-login-container">
-      <div class="Radio-Login-hor">
+    <div className="Radio-login-container">
+      <div className="Radio-Login-hor">
         <div>
-          <img src={imgside} id="radseideimg" class="clickable" onClick={goToHomePage}/>
+          <img src={imgside} id="radseideimg" className="clickable" onClick={goToHomePage}/>
         </div>
         <div className='divisions1R'>
           <h1 className="pageTitleR">Kavach - India's Leading Tele-Radiology Platform</h1>
         </div>
     </div>
-      <div class="Radio-Login-Ver">
-        <div class="Radio-Login-Ver-Left">
+      <div className="Radio-Login-Ver">
+        <div className="Radio-Login-Ver-Left">
           <img src={imgmain} id="radiologimg" />
         </div>
-        <div class="Radio-Login-Ver-Right">
+        <div className="Radio-Login-Ver-Right">
           <div className="login-container">
             <h4>{title}</h4>
-            <form class="login-formR">
-              {isVisible && (<div class="form-group">
+            <form className="login-formR">
+              {isVisible && (<div className="form-group">
                 <img src={userIcon} alt="Username" className="input-iconR" />
                 <input type="text" id="username" name="username" placeholder={placeholder} value={patUserNameV} onChange={(e) => setuserNameP(e.target.value)} required />
               </div>)}
               
-              {isVisible && ( <div class="form-group">
+              {isVisible && ( <div className="form-group">
                 <img src={passwordIcon} alt="Password" className="input-iconR" />
                 <input type="password" id="password" name="password" placeholder='Type your Password' value={patPasswordV} onChange={(e) => setPasswordP(e.target.value)} required />
                 <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>)}
                
-              {!isVisible && (<div class="form-group">
+              {!isVisible && (<div className="form-group">
                 <input type="otp" id="otp" name="otp" placeholder='Type your otp' value={patotpV} onChange={(e) => setotpP(e.target.value)} required />
               </div>)}
             </form>
 
-            {isVisible && (<div className='ForgotPassword'><b>Forgot Password?</b></div>)}
+            
             
              {isVisible && (<button type="submit" id="login_radio" 
             onClick={(e) =>

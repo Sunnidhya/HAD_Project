@@ -44,7 +44,6 @@ const AdminLogin = () => {
       ).then((response) => {
         hideLoadingAlert()
         setAuthToken(response.data.token)
-        // window.localStorage.setItem("isDoctorLoggedIn",true);
         alert("Login Successful");
         nav('/admin/homepage')
       })
@@ -115,7 +114,7 @@ const hideLoadingAlert = () => {
                 <i className="far fa-eye" id="faeye" onClick={handleToggle}></i>
               </div>
             </form>
-            <div className='AdminForgotPassword'><b>Forgot Password?</b></div>
+            
 
             <button type="submit" id="login_admin"
             onClick={(e) =>

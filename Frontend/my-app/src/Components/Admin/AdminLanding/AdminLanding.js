@@ -51,6 +51,10 @@ const AdminLanding = () => {
   const [isP, setP] = useState(true);
   const [isL, setL] = useState(false);
   const [isR, setR] = useState(false);
+  const [originalDoc, setOriginalDoc] = useState([]);
+  const [originalLab, setOriginalLab] = useState([]);
+  const [originalPatient, setOriginalPatient] = useState([]);
+  const [originalRadio, setOriginalRadio] = useState([]);
 
   const remove = (obj) => {
     let temp;
@@ -110,6 +114,53 @@ const AdminLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      if (receivedData === "Patient") {
+        setPatient(patient.filter(pat =>
+          pat.userId.toString().includes(event.target.value.toLowerCase()) ||
+          pat.fullName.toLowerCase().toLowerCase().includes(event.target.value.toLowerCase()) ||
+          pat.contactNo.toLowerCase().includes(event.target.value.toLowerCase()) ||
+          pat.userName.toLowerCase().includes(event.target.value.toLowerCase())
+        ));
+      }
+      if (receivedData === "Lab") {
+        setLab(lab.filter(la =>
+          la.userId.toString().includes(event.target.value.toLowerCase()) ||
+          la.labName.toLowerCase().toLowerCase().includes(event.target.value.toLowerCase()) ||
+          la.contactNo.toLowerCase().includes(event.target.value.toLowerCase()) ||
+          la.userName.toLowerCase().includes(event.target.value.toLowerCase())
+        ));
+      }
+      if (receivedData === "Radiologist") {
+        setRadio(radio.filter(rad =>
+          rad.userId.toString().includes(event.target.value.toLowerCase()) ||
+          rad.name.toLowerCase().toLowerCase().includes(event.target.value.toLowerCase()) ||
+          rad.degree.toLowerCase().includes(event.target.value.toLowerCase()) ||
+          rad.userName.toLowerCase().includes(event.target.value.toLowerCase())
+        ));
+      }
+      if (receivedData === "Doctor") {
+        setDoctor(doctor.filter(doc =>
+          doc.userId.toString().includes(event.target.value.toLowerCase()) ||
+          doc.name.toLowerCase().toLowerCase().includes(event.target.value.toLowerCase()) ||
+          doc.degree.toLowerCase().includes(event.target.value.toLowerCase()) ||
+          doc.userName.toLowerCase().includes(event.target.value.toLowerCase())
+        ));
+      }
+    }else{
+      if (receivedData === "Patient") {
+        setPatient(originalPatient)
+      }
+      if (receivedData === "Lab") {
+        setLab(originalLab)
+      }
+      if (receivedData === "Radiologist") {
+        setRadio(originalRadio)
+      }
+      if (receivedData === "Doctor") {
+        setDoctor(originalDoc)
+      }
+    }
   };
 
   const handleLogout = () => {
@@ -154,15 +205,19 @@ const AdminLanding = () => {
         console.warn("DataValue", response.data)
         if (receivedData === "Patient") {
           setPatient(response.data);
+          setOriginalPatient(response.data)
         }
         if (receivedData === "Lab") {
           setLab(response.data);
+          setOriginalLab(response.data)
         }
         if (receivedData === "Radiologist") {
           setRadio(response.data);
+          setOriginalRadio(response.data)
         }
         if (receivedData === "Doctor") {
           setDoctor(response.data);
+          setOriginalDoc(response.data)
         }
       })
       .catch((error) => {
@@ -174,9 +229,9 @@ const AdminLanding = () => {
     <div class="Admin-landing-container">
       <div class="Admin-landing-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="adminlandimg" />
         </div>
-        <div class="Search">
+        <div class="AdminLandingSearch" id="myInput">
           <input
             className="AdminSearch"
             type="text"
@@ -186,12 +241,12 @@ const AdminLanding = () => {
           />
         </div>
         <div class="AdminLandingLogout" style={{cursor:"pointer"}}  onClick={togglePopupLogout}>
-          <img src={logout} alt="Logout" className="input-icon2" />
+          <img src={logout} alt="Logout" className="admin-land-input-icon2" />
         </div>
       </div>
       <div className="Admin-Land-ver">
         <div className="Admin-Land-ver1">
-          {isP && <button style={{ margin: "10px" }} onClick={togglePopup}>{buttonV}</button>}
+          {isP && <button style={{ margin: "10px" }} onClick={togglePopup} className='admin-landing-button'>{buttonV}</button>}
         </div>
         <div className="Admin-Land-ver2">
           <div className="Admin-card" >
@@ -206,6 +261,7 @@ const AdminLanding = () => {
                           style={{
                             backgroundColor: "rgb(7, 110, 101)",
                             color: 'white',
+                            border: '2px solid white'
                           }}
                         >
                           <CardBody>
@@ -222,6 +278,7 @@ const AdminLanding = () => {
                                 borderRadius: "5px",
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
+                                border:'1px solid white',
                               }}
                               onClick={() => remove(obj)}
                             >
@@ -241,6 +298,7 @@ const AdminLanding = () => {
                           style={{
                             backgroundColor: "rgb(21, 136, 194)",
                             color: "white",
+                            border: '2px solid white'
                           }}
                         >
                           <CardBody>
@@ -253,6 +311,7 @@ const AdminLanding = () => {
                                 borderRadius: "5px",
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
+                                border:'1px solid white',
                               }}
                               onClick={() => remove(obj)}
                             >
@@ -272,6 +331,7 @@ const AdminLanding = () => {
                           style={{
                             backgroundColor: "rgb(14, 14, 98)",
                             color: "white",
+                            border: '2px solid white'
                           }}
                         >
                           <CardBody>
@@ -284,6 +344,7 @@ const AdminLanding = () => {
                                 borderRadius: "5px",
                                 backgroundColor: "rgb(233, 111, 111)",
                                 height: "auto",
+                                border:'1px solid white',
                               }}
                               onClick={() => remove(obj)}
                             >
@@ -303,6 +364,7 @@ const AdminLanding = () => {
                           style={{
                             backgroundColor: "rgb(244, 165, 46)",
                             color: "white",
+                            border: '2px solid white'
                           }}
                         >
                           <CardBody>
@@ -314,6 +376,7 @@ const AdminLanding = () => {
                               style={{
                                 borderRadius: "5px",
                                 backgroundColor: "rgb(233, 111, 111)",
+                                border:'1px solid white',
                                 height: "auto",
                               }}
                               onClick={() => remove(obj)}

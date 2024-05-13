@@ -45,14 +45,15 @@ const DoctorLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
-    if(searchQuery !== ''){
-      setDoctor(doctor.filter(doctor =>
-        doctor.caseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doctor.caseId.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doctor.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doctor.doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doctor.labName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doctor.radioName.toLowerCase().includes(searchQuery.toLowerCase())
+    if(event.target.value !== ''){
+      setDoctor(doctor.filter(doc =>
+        doc.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.radioName.toLowerCase().includes(event.target.value.toLowerCase())||
+        doc.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
       ));
     }else{
       setDoctor(originalDoc)

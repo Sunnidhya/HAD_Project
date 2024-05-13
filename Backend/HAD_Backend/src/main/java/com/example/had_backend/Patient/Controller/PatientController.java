@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 public class PatientController {
@@ -42,15 +44,19 @@ public class PatientController {
         Users users = patientService.authenticateUser(login);
         Patient patient = patientService.getProfile(login);
         OTP otp = patientService.getOtpUser(patient);
-        if(users != null){
-            emailService.sendSimpleMessage(
-                    patient.getEmail(),
-                    "Please use the following OTP to Authenticate Login",
-                    "OTP: " + otp.getOneTimePasswordCode());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (users != null) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        patient.getEmail(),
+                        "Please use the following OTP to Authenticate Login",
+                        "OTP: " + otp.getOneTimePasswordCode());
+            });
             message.setMessage("OTP sent to registered email address");
-        }else {
+        } else {
             message.setMessage("Login failed, Check username/password");
         }
+        executorService.shutdown();
         return ResponseEntity.ok(message);
     }
 
@@ -58,7 +64,7 @@ public class PatientController {
     @PostMapping("/patient/login/validateOTP")
     public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
         LoginMessage loginMessage = patientService.validateOTP(otpDTO);
-        if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
+        if (loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")) {
             loginMessage.setToken(userAuthProvider.createToken(otpDTO.getUserName()));
         }
         return ResponseEntity.ok(loginMessage);
@@ -68,12 +74,16 @@ public class PatientController {
     @PostMapping("/patient/register")
     public ResponseEntity<LoginMessage> register(@RequestBody @Validated RegisterDTO register) {
         LoginMessage loginMessage = patientService.registerPatient(register);
-        if(!loginMessage.getMessage().equals("User is already registered")){
-            emailService.sendSimpleMessage(
-                    register.getEmail(),
-                    "Registration in Kavach portal was successful",
-                    "Username: "+register.getUserName()+ "\n"+"Password: "+register.getPassword());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (!loginMessage.getMessage().equals("User is already registered")) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        register.getEmail(),
+                        "Registration in Kavach portal was successful",
+                        "Username: " + register.getUserName() + "\n" + "Password: " + register.getPassword());
+            });
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
 
     }
@@ -87,27 +97,31 @@ public class PatientController {
 
     @CrossOrigin
     @PostMapping("/patient/changePassword")
-    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated PatientChangePasswordDTO patientChangePasswordDTO ) {
+    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated PatientChangePasswordDTO patientChangePasswordDTO) {
         LoginMessage loginMessage1 = patientService.changePassword(patientChangePasswordDTO);
-        if(loginMessage1.getMessage().equals("Password updated successfully")){
-            emailService.sendSimpleMessage(
-                    patientChangePasswordDTO.getEmail(),
-                    "Password has been changed successfully",
-                    "Username: "+patientChangePasswordDTO.getUserName()+ "\n"+"Password: "+patientChangePasswordDTO.getNewPassword());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (loginMessage1.getMessage().equals("Password updated successfully")) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        patientChangePasswordDTO.getEmail(),
+                        "Password has been changed successfully",
+                        "Username: " + patientChangePasswordDTO.getUserName() + "\n" + "Password: " + patientChangePasswordDTO.getNewPassword());
+            });
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage1);
     }
 
     @CrossOrigin
     @PostMapping("/patient/remove")
-    public ResponseEntity<LoginMessage> removePatient(@RequestBody @Validated RegisterDTO registerDTO ) {
+    public ResponseEntity<LoginMessage> removePatient(@RequestBody @Validated RegisterDTO registerDTO) {
         LoginMessage loginMessage1 = patientService.removePatient(registerDTO);
         return ResponseEntity.ok(loginMessage1);
     }
 
     @CrossOrigin
     @PostMapping("/patient/getSearchResult")
-    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO ) {
+    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = patientService.getCases(searchResultDTO);
         return ResponseEntity.ok(list);
     }
@@ -140,9 +154,9 @@ public class PatientController {
             } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
-            if(cases.getLab() != null) {
+            if (cases.getLab() != null) {
                 casesReturnDTO.setLabName(cases.getLab().getLabName());
-            }else{
+            } else {
                 casesReturnDTO.setLabName("Not yet assigned");
             }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
@@ -150,8 +164,8 @@ public class PatientController {
             casesReturnDTO.setCaseDescription(cases.getCaseDescription());
             casesReturnDTOS.add(casesReturnDTO);
             List<RadioDTO> radioDTOS = new ArrayList<>();
-            if(cases.getConsent() != null && cases.getConsent().getRadioDTOS() != null){
-                for(RadioDTO radioDTO : cases.getConsent().getRadioDTOS()){
+            if (cases.getConsent() != null && cases.getConsent().getRadioDTOS() != null) {
+                for (RadioDTO radioDTO : cases.getConsent().getRadioDTOS()) {
                     RadioDTO radioDTO1 = new RadioDTO();
                     radioDTO1.setRadioId(radioDTO.getRadioId());
                     radioDTO1.setRadioName(radioDTO.getRadioName());
@@ -173,31 +187,39 @@ public class PatientController {
 
     @CrossOrigin
     @PostMapping("/patient/assignRadiologist")
-    public ResponseEntity<LoginMessage> assignRadiologist(@RequestBody @Validated CasesDTO casesDTO){
+    public ResponseEntity<LoginMessage> assignRadiologist(@RequestBody @Validated CasesDTO casesDTO) {
         LoginMessage loginMessage = patientService.updateCaseR(casesDTO);
-        if(loginMessage.getMessage().equals("Radiologist Assigned Successfully")){
-            emailService.sendSimpleMessage(
-                    loginMessage.getEmail(),
-                    "A new case has been assigned",
-                    "CaseName: "+casesDTO.getCaseName()+ "\n"+"Doctor assigned: "+casesDTO.getDoctorName()+"\n"+
-                            "Case Description: "+casesDTO.getCaseDescription());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (loginMessage.getMessage().equals("Radiologist Assigned Successfully")) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        loginMessage.getEmail(),
+                        "A new case has been assigned",
+                        "CaseName: " + casesDTO.getCaseName() + "\n" + "Doctor assigned: " + casesDTO.getDoctorName() + "\n" +
+                                "Case Description: " + casesDTO.getCaseDescription());
+            });
         }
         loginMessage.setEmail("");
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 
     @CrossOrigin
     @PostMapping("/patient/assignLab")
-    public ResponseEntity<LoginMessage> assignLab(@RequestBody @Validated CasesDTO casesDTO){
+    public ResponseEntity<LoginMessage> assignLab(@RequestBody @Validated CasesDTO casesDTO) {
         LoginMessage loginMessage = patientService.updateCaseL(casesDTO);
-        if(loginMessage.getMessage().equals("Lab Assigned Successfully")){
-            emailService.sendSimpleMessage(
-                    loginMessage.getEmail(),
-                    "A new case has been assigned",
-                    "CaseName: "+casesDTO.getCaseName()+ "\n"+"Doctor assigned: "+casesDTO.getDoctorName()+"\n"+
-                            "Case Description: "+casesDTO.getCaseDescription());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (loginMessage.getMessage().equals("Lab Assigned Successfully")) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        loginMessage.getEmail(),
+                        "A new case has been assigned",
+                        "CaseName: " + casesDTO.getCaseName() + "\n" + "Doctor assigned: " + casesDTO.getDoctorName() + "\n" +
+                                "Case Description: " + casesDTO.getCaseDescription());
+            });
         }
         loginMessage.setEmail("");
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 
@@ -212,15 +234,19 @@ public class PatientController {
     @PostMapping("/patient/assignRemoveNewRadiologist")
     public ResponseEntity<LoginMessage> assignRemoveNewRadiologist(@RequestBody @Validated CasesNewRadioDTO casesNewRadioDTO) {
         LoginMessage loginMessage = patientService.assignNewRadio(casesNewRadioDTO);
-        if(loginMessage.getMessage().equals("Lab Assigned Successfully")){
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (loginMessage.getMessage().equals("Lab Assigned Successfully")) {
             Cases cases = patientService.getCaseByCaseId(casesNewRadioDTO.getCaseId());
-            emailService.sendSimpleMessage(
-                    loginMessage.getEmail(),
-                    "A new case has been assigned",
-                    "CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
-                            "Case Description: "+cases.getCaseDescription());
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        loginMessage.getEmail(),
+                        "A new case has been assigned",
+                        "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                "Case Description: " + cases.getCaseDescription());
+            });
         }
         loginMessage.setEmail("");
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 }

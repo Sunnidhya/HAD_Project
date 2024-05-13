@@ -1,5 +1,5 @@
 import imgside from "../../../Resources/AppLogo.png";
-import admin from "../../../Resources/radio1.avif";
+import admin from "../../../Resources/admin-icon-10.jpg";
 import logout from "../../../Resources/log-out.png";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -56,13 +56,13 @@ const AdminHomePage = () => {
   }, []);
 
  return (
-    <div className="Admin-land-container">
+    <div className="Admin-Home-container">
       <div class="Admin-Home-hor">
         <div>
-          <img src={imgside} id="docsideimg" />
+          <img src={imgside} id="admindetimg" />
         </div>
-        <div class="AdminLogout" style={{cursor:"pointer"}} onClick={togglePopup}>
-          <img src={logout} alt="Logout" className="input-icon1" />
+        <div class="AdminHomeLogout" style={{cursor:"pointer"}} onClick={togglePopup}>
+          <img src={logout} alt="Logout" className="admin-home-input-icon2" />
         </div>
     </div>
     <div className='Admin-Det-ver'>

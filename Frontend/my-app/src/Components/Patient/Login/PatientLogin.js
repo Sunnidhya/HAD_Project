@@ -159,7 +159,7 @@ const hideLoadingAlert = () => {
               </div>)}
             </form>
 
-            {isVisible && (<div className='ForgotPasswordPat'><b>Forgot Password?</b></div>)}
+            
 
           {isVisible && (
               <button type="submit"  id="login_patient"

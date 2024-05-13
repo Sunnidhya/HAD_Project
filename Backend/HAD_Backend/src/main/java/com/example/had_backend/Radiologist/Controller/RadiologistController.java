@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 public class RadiologistController {
@@ -41,15 +43,19 @@ public class RadiologistController {
         Users users = radiologistService.authenticateUser(login);
         Radiologist radiologist = radiologistService.profile(login);
         OTP otp = radiologistService.getOtpUser(radiologist);
-        if(users != null){
-            emailService.sendSimpleMessage(
-                    radiologist.getEmail(),
-                    "Please use the following OTP to Authenticate Login",
-                    "OTP: " + otp.getOneTimePasswordCode());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (users != null) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        radiologist.getEmail(),
+                        "Please use the following OTP to Authenticate Login",
+                        "OTP: " + otp.getOneTimePasswordCode());
+            });
             message.setMessage("OTP sent to registered email address");
-        }else {
+        } else {
             message.setMessage("Login failed, Check username/password");
         }
+        executorService.shutdown();
         return ResponseEntity.ok(message);
     }
 
@@ -57,7 +63,7 @@ public class RadiologistController {
     @PostMapping("/radiologist/login/validateOTP")
     public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
         LoginMessage loginMessage = radiologistService.validateOTP(otpDTO);
-        if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
+        if (loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")) {
             loginMessage.setToken(userAuthProvider.createToken(otpDTO.getUserName()));
         }
         return ResponseEntity.ok(loginMessage);
@@ -67,12 +73,16 @@ public class RadiologistController {
     @PostMapping("/radiologist/register")
     public ResponseEntity<LoginMessage> register(@RequestBody @Validated RadiologistRegistrationDTO radiologistRegistrationDTO) {
         LoginMessage loginMessage = radiologistService.register(radiologistRegistrationDTO);
-        if(!loginMessage.getMessage().equals("User is already registered")){
-            emailService.sendSimpleMessage(
-                    radiologistRegistrationDTO.getEmail(),
-                    "Registration in Kavach portal was successful",
-                    "Username: "+radiologistRegistrationDTO.getUserName()+ "\n"+"Password: "+radiologistRegistrationDTO.getPassword());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (!loginMessage.getMessage().equals("User is already registered")) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        radiologistRegistrationDTO.getEmail(),
+                        "Registration in Kavach portal was successful",
+                        "Username: " + radiologistRegistrationDTO.getUserName() + "\n" + "Password: " + radiologistRegistrationDTO.getPassword());
+            });
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 
@@ -85,27 +95,31 @@ public class RadiologistController {
 
     @CrossOrigin
     @PostMapping("/radiologist/changePassword")
-    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated RadiologistChangePasswordDTO radiologistChangePasswordDTO ) {
+    public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated RadiologistChangePasswordDTO radiologistChangePasswordDTO) {
         LoginMessage loginMessage1 = radiologistService.changePassword(radiologistChangePasswordDTO);
-        if(loginMessage1.getMessage().equals("Password updated successfully")){
-            emailService.sendSimpleMessage(
-                    radiologistChangePasswordDTO.getEmail(),
-                    "Password has been changed successfully",
-                    "Username: "+radiologistChangePasswordDTO.getUserName()+ "\n"+"Password: "+radiologistChangePasswordDTO.getNewPassword());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (loginMessage1.getMessage().equals("Password updated successfully")) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        radiologistChangePasswordDTO.getEmail(),
+                        "Password has been changed successfully",
+                        "Username: " + radiologistChangePasswordDTO.getUserName() + "\n" + "Password: " + radiologistChangePasswordDTO.getNewPassword());
+            });
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage1);
     }
 
     @CrossOrigin
     @PostMapping("/radiologist/remove")
-    public ResponseEntity<LoginMessage> removeRadiologist(@RequestBody @Validated RadiologistRegistrationDTO radiologistRegistrationDTO ) {
+    public ResponseEntity<LoginMessage> removeRadiologist(@RequestBody @Validated RadiologistRegistrationDTO radiologistRegistrationDTO) {
         LoginMessage loginMessage1 = radiologistService.removePatient(radiologistRegistrationDTO);
         return ResponseEntity.ok(loginMessage1);
     }
 
     @CrossOrigin
     @PostMapping("/radiologist/getSearchResult")
-    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO ) {
+    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = radiologistService.getCases(searchResultDTO);
         return ResponseEntity.ok(list);
     }
@@ -139,9 +153,9 @@ public class RadiologistController {
             } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
-            if(cases.getLab() != null) {
+            if (cases.getLab() != null) {
                 casesReturnDTO.setLabName(cases.getLab().getLabName());
-            }else{
+            } else {
                 casesReturnDTO.setLabName("Not yet assigned");
             }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());

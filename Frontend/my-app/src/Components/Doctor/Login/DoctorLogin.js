@@ -155,7 +155,7 @@ const hideLoadingAlert = () => {
                 </div>
               )}
             </form>
-            {isVisible && (<div className='DocForgotPasswordDoc'><b>Forgot Password?</b></div>)}
+            
             {isVisible && (<button type="submit" id="login_doc"
               onClick={(e) =>
                 loginD(

@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { doctorProfile } from '../../../Network/APIendpoints';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
-import radpic from '../../../Resources/radio1.avif';
+import radpic from '../../../Resources/doc-prof-icon.png';
 import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { request } from '../../../Network/axiosHelper';
 import ChangePassword from '../../Form/ChangePassword';
@@ -65,7 +65,7 @@ const DoctorProfile = () => {
         )}
       </div>
       {/* About Us Section */}
-      <div className="Doctor-about-us-section">
+      <div className="Doctor-prof-about-us-section">
         <p>About Us</p>
       </div>
       <div>

@@ -75,17 +75,23 @@ const DoctorChat = () => {
 
   const handleDropdownSelect = (selectedOption, obj, flow) => {
     if(flow === "Select Radiologist Name"){
-      const data ={
-        caseId: obj.caseId,
-        radiologistId: selectedOption.userId
+      if(selectedOption.userId !== caseObj.threads[0].radioId){
+        const data ={
+          caseId: obj.caseId,
+          radiologistId: selectedOption.userId
+        }
+        
+        request("POST", assignNewRadio, data)
+        .then((response) => {
+          alert("Request for New Radiologist sent to Patient")
+        })
+        .catch((error) => {
+          console.warn("Error", error);
+        }); 
+      }else{
+        alert("Radiologist already assigned, Please Reselect")
+        window.location.reload()
       }
-      request("POST", assignNewRadio, data)
-      .then((response) => {
-        alert("Request for New Radiologist sent to Patient")
-      })
-      .catch((error) => {
-        console.warn("Error", error);
-      });
     }else if(flow === "Select Radiologist"){
       setRadioSelected(selectedOption)
     }
@@ -126,19 +132,14 @@ const DoctorChat = () => {
       
       request("POST",insertChat , newMessage1)
       .then((response) => {
-        // loadChatImage(response.data)
         setCaseObj(response.data)
-        console.warn("DataChat", response.data)
         setInputText("")
         setImage(null)
         setChatImage(null)
         scrollToBottom()
         response.data.threads.map((item) => {
-          // console.warn("dataTh", item)
-          // console.warn("dataTh", radioSelected)
            if(item.radioId === radioSelected.radioId){
             setRadioSelected(item)
-            console.warn("DataChat", item)
            }
         })
       }).catch((error) => {
@@ -281,9 +282,8 @@ const hideLoadingAlert = () => {
 
   const listRef = useRef(null);
 
-  // Function to scroll to the bottom of the list
   const scrollToBottom = () => {
-    if (listRef.current) {
+    if (listRef.current && listRef.current.lastElementChild) {
       const lastMessage = listRef.current.lastElementChild;
       lastMessage.scrollIntoView({ behavior: 'smooth' });
     }
@@ -359,25 +359,6 @@ const hideLoadingAlert = () => {
        
           {radioSelected && <div className="chat-container">
             <ul className="chat-list" ref={listRef}>
-              {/* {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
-               && caseObj.threads[0].threadsDTO.map((message, index) => (
-                <li
-                  key={index}
-                  className="chat-item"
-                  onClick={() => handleListItemClick(index) }
-                >
-                  <p className="userNameVal">{message.userName}</p>
-                  <p>{message.text}</p>
-                  {message.imageURL && (
-                    <img
-                      src={message.imageURL}
-                      alt="Uploaded"
-                      className="chat-image"
-                    />
-                  )}
-                  <p className="timestamp">{message.timeStamp}</p>
-                </li>
-              ))} */}
               {radioSelected && radioSelected.threadsDTO.map((message, index) => (
                 <li
                   key={index}

@@ -26,6 +26,7 @@ const LabLanding = () => {
   const [showPopupUpload, setShowPopupUpload] = useState(false);
   const [lab, setLab] = useState([]);
   const [caseIdValueClicked, setCaseIdValueClicked] = useState();
+  const [originalLab, setOriginalLab] = useState([]);
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
@@ -37,6 +38,19 @@ const LabLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      setLab(lab.filter(la =>
+        la.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.radioName.toLowerCase().includes(event.target.value.toLowerCase())||
+        la.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
+    }else{
+      setLab(originalLab)
+    }
   };
 
   const openUploadImageDialog = (objValue) => {
@@ -57,6 +71,7 @@ const LabLanding = () => {
     request("POST", getCasesOfLab, data)
       .then((response) => {
         setLab(response.data);
+        setOriginalLab(response.data)
       })
       .catch((error) => {
         console.warn("Error", error);

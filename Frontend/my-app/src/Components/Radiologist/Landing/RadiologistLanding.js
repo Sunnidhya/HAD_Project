@@ -23,6 +23,9 @@ const RadioLanding = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [radiologist, setRadiologist] = useState([]);
+  const [originalRadio, setOriginalRadio] = useState([]);
+
+
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
   };
@@ -38,7 +41,21 @@ const RadioLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      setRadiologist(radiologist.filter(radio =>
+        radio.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        radio.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        radio.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        radio.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        radio.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        radio.radioName.toLowerCase().includes(event.target.value.toLowerCase())||
+        radio.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
+    }else{
+      setRadiologist(originalRadio)
+    }
   };
+
   useEffect(() => {
     const decryptedData = decryptData();
     const data = {
@@ -49,6 +66,7 @@ const RadioLanding = () => {
     request("POST", getCasesOfRadiologists, data)
       .then((response) => {
         setRadiologist(response.data);
+        setOriginalRadio(response.data)
       })
       .catch((error) => {
         console.warn("Error", error);

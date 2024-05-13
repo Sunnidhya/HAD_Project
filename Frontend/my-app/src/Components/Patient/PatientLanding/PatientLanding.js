@@ -47,6 +47,7 @@ const PatientLanding = () => {
   const [tempDataConsent, setTempDataConsent] = useState({});
   const [tempFlow, setTempFlow] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [originalPatient, setOriginalPatient] = useState([]);
 
   const togglePopup = () => {
     setShowPopup((prevShowPopup) => !prevShowPopup);
@@ -58,6 +59,19 @@ const PatientLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      setPatient(patient.filter(pat =>
+        pat.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.radioName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
+    }else{
+      setPatient(originalPatient)
+    }
   };
 
   const handleFormSubmit = (flag) => {
@@ -170,6 +184,7 @@ const hideLoadingAlert = () => {
     request("POST", getCasesofPatient, data)
       .then((response) => {
         setPatient(response.data);
+        setOriginalPatient(response.data)
         console.warn("data", response.data[0].radioDTOList);
         if (response.data.radioDTOList !== null) {
           response.data[0].radioDTOList.map((obj, index) => {

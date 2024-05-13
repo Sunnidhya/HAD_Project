@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 public class LabController {
@@ -43,15 +45,19 @@ public class LabController {
         Users users = labService.authenticateUser(login);
         Lab lab = labService.getProfile(login);
         OTP otp = labService.getOtp(lab);
-        if(users != null){
-            emailService.sendSimpleMessage(
-                    lab.getEmail(),
-                    "Please use the following OTP to Authenticate Login",
-                    "OTP: " + otp.getOneTimePasswordCode());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (users != null) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        lab.getEmail(),
+                        "Please use the following OTP to Authenticate Login",
+                        "OTP: " + otp.getOneTimePasswordCode());
+            });
             message.setMessage("OTP sent to registered email address");
-        }else {
+        } else {
             message.setMessage("Login failed, Check username/password");
         }
+        executorService.shutdown();
         return ResponseEntity.ok(message);
     }
 
@@ -59,7 +65,7 @@ public class LabController {
     @PostMapping("/lab/login/validateOTP")
     public ResponseEntity<LoginMessage> loginValidateOTP(@RequestBody @Validated OtpDTO otpDTO) {
         LoginMessage loginMessage = labService.validateOTP(otpDTO);
-        if(loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")){
+        if (loginMessage.getMessage().equals("OTP Validated successfully, Login was Successful")) {
             loginMessage.setToken(userAuthProvider.createToken(otpDTO.getUserName()));
         }
         return ResponseEntity.ok(loginMessage);
@@ -69,12 +75,16 @@ public class LabController {
     @PostMapping("/lab/register")
     public ResponseEntity<LoginMessage> register(@RequestBody @Validated LabRegistrationDTO register) {
         LoginMessage loginMessage = labService.registerLab(register);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
         if (!loginMessage.getMessage().equals("User is already registered")) {
-            emailService.sendSimpleMessage(
-                    register.getEmail(),
-                    "Registration in Kavach portal was successful",
-                    "Username: " + register.getUserName() + "\n" + "Password: " + register.getPassword());
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        register.getEmail(),
+                        "Registration in Kavach portal was successful",
+                        "Username: " + register.getUserName() + "\n" + "Password: " + register.getPassword());
+            });
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 
@@ -89,25 +99,29 @@ public class LabController {
     @PostMapping("/lab/changePassword")
     public ResponseEntity<LoginMessage> changePassword(@RequestBody @Validated LabChangePasswordDTO labChangePasswordDTO) {
         LoginMessage loginMessage1 = labService.changePassword(labChangePasswordDTO);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
         if (loginMessage1.getMessage().equals("Password updated successfully")) {
-            emailService.sendSimpleMessage(
-                    labChangePasswordDTO.getEmail(),
-                    "Password has been changed successfully",
-                    "Username: " + labChangePasswordDTO.getUserName() + "\n" + "Password: " + labChangePasswordDTO.getNewPassword());
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        labChangePasswordDTO.getEmail(),
+                        "Password has been changed successfully",
+                        "Username: " + labChangePasswordDTO.getUserName() + "\n" + "Password: " + labChangePasswordDTO.getNewPassword());
+            });
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage1);
     }
 
     @CrossOrigin
     @PostMapping("/lab/remove")
-    public ResponseEntity<LoginMessage> removeLab(@RequestBody @Validated LabRegistrationDTO labRegistrationDTO ) {
+    public ResponseEntity<LoginMessage> removeLab(@RequestBody @Validated LabRegistrationDTO labRegistrationDTO) {
         LoginMessage loginMessage1 = labService.removeLab(labRegistrationDTO);
         return ResponseEntity.ok(loginMessage1);
     }
 
     @CrossOrigin
     @PostMapping("/lab/getSearchResult")
-    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO ) {
+    public ResponseEntity<List<Cases>> getSearchResult(@RequestBody @Validated SearchResultDTO searchResultDTO) {
         List<Cases> list = labService.getCases(searchResultDTO);
         return ResponseEntity.ok(list);
     }
@@ -141,9 +155,9 @@ public class LabController {
             } else {
                 casesReturnDTO.setRadioName("Not yet assigned");
             }
-            if(cases.getLab() != null) {
+            if (cases.getLab() != null) {
                 casesReturnDTO.setLabName(cases.getLab().getLabName());
-            }else{
+            } else {
                 casesReturnDTO.setLabName("Not yet assigned");
             }
             casesReturnDTO.setPatientName(cases.getPatient().getFullName());
@@ -164,28 +178,35 @@ public class LabController {
     @PostMapping("/lab/uploadImages")
     public ResponseEntity<LoginMessage> uploadPrescriptionScannedImage(@RequestBody @Validated UploadImagesDTO uploadImagesDTO) {
         LoginMessage loginMessage = labService.uploadImages(uploadImagesDTO);
-        if(loginMessage.getMessage().equals("Images uploaded successfully")){
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        if (loginMessage.getMessage().equals("Images uploaded successfully")) {
             Cases cases = labService.getCaseByCaseId(uploadImagesDTO.getCaseId());
-            emailService.sendSimpleMessage(
-                    cases.getDoctor().getEmail(),
-                    "Lab has uploaded the image",
-                    "CaseId: "+cases.getCaseId()+"\n"+"CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
-                            "Case Description: "+cases.getCaseDescription());
-
-            emailService.sendSimpleMessage(
-                    cases.getPatient().getEmail(),
-                    "Lab has uploaded the image",
-                    "CaseId: "+cases.getCaseId()+"\n"+"CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
-                            "Case Description: "+cases.getCaseDescription());
-
-            for(Radiologist r: cases.getRadiologist()){
+            executorService.submit(() -> {
                 emailService.sendSimpleMessage(
-                        r.getEmail(),
+                        cases.getDoctor().getEmail(),
                         "Lab has uploaded the image",
-                        "CaseId: "+cases.getCaseId()+"\n"+"CaseName: "+cases.getCaseName()+ "\n"+"Doctor assigned: "+cases.getDoctor().getName()+"\n"+
-                                "Case Description: "+cases.getCaseDescription());
+                        "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                "Case Description: " + cases.getCaseDescription());
+            });
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        cases.getPatient().getEmail(),
+                        "Lab has uploaded the image",
+                        "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                "Case Description: " + cases.getCaseDescription());
+            });
+
+            for (Radiologist r : cases.getRadiologist()) {
+                executorService.submit(() -> {
+                    emailService.sendSimpleMessage(
+                            r.getEmail(),
+                            "Lab has uploaded the image",
+                            "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                    "Case Description: " + cases.getCaseDescription());
+                });
             }
         }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 
@@ -194,15 +215,19 @@ public class LabController {
     public ResponseEntity<LoginMessage> sendOTP(@RequestBody @Validated CasesDTO casesDTO) {
         LabSendOTPDTO otp = labService.sendOTP(casesDTO);
         LoginMessage message = new LoginMessage();
-        if(otp != null){
-            emailService.sendSimpleMessage(
-                    otp.getEmail(),
-                    "Please use the following OTP to Authenticate yourself to the Lab",
-                    "OTP: " + otp.getOtp().getOneTimePasswordCode());
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        if (otp != null) {
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        otp.getEmail(),
+                        "Please use the following OTP to Authenticate yourself to the Lab",
+                        "OTP: " + otp.getOtp().getOneTimePasswordCode());
+            });
             message.setMessage("OTP sent to registered email address");
-        }else {
+        } else {
             message.setMessage("Login failed, Check username/password");
         }
+        executorService.shutdown();
         return ResponseEntity.ok(message);
     }
 }
