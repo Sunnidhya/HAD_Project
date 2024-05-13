@@ -167,6 +167,10 @@ public class DoctorService {
         return iDoctorRegistrationRepository.findByDoctorId(doctorId);
     }
 
+    public Radiologist getRadioById(Integer radioId) {
+        return iRadiologistRegistrationRepository.getByRadiologistId(radioId);
+    }
+
     public Doctor getDoctorByUserName(String doctorUserName) {
         return iDoctorRegistrationRepository.findByDoctorUserName(doctorUserName);
     }

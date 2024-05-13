@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
                 .requestMatchers(HttpMethod.POST,
+                        "/admin/login",
                         "/doctor/login",
                         "/patient/login",
                         "/doctor/register",
@@ -45,12 +46,6 @@ public class SecurityConfig {
                         "/lab/login/validateOTP",
                         "/patient/login/validateOTP",
                         "/radiologist/login/validateOTP").permitAll()
-                        .requestMatchers(HttpMethod.GET,
-                                "/count",
-                                "/radilogist/getListOfRadiologists",
-                                "/doctor/getListOfDoctors",
-                                "/lab/getListOfLabs",
-                                "/patient/getListOfPatients").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }

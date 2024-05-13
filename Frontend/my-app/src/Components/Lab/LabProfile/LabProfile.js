@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import {laboratoryProfile} from '../../../Network/APIendpoints';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
-import radpic from '../../../Resources/radio1.avif';
+import radpic from '../../../Resources/lab-ct-scan-machine-500x500.webp';
 import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { request } from '../../../Network/axiosHelper';
 import ChangePassword from '../../Form/ChangePassword';

@@ -47,6 +47,8 @@ function LabForm() {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="form-container-lab" onClick={stopPropagation}>
           <button className="close-button-lab" onClick={toggleVisibility}>X</button>
           <div className="container-lab">
@@ -111,6 +113,7 @@ function LabForm() {
             </form>
           </div>
         </div>
+        </>
       )}
     </>
   );

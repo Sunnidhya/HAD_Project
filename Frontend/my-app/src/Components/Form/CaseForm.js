@@ -70,6 +70,8 @@ function CaseForm() {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="form-container-case" onClick={stopPropagation}>
           <button className="close-button-case" onClick={toggleVisibility}>
             X
@@ -126,6 +128,7 @@ function CaseForm() {
             </form>
           </div>
         </div>
+        </>
       )}
     </>
   );

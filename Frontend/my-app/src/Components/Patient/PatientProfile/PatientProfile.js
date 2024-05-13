@@ -6,7 +6,7 @@ import imgside from '../../../Resources/AppLogo.png';
 import React, { useEffect, useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
-import radpic from '../../../Resources/radio1.avif';
+import radpic from '../../../Resources/patient-profile1.jpeg';
 import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import { request } from '../../../Network/axiosHelper';
 import { patientProfie } from '../../../Network/APIendpoints';

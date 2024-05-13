@@ -1,34 +1,38 @@
 .Admin-Home-hor{
     display: flex;
-    background-color: #52D1BC;
-    flex-direction: row;
+    background-color: rgb(72, 111, 105);
     justify-content: space-between;
-    align-items: center;
-    padding: 8px;
-    overflow-x: hidden;
-    width:100%; 
+    flex-direction: row;
+    overflow-y: hidden;
 }
-#docsideimg{
-    padding-top: 1%;
-    padding-left: 1%;
-    margin-left: 10px;
-    height: 120px;
-    width: 120px;
-    
-}
-.input-icon2
-{
-   margin-left: 250px;
-   margin-top: 20px;
-   
-}
+#admindetimg{
+    flex: 1;
+    padding: 10%;
+    height: 80px;
+    width: 80px;
+    margin-left: 15px;
+  }
+  .AdminHomeLogout
+  {
+      flex:1;
+      text-align: right;
+      margin: 0 auto;
+      padding: 25px;
+      position: relative;
+  }
+  
+  .admin-home-input-icon2
+  {
+    cursor: pointer;
+  }
+/*-------------------------------*/
 .admin-land-icon-1{
     height: auto;
     width: 200px;
 }  
 .Admin-Det-ver1 p{
     font-size: larg;
-    background-color: #52D1BC;
+    background-color: rgb(72, 111, 105);
     justify-self: center;
     color: #fcf6f6;
     margin: 5%;
@@ -41,7 +45,7 @@
     flex-direction: row;
     background-color: white;
     height: 70%;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
 }
 
 .Admin-Det-ver1 {
@@ -154,8 +158,9 @@
 
 
 .Admin-home-about-us-section { 
-    padding: 20px;
-    background-color: #52D1BC;
+    height: auto;
+    padding: 10px;
+    background-color: rgb(72, 111, 105);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: white;

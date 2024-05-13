@@ -38,6 +38,7 @@ const LabLogin = () => {
         userName: usernameD,
         password: passwordD
       };
+      showLoadingAlert()
       request("POST",
       labLoginAPI,
         data
@@ -48,6 +49,7 @@ const LabLogin = () => {
           setVisible(false)
           setButton('Submit')
           setPlaceholder('Enter your OTP')
+          hideLoadingAlert()
         }
         else if (response.data.message === "Login failed, Check username/password") {
           alert(response.data.message)
@@ -62,12 +64,14 @@ const LabLogin = () => {
         otp: patotpV,
         userName: patUserNameV
       };
+      showLoadingAlert()
       request("POST",
         otplab,
         data
       ).then((response) => {
         console.warn("DataOTP", response)
         if (response.data.message === "OTP Validated successfully, Login was Successful") {
+          hideLoadingAlert()
           setAuthToken(response.data.token)
           console.warn("Data", response.data)
           window.localStorage.setItem("isLabLoggedIn",true);
@@ -86,6 +90,36 @@ const LabLogin = () => {
         });
     }
   };
+
+  // Function to show loading alert
+const showLoadingAlert = () => {
+  // Create a loading alert element or use an existing one
+  const loadingAlert = document.createElement("div");
+  loadingAlert.textContent = "Loading..."; // Set text content to indicate loading
+  loadingAlert.className = "loading-alert"; // Assign a class for easier identification
+  loadingAlert.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Semi-transparent background
+  loadingAlert.style.color = "#fff"; // Text color
+  loadingAlert.style.position = "fixed"; // Fixed position
+  loadingAlert.style.top = "0"; // Align to top
+  loadingAlert.style.left = "0"; // Align to left
+  loadingAlert.style.width = "100%"; // Full width
+  loadingAlert.style.height = "100%"; // Full height
+  loadingAlert.style.display = "flex"; // Flex container
+  loadingAlert.style.justifyContent = "center"; // Center content horizontally
+  loadingAlert.style.alignItems = "center"; // Center content vertically
+
+  // Append the loading alert element to the document body
+  document.body.appendChild(loadingAlert);
+};
+
+// Function to hide loading alert
+const hideLoadingAlert = () => {
+  // Find and remove the loading alert element
+  const loadingAlert = document.querySelector(".loading-alert");
+  if (loadingAlert) {
+    loadingAlert.remove();
+  }
+};
 
   return (
     <div class="Lab-login-container">
@@ -122,7 +156,7 @@ const LabLogin = () => {
                 <input type="otp" id="otp" name="otp" placeholder='Type your otp' value={patotpV} onChange={(e) => setotpP(e.target.value)} required />
               </div>)}
              </form>
-             {isVisible && (<div className='ForgotPasswordLab'><b>Forgot Password?</b></div>)}
+             
             
             {isVisible && (<button type="submit" id="login_lab"onClick={(e) =>
               loginD(

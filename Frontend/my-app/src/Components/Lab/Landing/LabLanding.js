@@ -25,6 +25,8 @@ const LabLanding = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupUpload, setShowPopupUpload] = useState(false);
   const [lab, setLab] = useState([]);
+  const [caseIdValueClicked, setCaseIdValueClicked] = useState();
+  const [originalLab, setOriginalLab] = useState([]);
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
@@ -36,7 +38,29 @@ const LabLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      setLab(lab.filter(la =>
+        la.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        la.radioName.toLowerCase().includes(event.target.value.toLowerCase())||
+        la.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
+    }else{
+      setLab(originalLab)
+    }
   };
+
+  const openUploadImageDialog = (objValue) => {
+    if(!objValue.markAsDone){
+      setCaseIdValueClicked(objValue.caseId)
+      togglePopupUpload()
+    }else{
+      alert("The case is closed")
+    }
+  }
 
   useEffect(() => {
     const decryptedData = decryptData();
@@ -47,6 +71,7 @@ const LabLanding = () => {
     request("POST", getCasesOfLab, data)
       .then((response) => {
         setLab(response.data);
+        setOriginalLab(response.data)
       })
       .catch((error) => {
         console.warn("Error", error);
@@ -73,11 +98,7 @@ const LabLanding = () => {
 
       <div className='Lab-Land-ver'>
         <div className='Lab-Land-ver1'>
-
-          <button style={{ margin: '10px' }} onClick={togglePopupUpload} className='lab-landing-button'>Upload</button>
           <button style={{ margin: '10px' }} onClick={profileget} className='lab-landing-button'>Profile</button>
-
-
         </div>
         <div className='Lab-Land-ver2'>
           <div className="Lab-card">
@@ -101,9 +122,10 @@ const LabLanding = () => {
                           color: 'white',
                           boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.3)',
                           border: 'rgb(241, 247, 247) solid 3px',
+                          cursor: 'pointer'
                         }}
                       >
-                        <CardBody style={{ fontFamily: 'Arial, sans-serif' }}>
+                        <CardBody onClick={() => openUploadImageDialog(obj)} style={{ fontFamily: 'Arial, sans-serif' }}>
                           <Row>
                             <Col xs="4">
                               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
@@ -147,7 +169,7 @@ const LabLanding = () => {
         {showPopupUpload && (
           <div className="popup-overlay" onClick={togglePopupUpload}>
             <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
-              <UploadImage />
+              <UploadImage caseIdValue={caseIdValueClicked} />
             </div>
           </div>
         )}

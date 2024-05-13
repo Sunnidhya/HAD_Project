@@ -25,6 +25,7 @@ const DoctorLanding = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupCase, setShowPopupCase] = useState(false);
   const [doctor, setDoctor] = useState([]);
+  const [originalDoc, setOriginalDoc] = useState([]);
 
   const goToDetailsPage = (objectVal) => {
     nav('/doctor/details', { state: { caseIdVal: objectVal } });
@@ -44,6 +45,19 @@ const DoctorLanding = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      setDoctor(doctor.filter(doc =>
+        doc.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        doc.radioName.toLowerCase().includes(event.target.value.toLowerCase())||
+        doc.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
+    }else{
+      setDoctor(originalDoc)
+    }
   };
 
   useEffect(() => {
@@ -56,6 +70,7 @@ const DoctorLanding = () => {
     request("POST", getCasesOfDoctor, data)
       .then((response) => {
         setDoctor(response.data);
+        setOriginalDoc(response.data)
       })
       .catch((error) => {
         console.warn("Error", error);

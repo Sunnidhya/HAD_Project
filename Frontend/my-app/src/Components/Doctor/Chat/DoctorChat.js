@@ -1,5 +1,5 @@
 import imgside from "../../../Resources/AppLogo.png";
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import logout from "../../../Resources/log-out.png";
 import "./DoctorChat.css";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -39,6 +39,7 @@ const DoctorChat = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [radioList, setRadioList] = useState([]);
   const [radioSelected, setRadioSelected] = useState();
+  const [markAsDoneFlag, setMarkasDone] = useState(false);
 
   const loc = useLocation();
   const { caseIdValue } = loc.state || {};
@@ -74,27 +75,35 @@ const DoctorChat = () => {
 
   const handleDropdownSelect = (selectedOption, obj, flow) => {
     if(flow === "Select Radiologist Name"){
-      const data ={
-        caseId: obj.caseId,
-        radiologistId: selectedOption.userId
+      if(selectedOption.userId !== caseObj.threads[0].radioId){
+        const data ={
+          caseId: obj.caseId,
+          radiologistId: selectedOption.userId
+        }
+        
+        request("POST", assignNewRadio, data)
+        .then((response) => {
+          alert("Request for New Radiologist sent to Patient")
+        })
+        .catch((error) => {
+          console.warn("Error", error);
+        }); 
+      }else{
+        alert("Radiologist already assigned, Please Reselect")
+        window.location.reload()
       }
-      request("POST", assignNewRadio, data)
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.warn("Error", error);
-      });
     }else if(flow === "Select Radiologist"){
       setRadioSelected(selectedOption)
     }
   };
 
   const handleImageChange = (event) => {
+    showLoadingAlert()
     const file = event.target.files[0];
     const img = ref(imgDB, `Imgs/${v4()}`);
     uploadBytes(img, file).then((data) => {
     getDownloadURL(data.ref).then((value) => {
+    hideLoadingAlert()
     setChatImage(value)
     alert("Image uploaded to firestore successfully")
       });
@@ -105,13 +114,12 @@ const DoctorChat = () => {
   const handleSendMessage = () => {
     if (inputText.trim() !== "" || image) {
       // Convert milliseconds to Date object
-      const dateObject = new Date(dateVal.getTime());
+      let dateObject = new Date();
 
       // Get date and time strings
       const date = dateObject.toLocaleDateString();
       const time = dateObject.toLocaleTimeString();
-      setDateTime(`${date} ${time}`);
-      console.warn("Data", dateTime);
+      let dateTimeToBePassed = `${date} ${time}`;
 
       const newMessage1 = {
         caseId:caseObj.caseId,
@@ -119,16 +127,17 @@ const DoctorChat = () => {
         userName: decryptData(),
         text: inputText,
         image: image ? chatImage: null,
-        timestamp: dateTime,
+        timestamp: dateTimeToBePassed,
       };
       
       request("POST",insertChat , newMessage1)
       .then((response) => {
-        // loadChatImage(response.data)
         setCaseObj(response.data)
-        caseObj.threads.map((item) => {
-          // console.warn("dataTh", item)
-          // console.warn("dataTh", radioSelected)
+        setInputText("")
+        setImage(null)
+        setChatImage(null)
+        scrollToBottom()
+        response.data.threads.map((item) => {
            if(item.radioId === radioSelected.radioId){
             setRadioSelected(item)
            }
@@ -156,6 +165,7 @@ const DoctorChat = () => {
 
   const downloadScreenshot = async () => {
     try {
+      showLoadingAlert()
       // Take the screenshot
       await takeScreenshot(ref1.current).then(async (image) => {
         // Call setCanvasImage to prepare canvas for copying
@@ -168,14 +178,48 @@ const DoctorChat = () => {
               console.warn("Data1", value);
               setChatImage(value)
               loadImageFromUrl(value);
+              hideLoadingAlert()
             });
           });
         });
       });
     } catch (error) {
-      console.error("Error copying screenshot:", error);
+      alert("Error copying screenshot");
+      hideLoadingAlert()
     }
   };
+
+
+  // Function to show loading alert
+const showLoadingAlert = () => {
+  // Create a loading alert element or use an existing one
+  const loadingAlert = document.createElement('div');
+  loadingAlert.textContent = 'Saving the image in GCP...'; // Set text content to indicate loading
+  loadingAlert.className = 'loading-alert'; // Assign a class for easier identification
+  loadingAlert.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Semi-transparent background
+  loadingAlert.style.color = '#fff'; // Text color
+  loadingAlert.style.position = 'fixed'; // Fixed position
+  loadingAlert.style.top = '0'; // Align to top
+  loadingAlert.style.left = '0'; // Align to left
+  loadingAlert.style.width = '100%'; // Full width
+  loadingAlert.style.height = '100%'; // Full height
+  loadingAlert.style.display = 'flex'; // Flex container
+  loadingAlert.style.justifyContent = 'center'; // Center content horizontally
+  loadingAlert.style.alignItems = 'center'; // Center content vertically
+
+  // Append the loading alert element to the document body
+  document.body.appendChild(loadingAlert);
+};
+
+// Function to hide loading alert
+const hideLoadingAlert = () => {
+  // Find and remove the loading alert element
+  const loadingAlert = document.querySelector('.loading-alert');
+  if (loadingAlert) {
+    loadingAlert.remove();
+  }
+};
+
 
   let loadImageFromUrl = async (url) => {
     try {
@@ -208,9 +252,12 @@ const DoctorChat = () => {
       setCaseObj(obj);
       if(obj.threads.length === 2){
         setRadioList(obj.threads)
+        setRadioSelected(obj.threads[0])
       }else if(obj.threads.length === 1){
         setRadioSelected(obj.threads[0])
       }
+      scrollToBottom()
+      setMarkasDone(obj.markAsDone)
     
     } catch (error) {
       console.error("Error loading image:", error);
@@ -231,6 +278,15 @@ const DoctorChat = () => {
 
   const togglePopup = () => {
     setShowPopup(prevShowPopup => !prevShowPopup);
+  };
+
+  const listRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (listRef.current && listRef.current.lastElementChild) {
+      const lastMessage = listRef.current.lastElementChild;
+      lastMessage.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const loadImageFromUrl1 = async (url) => {
@@ -302,26 +358,7 @@ const DoctorChat = () => {
           </div>
        
           {radioSelected && <div className="chat-container">
-            <ul className="chat-list">
-              {/* {caseObj && caseObj.threads && caseObj.threads[0].threadsDTO
-               && caseObj.threads[0].threadsDTO.map((message, index) => (
-                <li
-                  key={index}
-                  className="chat-item"
-                  onClick={() => handleListItemClick(index) }
-                >
-                  <p className="userNameVal">{message.userName}</p>
-                  <p>{message.text}</p>
-                  {message.imageURL && (
-                    <img
-                      src={message.imageURL}
-                      alt="Uploaded"
-                      className="chat-image"
-                    />
-                  )}
-                  <p className="timestamp">{message.timeStamp}</p>
-                </li>
-              ))} */}
+            <ul className="chat-list" ref={listRef}>
               {radioSelected && radioSelected.threadsDTO.map((message, index) => (
                 <li
                   key={index}
@@ -342,7 +379,7 @@ const DoctorChat = () => {
               ))}
             </ul>
           </div>}
-          {radioSelected && <div className="send-upload">
+          {!markAsDoneFlag && radioSelected && <div className="send-upload">
             <div className="inputWithButton">
               <br />
               <input 
@@ -379,9 +416,9 @@ const DoctorChat = () => {
             <div ref={ref1}>
               <DwvComponent dicomProp={dicomImage} />
             </div>
-            <button onClick={downloadScreenshot} className="screenshot">
+            {!markAsDoneFlag && <button onClick={downloadScreenshot} className="screenshot">
               Screenshot
-            </button>
+            </button>}
           </div>
         )}
       </div>

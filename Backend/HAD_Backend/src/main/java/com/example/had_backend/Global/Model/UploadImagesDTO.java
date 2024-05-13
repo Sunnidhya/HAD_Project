@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class UploadImagesDTO {
     private Integer caseId;
-    private String patientUserName;
+    private String otp;
     private String prescriptionURL;
     private String scannedImageURL;
 }

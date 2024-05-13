@@ -32,38 +32,124 @@ import {
 } from "../../../Network/APIendpoints";
 import { request } from "../../../Network/axiosHelper";
 import DropdownButton from "../../Form/Dropdown_button";
+import ConsentForm from "../../Form/ConsentForm";
 const PatientLanding = () => {
   let nav = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupRad, setShowPopupRad] = useState(false);
+  const [showPopupLab, setShowPopupLab] = useState(false);
   const [patient, setPatient] = useState([]);
   const [radioList, setRadioList] = useState([]);
   const [labList, setLabList] = useState([]);
   const [radioNew, assignNewRadio] = useState(null);
+  const [tempDataConsent, setTempDataConsent] = useState({});
+  const [tempFlow, setTempFlow] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [originalPatient, setOriginalPatient] = useState([]);
 
   const togglePopup = () => {
     setShowPopup((prevShowPopup) => !prevShowPopup);
   };
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+  const togglePopupRad = () => {
+    setShowPopupRad((prevShowPopup) => !prevShowPopup);
   };
 
-  const assignNewRadioByDoc = (flag, obj, obj1) => {
-    const data = {
-      caseId: obj.caseId,
-      radiologistId: obj1.radioId,
-      consent: flag,
-    };
-    request("POST", assignNewRadioPat, data)
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+    if(event.target.value !== ''){
+      setPatient(patient.filter(pat =>
+        pat.caseName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.caseId.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.patientName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.doctorName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.labName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.radioName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        pat.caseDescription.toLowerCase().includes(event.target.value.toLowerCase())
+      ));
+    }else{
+      setPatient(originalPatient)
+    }
+  };
+
+  const handleFormSubmit = (flag) => {
+    setFormSubmitted(flag);
+    if(flag){
+      togglePopupRad()
+      showLoadingAlert()
+      if(tempFlow === "Select Radiologist Name"){
+        request("POST", assignRadio, tempDataConsent)
+        .then((response) => {
+          alert("Radiologist Assigned")
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.warn("Error", error);
+        });
+      }else if( tempFlow === "Select Lab Name"){
+        request("POST", assignLab, tempDataConsent)
+        .then((response) => {
+          alert("Lab Assigned")
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.warn("Error", error);
+        });
+      }else if( tempFlow === "Select New Radiologist"){
+        request("POST", assignNewRadioPat, tempDataConsent)
       .then((response) => {
+        alert("New Radiologist Assigned")
         window.location.reload();
       })
       .catch((error) => {
         console.warn("Error", error);
       });
+      }
+    }
   };
+
+  const assignNewRadioByDoc = (flag, obj, obj1, flow) => {
+    const data = {
+      caseId: obj.caseId,
+      radiologistId: obj1.radioId,
+      consent: flag,
+    };
+    setTempDataConsent(data)
+    setTempFlow(flow)
+    togglePopupRad()
+  };
+
+  // Function to show loading alert
+const showLoadingAlert = () => {
+  // Create a loading alert element or use an existing one
+  const loadingAlert = document.createElement("div");
+  loadingAlert.textContent = "Loading..."; // Set text content to indicate loading
+  loadingAlert.className = "loading-alert"; // Assign a class for easier identification
+  loadingAlert.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Semi-transparent background
+  loadingAlert.style.color = "#fff"; // Text color
+  loadingAlert.style.position = "fixed"; // Fixed position
+  loadingAlert.style.top = "0"; // Align to top
+  loadingAlert.style.left = "0"; // Align to left
+  loadingAlert.style.width = "100%"; // Full width
+  loadingAlert.style.height = "100%"; // Full height
+  loadingAlert.style.display = "flex"; // Flex container
+  loadingAlert.style.justifyContent = "center"; // Center content horizontally
+  loadingAlert.style.alignItems = "center"; // Center content vertically
+
+  // Append the loading alert element to the document body
+  document.body.appendChild(loadingAlert);
+};
+
+// Function to hide loading alert
+const hideLoadingAlert = () => {
+  // Find and remove the loading alert element
+  const loadingAlert = document.querySelector(".loading-alert");
+  if (loadingAlert) {
+    loadingAlert.remove();
+  }
+};
 
   const goToDetailsPage = (objectVal) => {
     nav("/patient/details", { state: { caseIdVal: objectVal } });
@@ -75,25 +161,17 @@ const PatientLanding = () => {
         caseId: obj.caseId,
         radiologistId: selectedOption.userId,
       };
-      request("POST", assignRadio, data)
-        .then((response) => {
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.warn("Error", error);
-        });
+      setTempDataConsent(data)
+      setTempFlow(flow)
+      togglePopupRad()
     } else if (flow === "Select Lab Name") {
       const data = {
         caseId: obj.caseId,
         labId: selectedOption.userId,
       };
-      request("POST", assignLab, data)
-        .then((response) => {
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.warn("Error", error);
-        });
+      setTempDataConsent(data)
+      setTempFlow(flow)
+      togglePopupRad()
     }
   };
 
@@ -106,6 +184,7 @@ const PatientLanding = () => {
     request("POST", getCasesofPatient, data)
       .then((response) => {
         setPatient(response.data);
+        setOriginalPatient(response.data)
         console.warn("data", response.data[0].radioDTOList);
         if (response.data.radioDTOList !== null) {
           response.data[0].radioDTOList.map((obj, index) => {
@@ -242,26 +321,30 @@ const PatientLanding = () => {
                             ) {
                               return (
                                 <div key={index}>
-                                  <p>
+                                  <div style={{border:'2px solid white', marginLeft: '450px', marginRight: '450px', paddingTop: '10px', paddingBottom: '10px'}}>
+                                  <p style={{ marginBottom: '5px' ,fontSize:'18px'}}>
                                     New radiologist assigned:{" "}
                                     {obj1.radioName}
                                   </p>
-                                  <p>Provide Consent?</p>
+                                  <p style={{ marginBottom: '5px' ,fontSize:'18px'}}>Provide Consent?</p>
                                   <div>
                                     <button
                                       onClick={() =>
-                                        assignNewRadioByDoc(true, obj, obj1)
+                                        assignNewRadioByDoc(true, obj, obj1, "Select New Radiologist")
                                       }
+                                      style={{marginRight:'10px', borderRadius:'5px', background:'#08284D', color:'white'}}
                                     >
                                       Yes
                                     </button>
                                     <button
                                       onClick={() =>
-                                        assignNewRadioByDoc(false, obj, obj1)
+                                        assignNewRadioByDoc(false, obj, obj1, "Select New Radiologist")
                                       }
+                                      style={{marginLeft:'10px', borderRadius:'5px', background:'#08284D', color:'white'}}
                                     >
                                       No
                                     </button>
+                                  </div>
                                   </div>
                                   <br />
                                 </div>
@@ -321,6 +404,13 @@ const PatientLanding = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <Logout userType="patient" />
+            </div>
+          </div>
+        )}
+        {showPopupRad && (
+          <div className="popup-overlay" onClick={togglePopupRad}>
+            <div className="popup-scrollable" onClick={(e) => e.stopPropagation()}>
+              <ConsentForm onFormSubmit={handleFormSubmit} />
             </div>
           </div>
         )}

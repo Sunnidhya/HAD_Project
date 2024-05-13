@@ -7,7 +7,7 @@ import { decryptData } from '../../../EncryptDecrypt/EncDecrypt';
 import React, { useEffect, useState } from 'react';
 import logout from '../../../Resources/log-out.png';
 import { useNavigate } from 'react-router-dom';
-import radpic from '../../../Resources/radio1.avif';
+import radpic from '../../../Resources/radio-prof.jpg';
 import { radioProfile } from '../../../Network/APIendpoints';
 import { request } from '../../../Network/axiosHelper';
 import ChangePassword from '../../Form/ChangePassword';

@@ -1,7 +1,7 @@
 /* To be included before every new file */
 .Admin-Login-hor{
     display: flex;
-    background-color: rgb(82,209, 188);
+    background-color: rgb(72, 111, 105);
 }
   
 .divisions1A
@@ -99,7 +99,7 @@
   
 #login_admin {
     color:white;
-    background-color: rgb(82,209, 188);
+    background-color: rgb(72, 111, 105);
     padding: 10px;
     border: none;
     border-radius: 4px;

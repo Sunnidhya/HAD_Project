@@ -49,6 +49,8 @@ function DoctorForm() {
   return (
     <>
       {isVisible && (
+        <>
+        <div className="overlay"></div>
         <div className="form-container-doctor" onClick={stopPropagation}>
           <button className="close-button-doctor" onClick={toggleVisibility}>X</button>
           <div className="container-doctor">
@@ -135,6 +137,7 @@ function DoctorForm() {
             </form>
           </div>
         </div>
+        </>
       )}
     </>
   );
