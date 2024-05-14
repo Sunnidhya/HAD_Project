@@ -10,7 +10,7 @@ async function generateDoctorReportPdfRadio(formData) {
   // Set up text parameters
   const fontSizeKavach = 24;
   const fontSizeTitle = 18;
-  const fontSizeData = 16;
+  const fontSizeData = 12;
   const textX = 50;
   let textY = page.getHeight() - 50;
   const titleOptions = { size: fontSizeTitle, color: rgb(0, 0, 0), font: await pdfDoc.embedFont(StandardFonts.HelveticaBold) };
@@ -46,7 +46,7 @@ async function generateDoctorReportPdfRadio(formData) {
 
   // Draw table headers
   page.drawText("Name", { x: textX, y: textY, ...dataOptions1 });
-  page.drawText("Impression", { x: textX + 200, y: textY, ...dataOptions1 });
+  page.drawText("Impression", { x: textX + 150, y: textY, ...dataOptions1 });
 
   // Move the y position up for the table data
   textY -= 10;
@@ -55,7 +55,7 @@ async function generateDoctorReportPdfRadio(formData) {
   formData.forEach(({ RadioLogist_Name, Impression }) => {
     textY -= fontSizeData * 1.5;
     page.drawText(RadioLogist_Name, { x: textX, y: textY, ...dataOptions });
-    page.drawText(Impression, { x: textX + 200, y: textY, ...dataOptions });
+    page.drawText(Impression, { x: textX + 150, y: textY, ...dataOptions });
   });
 
   // Save the PDF document as bytes

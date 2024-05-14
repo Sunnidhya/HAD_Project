@@ -1,6 +1,7 @@
 import { PDFDocument, rgb, StandardFonts, drawLinesOfText } from 'pdf-lib';
 
 async function generateDoctorReportPdf(formData) {
+  console.warn("DataForm", formData)
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage();
 
@@ -52,7 +53,7 @@ async function generateDoctorReportPdf(formData) {
   const dataOptions1 = { size: fontSizeData, color: rgb(0, 0, 0) };
   const dataLines = Object.entries(formData);
 
-  const columnWidth = page.getWidth() / 2 - textX;
+  const columnWidth = page.getWidth() / 2 - textX-80;
   const columnGap = 10;
 
   dataLines.forEach((entry, index) => {

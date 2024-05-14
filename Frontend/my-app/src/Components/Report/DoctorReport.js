@@ -133,7 +133,7 @@ function DoctorReport({caseIdValue}) {
                   type="text"
                   name="treatmentRecommendation"
                   placeholder="Enter Treatment Recommendations"
-                  value={formData.treatmentRecommendations}
+                  value={formData.treatmentRecommendation}
                   onChange={handleChange}
                   className="scrollable-input"
                 />

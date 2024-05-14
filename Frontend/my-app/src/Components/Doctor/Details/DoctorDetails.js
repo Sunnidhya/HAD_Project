@@ -63,15 +63,16 @@ const DoctorDetails = () => {
     if (caseObj.markAsDone) {
       try {
         const data = {
-          Patient_Name: caseObj.patientName,
+          PatientName: caseObj.patientName,
           Age: caseObj.age,
           Status: caseObj.status,
-          Medical_History: caseObj.medicalHistory,
-          Conclusion: caseObj.onclusion,
-          Treatment_Recommendation: caseObj.treatmentRecommendation,
+          MedicalHistory: caseObj.medicalHistory,
+          Conclusion: caseObj.conclusion,
+          TreatmentRecommendation: caseObj.treatmentRecommendation,
           Surgery: caseObj.surgery,
           Therapy: caseObj.therapy,
         };
+        console.warn("DataPdf", caseObj)
         const pdfBytes = await generateDoctorReportPdf(data);
         console.warn("DataPdf", pdfBytes);
         const pdfBlob = new Blob([pdfBytes], { type: "application/pdf" });

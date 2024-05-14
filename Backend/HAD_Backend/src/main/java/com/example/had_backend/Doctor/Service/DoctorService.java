@@ -293,6 +293,10 @@ public class DoctorService {
         return casesDetailsDTO;
     }
 
+    public Cases getCaseByCaseId(Integer caseIdVal){
+        return iCasesRepository.getCaseByCaseId(caseIdVal);
+    }
+
     public CasesDetailsDTO insertChatThread(CasesChatDTO casesChatDTO) {
         Cases cases = iCasesRepository.getCaseByCaseId(casesChatDTO.getCaseId());
         Radiologist radiologist1 = iRadiologistRegistrationRepository.getByRadiologistId(casesChatDTO.getRadioId());
@@ -465,6 +469,7 @@ public class DoctorService {
         finalDiagnosis.setMedicalHistory(caseDetailsDTO.getMedicalHistory());
         finalDiagnosis.setTreatmentRecommendations(caseDetailsDTO.getTreatmentRecommendation());
         finalDiagnosis.setTherapy(caseDetailsDTO.getTherapy());
+        finalDiagnosis.setStatus(caseDetailsDTO.getStatus());
 
         cases1.getImageOb().setFinalDiagnosis(finalDiagnosis);
         iCasesRepository.save(cases1);

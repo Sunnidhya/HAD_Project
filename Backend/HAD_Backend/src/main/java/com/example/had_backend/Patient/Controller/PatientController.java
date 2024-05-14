@@ -199,7 +199,6 @@ public class PatientController {
                                 "Case Description: " + casesDTO.getCaseDescription());
             });
         }
-        loginMessage.setEmail("");
         executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
@@ -218,7 +217,6 @@ public class PatientController {
                                 "Case Description: " + casesDTO.getCaseDescription());
             });
         }
-        loginMessage.setEmail("");
         executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }

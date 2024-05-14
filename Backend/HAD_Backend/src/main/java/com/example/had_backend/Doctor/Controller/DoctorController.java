@@ -212,6 +212,43 @@ public class DoctorController {
     @PostMapping("/doctor/markAsDone")
     public ResponseEntity<LoginMessage> markAsDone(@RequestBody @Validated CasesDTO casesDTO) {
         LoginMessage loginMessage = doctorService.markAsDone(casesDTO);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        if (loginMessage.getMessage().equals("Case is Marked as done and closed")) {
+            Cases cases = doctorService.getCaseByCaseId(casesDTO.getCaseId());
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        cases.getDoctor().getEmail(),
+                        "The Case has been closed and Report has been generated",
+                        "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                "Case Description: " + cases.getCaseDescription());
+            });
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        cases.getPatient().getEmail(),
+                        "The Case has been closed and Report has been generated",
+                        "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                "Case Description: " + cases.getCaseDescription());
+            });
+
+            executorService.submit(() -> {
+                emailService.sendSimpleMessage(
+                        cases.getLab().getEmail(),
+                        "The Case has been closed",
+                        "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                "Case Description: " + cases.getCaseDescription());
+            });
+
+            for (Radiologist r : cases.getRadiologist()) {
+                executorService.submit(() -> {
+                    emailService.sendSimpleMessage(
+                            r.getEmail(),
+                            "The Case has been closed",
+                            "CaseId: " + cases.getCaseId() + "\n" + "CaseName: " + cases.getCaseName() + "\n" + "Doctor assigned: " + cases.getDoctor().getName() + "\n" +
+                                    "Case Description: " + cases.getCaseDescription());
+                });
+            }
+        }
+        executorService.shutdown();
         return ResponseEntity.ok(loginMessage);
     }
 
