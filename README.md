@@ -14,3 +14,5 @@
 <h5>UI implementation of our project:</h5>
 <br>
 <img src="UI_Implementation.png"></img>
+<hr>
+<h6>To know more about our project,please take a look into the project report "Team 3 - Project Report CS 837.pdf" .</h6>
