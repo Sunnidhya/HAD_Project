@@ -1,4 +1,4 @@
-<h4>This is the project we have to do as a part of the Course CS837 Healthcare Application Development.</h4> 
+<h4>This is the project we have done as a part of the Course CS837 Healthcare Application Development.</h4> 
 <h5> Abstract about our project:</h5>
 <h6>
   <ul>
