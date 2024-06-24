@@ -11,6 +11,6 @@
 
   </ul></h6>
 <hr>
-<h5>UI implementation of our project.</h5>
+<h5>UI implementation of our project:</h5>
 <br>
 <img src="UI_Implementation.png"></img>
